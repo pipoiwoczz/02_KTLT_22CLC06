@@ -32,7 +32,26 @@ bool isValidSY(string SY)
     return true;
 }
 
-void createSY(schoolYear * pArrSY, int &n)
+void insertSYAtBeginning(schoolYear *& pHeadSY, string nameSY)
+{
+    schoolYear * pTemp = pHeadSY;
+
+    pHeadSY = new schoolYear;
+    pHeadSY -> nameSY = nameSY;
+    pHeadSY -> pNextSY = pTemp;
+}
+
+void insertInOrdered(schoolYear *& pHeadSY, string nameSY)
+{
+    schoolYear * pCur = pHeadSY;
+
+    while(pCur -> pNextSY != nullptr)
+    {
+        
+    }
+}
+
+void createSY(schoolYear * pHeadSY, int &n)
 {
     string SY;
 
@@ -41,13 +60,9 @@ void createSY(schoolYear * pArrSY, int &n)
 
     if (isValidSY(SY) == true)
     {
-        schoolYear * pTemp = new schoolYear [n];
+        if (pHeadSY == nullptr)
+            insertSYAtBeginning(pHeadSY, SY);
 
-        n++;
-        for (int i = 0; i < n - 1; i++)
-            pTemp[i] = pArrSY[i];
-        pTemp[n - 1].nameSY = SY;
-        return;
     }
     else
     {
@@ -61,7 +76,7 @@ void createSY(schoolYear * pArrSY, int &n)
         cin >> move;
 
         if (move == 1)
-            createSY(pArrSY, n);
+            createSY(pHeadSY, n);
         else
             return;
     }

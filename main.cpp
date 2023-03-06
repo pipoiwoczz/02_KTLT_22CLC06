@@ -1,8 +1,8 @@
 #include <iostream>
-using namespace std;
+#include "mainMenu.h"
 
 int main () {
-    cout << "Hello World!!!" << endl;
+    mainMenu();
 
     cout << "Hello World 2!!!" << endl;
     return 0;
