@@ -3,6 +3,4 @@
 
 void mainMenu();
 
-void mainMenu_Opt();
-
 #endif

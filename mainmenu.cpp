@@ -1,5 +1,8 @@
 #include <iostream>
 #include "mainMenu.h"
+#include "logIn.h"
+#include <string>
+#include <cstring>
 using namespace std;
 
 void mainMenu() {
@@ -9,20 +12,17 @@ void mainMenu() {
     cout << "2. Log In\n";
     cout << "0. Stop Program\n";
     cout << "Your choice is: ";
-    mainMenu_Opt();
-}
 
-void mainMenu_Opt() {
     int choice;
     
     do {
         cin >> choice;
         switch (choice) {
             case 1: 
-                cout << "Log in PAGE!! \n"; // enter login function here
+                signUp();
                 break;
             case 2:
-                cout << "Sign out PAGE!! \n"; // enter register function here
+                login();
                 break;
             case 0:
                 return;
@@ -35,3 +35,4 @@ void mainMenu_Opt() {
         }
     } while (choice > 2 || choice < 0);
 }
+

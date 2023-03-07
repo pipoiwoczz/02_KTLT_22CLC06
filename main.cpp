@@ -1,9 +1,10 @@
 #include <iostream>
 #include "mainMenu.h"
+#include "logIn.h"
+using namespace std;
 
 int main () {
     mainMenu();
 
-    cout << "Hello World 2!!!" << endl;
     return 0;
 }
