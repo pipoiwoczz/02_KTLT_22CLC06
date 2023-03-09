@@ -1,4 +1,4 @@
-#include "mainStruct.h"
+#include "main.h"
 
 void viewListCourses(SchoolYear *schoolYear) {
     cout << "List of courses: " << endl;
