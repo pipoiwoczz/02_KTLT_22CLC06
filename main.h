@@ -27,8 +27,15 @@ struct Student {
     Student* next;
 };
 
-struct account {
+struct Account {
     string username, password;
+};
+
+struct Semester
+{
+    Course * pS1Courses = nullptr;
+    Course * pS2Courses = nullptr;
+    Course * pS3Courses = nullptr;
 };
 
 #endif // _main.h_
