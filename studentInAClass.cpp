@@ -1,4 +1,6 @@
-#include "studentInAClass"
+#include "studentInAClass.h"
+#include "main.h"
+#include <fstream>
 
 void addAStudent(Student*& pCurr, ifstream& fin)
 {
