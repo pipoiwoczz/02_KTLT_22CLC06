@@ -1,5 +1,7 @@
 #ifndef _main.h_
 #include <iostream>
+#include <fstream>
+#include <string>
 using namespace std;
 
 struct schoolYear
@@ -16,3 +18,17 @@ struct Class
     Student * pHeadStudent = nullptr;
     Class * pNextClass = nullptr;
 };
+
+struct Student {
+    int No, studentId;
+    string socialId;
+    string firstName, lastName;
+    string gender, dateOfBirth;
+    Student* next;
+};
+
+struct account {
+    string username, password;
+};
+
+#endif // _main.h_
