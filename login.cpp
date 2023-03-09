@@ -17,6 +17,8 @@ void createFolder(char *name) {
 
 bool isValidUsername(char *username, bool check) {
     unsigned int le = strlen(username);
+
+    if (le == 0) return false;
     
     if (check) {
         for (unsigned int i = 0; i < le; i++) {
@@ -41,8 +43,9 @@ bool isValidUsername(char *username, bool check) {
     return true;
 }
 
-bool isStaff() {
+bool isStaff(int k) {
     string code;
+    if (k == 2) return false;
     int x;
 
     while (true) {
@@ -72,9 +75,11 @@ bool isStaff() {
 
 void signUp(){
     system("cls");
+    cin.ignore();
     char *username, *password;
     char tmp[1000] = {0}, sTmp[1000] = "User\\";
-    string code;
+
+
     int x;
     bool check;
 
@@ -90,17 +95,18 @@ void signUp(){
     do {
         cin >> x;
         if (x == 1) {
-            check = isStaff();
+            check = isStaff(x);
         }
         if (x == 2) {
-            check = false;
+            check = isStaff(x);
         }
     } while (x > 2 || x < 1);
 
 
     cout << "Enter username: ";
-    // cin.ignore();
-    cin.getline(tmp, 1000, '\n');
+    cin.ignore();
+    cin.getline(tmp, 100, '\n');
+
     unsigned le = strlen(tmp) + 1;
     username = new char[le];
     strcpy(username, tmp);
@@ -109,8 +115,9 @@ void signUp(){
     strcat(sTmp,  ".txt");
 
     cout << "Enter password: ";
-    // cin.ignore();
+    cin.ignore();
     cin.getline(tmp, 1000, '\n');
+
     le = strlen(tmp) + 1;
     password = new char[le];
     strcpy(password, tmp);
@@ -139,8 +146,11 @@ void signUp(){
     // Them tai khoan vao folder luu tru
 
     fi = fopen(sTmp, "w");
-    fprintf(fi, "%s ", username);
+    fprintf(fi, "%s\n", username);
     fprintf(fi, "%s\n", password);
+    if (check) {
+        fprintf(fi, "1\n");
+    } else fprintf(fi, "0\n");
     fclose(fi);
 
     cout << "You signed in successfully!!\n";
@@ -163,12 +173,14 @@ void login() {
     cout << "LOG IN PAGE!!\n\n";
 
     cout << "Enter your username: "; 
-    cin.ignore(); 
+    cin.ignore();
     cin.getline(username, 1000, '\n');
+    cout << username << endl;
 
     cout << "Enter your password: ";
     // cin.ignore();
     cin.getline(password, 1000, '\n');
+    cout << password << endl;
 
     char tmp[1000] = "User\\";
     strcat(tmp, username);
@@ -184,7 +196,7 @@ void login() {
         return mainMenu();
     }
 
-    fscanf(fi, "%s %s ", usernameTmp, passTmp);
+    fscanf(fi, "%s\n%s\n", usernameTmp, passTmp);
 
     if (strcmp(password, passTmp) != 0) {
         cout << "You entered wrong password!!\n";
@@ -200,6 +212,4 @@ void login() {
     cout << "Make a profile function here!!\n";
     system("pause");
 
-    
-    
 }
