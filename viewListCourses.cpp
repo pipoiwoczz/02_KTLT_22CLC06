@@ -1,17 +1,13 @@
 #include "main.h"
 
-void viewListCourses(SchoolYear *schoolYear) {
+void viewListCourses(Semester *semester) {
     cout << "List of courses: " << endl;
-    while (schoolYear) {
-        Semester *semester = schoolYear -> semester;
-        while (semester) {
-            Course *course = semester -> course;
-            while (course) {
-                cout << course -> name << endl;
-                course = course -> next;
-            }
-            semester = semester -> next;
+    while (semester) {
+        Course *course = semester -> course;
+        while (course) {
+            cout << course -> name << endl;
+            course = course -> next;
         }
-        schoolYear = schoolYear -> next;
+        semester = semester -> next;
     }
 }
