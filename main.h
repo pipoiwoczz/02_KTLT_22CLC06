@@ -8,7 +8,6 @@ struct schoolYear
 {
     string nameSY;
     Class * pArrClass = nullptr;
-    Semester s;
     schoolYear * pNextSY = nullptr;
 };
 
@@ -33,9 +32,11 @@ struct Account {
 
 struct Semester
 {
-    Course * pS1Courses = nullptr;
-    Course * pS2Courses = nullptr;
-    Course * pS3Courses = nullptr;
+    int season;
+    schoolYear * SY;
+    string startDate;
+    string endDate;
+    Semester * pNextSY = nullptr;
 };
 
 #endif // _main.h_
