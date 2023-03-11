@@ -32,11 +32,17 @@ struct Account {
 
 struct Semester
 {
+<<<<<<< HEAD
     int season;
     schoolYear * SY;
     string startDate;
     string endDate;
     Semester * pNextSY = nullptr;
+=======
+    Course * pS1Courses = nullptr;
+    Course * pS2Courses = nullptr;
+    Course * pS3Courses = nullptr;
+>>>>>>> bd8c0d1717307c61c069b2c2744c74d3034c795b
 };
 
 #endif // _main.h_
