@@ -2,21 +2,20 @@
 #include <iostream>
 using namespace std;
 
-void createSemester(Semester &s)
+void createSemester(Semester &firstSemester)
 {
-    int course;
-    cin >> course;
-
-    cout << "1: Spring\n";
-    cout << "2: Summer\n";
-    cout << "3: Autumn\n";
     cout << "Pls create a semester: " << endl;
-    cin >> course;
+    cout << "1. Spring \n";
+    cout << "2. Summer \n";
+    cout << "3. Autumn \n";
+    cin >> firstSemester.season;
+    
+    cout << "Enter school year of the semester: ";
+    cin >> firstSemester.SY;
 
-    if (course == 1)
-        s.pS1Courses = new Course;
-    else if (course == 2)
-        s.pS2Courses = new Course;
-         else
-            s.pS3Courses = new Course;
+    cout << "Enter start date: ";
+    cin >> firstSemester.startDate;
+
+    cout << "Enter end date: ";
+    cin >> firstSemester.endDate;
 }
