@@ -1,4 +1,5 @@
 #include "removeAStudent.h"
+#include "main.h"
 
 void removeAStudent(Student*& pHead)
 {
