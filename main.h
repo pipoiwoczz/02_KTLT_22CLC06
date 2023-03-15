@@ -6,17 +6,16 @@ using namespace std;
 
 struct schoolYear
 {
-    string nameSY;
-    Class * pArrClass = nullptr;
-    Semester * pArrSemester = nullptr;
-    schoolYear * pNextSY = nullptr;
+    string name;
+    Class * Classes = nullptr;
+    schoolYear * next = nullptr;
 };
 
 struct Class
 {
-    string nameClass;
-    Student * pHeadStudent = nullptr;
-    Class * pNextClass = nullptr;
+    string name;
+    Student * Students = nullptr;
+    Class * next = nullptr;
 };
 
 struct Student {
@@ -24,7 +23,7 @@ struct Student {
     string socialId;
     string firstName, lastName;
     string gender, dateOfBirth;
-    Student* next;
+    Student * next;
 };
 
 struct Account {
@@ -33,9 +32,26 @@ struct Account {
 
 struct Semester
 {
-    Course * pS1Courses = nullptr;
-    Course * pS2Courses = nullptr;
-    Course * pS3Courses = nullptr;
+    int season;
+    string SY;
+    string startDate, endDate;
+    Semester * next = nullptr;
+    Course* Courses = nullptr;
+};
+
+struct Course {
+    string courseName, className, teacherName;
+    string dayOfWeek, session;
+    int courseID;
+    int credits, maxStudents = 50;
+    int numberOfStudent = 0;
+    Student* Students = nullptr;
+    Course* next = nullptr;
+};
+
+struct Grade {
+    int studentID;
+    int totalMark, finalMark, midtermMark, otherMark;
 };
 
 #endif // _main.h_
