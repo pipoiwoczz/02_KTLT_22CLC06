@@ -1,6 +1,7 @@
 #include <iostream>
 #include "mainmenu.h"
 #include "login.h"
+#include "profile.h"
 #include <string>
 #include <cstring>
 using namespace std;
