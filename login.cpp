@@ -1,5 +1,6 @@
 #include "logIn.h"
 #include "mainMenu.h"
+#include "profile.h"
 #include <iostream>
 #include <cstring>
 #include <string>
@@ -15,30 +16,19 @@ void createFolder(char *name) {
     mkdir(name);
 }
 
-bool isValidUsername(char *username, bool check) {
+bool isValidUsername(char *username) {
     unsigned int le = strlen(username);
 
     if (le == 0) return false;
     
-    if (check) {
-        for (unsigned int i = 0; i < le; i++) {
-            if (!((username[i] >= 'A' && username[i] <= 'Z') || (username[i] >= 'a' && username[i] <= 'z') || (username[i] >= '0' && username[i] <= '9'))) {
-                cout << "Please enter a valid username!!\n";
-                cout << "A valid user name cannt include special char or spacing\n";
-                system("pause");
-                return false;
-            }
+    for (unsigned int i = 0; i < le; i++) {
+        if (!((username[i] >= 'A' && username[i] <= 'Z') || (username[i] >= 'a' && username[i] <= 'z') || (username[i] >= '0' && username[i] <= '9'))) {
+            cout << "Please enter a valid username!!\n";
+            cout << "A valid user name cann't include special char or spacing\n";
+            system("pause");
+            return false;
         }
-    } else{
-        for (unsigned int i = 0; i < le; i++) {
-            if (!( (username[i] >= '0' && username[i] <= '9'))) {
-                cout << "Please enter a valid username!!\n";
-                cout << "A student user name only includes 8 numbers\n";
-                system("pause");
-                return false;
-            }
-        }
-    }
+    } 
 
     return true;
 }
@@ -80,13 +70,10 @@ void signUp(){
 
 
     int x;
-    bool check;
 
     cout << "REGISTER PAGE!!\n\n";
 
-    cout << "You can only sign up as a: \n";
-    cout << "=================================\n";
-    cout << "1. Teacher\n";
+    cout << "You can only sign up as a teacher: \n";
     cout << "=================================\n";
 
     cout << "Enter username: ";
@@ -108,7 +95,7 @@ void signUp(){
     password = new char[le];
     strcpy(password, tmp);
 
-    if (!isValidUsername(username, check)) {
+    if (!isValidUsername(username)) {
         return mainMenu();
     }
 
@@ -134,9 +121,7 @@ void signUp(){
     fi = fopen(sTmp, "w");
     fprintf(fi, "%s\n", username);
     fprintf(fi, "%s\n", password);
-    if (check) {
-        fprintf(fi, "1\n");
-    } else fprintf(fi, "0\n");
+    fprintf(fi, "\n");
     fclose(fi);
 
     cout << "You signed in successfully!!\n";
@@ -195,7 +180,15 @@ void login() {
     fclose(fi);
 
     cout << "Log in successfully !!\n\n";
-    cout << "Make a profile function here!!\n";
-    system("pause");
 
+    string tmpUser;
+    unsigned int le = strlen(username);
+    for (int i = 0; i <= le; i++) {
+        tmpUser[i] = username[i];
+    }
+
+    system("pause");
+    profile_menu(tmpUser);
+
+    return;
 }
