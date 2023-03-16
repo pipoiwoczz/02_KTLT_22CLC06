@@ -23,7 +23,8 @@ struct Student {
     string socialId;
     string firstName, lastName;
     string gender, dateOfBirth;
-    Student * next;
+    Student* next;
+    Grade* pHeadGrade;
 };
 
 struct Account {
@@ -45,15 +46,14 @@ struct Course {
     int courseID;
     int credits, maxStudents = 50;
     int numberOfStudent = 0;
-    Student* Students = nullptr;
     Course* next = nullptr;
-    Grade* scoreBoard = nullptr;
 };
 
 struct Grade {
-    int studentID;
-    int totalMark, finalMark, midtermMark, otherMark;
-    Grade* next;
+    int courseID;
+    float totalMark, finalMark, midtermMark, otherMark;
+    float courseGPA;
+    Grade* next = nullptr;
 };
 
 #endif // _main.h_
