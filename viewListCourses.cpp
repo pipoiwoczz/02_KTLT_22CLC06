@@ -3,9 +3,9 @@
 void viewListCourses(Semester *semester) {
     cout << "List of courses: " << endl;
     while (semester) {
-        Course *course = semester -> course;
+        Course *course = semester -> Courses;
         while (course) {
-            cout << course -> name << endl;
+            cout << course -> courseName << endl;
             course = course -> next;
         }
         semester = semester -> next;

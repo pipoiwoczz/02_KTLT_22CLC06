@@ -1,4 +1,5 @@
-#include "addACourse"
+#include "addACourse.h"
+#include "main.h"
 
 void addACourse(Course*& pHead)
 {

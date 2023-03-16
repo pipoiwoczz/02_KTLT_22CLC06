@@ -1,6 +1,6 @@
+#include "profile.h"
 #include "logIn.h"
 #include "mainMenu.h"
-#include "profile.h"
 #include <iostream>
 #include <cstring>
 #include <string>
@@ -33,7 +33,7 @@ bool isValidUsername(char *username) {
     return true;
 }
 
-bool isStaff(int k) {
+bool isStaff() {
     string code;
     int x;
 
@@ -69,13 +69,11 @@ void signUp(){
     char tmp[1000] = {0}, sTmp[1000] = "User\\";
 
 
-    int x;
-
     cout << "REGISTER PAGE!!\n\n";
 
     cout << "You can only sign up as a teacher: \n";
     cout << "=================================\n";
-
+    isStaff();
     cout << "Enter username: ";
     // cin.ignore();
     cin.getline(tmp, 100, '\n');
@@ -181,14 +179,14 @@ void login() {
 
     cout << "Log in successfully !!\n\n";
 
-    string tmpUser;
+    string tmpUser = "";
     unsigned int le = strlen(username);
-    for (int i = 0; i <= le; i++) {
-        tmpUser[i] = username[i];
+
+    for (unsigned int i = 0; i < le; i++) {
+        tmpUser += username[i];
     }
 
     system("pause");
-    profile_menu(tmpUser);
+    return profile_menu(tmpUser);
 
-    return;
 }
