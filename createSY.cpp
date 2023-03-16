@@ -37,15 +37,15 @@ void insertSYAtBeginning(schoolYear *& pHeadSY, string nameSY)
     schoolYear * pTemp = pHeadSY;
 
     pHeadSY = new schoolYear;
-    pHeadSY -> nameSY = nameSY;
-    pHeadSY -> pNextSY = pTemp;
+    pHeadSY -> name = nameSY;
+    pHeadSY -> next = pTemp;
 }
 
 void insertInOrdered(schoolYear *& pHeadSY, string nameSY)
 {
     schoolYear * pCur = pHeadSY;
 
-    while(pCur -> pNextSY != nullptr)
+    while(pCur -> next != nullptr)
     {
         
     }

@@ -1,4 +1,6 @@
 #include "inputStudentsToCourse.h"
+#include "main.h"
+#include "studentInAClass.h"
 
 void inputStudentsToCourse(Course*& pCourse)
 {
