@@ -47,11 +47,13 @@ struct Course {
     int numberOfStudent = 0;
     Student* Students = nullptr;
     Course* next = nullptr;
+    Grade* scoreBoard = nullptr;
 };
 
 struct Grade {
     int studentID;
     int totalMark, finalMark, midtermMark, otherMark;
+    Grade* next;
 };
 
 #endif // _main.h_

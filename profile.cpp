@@ -1,4 +1,5 @@
 #include "profile.h"
+#include "main.h"
 #include "logIn.h"
 #include "mainmenu.h"
 #include <cstring>
@@ -15,7 +16,7 @@ void viewProfile(string username) {
     ifstream ifs;
 
     ifs.open(filename, ios::in);
-    if (!ifs.is_open()) cout << "SOME THING WROGNS ASDA123!!!\n\n\n";
+    if (!ifs.is_open()) cout << "SOME THING WRONG ASDA123!!!\n\n\n";
     getline(ifs, tmp);
     cout << "Username: " << tmp << endl;
     getline(ifs, tmp);
@@ -432,7 +433,7 @@ void profile_menu(string username) {
     cout << "1. View profile\n";
     cout << "2. Change profile\n";
     cout << "3. Create New School Year\n";
-    cout << "4. ...\n";
+    cout << "4. Create class\n";
     cout << "0. Log out and back to main menu\n";
     cout << "===========================\n";
     cout << "Your choice is: ";
@@ -451,6 +452,19 @@ void profile_menu(string username) {
                 // createSY()
                 cout << "Create SY!!\n";
                 break;
+            case 4:
+                Class curr = nullptr;
+                if (!schoolYear.Classes) {
+                    schoolYear.Classes = new Class;
+                    curr = schoolYear.Classes;
+                }
+                else {
+                    curr->next = new Class;
+                    curr = curr->next;
+                }
+                cin.ignore();
+                cout << "Enter class name: ";
+                getline(cin, curr.name);
             case 0:
                 cout << "You logged out successfully!!\n";
                 getch();
