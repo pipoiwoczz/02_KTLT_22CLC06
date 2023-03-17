@@ -440,7 +440,7 @@ void profile_menu(string username) {
     
     do {
         cin >> choice;
-        cout << """===========================\n";
+        cout << "===========================\n";
         switch (choice) {
             case 1:
                 viewProfile(username);
@@ -449,7 +449,7 @@ void profile_menu(string username) {
                 editProfile(username);
                 break;
             case 3:
-                // createSY()
+                // createSY();
                 cout << "Create SY!!\n";
                 break;
             case 4:
