@@ -4,5 +4,5 @@
 #include <string>
 using namespace std;
 
-void inputStudentsToCourse(Course*& pCourse);
+void inputStudentsToCourse(Course* pCourse, Class*& pHeadClass);
 #endif
