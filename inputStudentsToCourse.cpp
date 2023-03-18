@@ -24,11 +24,11 @@ void inputStudentsToCourse(Course* pCourse, Class*& pHeadClass)
 				if (currStudent->studentId == stoi(temp)) {
 					if (!currStudent->pHeadGrade) {
 						currStudent->pHeadGrade = new Grade;
-						*currStudent->pHeadGrade->courseID = stoi(temp);
+						currStudent->pHeadGrade->courseID = stoi(temp);
 					}
 					else {
 						Grade* new_grade = new Grade;
-						*new_grade->courseID = stoi(temp);
+						new_grade->courseID = stoi(temp);
 						new_grade->next = currStudent->pHeadGrade;
 						currStudent->pHeadGrade = new_grade;
 					}

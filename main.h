@@ -23,7 +23,7 @@ struct Student {
     string socialId;
     string firstName, lastName;
     string gender, dateOfBirth;
-    Student* next;
+    Student* next = nullptr;
     Grade* pHeadGrade;
 };
 
@@ -46,6 +46,7 @@ struct Course {
     int courseID;
     int credits, maxStudents = 50;
     int numberOfStudent = 0;
+    Student* students = nullptr;
     Course* next = nullptr;
 };
 
