@@ -5,7 +5,11 @@ using namespace std;
 schoolYear *SchoolYear = nullptr;
 
 int main() {
-    mainMenu();
+    schoolYear * headSY = nullptr;
+    Semester * headSemester = nullptr;
+    Class * headClass = nullptr;
+
+    mainMenu(headSY, headSemester, headClass);
 
     return 0;
 }

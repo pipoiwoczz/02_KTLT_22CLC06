@@ -3,7 +3,7 @@
 
 void signUp();
 
-void login();
+void login(schoolYear *& headSY, Semester *& headSemester, Class *& headClass);
 
 void createFolder();
 

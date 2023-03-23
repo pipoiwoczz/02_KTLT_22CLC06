@@ -1,4 +1,5 @@
 #include <iostream>
+#include "main.h"
 #include "mainmenu.h"
 #include "login.h"
 #include "profile.h"
@@ -6,7 +7,7 @@
 #include <cstring>
 using namespace std;
 
-void mainMenu() {
+void mainMenu(schoolYear *& headSY, Semester *& headSemester, Class *& headClass) {
     system("cls");
     cout << "Main menu\n";
     cout << "1. Register\n";
@@ -23,7 +24,7 @@ void mainMenu() {
                 signUp();
                 break;
             case 2:
-                login();
+                login(headSY, headSemester, headClass);
                 break;
             case 0:
                 return;

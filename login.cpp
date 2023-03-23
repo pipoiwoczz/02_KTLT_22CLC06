@@ -135,7 +135,7 @@ void signUp(){
 }
 
 
-void login() {
+void login(schoolYear *& headSY, Semester *& headSemester, Class *& headClass) {
     system("cls");
     char username[1000], password[1000];
 
@@ -162,7 +162,7 @@ void login() {
         cout << "This account is not exist!!\n";
         cout << "What do you want to do now?\n";
         system("pause");
-        return mainMenu();
+        return mainMenu(headSY,headSemester, headClass);
     }
 
     fscanf(fi, "%s\n%s\n", usernameTmp, passTmp);
@@ -172,7 +172,7 @@ void login() {
         system("pause");
         cout << "What do you want to do now?\n";
         fclose(fi);
-        return mainMenu();
+        return mainMenu(headSY,headSemester, headClass);
     }
 
     fclose(fi);

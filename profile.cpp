@@ -1,13 +1,13 @@
 #include "profile.h"
 #include "main.h"
-#include "logIn.h"
+#include "login.h"
 #include "mainmenu.h"
 #include <cstring>
 #include <string>
 #include <iostream>
 #include <stdio.h>
 #include <fstream>
-#include <conio.h>
+//#include <conio.h>
 using namespace std;
 
 void viewProfile(string username) {
@@ -424,7 +424,7 @@ bool isValidBirth(int day, int month, int year) {
     return true;
 }
 
-void profile_menu(string username) {
+void profile_menu(string username, schoolYear *& headSY, Semester *& headSemester, Class *& headClass) {
     system("cls");
     int choice;
 
@@ -433,7 +433,8 @@ void profile_menu(string username) {
     cout << "1. View profile\n";
     cout << "2. Change profile\n";
     cout << "3. Create New School Year\n";
-    cout << "4. Create class\n";
+    cout << "4. View available School Year\n";
+    cout << "5. Create class\n";
     cout << "0. Log out and back to main menu\n";
     cout << "===========================\n";
     cout << "Your choice is: ";
@@ -453,7 +454,14 @@ void profile_menu(string username) {
                 cout << "Create SY!!\n";
                 break;
             case 4:
-                Class curr = nullptr;
+                schoolYear * cur = headSY;
+                while(cur)  {
+                    cout << cur -> name << endl;
+                    cur = cur -> next;
+                }
+                break;
+            case 5:
+                /*Class curr = nullptr;
                 if (!schoolYear.Classes) {
                     schoolYear.Classes = new Class;
                     curr = schoolYear.Classes;
@@ -464,7 +472,8 @@ void profile_menu(string username) {
                 }
                 cin.ignore();
                 cout << "Enter class name: ";
-                getline(cin, curr.name);
+                getline(cin, curr.name); */
+                break;
             case 0:
                 cout << "You logged out successfully!!\n";
                 getch();
