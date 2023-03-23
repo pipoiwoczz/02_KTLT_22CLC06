@@ -1,21 +1,13 @@
-#ifndef _main.h_
 #include <iostream>
 #include <fstream>
 #include <string>
 using namespace std;
 
-struct schoolYear
-{
-    string name;
-    Class * Classes = nullptr;
-    schoolYear * next = nullptr;
-};
-
-struct Class
-{
-    string name;
-    Student * Students = nullptr;
-    Class * next = nullptr;
+struct Grade {
+    int courseID;
+    float totalMark, finalMark, midtermMark, otherMark;
+    float courseGPA;
+    Grade* next = nullptr;
 };
 
 struct Student {
@@ -27,17 +19,17 @@ struct Student {
     Grade* pHeadGrade;
 };
 
-struct Account {
-    string username, password;
+struct Class
+{
+    string name;
+    Student * Students = nullptr;
+    Class * next = nullptr;
 };
 
-struct Semester
-{
-    int season;
-    string SY;
-    string startDate, endDate;
-    Semester * next = nullptr;
-    Course* Courses = nullptr;
+
+
+struct Account {
+    string username, password;
 };
 
 struct Course {
@@ -50,11 +42,20 @@ struct Course {
     Course* next = nullptr;
 };
 
-struct Grade {
-    int courseID;
-    float totalMark, finalMark, midtermMark, otherMark;
-    float courseGPA;
-    Grade* next = nullptr;
+struct Semester
+{
+    int season;
+    string SY;
+    string startDate, endDate;
+    Semester * next = nullptr;
+    Course* Courses = nullptr;
 };
 
-#endif // _main.h_
+struct schoolYear
+{
+    string name;
+    Class * Classes = nullptr;
+    Semester * Semesters = nullptr;
+    Course * Courses = nullptr;
+    schoolYear * next = nullptr;
+};
