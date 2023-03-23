@@ -1,4 +1,5 @@
 #include "viewCoursesInSemester.h"
+#include "main.h"
 
 void viewListCoursesInSem(Semester *semester) {
     cout << "List of courses in this semester: " << endl;

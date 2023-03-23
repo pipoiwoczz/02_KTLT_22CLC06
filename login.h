@@ -1,14 +1,14 @@
 #ifndef _KHOA_
 #define _KHOA_
 
-void signUp();
+void signUp(schoolYear *& headSY, Semester *& headSemester, Class *& headClass);
 
 void login(schoolYear *& headSY, Semester *& headSemester, Class *& headClass);
 
-void createFolder();
+void createFolder(char *name);
 
 bool isValidUsername(char *username, bool check);
 
-bool isStaff();
+bool isStaff(schoolYear *& headSY, Semester *& headSemester, Class *& headClass);
 
 #endif

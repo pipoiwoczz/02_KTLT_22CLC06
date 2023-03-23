@@ -1,4 +1,7 @@
-#include "importCourseScoreboard"
+#include "importCourseScoreboard.h"
+#include "main.h"
+#include <iostream>
+using namespace std;
 
 void inputStudentScore(Grade*& studentGrade, ifstream& fin)
 {
@@ -44,7 +47,7 @@ void importScoreBoard(Course*& pCourse, Class*& pHeadClass)
 						while (currStudent) {
 							Grade* currGrade = currStudent->pHeadGrade;
 							while (currGrade) {
-								if (*currGrade->courseID == courseid) {
+								if (currGrade->courseID == courseid) {
 									inputStudentScore(currGrade, fin);
 									currGrade->courseGPA = pCourse->credits * currGrade->totalMark;
 									break;

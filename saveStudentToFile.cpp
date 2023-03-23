@@ -1,4 +1,7 @@
 #include "saveStudentToFile.h"
+#include <main.h>
+#include <fstream>
+using namespace std;
 
 void saveStudentToFile(Student* currStudent, fstream& fout)
 {

@@ -1,5 +1,8 @@
 #include "createSY.h"
 #include <iostream>
+#include "login.h"
+#include <cstring>
+#include <fstream>
 using namespace std;
 
 bool isValidSY(string SY)
@@ -23,7 +26,7 @@ bool isValidSY(string SY)
         idx++;
     }
 
-    if (idx != SY.length() - 1)
+    if (idx != SY.length())
         return false;
     
     if ((stoi(year2) - stoi(year1)) != 1)
@@ -54,6 +57,7 @@ void insertInOrdered(schoolYear *& pHeadSY, string nameSY)
 void createSY(schoolYear * pHeadSY, int &n)
 {
     string SY;
+    char *SYname;
 
     cout << "Pls enter the school year : ";
     cin >> SY;
@@ -61,7 +65,17 @@ void createSY(schoolYear * pHeadSY, int &n)
     if (isValidSY(SY) == true)
     {
         if (pHeadSY == nullptr)
+        {
             insertSYAtBeginning(pHeadSY, SY);
+            ofstream ofs;
+            ofs.open("SY.txt");
+            ofs << SY << endl;
+            ofs.close();
+            unsigned int le = SY.length();
+            SYname = new char[le + 1];
+            strcpy(SYname, SY.c_str());
+            createFolder(SYname);
+        }
 
     }
     else

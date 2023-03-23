@@ -1,3 +1,5 @@
+#ifndef _main_
+#define _main_
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -16,7 +18,7 @@ struct Student {
     string firstName, lastName;
     string gender, dateOfBirth;
     Student* next = nullptr;
-    Grade* pHeadGrade;
+    Grade* pHeadGrade = nullptr;
 };
 
 struct Class
@@ -59,3 +61,5 @@ struct schoolYear
 //    Course * Courses = nullptr;
     schoolYear * next = nullptr;
 };
+
+#endif

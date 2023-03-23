@@ -2,7 +2,6 @@
 #include "main.h"
 using namespace std;
 
-schoolYear *SchoolYear = nullptr;
 
 int main() {
     schoolYear * headSY = nullptr;

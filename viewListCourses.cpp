@@ -1,4 +1,6 @@
 #include "main.h"
+#include <iostream>
+using namespace std;
 
 void viewListCourses(Semester *semester) {
     cout << "List of courses: " << endl;

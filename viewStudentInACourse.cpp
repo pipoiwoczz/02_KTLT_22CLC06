@@ -1,4 +1,8 @@
 #include "viewStudentInACourse.h"
+#include <iostream>
+#include <string>
+#include "main.h"
+using namespace std;
 
 void viewStudentInACourse(string s, string course) {
     ifstream ifs;

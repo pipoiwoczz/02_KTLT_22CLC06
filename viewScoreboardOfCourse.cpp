@@ -1,4 +1,7 @@
 #include "viewScoreboardOfCourse.h"
+#include "main.h"
+#include <iostream>
+using namespace std;
 
 void viewScoreboardOfCourse(string s, string course) {
     ifstream ifs;

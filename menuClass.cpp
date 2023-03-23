@@ -49,4 +49,6 @@ void classMenu(Class * pHeadClass, string nameClass)
             cin >> move;
         }
     }
+
+    
 }

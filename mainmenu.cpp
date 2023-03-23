@@ -21,7 +21,7 @@ void mainMenu(schoolYear *& headSY, Semester *& headSemester, Class *& headClass
         cin >> choice;
         switch (choice) {
             case 1: 
-                signUp();
+                signUp(headSY, headSemester, headClass);
                 break;
             case 2:
                 login(headSY, headSemester, headClass);

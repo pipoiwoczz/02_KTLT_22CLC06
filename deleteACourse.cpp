@@ -1,4 +1,5 @@
 #include "deleteACourse.h"
+#include "main.h"
 
 void deleteACourse(Course*& pHead)
 {

@@ -1,16 +1,18 @@
 #include "profile.h"
 #include "main.h"
 #include "login.h"
+#include "createClasses.h"
+#include "createSY.h"
 #include "mainmenu.h"
 #include <cstring>
 #include <string>
 #include <iostream>
 #include <stdio.h>
 #include <fstream>
-//#include <conio.h>
+#include <conio.h>
 using namespace std;
 
-void viewProfile(string username) {
+void viewProfile(string username, schoolYear *& headSY, Semester *& headSemester, Class *& headClass) {
     string tmp;
     string filename = "User\\" + username + ".txt";
     ifstream ifs;
@@ -33,7 +35,7 @@ void viewProfile(string username) {
         ifs.close();
         cout << "Press anykey to get back to profile menu\n\n";
         getch();
-        profile_menu(username);
+        profile_menu(username, headSY, headSemester, headClass);
         return;
     }
 
@@ -58,11 +60,11 @@ void viewProfile(string username) {
 
     cout << "Press anykey to get back to profile menu\n\n";
     getch();
-    profile_menu(username);
+    profile_menu(username, headSY, headSemester, headClass);
 
 }
 
-void editProfile(string username){
+void editProfile(string username, schoolYear *& headSY, Semester *& headSemester, Class *& headClass){
     int choice;
     string filename = "User\\" + username + ".txt";
     string tmp;
@@ -388,7 +390,7 @@ void editProfile(string username){
                 break;
 
             case 0:
-                return profile_menu(username);
+                return profile_menu(username, headSY, headSemester, headClass);
 
             default:
                 cout << "You've enter an invalid number!!\n";
@@ -402,7 +404,7 @@ void editProfile(string username){
     cout << "==================================\n";
     cout << "Press anykey to continue\n";
     getch();
-    editProfile(username);
+    editProfile(username, headSY, headSemester, headClass);
 
 }
 
@@ -444,45 +446,37 @@ void profile_menu(string username, schoolYear *& headSY, Semester *& headSemeste
         cout << "===========================\n";
         switch (choice) {
             case 1:
-                viewProfile(username);
+                viewProfile(username, headSY, headSemester, headClass);
                 break;
             case 2:
-                editProfile(username);
+                editProfile(username, headSY, headSemester, headClass);
                 break;
             case 3:
-                // createSY();
-                cout << "Create SY!!\n";
+                int n;
+                createSY(headSY, n);
+                cout << "SY Created!!\n";
+                system("pause");
+                return profile_menu(username, headSY, headSemester, headClass);
                 break;
             case 4:
-                schoolYear * cur = headSY;
+                {schoolYear * cur = headSY;
                 while(cur)  {
                     cout << cur -> name << endl;
                     cur = cur -> next;
                 }
-                break;
+                break;}
             case 5:
-                /*Class curr = nullptr;
-                if (!schoolYear.Classes) {
-                    schoolYear.Classes = new Class;
-                    curr = schoolYear.Classes;
-                }
-                else {
-                    curr->next = new Class;
-                    curr = curr->next;
-                }
-                cin.ignore();
-                cout << "Enter class name: ";
-                getline(cin, curr.name); */
+                createClass(headClass);
                 break;
             case 0:
                 cout << "You logged out successfully!!\n";
                 getch();
-                return mainMenu();
+                return mainMenu(headSY,headSemester, headClass);
             default:
                 cout << "You entered an invalid number\n";
                 cout << "Please enter again\n";
                 break;
-        };
-    } while (choice < 0 || choice > 3);
+        }
+    } while (choice < 0 || choice > 5);
 
 }

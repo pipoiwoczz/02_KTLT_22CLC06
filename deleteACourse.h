@@ -1,6 +1,7 @@
 #ifndef _deleteACourse_
-#include <iostream>
-using namespace std;
+#define _deleteACourse_
+#include "main.h"
 
 void deleteACourse(Course*& pHead);
+
 #endif
