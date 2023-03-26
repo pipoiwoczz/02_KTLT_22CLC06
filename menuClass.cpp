@@ -1,23 +1,31 @@
 #include "main.h"
 #include "studentInAClass.h"
 #include "removeAStudent.h"
+#include "profile.h"
+#include <string>
 #include <iostream>
 #include <fstream>
 
 void classMenu(Class * pHeadClass, string nameClass)
 {
+    // string nameClass;
+
+    cout << "==================\n";
+    cout << "Please enter class's name: ";
+    cin >> nameClass;
+
     while (pHeadClass && pHeadClass -> name != nameClass)
         pHeadClass = pHeadClass -> next;
     if (pHeadClass == nullptr)
     {
         cout << "You've entered a non-exist class name.\n";
-        return;
+        return classMenu(pHeadClass, nameClass);
     }
     else
     {
         int move; 
         ifstream fin;
-        
+
         cout << "1. Add students of class (by importing file)\n";
         cout << "2. View students in class\n";
         cout << "3. Add 1 student\n";
@@ -44,6 +52,7 @@ void classMenu(Class * pHeadClass, string nameClass)
                     removeAStudent(pHeadClass -> Students);
                     break;
                 case 0:
+                    // return profile_menu(headSY, headSemester, headClass);
                     break;
                 default:
                     cout << "You've entered wrong move\n";

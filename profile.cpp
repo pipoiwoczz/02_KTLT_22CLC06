@@ -438,7 +438,8 @@ void profile_menu(string username, schoolYear *& headSY, Semester *& headSemeste
     cout << "3. Create New School Year\n";
     cout << "4. View available School Year\n";
     cout << "5. Create class\n";
-    cout << "6.View available Class\n";
+    cout << "6. View available Class\n";
+    cout << "7. Choose available Class\n";
     cout << "0. Log out and back to main menu\n";
     cout << "===========================\n";
     cout << "Your choice is: ";
@@ -456,21 +457,24 @@ void profile_menu(string username, schoolYear *& headSY, Semester *& headSemeste
                 createSY(headSY, n);
                 cout << "SY Created!!\n";
                 system("pause");
-                return profile_menu(username, headSY, headSemester, headClass);
-            case 4:
+                 profile_menu(username, headSY, headSemester, headClass);
+                break;
+            case 4: {
                 schoolYear * cur = headSY;
                 while(cur)  {
                     cout << cur -> name << endl;
                     cur = cur -> next;
                 }
                 system("pause");
+                 profile_menu(username, headSY, headSemester, headClass);
                 break;
+            }
             case 5:
                 createClass(headClass);
                 system("pause");
-                return profile_menu(username, headSY, headSemester, headClass);
+                 profile_menu(username, headSY, headSemester, headClass);
                 break;
-            case 6: 
+            case 6: {
                 Class *curClass = headClass;
                 if (!curClass) {
                     cout << "There is no class now!!\n";
@@ -482,15 +486,34 @@ void profile_menu(string username, schoolYear *& headSY, Semester *& headSemeste
                     }
                 }
                 break;
-            case 0:
+            }
+            case 7: {
+                Class *curClass = headClass;
+                if (!curClass) {
+                    cout << "There is no class now!!\n";
+                    system("pause");
+                    return profile_menu(username, headSY, headSemester, headClass);
+                } else {
+                    while (curClass) {
+                        cout << curClass -> name << endl;
+                        curClass = curClass -> next;
+                    }
+                    string nameClass;
+                    return classMenu(headClass, nameClass);
+                }
+                break;
+            }
+            case 0: {
                 cout << "You logged out successfully!!\n";
                 getch();
                 return mainMenu(headSY,headSemester, headClass);
+                break;
+            }
             default:
                 cout << "You entered an invalid number\n";
                 cout << "Please enter again\n";
                 break;
         }
-    } while (choice < 0 || choice > 6);
+    } while (choice < 0 || choice > 7);
 
 }
