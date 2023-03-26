@@ -1,5 +1,7 @@
 #include "viewCoursesStudent.h"
 
+// View list of courses that a student will learn in a semester
+// Need to fix the path of the files
 void viewCoursesStudent(string Id) {
     string path, line, SY, Class;
     path = "./" + Id + "_SV.txt";
@@ -15,7 +17,7 @@ void viewCoursesStudent(string Id) {
 
     cout << "Courses you will study in this semester: " << endl;
     // The number of execution based on the info of a student
-    for (int i=0; i<4; i++) getline(ifs, line);
+    // for (int i=0; i<4; i++) getline(ifs, line);   // Maybe don't need this line
     while (!ifs.eof()) {
         getline(ifs, line);
         cout << line << endl;
