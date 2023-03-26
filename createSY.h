@@ -8,4 +8,4 @@ void insertInOrdered(schoolYear *& pHeadSY, string nameSY);
 
 bool isValidSY(string SY);
 
-void createSY(schoolYear * pArrSY, int &n);
+void createSY(schoolYear *& pArrSY, int &n);

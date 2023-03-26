@@ -54,7 +54,7 @@ void insertInOrdered(schoolYear *& pHeadSY, string nameSY)
     }
 }
 
-void createSY(schoolYear * pHeadSY, int &n)
+void createSY(schoolYear *& pHeadSY, int &n)
 {
     string SY;
     char *SYname;

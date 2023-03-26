@@ -1,6 +1,8 @@
 #include "main.h"
 #include "studentInAClass.h"
 #include "removeAStudent.h"
+#include <iostream>
+#include <fstream>
 
 void classMenu(Class * pHeadClass, string nameClass)
 {
@@ -14,7 +16,8 @@ void classMenu(Class * pHeadClass, string nameClass)
     else
     {
         int move; 
-
+        ifstream fin;
+        
         cout << "1. Add students of class (by importing file)\n";
         cout << "2. View students in class\n";
         cout << "3. Add 1 student\n";
@@ -22,6 +25,7 @@ void classMenu(Class * pHeadClass, string nameClass)
         cout << "0. Return to previous menu\n";
         cout << "Pls enter your move: ";
         cin >> move;
+    
 
         while (move != 0)
         {
@@ -34,7 +38,7 @@ void classMenu(Class * pHeadClass, string nameClass)
                     displayListOfStudents(pHeadClass -> Students);
                     break;
                 case 3:
-                    // addAStudenet(pHeadClass -> Students);
+                    addAStudent(pHeadClass -> Students, fin);
                     break;
                 case 4:
                     removeAStudent(pHeadClass -> Students);
