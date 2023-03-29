@@ -3,6 +3,7 @@
 #include "login.h"
 #include "createClasses.h"
 #include "createSY.h"
+#include "SYmenu.h"
 #include "mainmenu.h"
 #include "menuClass.h"
 #include <cstring>
@@ -435,7 +436,7 @@ void profile_menu(string username, schoolYear *& headSY, Semester *& headSemeste
     cout << "1. View profile\n";
     cout << "2. Change profile\n";
     cout << "3. Create New School Year\n";
-    cout << "4. View available School Year\n";
+    cout << "4. View and Choose available School Year\n";
     cout << "5. Create class\n";
     cout << "6. View available Class\n";
     cout << "7. Choose available Class\n";
@@ -465,7 +466,22 @@ void profile_menu(string username, schoolYear *& headSY, Semester *& headSemeste
                     cur = cur -> next;
                 }
                 system("pause");
-                profile_menu(username, headSY, headSemester, headClass);
+                int move;
+                if (headSY) {
+                    cout << "1. Enter and work with the school year \n";
+                    cout << "0. Back to menu\n";
+                    cout << "Enter your move: ";
+                    cin >> move;
+                    while (move != 0 && move != 1) {
+                        cout << "Enter your move: ";
+                        cin >> move;
+                    }
+                }
+                if (move == 0)
+                    profile_menu(username, headSY, headSemester, headClass); 
+                else {
+                    SYMenu(headSemester);
+                }
                 break;
             }
             case 5:
