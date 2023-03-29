@@ -34,9 +34,10 @@ void createClass(Class *& pHeadClass)
     }
 
     createFolder(nameTmp);
+
     ifstream ifs;
     ofstream ofs;
-    ifs.open("classes.txt");
+    ifs.open("class.txt");
     ofs.open("tmp.txt");
 
     string tmp;
@@ -53,5 +54,4 @@ void createClass(Class *& pHeadClass)
 
     remove("class.txt");
     rename("tmp.txt", "class.txt");
-
 }

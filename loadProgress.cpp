@@ -84,4 +84,6 @@ void loadProgress(schoolYear *&headSY, Semester *&headSemester, Class *& headCla
 
     fin.close();
 
+    
+
 }

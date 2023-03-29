@@ -6,7 +6,7 @@
 #include <iostream>
 #include <fstream>
 
-void classMenu(Class * pHeadClass, string nameClass)
+void classMenu(Class *&pHeadClass, string nameClass, string username, schoolYear *& headSY, Semester *& headSemester, Class *& headClass)
 {
     // string nameClass;
 
@@ -19,7 +19,7 @@ void classMenu(Class * pHeadClass, string nameClass)
     if (pHeadClass == nullptr)
     {
         cout << "You've entered a non-exist class name.\n";
-        return classMenu(pHeadClass, nameClass);
+        return classMenu(pHeadClass, nameClass, username, headSY, headSemester, headClass);
     }
     else
     {
@@ -35,7 +35,7 @@ void classMenu(Class * pHeadClass, string nameClass)
         cin >> move;
     
 
-        while (move != 0)
+        while (move >= 0 && move < 5)
         {
             switch (move)
             {
@@ -52,7 +52,7 @@ void classMenu(Class * pHeadClass, string nameClass)
                     removeAStudent(pHeadClass -> Students);
                     break;
                 case 0:
-                    // return profile_menu(headSY, headSemester, headClass);
+                    return profile_menu(username, headSY, headSemester, headClass);
                     break;
                 default:
                     cout << "You've entered wrong move\n";

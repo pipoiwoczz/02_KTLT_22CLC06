@@ -165,7 +165,6 @@ void editProfile(string username, schoolYear *& headSY, Semester *& headSemester
                             cout << "Please enter again\n";
                         }
                     } while (gender < 1 || gender > 3);
-                    out << gender << endl;
 
                     int day, month, year;
                     cout << "Enter your date of birth (dd/mm/yy): ";
@@ -457,7 +456,7 @@ void profile_menu(string username, schoolYear *& headSY, Semester *& headSemeste
                 createSY(headSY, n);
                 cout << "SY Created!!\n";
                 system("pause");
-                 profile_menu(username, headSY, headSemester, headClass);
+                profile_menu(username, headSY, headSemester, headClass);
                 break;
             case 4: {
                 schoolYear * cur = headSY;
@@ -466,18 +465,19 @@ void profile_menu(string username, schoolYear *& headSY, Semester *& headSemeste
                     cur = cur -> next;
                 }
                 system("pause");
-                 profile_menu(username, headSY, headSemester, headClass);
+                profile_menu(username, headSY, headSemester, headClass);
                 break;
             }
             case 5:
                 createClass(headClass);
                 system("pause");
-                 profile_menu(username, headSY, headSemester, headClass);
+                profile_menu(username, headSY, headSemester, headClass);
                 break;
             case 6: {
                 Class *curClass = headClass;
                 if (!curClass) {
                     cout << "There is no class now!!\n";
+                    system("pause");
                     return profile_menu(username, headSY, headSemester, headClass);
                 } else {
                     while (curClass) {
@@ -485,6 +485,8 @@ void profile_menu(string username, schoolYear *& headSY, Semester *& headSemeste
                         curClass = curClass -> next;
                     }
                 }
+                system("pause");
+                profile_menu(username, headSY, headSemester, headClass);
                 break;
             }
             case 7: {
@@ -499,7 +501,7 @@ void profile_menu(string username, schoolYear *& headSY, Semester *& headSemeste
                         curClass = curClass -> next;
                     }
                     string nameClass;
-                    return classMenu(headClass, nameClass);
+                    return classMenu(headClass, nameClass, username, headSY, headSemester, headClass);
                 }
                 break;
             }

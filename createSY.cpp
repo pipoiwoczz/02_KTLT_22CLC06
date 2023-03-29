@@ -2,6 +2,7 @@
 #include <iostream>
 #include "login.h"
 #include <cstring>
+#include <string>
 #include <fstream>
 using namespace std;
 
@@ -68,13 +69,24 @@ void createSY(schoolYear *& pHeadSY, int &n)
         {
             insertSYAtBeginning(pHeadSY, SY);
             ofstream ofs;
-            ofs.open("SY.txt");
-            ofs << SY << endl;
+            ifstream ifs;
+            string tmp;
+            ifs.open("SY.txt");
+            ofs.open("tmp.txt");
+            while (getline (ifs, tmp)) {
+                ofs << tmp << endl;
+            }
+            ofs << SY;
             ofs.close();
+            ifs.close();
+            remove("SY.txt");
+            rename("tmp.txt", "SY.txt");
             unsigned int le = SY.length();
             SYname = new char[le + 1];
             strcpy(SYname, SY.c_str());
             createFolder(SYname);
+        } else {
+            cout << "There is another School Year exists!!\n";
         }
 
     }
