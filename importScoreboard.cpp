@@ -2,19 +2,6 @@
 
 void importScoreBoard(Course* pCourse)
 {
-	string folderCourse = to_string(pCourse->courseID) + "_course";
-	string scoreboard = "scoreboard";
-	path folder = folderCourse;
-	path folderScoreboard = folder / scoreboard;
-
-	if (!exists(folderScoreboard)) {
-		bool res = create_directory(folderScoreboard);
-		if (!res) {
-			cout << "Error: Unable to create directory!" << endl;
-			return;
-		}
-	}
-
 	string pathOfScoreboard;
 	ifstream fin;
 	cout << "Enter the path of the scoreboard: ";
@@ -25,8 +12,17 @@ void importScoreBoard(Course* pCourse)
 		string temp, No;
 		getline(fin, No, ',');
 		getline(fin, temp, ',');
-		path scoreSt = folderScoreboard / format("{}.txt", temp);
-		ofstream fout(scoreSt);
+		string path = "./profile/" + temp + ".txt";
+		string schoolYear;
+		string stClass;
+		ifstream profileSt(path);
+		getline(profileSt, schoolYear);
+		getline(profileSt, schoolYear);
+		getline(profileSt, schoolYear);
+		getline(profileSt, stClass);
+		profileSt.close();
+
+		ofstream fout(format("./{}/{}/{}/{}.txt", schoolYear, stClass, temp, pCourse->courseID));
 		fout << No << "," << temp << ",";
 		getline(fin, temp, ',');
 		fout << temp << ",";
