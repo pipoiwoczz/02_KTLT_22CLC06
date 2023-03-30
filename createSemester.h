@@ -2,4 +2,4 @@
 #include <iostream>
 using namespace std;
 
-void createSemester(Semester *& firstSemester);
+void createSemester(string username, schoolYear *& headSY, Semester *& headSemester, Class *& headClas);

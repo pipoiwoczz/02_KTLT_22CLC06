@@ -480,7 +480,7 @@ void profile_menu(string username, schoolYear *& headSY, Semester *& headSemeste
                 if (move == 0)
                     profile_menu(username, headSY, headSemester, headClass); 
                 else {
-                    SYMenu(headSemester);
+                    SYMenu(username, headSY, headSemester, headClass);
                 }
                 break;
             }

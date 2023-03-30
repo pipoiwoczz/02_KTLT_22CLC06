@@ -1,10 +1,13 @@
 #include "SYmenu.h"
 #include "main.h"
 #include "createSemester.h"
+#include "profile.h"
+#include "SEmenu.h"
 #include <iostream>
+#include <string>
 using namespace std;
 
-void SYMenu(Semester *&headSemester) {
+void SYMenu(string username, schoolYear *& headSY, Semester *& headSemester, Class *& headClass) {
     system("cls");
     cout << "1. Create Semester\n";
     cout << "2. View available Semester\n";
@@ -21,7 +24,8 @@ void SYMenu(Semester *&headSemester) {
 
     switch (move) {
         case 1: {
-            createSemester(headSemester);
+            createSemester(username, headSY, headSemester, headClass);
+            return SYMenu(username, headSY, headSemester, headClass);
             break;
         }
         case 2: {
@@ -64,12 +68,10 @@ void SYMenu(Semester *&headSemester) {
                 cin >> choice;
             } while (choice > 3 || choice < 1);
 
-            // if (choice == 1) 
-            //     return SEMenu(headSemester);
-            // if (choice == 2) 
-            //     return SEMenu(headSemester -> next);
-            // if (choice == 3) 
-            //     return SEMenu(headSemester -> next -> next);
+            return SEMenu( username,   headSY, headSemester, headClass, choice);
         }
+        case 0:
+            return profile_menu(username, headSY, headSemester, headClass);
+            break;
     }
 }
