@@ -1,23 +1,25 @@
 #include "deleteACourse.h"
 #include "main.h"
 
-void deleteACourse(Course*& pHead)
+void deleteACourse(Course*& pCourse)
 {
 	Course* curr, * prev;
 	int courseid;
 	cout << "Enter the course ID needed to delete: ";
 	cin >> courseid;
-	if (pHead->courseID == courseid) {
-		curr = pHead;
-		pHead = pHead->next;
+	if (pCourse->courseID == courseid) {
+		curr = pCourse;
+		pCourse = pCourse->next;
 		delete curr;
 		return;
 	}
-	curr = pHead->next;
-	prev = pHead;
+	curr = pCourse->next;
+	prev = pCourse;
 	while (curr) {
 		if (curr->courseID == courseid) {
 			prev->next = curr->next;
+			string coursePath = format("./{}", curr->courseID);
+			remove_all(coursePath);
 			delete curr;
 			curr = prev->next;
 			return;
