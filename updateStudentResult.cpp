@@ -6,7 +6,7 @@ void updateStudentResultCourse(schoolYear *SY, Semester *sem, Course *course) {
     string Id, line;
 
     bool exist = false;
-    string pathCourse = "./" + SY -> name + "/" + to_string(sem -> season) + "_" + SY -> name + "/" + to_string(course -> courseID);
+    string pathCourse = "./" + SY -> name + "/" + to_string(sem -> season) +  "/" + to_string(course -> courseID);
 
     ////////// CHECK WHETHER THE ID IS VALID OR NOT
     do {

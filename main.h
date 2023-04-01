@@ -56,9 +56,8 @@ struct Semester
 struct schoolYear
 {
     string name;
-//    Class * Classes = nullptr;
-//    Semester * Semesters = nullptr;
-//    Course * Courses = nullptr;
+    Class * Classes = nullptr;
+    Semester * Semesters = nullptr;
     schoolYear * next = nullptr;
 };
 
