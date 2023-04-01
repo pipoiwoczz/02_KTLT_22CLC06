@@ -3,55 +3,55 @@
 #include <cstring>
 #include <string>
 #include <fstream>
+#include <unistd.h>
 
-void createClass(Class *& pHeadClass)
+void createClass(Class *& headClass, string SY)
 {
     string nameClass;
 
     cin.ignore();
     cout << "Pls enter name of class: ";
     getline(cin, nameClass);
-    
-    char *nameTmp = new char [nameClass.length() + 1];
-    strcpy(nameTmp, nameClass.std::string::c_str());
 
-    if (pHeadClass == nullptr)
-    {
-        pHeadClass = new Class;
-        pHeadClass -> name = nameClass;
+    Class * tmpClass = headClass;
+
+    headClass = new Class;
+    headClass -> name = nameClass;
+    headClass -> next = tmpClass;
+
+    string path = SY + "\\" + nameClass;
+
+    if (mkdir(path.c_str()) == -1)  {
+        cout << "This class has already been created\n";
+        cout << "Do you want to continue creating class? \n";
+        cout << "1. Yes\n";
+        cout << "2. No \n";
+        int move;
+        cout << "Choose your move: ";
+        cin >> move;
+        if (move == 1)  
+            createClass(headClass, SY);
+        else
+            return;
     }
-    else
-    {
-        Class * pCur = pHeadClass;
+    else    {
+        ifstream ifs;
+        ofstream ofs;
 
-        while (pCur -> next != nullptr)
-        {
-            pCur = pCur -> next;
-        }
+        ifs.open("class.txt");
+        ofs.open("tmp.txt");
 
-        pCur -> next = new Class;
-        pCur -> next -> name = nameClass;
+        while (!ifs.eof())  {
+            string tmp;
+            getline(ifs, tmp);
+            ofs << tmp << endl;
+        }        
+
+        ofs << nameClass << endl;
+
+        ifs.close();
+        ofs.close();
+        remove("class.txt");
+        rename("tmp.txt", "class.txt");
     }
-
-    createFolder(nameTmp);
-
-    ifstream ifs;
-    ofstream ofs;
-    ifs.open("class.txt");
-    ofs.open("tmp.txt");
-
-    string tmp;
-    while (getline(ifs, tmp)) {
-        ofs << tmp << endl;
-    }
-
-
-    ofs << nameClass;
-
-
-    ifs.close();
-    ofs.close();
-
-    remove("class.txt");
-    rename("tmp.txt", "class.txt");
 }
