@@ -37,7 +37,7 @@ struct Account {
 struct Course {
     string courseName, className, teacherName;
     string dayOfWeek, session;
-    int courseID;
+    string courseID;
     int credits, maxStudents = 50;
     int numberOfStudent = 0;
     Student* students = nullptr;
