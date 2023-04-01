@@ -6,7 +6,7 @@ void updateStudentResultCourse(schoolYear *SY, Semester *sem, Course *course) {
     string Id, line;
 
     bool exist = false;
-    string pathCourse = "./" + SY -> name + "/" + to_string(sem -> season) +  "/" + to_string(course -> courseID);
+    string pathCourse = "./" + SY -> name + "/" + to_string(sem -> season) +  "/" + course -> courseID;
 
     ////////// CHECK WHETHER THE ID IS VALID OR NOT
     do {
@@ -113,7 +113,7 @@ void updateStudentResultCourse(schoolYear *SY, Semester *sem, Course *course) {
         for (int i=1; i<=4; i++) getline(ifs, line);
     ifs.close();
 
-    string pathInClass = "./" + SY -> name + "/" + line + "/" + Id + "/" + to_string(course -> courseID) + ".txt";
+    string pathInClass = "./" + SY -> name + "/" + line + "/" + Id + "/" + course -> courseID + ".txt";
     // This path leads to the file score of student in the folder student of folder class
 
     ofs.open(pathInClass);

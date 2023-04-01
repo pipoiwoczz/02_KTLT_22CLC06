@@ -10,7 +10,7 @@ namespace fs = filesystem;
 void deleteACourse(schoolYear *year, Semester *sem, Course*& pCourse)
 {
 	Course* curr, * prev;
-	int courseid;
+	string courseid;
 	cout << "Enter the course ID needed to delete: ";
 	cin >> courseid;
 	if (pCourse->courseID == courseid) {
@@ -24,7 +24,7 @@ void deleteACourse(schoolYear *year, Semester *sem, Course*& pCourse)
 	while (curr) {
 		if (curr->courseID == courseid) {
 			prev->next = curr->next;
-			string coursePath = "./" + year->name + "/" + to_string(sem->season) + "/" + to_string(curr->courseID);
+			string coursePath = "./" + year->name + "/" + to_string(sem->season) + "/" + curr->courseID;
 			fs::remove_all(coursePath);
 			delete curr;
 			curr = prev->next;

@@ -6,7 +6,7 @@
 using namespace std;
 
 struct Grade {
-    int courseID;
+    string courseID;
     float totalMark, finalMark, midtermMark, otherMark;
     float courseGPA;
     Grade* next = nullptr;

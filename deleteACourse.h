@@ -2,6 +2,6 @@
 #define _deleteACourse_
 #include "main.h"
 
-void deleteACourse(Course*& pHead);
+void deleteACourse(schoolYear *year, Semester *sem, Course*& pCourse);
 
 #endif

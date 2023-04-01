@@ -21,7 +21,8 @@ void importScoreBoard(Course*& pCourse, Class*& pHeadClass)
 	Course* curr = pCourse;
 	ifstream fin;
 	string path, temp, tempClassName;
-	int courseid, tempStudentID;
+	int tempStudentID;
+	string courseid;
 	
 	cout << "Enter the course ID: ";
 	cin >> courseid;
