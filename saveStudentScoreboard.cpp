@@ -18,7 +18,7 @@ void saveStudentScoreboard(schoolYear *year, string pathOfScoreboard, string cou
 	while (!fin.eof()) {
 		getline(fin, temp, ','); // no
 		getline(fin, temp, ','); // studentid
-		string className = searchStudentInClass(pClass, temp);
+		string className = searchStudentInClass(temp);
 		string folder = "./" + year->name + "/" + className + "/" + temp + "/" + courseID + ".txt";
 		
 		ofstream fout(folder);
