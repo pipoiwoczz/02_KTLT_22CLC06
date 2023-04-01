@@ -25,7 +25,7 @@ void deleteACourse(schoolYear *year, Semester *sem, Course*& pCourse)
 		if (curr->courseID == courseid) {
 			prev->next = curr->next;
 			string coursePath = "./" + year->name + "/" + to_string(sem->season) + "/" + to_string(curr->courseID);
-			remove_all(coursePath);
+			fs::remove_all(coursePath);
 			delete curr;
 			curr = prev->next;
 			return;
