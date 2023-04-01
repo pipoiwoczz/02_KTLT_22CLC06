@@ -5,5 +5,5 @@
 
 using namespace std;
 
-void addACourse(Course*& pHead);
+void addACourse(schoolYear *SY, Semester *semester, Course*& pHead);
 #endif

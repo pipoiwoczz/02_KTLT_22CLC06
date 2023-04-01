@@ -1,5 +1,9 @@
 #include "deleteACourse.h"
 #include "main.h"
+#include <stdio.h>
+#include <fstream>
+#include <string>
+using namespace std;
 
 void deleteACourse(Course*& pCourse)
 {
@@ -18,8 +22,9 @@ void deleteACourse(Course*& pCourse)
 	while (curr) {
 		if (curr->courseID == courseid) {
 			prev->next = curr->next;
-			string coursePath = format("./{}", curr->courseID);
-			remove_all(coursePath);
+			// string coursePath = format("./{}", curr->courseID);
+			// string coursePath = 
+			// remove(coursePath);
 			delete curr;
 			curr = prev->next;
 			return;

@@ -480,7 +480,26 @@ void profile_menu(string username, schoolYear *& headSY, Semester *& headSemeste
                 if (move == 0)
                     profile_menu(username, headSY, headSemester, headClass); 
                 else {
-                    SYMenu(username, headSY, headSemester, headClass);
+                    string SY;
+                    cur = headSY;
+                    cout << "Select your schooyear: ";
+                    cin >> SY;
+                    do {
+                        if (!cur) {
+                            cout << "Please enter correct schoolyear: ";
+                            cin >> SY;
+                            cur = headSY;
+                            continue;
+                        }
+
+                        if (cur -> name == SY)
+                            break;
+                        else {
+                            cur = cur -> next;
+                        }
+                    } while (cur -> name != SY);
+
+                    SYMenu(username, cur, headSemester, headClass, headSY);
                 }
                 break;
             }

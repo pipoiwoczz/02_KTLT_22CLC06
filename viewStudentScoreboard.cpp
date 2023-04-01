@@ -9,7 +9,6 @@ void viewStudentScoreboard(string Id) {
         getline(ifs, Class);
     ifs.close();
 
-    ifstream ifs;
     path = "./" + SY + "/" + Class + "/" + Id + "/info.txt";
     ifs.open(path);
 

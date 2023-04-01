@@ -2,7 +2,8 @@
 #include "main.h"
 #include <filesystem>
 #include <unistd.h>
-namespace fs = std::filesystem;
+using namespace std;
+// namespace fs = std::filesystem;
 
 void addACourse(schoolYear *SY, Semester *semester, Course*& pHead)
 {
@@ -23,6 +24,7 @@ void addACourse(schoolYear *SY, Semester *semester, Course*& pHead)
 	cin >> pHead->session;
 
 	// create folder and file
+
 	string path = "./" + SY -> name + "/" + to_string(semester -> season) + "_" + SY -> name + "/" + pHead -> courseName;
 	mkdir(path.c_str());
 	path += "/info.txt";

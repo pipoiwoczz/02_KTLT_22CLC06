@@ -1,4 +1,9 @@
 #include "importScoreboard.h"
+// #include <format>
+#include <iostream>
+#include <string>
+#include <fstream>
+using namespace std;
 
 void importScoreBoard(Course* pCourse)
 {
@@ -22,7 +27,10 @@ void importScoreBoard(Course* pCourse)
 		getline(profileSt, stClass);
 		profileSt.close();
 
-		ofstream fout(format("./{}/{}/{}/{}.txt", schoolYear, stClass, temp, pCourse->courseID));
+        string path2 = schoolYear + "//" + stClass + "//" + temp + "//" + char(pCourse -> courseID + 48) + ".txt";
+        ofstream fout(path2);
+
+		// ofstream fout(format("./{}/{}/{}/{}.txt", schoolYear, stClass, temp, pCourse->courseID));
 		fout << No << "," << temp << ",";
 		getline(fin, temp, ',');
 		fout << temp << ",";

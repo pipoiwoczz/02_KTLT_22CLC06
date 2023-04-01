@@ -47,7 +47,7 @@ struct Course {
 struct Semester
 {
     int season;
-    string SY;
+    // string SY;
     string startDate, endDate;
     Semester * next = nullptr;
     Course* Courses = nullptr;

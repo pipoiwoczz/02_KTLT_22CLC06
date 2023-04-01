@@ -1,3 +1,3 @@
 #include "main.h"
 
-void SYMenu(string username, schoolYear *& headSY, Semester *& headSemester, Class *& headClass) ;
+void SYMenu(string username, schoolYear *& curSY, Semester *& headSemester, Class *& headClass, schoolYear * headSY) ;

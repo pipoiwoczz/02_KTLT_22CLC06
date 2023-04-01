@@ -7,7 +7,7 @@
 #include <string>
 using namespace std;
 
-void SYMenu(string username, schoolYear *& headSY, Semester *& headSemester, Class *& headClass) {
+void SYMenu(string username, schoolYear *& curSY, Semester *& headSemester, Class *& headClass, schoolYear * headSY) {
     system("cls");
     cout << "1. Create Semester\n";
     cout << "2. View available Semester\n";
@@ -24,8 +24,8 @@ void SYMenu(string username, schoolYear *& headSY, Semester *& headSemester, Cla
 
     switch (move) {
         case 1: {
-            createSemester(username, headSY, headSemester, headClass);
-            return SYMenu(username, headSY, headSemester, headClass);
+            createSemester(username, curSY, headSemester, headClass);
+            return SYMenu(username, curSY, headSemester, headClass, headSY);
             break;
         }
         case 2: {
@@ -68,7 +68,7 @@ void SYMenu(string username, schoolYear *& headSY, Semester *& headSemester, Cla
                 cin >> choice;
             } while (choice > 3 || choice < 1);
 
-            return SEMenu( username,   headSY, headSemester, headClass, choice);
+            return SEMenu( username, curSY, headSemester, headClass, choice, headSY);
         }
         case 0:
             return profile_menu(username, headSY, headSemester, headClass);

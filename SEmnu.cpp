@@ -4,13 +4,15 @@
 #include "viewListCourses.h"
 #include "removeAStudent.h"
 #include "deleteACourse.h"
+#include "profile.h"
 #include "inputStudentsToCourse.h"
 #include <iostream>
 #include <fstream>
 using namespace std;
 
-void SEMenu(string username, schoolYear *& headSY, Semester *& headSemester, Class *& headClass, int choice) {
+void SEMenu(string username, schoolYear *& curSY, Semester *& headSemester, Class *& headClass, int choice, schoolYear * headSY) {
     Semester *cur = headSemester;
+
     if (choice == 2) {
         cur = cur -> next;
     } 
@@ -31,11 +33,12 @@ void SEMenu(string username, schoolYear *& headSY, Semester *& headSemester, Cla
     cout << "5. Add a student to a course\n";
     cout << "6. Remove a student from a course\n";
     cout << "7. Delete a course\n";
+    cout << "0. Back to previous menu\n";
 
     int move;
     do {
         cout << "=============================\n";
-        cout << "Your move is: ";
+        cout << "Enter your move: ";
         cin >> move;
 
         switch (move) {
@@ -55,10 +58,13 @@ void SEMenu(string username, schoolYear *& headSY, Semester *& headSemester, Cla
                 // in
                 break;
             case 6:
+                removeAStudent(cur -> Courses -> students);
                 break;
             case 7: 
+                deleteACourse(headSemester -> Courses);
                 break;
             case 0:
+                profile_menu(username, headSY, headSemester, headClass);
                 break;
         }
     } while (move < 0 || move > 7);
