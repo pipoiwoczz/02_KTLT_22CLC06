@@ -3,9 +3,11 @@
 #include <stdio.h>
 #include <fstream>
 #include <string>
+#include <filesystem>
 using namespace std;
+namespace fs = filesystem;
 
-void deleteACourse(Course*& pCourse)
+void deleteACourse(schoolYear *year, Semester *sem, Course*& pCourse)
 {
 	Course* curr, * prev;
 	int courseid;
@@ -22,9 +24,8 @@ void deleteACourse(Course*& pCourse)
 	while (curr) {
 		if (curr->courseID == courseid) {
 			prev->next = curr->next;
-			// string coursePath = format("./{}", curr->courseID);
-			// string coursePath = 
-			// remove(coursePath);
+			string coursePath = "./" + year->name + "/" + to_string(sem->season) + "/" + to_string(curr->courseID);
+			remove_all(coursePath);
 			delete curr;
 			curr = prev->next;
 			return;
