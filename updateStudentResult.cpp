@@ -17,6 +17,7 @@ void updateStudentResultCourse(schoolYear *SY, Semester *sem, Course *course) {
         while (ifs) {
             getline(ifs, line, ',');
             if (Id == line) exist = true;
+            getline(ifs, line); ///// new
         }
         ifs.close();
 
@@ -37,14 +38,15 @@ void updateStudentResultCourse(schoolYear *SY, Semester *sem, Course *course) {
     ////////// END CHECKING
 
     pathCourse += "/scoreboard.txt"; // This path is used to renew the info of the scoreboard of a course
-    Score *pScore, *cur;
+    Score *pScore = nullptr, *cur;
     exportFileInfoToLL(pScore, pathCourse); // insert data of scoreboard.txt of a course to a linked list
     cur = pScore;
     while (cur && cur -> studentID != Id) 
         cur = cur -> next; // traverse to the Node save info of the student whose score is being updating
 
     ////////// EDITING RESULT OF A STUDENT 
-    int choice, score;
+    int choice;
+    string score;
     do {
         cout << "---------------" << endl;
         cout << "Which score do you want to update?" << endl;
@@ -58,6 +60,7 @@ void updateStudentResultCourse(schoolYear *SY, Semester *sem, Course *course) {
         cout << "---------------" << endl;
         switch (choice) {
             case 1: 
+                // NEED THIS CASE, BECAUSE WE DON'T KNOW WHICH SCORE TAKE HOW MUCH PERCENTAGE IN TOTAL
                 cout << "Enter the total mark: "; cin >> score;
                 cur -> totalMark = score;
                 break;
@@ -90,18 +93,21 @@ void updateStudentResultCourse(schoolYear *SY, Semester *sem, Course *course) {
     } while (choice);
     ////////// FINISH EDITING RESULT
     
+    // NEED TO REVERSE LL //////////////////////////////////////////////
+    reverseList(pScore);
     ////////// NOW REWRITE THE DATA TO THE SCOREBOARD FILE
     ofs.open(pathCourse);
     cur = pScore;
     while (cur) {
-        ofs << cur -> No << ", ";
-        ofs << cur -> studentID << ", ";
-        ofs << cur -> fullName << ", ";
-        ofs << cur -> totalMark << ", ";
-        ofs << cur -> finalMark << ", ";
-        ofs << cur -> midtermMark << ", ";
-        ofs << cur -> otherMark << endl;
-        cur -> next;
+        ofs << cur -> No << ",";
+        ofs << cur -> studentID << ",";
+        ofs << cur -> fullName << ",";
+        ofs << cur -> totalMark << ",";
+        ofs << cur -> finalMark << ",";
+        ofs << cur -> midtermMark << ",";
+        ofs << cur -> otherMark;
+        if (cur -> next) ofs << endl;
+        cur = cur -> next;
     }
     ofs.close();
     ////////// END WRITING
@@ -116,8 +122,11 @@ void updateStudentResultCourse(schoolYear *SY, Semester *sem, Course *course) {
     string pathInClass = "./" + SY -> name + "/" + line + "/" + Id + "/" + course -> courseID + ".txt";
     // This path leads to the file score of student in the folder student of folder class
 
+    cur = pScore; // Set the cur back to the pHead
+    while (cur && cur -> studentID != Id) 
+        cur = cur -> next; // traverse to the Node save info of the student whose score is being updating
     ofs.open(pathInClass);
-        ofs << cur -> totalMark << ", " << cur -> finalMark << ", " << cur -> midtermMark << ", " << cur -> otherMark; 
+        ofs << cur -> totalMark << "," << cur -> finalMark << "," << cur -> midtermMark << "," << cur -> otherMark; 
     ofs.close();
     ////////// END WRITING
 
@@ -128,23 +137,25 @@ void exportFileInfoToLL(Score* &head, string path) {
     ifstream fin;
     string No, id, name, total, final, midterm, other;
     fin.open(path);
-    while (fin) {
+    while (!fin.eof()) {
         Score *temp = new Score;
         getline(fin, No, ',');
         temp -> No = No;
         getline(fin, id, ',');
         temp -> studentID = id;
+        getline(fin, name, ',');
+        temp -> fullName = name;
         getline(fin, total, ',');
         temp -> totalMark = total;
         getline(fin, final, ',');
         temp -> finalMark = final;
         getline(fin, midterm, ',');
         temp -> midtermMark = midterm;
-        getline(fin, other, ',');
+        getline(fin, other);
         temp -> otherMark = other;
 
         temp -> next = head;
-        head -> next = temp;
+        head = temp;
     }
     fin.close();
 }
@@ -156,4 +167,15 @@ void deleteLLScore(Score* &head) {
         delete temp;
         temp = head;
     } 
+}
+
+void reverseList(Score* &pHead) {
+    Score *curA = nullptr, *curB = nullptr;
+    while (pHead && pHead -> next) {
+        curB = pHead -> next;
+        pHead -> next = curA;
+        curA = pHead;
+        pHead = curB;
+    }
+    if (pHead) pHead -> next = curA;
 }
