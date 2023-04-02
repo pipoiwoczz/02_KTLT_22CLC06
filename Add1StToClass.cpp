@@ -55,8 +55,31 @@ void add1StToClass(Student *& headStudent, schoolYear * curSY, Class * curClass)
         path += ".txt";
 
         ofs.open(path);
-        ofs << headStudent -> No << "," << headStudent -> studentId << "," << headStudent -> firstName << "," << headStudent -> lastName << "," << headStudent -> gender << "," << headStudent -> dateOfBirth << "," << headStudent->socialId << endl;
+		ofs << headStudent -> studentId << endl << "1234" << endl;
+		ofs << curSY -> name << endl;
+		ofs << curClass -> name << endl;
+		ofs << 1 << endl;
+		ofs << headStudent -> firstName << "," << headStudent -> lastName << endl;
+		ofs << headStudent -> gender << endl;
+		ofs << headStudent -> dateOfBirth;
+        ofs.close();        
+
+        path = curSY -> name + "\\" + curClass -> name + "\\" + "student.txt";
+        ifstream ifs;
+        string temp;
+
+        ifs.open(path);
+        ofs.open("tmp.txt");
+        if (ifs.is_open()) 
+            while (getline(ifs, temp)) {
+                ofs << temp << endl;
+            }
+        ofs << headStudent -> studentId;
+        ifs.close();
         ofs.close();
+        remove(path.c_str());
+        rename("tmp.txt", path.c_str());
+
     } else {
         no++;
         while (tmp -> next) {
@@ -107,7 +130,31 @@ void add1StToClass(Student *& headStudent, schoolYear * curSY, Class * curClass)
         path += ".txt";
 
         ofs.open(path);
-        ofs << tmp -> No << "," << tmp -> studentId << "," << tmp -> firstName << "," << tmp -> lastName << "," << tmp -> gender << "," << tmp -> dateOfBirth << "," << tmp->socialId << endl;
+		ofs << tmp -> studentId << endl << "1234" << endl;
+		ofs << curSY -> name << endl;
+		ofs << curClass -> name << endl;
+		ofs << 1 << endl;
+		ofs << tmp -> firstName << "," << tmp -> lastName << endl;
+		ofs << tmp -> gender << endl;
+    	ofs << tmp -> dateOfBirth;
         ofs.close();
-        }
+
+        path = curSY -> name + "\\" + curClass -> name + "\\" + "student.txt";
+        ifstream ifs;
+        string temp;
+
+        ifs.open(path);
+        ofs.open("tmp.txt");
+        if (ifs.is_open()) 
+            while (getline(ifs, temp)) {
+                ofs << temp << endl;
+            }
+        ofs << tmp -> studentId;
+        ifs.close();
+        ofs.close();
+        remove(path.c_str());
+        rename("tmp.txt", path.c_str());
+    }
+
+
 }

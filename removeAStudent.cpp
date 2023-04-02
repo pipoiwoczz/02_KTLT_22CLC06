@@ -1,11 +1,15 @@
 #include "removeAStudent.h"
 #include "main.h"
-#include <filesystem>
-using namespace filesystem;
+#include <string>
+#include <direct.h>
+#include <stdio.h>
+// #include <filesystem>
+// using namespace filesystem;
 
 void removeProfile(string studentID)
 {
-	string profileSt = "./profile/" + studentID + ".txt";
+	string profileSt = "profile//" + studentID + ".txt";
+	cout << profileSt << endl;
 	ifstream ifs(profileSt);
 
 	string className, schoolYear;
@@ -13,11 +17,13 @@ void removeProfile(string studentID)
 	getline(ifs, schoolYear);
 	getline(ifs, schoolYear);
 	getline(ifs, className);
-	getline(ifs, className);
-	string pathStInClass = "./" + schoolYear + "/" + className + "/" + studentID;
+	string pathStInClass = schoolYear + "//" + className + "//" + studentID;
 
-	remove_all(pathStInClass);
-	remove(profileSt);
+	rmdir(pathStInClass.c_str());
+	
+	ifs.close();
+	remove(profileSt.c_str());
+
 }
 
 void removeAStudent(Student*& pHead)

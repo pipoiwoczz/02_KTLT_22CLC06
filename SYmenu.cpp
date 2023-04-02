@@ -134,6 +134,7 @@ void SYMenu(string username, schoolYear *& curSY, Semester *& headSemester, Clas
                     if (curClass == nullptr)
                     {
                         cout << "You've entered a non-exist class name.\n";
+                        curClass = headClass;
                     } else {
                         return classMenu(headClass, nameClass, username, headSY, headSemester, headClass, curSY);
                     }

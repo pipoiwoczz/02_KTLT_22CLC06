@@ -52,7 +52,7 @@ void inputStudentsToClass(Student*& pHead, schoolYear *curSY, Class * curClass)
 
 		mkdir("profile");
         ofstream ofs;
-        string path = "profile//";
+        string path2 = "profile//";
 
         int n = curr -> studentId;
 
@@ -66,17 +66,44 @@ void inputStudentsToClass(Student*& pHead, schoolYear *curSY, Class * curClass)
         }
 
 		for (int i = cnt - 1; i >= 0; i--) {
-			path += tmp[i];
+			path2 += tmp[i];
 			idNum += tmp[i];
 		}
-		string path2 = curSY -> name + "\\" + curClass -> name + "\\" + idNum;
-		mkdir(path2.c_str());
+		string path3 = curSY -> name + "\\" + curClass -> name + "\\" + idNum;
 
-        path += ".txt";
+		// create folder in SY//Class
+		mkdir(path3.c_str());
 
-        ofs.open(path);
-        ofs << curr -> No << "," << curr -> studentId << "," << curr -> firstName << "," << curr -> lastName << "," << curr -> gender << "," << curr -> dateOfBirth << "," << curr -> socialId << endl;
+        path2 += ".txt";
+
+		// add data to profile//mssv.txt
+
+        ofs.open(path2);
+		ofs << curr -> studentId << endl << "1234" << endl;
+		ofs << curSY -> name << endl;
+		ofs << curClass -> name << endl;
+		ofs << 1 << endl;
+		ofs << curr -> firstName << "," << curr -> lastName << endl;
+		ofs << curr -> gender << endl;
+		ofs << curr -> dateOfBirth;
         ofs.close();
+
+		// add data to file student.txt in folder SY//Class (only include student ID)
+
+		path3 = curSY -> name + "\\" + curClass -> name + "\\" + "student.txt";
+        ifstream ifs;
+
+        ifs.open(path3);
+        ofs.open("tmp.txt");
+        if (ifs.is_open()) 
+            while (getline(ifs, temp)) {
+                ofs << temp << endl;
+            }
+		ofs << curr -> studentId;
+        ifs.close();
+        ofs.close();
+        remove(path3.c_str());
+        rename("tmp.txt", path3.c_str());
 	}
 	fin.close();
 }
