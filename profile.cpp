@@ -422,6 +422,11 @@ bool isValidBirth(int day, int month, int year) {
 }
 
 void profile_menu(string username, schoolYear *& headSY, Semester *& headSemester, Class *& headClass) {
+    Semester *curSemester = headSemester;
+    if (curSemester)
+        while (curSemester -> next) {
+            curSemester = curSemester -> next;
+        }
     system("cls");
     int choice;
 
