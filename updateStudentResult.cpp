@@ -129,7 +129,8 @@ void updateStudentResultCourse(schoolYear *SY, Semester *sem, Course *course) {
         ofs << cur -> totalMark << "," << cur -> finalMark << "," << cur -> midtermMark << "," << cur -> otherMark; 
     ofs.close();
     ////////// END WRITING
-
+    
+    updateGPA(Id);
     deleteLLScore(pScore);
 }
 
