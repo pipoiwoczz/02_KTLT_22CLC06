@@ -10,7 +10,7 @@ void removeAStudent(Student*& pHead)
 	cin >> id;
 	if (pHead->studentId == id) {
 		pHead = pHead->next;
-		delete pHead;
+		delete prev;
 		return;
 	}
 	while (prev) {

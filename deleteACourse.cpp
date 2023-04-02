@@ -5,7 +5,7 @@
 #include <string>
 #include <filesystem>
 using namespace std;
-namespace fs = filesystem;
+
 
 void deleteACourse(schoolYear *year, Semester *sem, Course*& pCourse)
 {
@@ -25,7 +25,7 @@ void deleteACourse(schoolYear *year, Semester *sem, Course*& pCourse)
 		if (curr->courseID == courseid) {
 			prev->next = curr->next;
 			string coursePath = "./" + year->name + "/" + to_string(sem->season) + "/" + curr->courseID;
-			fs::remove_all(coursePath);
+			remove(coursePath.c_str());
 			delete curr;
 			curr = prev->next;
 			return;

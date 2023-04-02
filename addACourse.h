@@ -6,4 +6,5 @@
 using namespace std;
 
 void addACourse(schoolYear *SY, Semester *semester, Course*& pHead);
+
 #endif

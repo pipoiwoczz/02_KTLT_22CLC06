@@ -1,6 +1,7 @@
 #include "main.h"
 #include "studentInAClass.h"
 #include "removeAStudent.h"
+#include "Add1StToClass.h"
 #include "SYmenu.h"
 #include "profile.h"
 #include <string>
@@ -15,7 +16,7 @@ void classMenu(Class *&pHeadClass, string nameClass, string username, schoolYear
     while (curClass -> name != nameClass) {
         curClass = curClass -> next;
     }
-
+        system("cls");
         int move; 
         ifstream fin;
 
@@ -23,8 +24,8 @@ void classMenu(Class *&pHeadClass, string nameClass, string username, schoolYear
         cout << "2. View students in class\n";
         cout << "3. Add 1 student\n";
         cout << "4. Remove 1 student\n";
-        cout << "5. View list of students in the class\n";
         cout << "0. Return to previous menu\n";
+        cout << "=========================\n";
         
         do {
             cout << "Pls enter your move: ";
@@ -32,19 +33,24 @@ void classMenu(Class *&pHeadClass, string nameClass, string username, schoolYear
             switch (move)
             {
                 case 1:
-                    inputStudentsToClass(pHeadClass -> Students);
+                    inputStudentsToClass(curClass -> Students, curSY, curClass);
+                    system("pause");
+                    classMenu(pHeadClass, nameClass, username, headSY, headSemester, headClass, curSY);
                     break;
                 case 2: 
-                    displayListOfStudents(pHeadClass -> Students);
+                    displayListOfStudents(curClass -> Students);
+                    system("pause");
+                    classMenu(pHeadClass, nameClass, username, headSY, headSemester, headClass, curSY);
                     break;
                 case 3:
-                    addAStudent(pHeadClass -> Students, fin);
+                    add1StToClass(curClass -> Students, curSY, curClass);
+                    system("pause");
+                    classMenu(pHeadClass, nameClass, username, headSY, headSemester, headClass, curSY);
                     break;
                 case 4:
-                    removeAStudent(pHeadClass -> Students);
-                    break;
-                case 5:
-                    displayListOfStudents(pHeadClass -> Students);
+                    removeAStudent(curClass -> Students);
+                    system("pause");
+                    classMenu(pHeadClass, nameClass, username, headSY, headSemester, headClass, curSY);
                     break;
                 case 0:
                     return SYMenu(username, curSY, headSemester, headClass, headSY);

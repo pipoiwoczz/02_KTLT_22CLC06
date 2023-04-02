@@ -7,7 +7,6 @@
 using namespace std;
 
 void displayListOfStudents(Student* pHead);
-void addAStudent(Student*& pHead, ifstream& f_in);
-void inputStudentsToClass(Student*& pHead);
+void inputStudentsToClass(Student*& pHead, schoolYear *curSY, Class * curClass);
 
 #endif

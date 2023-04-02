@@ -505,6 +505,6 @@ void profile_menu(string username, schoolYear *& headSY, Semester *& headSemeste
                 cout << "Please enter again\n";
                 break;
         }
-    } while (choice < 0 || choice > 7);
+    } while (choice < 0 || choice > 5);
 
 }

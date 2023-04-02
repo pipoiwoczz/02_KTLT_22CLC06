@@ -1,28 +1,11 @@
 #include "studentInAClass.h"
 #include "main.h"
+#include <unistd.h>
 #include <fstream>
 
-void addAStudent(Student*& pCurr, ifstream& fin)
+void inputStudentsToClass(Student*& pHead, schoolYear *curSY, Class * curClass)
 {
-	string temp;
-	getline(fin, temp, ',');
-	pCurr->No = stoi(temp);
-	getline(fin, temp, ',');
-	pCurr->studentId = stoi(temp);
-	getline(fin, temp, ',');
-	pCurr->firstName = temp;
-	getline(fin, temp, ',');
-	pCurr->lastName = temp;
-	getline(fin, temp, ',');
-	pCurr->gender = temp;
-	getline(fin, temp, ',');
-	pCurr->dateOfBirth = temp;
-	getline(fin, temp);
-	pCurr->socialId = temp;
-}
-
-void inputStudentsToClass(Student*& pHead)
-{
+	int no = 1;
 	ifstream fin;
 	string path, temp;
 	cout << "Enter the path of a CSV file containing students: ";
@@ -34,18 +17,66 @@ void inputStudentsToClass(Student*& pHead)
 		return;
 	}
 
-	Student* curr;
+	Student* curr = pHead;
+
 	while (!fin.eof()) {
 		if (!pHead) {
 			pHead = new Student;
 			curr = pHead;
 		}
 		else {
+			no++;
+			while (curr -> next) {
+				curr = curr -> next;
+				no++;
+			}
 			curr->next = new Student;
 			curr = curr->next;
 		}
-		addAStudent(curr, fin);
-		curr->next = nullptr;
+		string temp;
+
+		getline(fin, temp, ',');
+		curr->No = no;
+		getline(fin, temp, ',');
+		curr->studentId = stoi(temp);
+		getline(fin, temp, ',');
+		curr->firstName = temp;
+		getline(fin, temp, ',');
+		curr->lastName = temp;
+		getline(fin, temp, ',');
+		curr->gender = temp;
+		getline(fin, temp, ',');
+		curr->dateOfBirth = temp;
+		getline(fin, temp);
+		curr->socialId = temp;
+
+		mkdir("profile");
+        ofstream ofs;
+        string path = "profile//";
+
+        int n = curr -> studentId;
+
+		char tmp[100] = "";
+		string idNum;
+		int cnt = 0;
+        while (n != 0) {
+            tmp[cnt] = char(n % 10 + 48);
+            n /= 10;
+			cnt++;
+        }
+
+		for (int i = cnt - 1; i >= 0; i--) {
+			path += tmp[i];
+			idNum += tmp[i];
+		}
+		string path2 = curSY -> name + "\\" + curClass -> name + "\\" + idNum;
+		mkdir(path2.c_str());
+
+        path += ".txt";
+
+        ofs.open(path);
+        ofs << curr -> No << "," << curr -> studentId << "," << curr -> firstName << "," << curr -> lastName << "," << curr -> gender << "," << curr -> dateOfBirth << "," << curr -> socialId << endl;
+        ofs.close();
 	}
 	fin.close();
 }
@@ -53,6 +84,7 @@ void inputStudentsToClass(Student*& pHead)
 void displayListOfStudents(Student* pHead)
 {
 	Student* temp = pHead;
+
 	while (temp) {
 		cout << temp->No;
 		if (temp->No >= 10)
