@@ -43,7 +43,7 @@ void SEMenu(string username, schoolYear *& curSY, Semester *& headSemester, Clas
 
         switch (move) {
             case 1: 
-                addACourse(cur -> Courses);
+                addACourse(headSY, headSemester, headSemester -> Courses);
                 break;
             case 2:
                 inputStudentsToCourse(cur -> Courses);
@@ -61,7 +61,7 @@ void SEMenu(string username, schoolYear *& curSY, Semester *& headSemester, Clas
                 removeAStudent(cur -> Courses -> students);
                 break;
             case 7: 
-                deleteACourse(headSemester -> Courses);
+                deleteACourse(headSY, headSemester, headSemester -> Courses);
                 break;
             case 0:
                 profile_menu(username, headSY, headSemester, headClass);

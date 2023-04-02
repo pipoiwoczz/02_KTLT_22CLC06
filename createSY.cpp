@@ -12,7 +12,7 @@ bool isValidSY(string SY)
     string year1, year2;
     int idx = 0;
 
-    while (isnumber(SY[idx]) == true)   {
+    while (SY[idx] <= '9' && SY[idx] >= '0')   {
         year1 += SY[idx];
         ++idx;
     }
@@ -22,7 +22,7 @@ bool isValidSY(string SY)
     
     ++idx;
 
-    while (isnumber(SY[idx]) == true)   {
+    while (SY[idx] <= '9' && SY[idx] >= '0')   {
         year2 += SY[idx];
         ++idx;
     }
@@ -37,13 +37,18 @@ bool existedSY(string SY)    {
     ifstream ifs;
 
     ifs.open("SY.txt");
-    while (!ifs.eof())  {
-        string tmpSY;
-        getline(ifs, tmpSY);
-        if (tmpSY == SY)
-            return true;
+    string tmpSY;
+    
+    if (ifs.is_open()) {
+        while (getline(ifs, tmpSY))  {
+            if (tmpSY == SY)    {
+                ifs.close();
+                return true;
+            }
+        }
     }
 
+    ifs.close();
     return false;
 }
 
@@ -71,9 +76,12 @@ void createSY(schoolYear *& headSY)
         string tmp;
         ifs.open("SY.txt");
         ofs.open("tmp.txt");
-        while (getline (ifs, tmp)) {
-            ofs << tmp << endl;
+        if (ifs.is_open()) {
+            while (getline (ifs, tmp)) {
+                ofs << tmp << endl;
+            }
         }
+        
         ofs << SY;
         ofs.close();
         ifs.close();

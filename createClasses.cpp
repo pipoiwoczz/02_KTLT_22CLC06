@@ -5,7 +5,7 @@
 #include <fstream>
 #include <unistd.h>
 
-void createClass(Class *& headClass, string SY)
+void createClass(Class *& headClass, schoolYear *& headSY)
 {
     string nameClass;
 
@@ -13,13 +13,7 @@ void createClass(Class *& headClass, string SY)
     cout << "Pls enter name of class: ";
     getline(cin, nameClass);
 
-    Class * tmpClass = headClass;
-
-    headClass = new Class;
-    headClass -> name = nameClass;
-    headClass -> next = tmpClass;
-
-    string path = SY + "\\" + nameClass;
+    string path = headSY -> name + "\\" + nameClass;
 
     if (mkdir(path.c_str()) == -1)  {
         cout << "This class has already been created\n";
@@ -30,7 +24,7 @@ void createClass(Class *& headClass, string SY)
         cout << "Choose your move: ";
         cin >> move;
         if (move == 1)  
-            createClass(headClass, SY);
+            createClass(headClass, headSY);
         else
             return;
     }
@@ -38,20 +32,29 @@ void createClass(Class *& headClass, string SY)
         ifstream ifs;
         ofstream ofs;
 
-        ifs.open("class.txt");
-        ofs.open("tmp.txt");
+        string sy = headSY -> name + "//";
 
-        while (!ifs.eof())  {
-            string tmp;
-            getline(ifs, tmp);
-            ofs << tmp << endl;
-        }        
+        ifs.open(sy + "class.txt");
+        ofs.open(sy + "tmp.txt");
 
-        ofs << nameClass << endl;
+        if (ifs.is_open())
+            while (!ifs.eof())  {
+                string tmp;
+                getline(ifs, tmp);
+                ofs << tmp << endl;
+            }        
+
+        ofs << nameClass;
 
         ifs.close();
         ofs.close();
-        remove("class.txt");
-        rename("tmp.txt", "class.txt");
+        remove((sy + "class.txt").c_str());
+        rename((sy + "tmp.txt").c_str(), (sy + "class.txt").c_str());
+
+        Class * tmpClass = headClass;
+
+        headClass = new Class;
+        headClass -> name = nameClass;
+        headClass -> next = tmpClass;
     }
 }

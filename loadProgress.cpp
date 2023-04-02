@@ -21,15 +21,27 @@ void loadProgress(schoolYear *&headSY, Semester *&headSemester, Class *& headCla
         return;
     } else {
         while (getline(fin, tmp)) {
-            if (!headSY) {
-                headSY = new schoolYear;
+                /*headSY = new schoolYear;
                 headSY -> name = tmp;
                 SYtmp = headSY;
+
+                loadClass(headSY, headSemester, headClass);
+                loadSemester(headSY, headSemester, headClass);
             } else {
                 SYtmp -> next = new schoolYear;
                 SYtmp -> name = tmp;
                 SYtmp = SYtmp -> next;
-            }
+
+                loadClass(SYtmp, headSemester, headClass);
+                loadSemester(headSY, headSemester, headClass); */
+
+                schoolYear * tmpSY = headSY;
+                headSY = new schoolYear;
+                headSY -> name = tmp;
+                headSY -> next = tmpSY;
+                loadClass(headSY, headSemester, headClass);
+                loadSemester(headSY, headSemester, headClass);
+
         }
     }
 
@@ -40,27 +52,31 @@ void loadProgress(schoolYear *&headSY, Semester *&headSemester, Class *& headCla
 
 void loadClass(schoolYear *&headSY, Semester *&headSemester, Class *& headClass) {
     ifstream fin;
-    string classPath = headSY -> name + "//" + "class.txt";
-    fin.open(classPath);
+    schoolYear *curSY = headSY;
 
-    string tmp;
-    Class * ClassTmp = headClass;
+        string classPath = curSY -> name + "//" + "class.txt";
+        fin.open(classPath);
 
-    if (!fin.is_open()) {
-        cout << "No class to load!!\n";
-        return;
-    }
+        string tmp;
+        Class * ClassTmp = headClass;
 
-    while (getline (fin, tmp)) {
-        if (!headClass) {
-            headClass = new Class;
-            headClass -> name = tmp;
-            ClassTmp = headClass;
-        } else {
-            ClassTmp -> next = new Class;
-            ClassTmp -> name = tmp;
-            ClassTmp = ClassTmp -> next;
+        if (!fin.is_open()) {
+            cout << "No class to load!!\n";
+            return;
         }
+        else 
+            while (getline (fin, tmp)) {
+                if (!headClass) {
+                    headClass = new Class;
+                    headClass -> name = tmp;
+                    ClassTmp = headClass;
+                } else {
+                    ClassTmp -> next = new Class;
+                    ClassTmp -> next -> name = tmp;
+                    ClassTmp = ClassTmp -> next;
+                }
+            
+
     }
 
     fin.close();
@@ -75,18 +91,18 @@ void loadSemester(schoolYear *&headSY, Semester *&headSemester, Class *& headCla
     Semester * SEtmp = headSemester;
 
     if (!fin.is_open()) {
-        cout << "No class to load!!\n";
+        cout << "No semester to load!!\n";
         return;
     }
 
     while (fin >> tmp) {
-        if (!headClass) {
+        if (!headSemester) {
             headSemester = new Semester;
             headSemester -> season = tmp;
             SEtmp = headSemester;
         } else {
             SEtmp -> next = new Semester;
-            SEtmp -> season = tmp;
+            SEtmp -> next -> season = tmp;
             SEtmp = SEtmp -> next;
         }
     }

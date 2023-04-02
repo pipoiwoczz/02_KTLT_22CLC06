@@ -20,7 +20,7 @@ void viewProfile(string username, schoolYear *& headSY, Semester *& headSemester
     ifstream ifs;
 
     ifs.open(filename, ios::in);
-    if (!ifs.is_open()) cout << "SOME THING WRONG ASDA123!!!\n\n\n";
+    if (!ifs.is_open()) cout << "SOME THING WRONG \n\n\n";
     getline(ifs, tmp);
     cout << "Username: " << tmp << endl;
     getline(ifs, tmp);
@@ -113,18 +113,16 @@ void editProfile(string username, schoolYear *& headSY, Semester *& headSemester
                     if (line == 2) {
                         cin.ignore();
 	                    cout << "Enter the current password: ";
-	                    getline(cin, confirmPass);
+                        cin >> confirmPass;
 
 	                    while (confirmPass != tmp) {
 		                    cout << "Password wrong!\nPlease enter the password again.\n";
-		                    cin.ignore();
 		                    cout << "Enter the current password: ";
-		                    getline(cin, confirmPass);
+                            cin >> confirmPass;
 	                    }
-
-                        cin.ignore();
+    
                         cout << "Enter new password: ";
-                        getline(cin, confirmPass);
+                        cin >> confirmPass;
 
                         out << confirmPass << "\n";
                     } 
@@ -132,9 +130,8 @@ void editProfile(string username, schoolYear *& headSY, Semester *& headSemester
                     getline(in, tmp);
                     out << tmp << endl;
 
-                    cin.ignore();
                     cout << "Enter your teacher ID: ";
-                    getline(cin, tmp);
+                    cin >> tmp;
                     out << tmp << endl;
 
 
@@ -168,7 +165,7 @@ void editProfile(string username, schoolYear *& headSY, Semester *& headSemester
                     } while (gender < 1 || gender > 3);
 
                     int day, month, year;
-                    cout << "Enter your date of birth (dd/mm/yy): ";
+                    cout << "Enter your date of birth (dd mm yy): ";
                     do {
                         cin >> day >> month >> year;
                         if (isValidBirth(day, month, year) == false) {
@@ -201,21 +198,18 @@ void editProfile(string username, schoolYear *& headSY, Semester *& headSemester
                 while(getline(in, tmp)) {
 
                     if (line == 2) {
-                        cin.ignore();
 	                    cout << "Enter the current password: ";
-	                    getline(cin, confirmPass);
+                        cin >> confirmPass;
 
 	                    while (confirmPass != tmp) {
 		                    cout << "Password wrong!\nPlease enter the password again.\n";
-		                    cin.ignore();
 		                    cout << "Enter the current password: ";
-		                    getline(cin, confirmPass);
+		                    cin >> confirmPass;
 	                    }
 
-                        cin.ignore();
                         cout << "Enter new password: ";
                         string newPass;
-                        getline(cin, newPass);
+                        cin >> newPass;
 
                         out << newPass << "\n";
                     } else {
@@ -436,10 +430,8 @@ void profile_menu(string username, schoolYear *& headSY, Semester *& headSemeste
     cout << "1. View profile\n";
     cout << "2. Change profile\n";
     cout << "3. Create New School Year\n";
-    cout << "4. View and Choose available School Year\n";
-    cout << "5. Create class\n";
-    cout << "6. View available Class\n";
-    cout << "7. Choose available Class\n";
+    cout << "4. View available School Year\n";
+    cout << "5. Choose available School Year\n";
     cout << "0. Log out and back to main menu\n";
     cout << "===========================\n";
     cout << "Your choice is: ";
@@ -453,8 +445,7 @@ void profile_menu(string username, schoolYear *& headSY, Semester *& headSemeste
             case 2:
                 return editProfile(username, headSY, headSemester, headClass);
             case 3:
-                int n;
-                createSY(headSY, n);
+                createSY(headSY);
                 cout << "SY Created!!\n";
                 system("pause");
                 profile_menu(username, headSY, headSemester, headClass);
@@ -466,78 +457,41 @@ void profile_menu(string username, schoolYear *& headSY, Semester *& headSemeste
                     cur = cur -> next;
                 }
                 system("pause");
+                return profile_menu(username, headSY, headSemester, headClass);
+                break;
+            }
+            case 5: {
+                schoolYear * cur = headSY;
+                while(cur)  {
+                    cout << cur -> name << endl;
+                    cur = cur -> next;
+                }
+                system("pause");
                 int move;
-                if (headSY) {
-                    cout << "1. Enter and work with the school year \n";
-                    cout << "0. Back to menu\n";
-                    cout << "Enter your move: ";
-                    cin >> move;
-                    while (move != 0 && move != 1) {
-                        cout << "Enter your move: ";
-                        cin >> move;
-                    }
-                }
-                if (move == 0)
-                    profile_menu(username, headSY, headSemester, headClass); 
-                else {
-                    string SY;
-                    cur = headSY;
-                    cout << "Select your schooyear: ";
-                    cin >> SY;
-                    do {
-                        if (!cur) {
-                            cout << "Please enter correct schoolyear: ";
-                            cin >> SY;
-                            cur = headSY;
-                            continue;
-                        }
 
-                        if (cur -> name == SY)
-                            break;
-                        else {
-                            cur = cur -> next;
-                        }
-                    } while (cur -> name != SY);
+                string SY;
+                cur = headSY;
+                cout << "Select your schooyear: ";
+                cin >> SY;
+                do {
+                    if (!cur) {
+                        cout << "Please enter correct schoolyear (or if you want to back to previous menu, please enter 0): ";
+                        cin >> SY;
+                        if (SY == "0") 
+                            return profile_menu(username, headSY, headSemester, headClass);
+                        cur = headSY;
+                        continue;
+                    }
 
-                    SYMenu(username, cur, headSemester, headClass, headSY);
-                }
-                break;
-            }
-            case 5:
-                createClass(headClass);
-                system("pause");
-                profile_menu(username, headSY, headSemester, headClass);
-                break;
-            case 6: {
-                Class *curClass = headClass;
-                if (!curClass) {
-                    cout << "There is no class now!!\n";
-                    system("pause");
-                    return profile_menu(username, headSY, headSemester, headClass);
-                } else {
-                    while (curClass) {
-                        cout << curClass -> name << endl;
-                        curClass = curClass -> next;
+                    if (cur -> name == SY)
+                        break;
+                    else {
+                        cur = cur -> next;
                     }
-                }
-                system("pause");
-                profile_menu(username, headSY, headSemester, headClass);
-                break;
-            }
-            case 7: {
-                Class *curClass = headClass;
-                if (!curClass) {
-                    cout << "There is no class now!!\n";
-                    system("pause");
-                    return profile_menu(username, headSY, headSemester, headClass);
-                } else {
-                    while (curClass) {
-                        cout << curClass -> name << endl;
-                        curClass = curClass -> next;
-                    }
-                    string nameClass;
-                    return classMenu(headClass, nameClass, username, headSY, headSemester, headClass);
-                }
+                } while (cur -> name != SY);
+
+                SYMenu(username, cur, headSemester, headClass, headSY);
+                
                 break;
             }
             case 0: {
