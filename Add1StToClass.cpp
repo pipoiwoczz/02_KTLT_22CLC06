@@ -58,7 +58,6 @@ void add1StToClass(Student *& headStudent, schoolYear * curSY, Class * curClass)
 		ofs << headStudent -> studentId << endl << "1234" << endl;
 		ofs << curSY -> name << endl;
 		ofs << curClass -> name << endl;
-		ofs << 1 << endl;
 		ofs << headStudent -> firstName << "," << headStudent -> lastName << endl;
 		ofs << headStudent -> gender << endl;
 		ofs << headStudent -> dateOfBirth;
@@ -133,7 +132,6 @@ void add1StToClass(Student *& headStudent, schoolYear * curSY, Class * curClass)
 		ofs << tmp -> studentId << endl << "1234" << endl;
 		ofs << curSY -> name << endl;
 		ofs << curClass -> name << endl;
-		ofs << 1 << endl;
 		ofs << tmp -> firstName << "," << tmp -> lastName << endl;
 		ofs << tmp -> gender << endl;
     	ofs << tmp -> dateOfBirth;

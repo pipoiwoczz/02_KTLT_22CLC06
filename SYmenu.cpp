@@ -7,6 +7,7 @@
 #include "menuClass.h"
 #include <iostream>
 #include <string>
+#include <fstream>
 using namespace std;
 
 void SYMenu(string username, schoolYear *& curSY, Semester *& headSemester, Class *& headClass, schoolYear * headSY) {
@@ -79,6 +80,22 @@ void SYMenu(string username, schoolYear *& curSY, Semester *& headSemester, Clas
                 cout << "Enter your move: ";
                 cin >> choice;
             } while (choice > 3 || choice < 1);
+
+            ofstream ofs;
+            ifstream ifs;
+            string tmp;
+            ifs.open("SY.txt");
+            ofs.open("tmp.txt");
+            if (ifs.is_open()) {
+                while (getline (ifs, tmp)) {
+                    ofs << tmp << endl;
+                }
+            }            
+            ofs << choice;
+            ofs.close();
+            ifs.close();
+            remove("SY.txt");
+            rename("tmp.txt", "SY.txt");
 
             return SEMenu( username, curSY, headSemester, headClass, choice, headSY);
         }

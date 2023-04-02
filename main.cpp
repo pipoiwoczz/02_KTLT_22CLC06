@@ -28,6 +28,11 @@ int main() {
 
     while (headClass) {
         Class * tmp = headClass;
+        while (tmp -> Students) {
+            Student *tmpSt = tmp -> Students;
+            tmp -> Students = tmp -> Students -> next;
+            delete tmpSt;
+        }
         headClass = headClass -> next;
         delete tmp;
     }
