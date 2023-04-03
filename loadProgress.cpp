@@ -52,7 +52,7 @@ void loadClass(schoolYear * headSY) {
 
     
     if (fin.is_open())  {
-        Class * headClass = headSY -> Classes;
+        Class * headClass = nullptr;
         string tmp;
 
         while (getline (fin, tmp))  {
@@ -62,6 +62,8 @@ void loadClass(schoolYear * headSY) {
             headClass -> name = tmp;
             headClass -> next = tmpClass;
         }   
+
+        headSY -> Classes = headClass;
     }
         
     fin.close();
@@ -72,16 +74,14 @@ void loadSemester(schoolYear * headSY) {
     string path = headSY -> name + "/" + "semester.txt";
     fin.open(path);
 
-    if (!fin.is_open()) {
-        cout << "No semester to load!!\n";
+    if (!fin.is_open()) 
         return;
-    }
 
-    Semester * headSE = headSY -> Semesters;
+    Semester * headSE = nullptr;
     int tmp;
 
     while (fin >> tmp)  {
-        Semester * tmpSE = headSE ;
+        Semester * tmpSE = headSE;
 
         headSE = new Semester;
         headSE -> season = tmp;
@@ -98,14 +98,14 @@ void loadSemester(schoolYear * headSY) {
             
             ifs >> sea >> start >> end;
 
-            headSE -> startDate = end;
+            headSE -> startDate = start;
             headSE -> endDate = end;
         }
 
         ifs.close();
-            
-
     }
+
+    headSY -> Semesters = headSE;
 
     fin.close();
 }
