@@ -20,6 +20,7 @@ void classMenu(Class *&pHeadClass, string nameClass, string username, schoolYear
         int move; 
         ifstream fin;
 
+        cout << "\tClass Menu: " << curClass -> name << endl;
         cout << "1. Add students of class (by importing file)\n";
         cout << "2. View students in class\n";
         cout << "3. Add 1 student\n";
@@ -38,7 +39,7 @@ void classMenu(Class *&pHeadClass, string nameClass, string username, schoolYear
                     classMenu(pHeadClass, nameClass, username, headSY, headSemester, headClass, curSY);
                     break;
                 case 2: 
-                    displayListOfStudents(curClass -> Students);
+                    displayListOfStudents(curClass -> Students, curSY -> name, curClass -> name);
                     system("pause");
                     classMenu(pHeadClass, nameClass, username, headSY, headSemester, headClass, curSY);
                     break;

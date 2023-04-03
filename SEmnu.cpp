@@ -21,7 +21,7 @@ void SEMenu(string username, schoolYear *& curSY, Semester *& headSemester, Clas
     }
 
     system("cls");
-    cout << "Semester Menu: ";
+    cout << "\tSemester Menu: ";
     if (cur -> season == 1) cout << "Spring\n";
     if (cur -> season == 2) cout << "Summer\n";
     if (cur -> season == 3) cout << "Autumn\n";

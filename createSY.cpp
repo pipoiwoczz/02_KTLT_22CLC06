@@ -82,7 +82,8 @@ void createSY(schoolYear *& headSY)
             }
         }
         
-        ofs << SY;
+        ofs << SY << endl;
+        ofs << 1;
         ofs.close();
         ifs.close();
         remove("SY.txt");

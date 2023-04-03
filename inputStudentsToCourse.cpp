@@ -24,7 +24,7 @@ void inputStudentsToCourse(Course*& pCourse)
 			currStudent->next = new Student;
 			currStudent = currStudent->next;
 		}
-		addAStudent(currStudent, fin);
+		// addAStudent(currStudent, fin);
 		currStudent->next = nullptr;
 	}
 	fin.close();

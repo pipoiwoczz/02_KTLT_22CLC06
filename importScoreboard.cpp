@@ -26,7 +26,7 @@ void importScoreBoard(Course* pCourse)
 		getline(profileSt, stClass);
 		profileSt.close();
 
-        string path2 = schoolYear + "//" + stClass + "//" + temp + "//" + char(pCourse -> courseID + 48) + ".txt";
+        string path2 = schoolYear + "//" + stClass + "//" + temp + "//" + pCourse -> courseID + ".txt";
         ofstream fout(path2);
 
 		fout << No << "," << temp << ",";

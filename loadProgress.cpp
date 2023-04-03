@@ -31,13 +31,14 @@ void loadProgress(schoolYear *&headSY, Semester *&headSemester, Class *& headCla
 
                 loadClass(SYtmp, headSemester, headClass);
                 loadSemester(headSY, headSemester, headClass); */
-
-                schoolYear * tmpSY = headSY;
-                headSY = new schoolYear;
-                headSY -> name = tmp;
-                headSY -> next = tmpSY;
-                loadClass(headSY);
-                loadSemester(headSY);
+                if (tmp != "1" && tmp != "2" && tmp != "3") {
+                    schoolYear * tmpSY = headSY;
+                    headSY = new schoolYear;
+                    headSY -> name = tmp;
+                    headSY -> next = tmpSY;
+                    loadClass(headSY);
+                    loadSemester(headSY);
+                }
         }
     }
 

@@ -107,13 +107,22 @@ void inputStudentsToClass(Student*& pHead, schoolYear *curSY, Class * curClass)
 	fin.close();
 }
 
-void displayListOfStudents(Student* pHead)
+void displayListOfStudents(Student* pHead, string SY, string cl)
 {
 	Student* temp = pHead;
 
+	string path = SY + "//" + cl + "//" + "student.txt";
+	string tmp;
+	int no = 1;
+
+	ifstream ifs(path);
+
 	while (temp) {
-		cout << temp->No;
-		if (temp->No >= 10)
+		cout << no;
+		temp -> No = no;
+		if (getline(ifs, tmp))
+			no++;
+		if (no >= 10)
 			cout << " ";
 		cout << "  ";
 		cout << temp->studentId << "  ";
