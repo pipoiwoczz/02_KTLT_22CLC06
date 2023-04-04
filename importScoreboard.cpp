@@ -13,8 +13,8 @@ void importScoreBoard(Course* pCourse)
 	fin.open(pathOfScoreboard);
 
 	while (!fin.eof()) {
-		string temp, No;
-		getline(fin, No, ',');
+		string temp;
+		getline(fin, temp, ',');
 		getline(fin, temp, ',');
 		string path = "./profile/" + temp + ".txt";
 		string schoolYear;
@@ -29,7 +29,7 @@ void importScoreBoard(Course* pCourse)
         string path2 = schoolYear + "//" + stClass + "//" + temp + "//" + pCourse -> courseID + ".txt";
         ofstream fout(path2);
 
-		fout << No << "," << temp << ",";
+		fout << temp << ",";
 		getline(fin, temp, ',');
 		fout << temp << ",";
 		getline(fin, temp, ',');
