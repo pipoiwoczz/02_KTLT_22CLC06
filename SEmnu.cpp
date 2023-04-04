@@ -6,19 +6,16 @@
 #include "deleteACourse.h"
 #include "profile.h"
 #include "inputStudentsToCourse.h"
+#include "SYmenu.h"
 #include <iostream>
 #include <fstream>
 using namespace std;
 
-void SEMenu(string username, schoolYear *& curSY, Semester *& headSemester, Class *& headClass, int choice, schoolYear * headSY) {
-    Semester *cur = headSemester;
+void SEMenu(string username, schoolYear * headSY, schoolYear * curSY, int choice) {
+    Semester *cur = curSY -> Semesters;
 
-    if (choice == 2) {
+    while (cur && cur -> season != choice)
         cur = cur -> next;
-    } 
-    if (choice == 3) {
-        cur = cur -> next -> next;
-    }
 
     system("cls");
     cout << "\tSemester Menu: ";
@@ -37,13 +34,15 @@ void SEMenu(string username, schoolYear *& curSY, Semester *& headSemester, Clas
 
     int move;
     do {
+        system("pause");
+        SEMenu(username, headSY, curSY, choice);
         cout << "=============================\n";
         cout << "Enter your move: ";
         cin >> move;
 
         switch (move) {
             case 1: 
-                addACourse(headSY, headSemester, headSemester -> Courses);
+                addACourse(curSY, cur, cur -> Courses);
                 break;
             case 2:
                 inputStudentsToCourse(cur -> Courses);
@@ -61,10 +60,10 @@ void SEMenu(string username, schoolYear *& curSY, Semester *& headSemester, Clas
                 removeAStudent(cur -> Courses -> students);
                 break;
             case 7: 
-                deleteACourse(headSY, headSemester, headSemester -> Courses);
+                deleteACourse(curSY, cur, cur -> Courses);
                 break;
             case 0:
-                profile_menu(username, headSY, headSemester, headClass);
+                SYMenu(username, headSY, curSY);
                 break;
         }
     } while (move < 0 || move > 7);

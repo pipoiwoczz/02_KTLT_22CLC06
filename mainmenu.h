@@ -3,6 +3,6 @@
 #include "main.h"
 
 
-void mainMenu(schoolYear *& headSY, Semester *& headSemester, Class *& headClass);
+void mainMenu(schoolYear *& headSY);
 
 #endif

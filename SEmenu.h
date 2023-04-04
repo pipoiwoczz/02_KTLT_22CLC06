@@ -1,3 +1,3 @@
 #include "main.h"
 
-    void SEMenu(string username, schoolYear *& curSY, Semester *& headSemester, Class *& headClass, int choice, schoolYear * headSY);
+    void SEMenu(string username, schoolYear * headSY, schoolYear * curSY, int choice);

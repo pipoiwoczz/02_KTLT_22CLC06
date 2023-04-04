@@ -10,9 +10,10 @@
 #include <fstream>
 using namespace std;
 
-void SYMenu(string username, schoolYear *& curSY, Semester *& headSemester, Class *& headClass, schoolYear * headSY) {
+void SYMenu(string username, schoolYear *& headSY, schoolYear *& curSY) {
 
     system("cls");
+    cout << "\tSchool Year Menu: " << curSY -> name << endl;
     cout << "1. Create Semester\n";
     cout << "2. View available Semester\n";
     cout << "3. Choose available Semester\n";
@@ -33,13 +34,13 @@ void SYMenu(string username, schoolYear *& curSY, Semester *& headSemester, Clas
 
     switch (move) {
         case 1: {
-            createSemester(username, curSY, headSemester, headClass);
-            return SYMenu(username, curSY, headSemester, headClass, headSY);
+            createSemester(username, headSY, curSY);
+            return SYMenu(username, headSY, curSY);
             break;
         }
 
         case 2: {
-            Semester * cur = headSemester;
+            Semester * cur = curSY -> Semesters;
             while (cur) {
                 if (cur -> season == 1) {
                     cout << "Spring\n";
@@ -53,12 +54,12 @@ void SYMenu(string username, schoolYear *& curSY, Semester *& headSemester, Clas
                 cur = cur -> next;
             }
             system("pause");
-            SYMenu(username, curSY, headSemester, headClass, headSY);
+            SYMenu(username, headSY, curSY);
         }
             break;
 
         case 3: {
-            Semester * cur = headSemester;
+            Semester * cur = curSY -> Semesters;
 
             int i = 1;
             while (cur) {
@@ -87,32 +88,32 @@ void SYMenu(string username, schoolYear *& curSY, Semester *& headSemester, Clas
             ifs.open("SY.txt");
             ofs.open("tmp.txt");
             if (ifs.is_open()) {
+                ofs << choice << endl;
                 while (getline (ifs, tmp)) {
                     ofs << tmp << endl;
                 }
             }            
-            ofs << choice;
             ofs.close();
             ifs.close();
             remove("SY.txt");
             rename("tmp.txt", "SY.txt");
 
-            return SEMenu( username, curSY, headSemester, headClass, choice, headSY);
+            return SEMenu( username, headSY,curSY, choice);
         }
 
         case 4:
-            createClass(headClass, headSY);
+            createClass(curSY);
             system("pause");
-            SYMenu(username, curSY, headSemester, headClass, headSY);
+            SYMenu(username, headSY, curSY);
             break;
 
         case 5: {
-            Class *curClass = headClass;
+            Class *curClass = curSY -> Classes;
 
             if (!curClass) {
                 cout << "There is no class now!!\n";
                 system("pause");
-                return SYMenu(username, curSY, headSemester, headClass, headSY);
+                return SYMenu(username, headSY, curSY);
             } else {
                 while (curClass) {
                     cout << curClass -> name << endl;
@@ -120,25 +121,25 @@ void SYMenu(string username, schoolYear *& curSY, Semester *& headSemester, Clas
                 }
             }
             system("pause");
-            SYMenu(username, curSY, headSemester, headClass, headSY);
+            SYMenu(username, headSY, curSY);
             break;
         }
             break;
 
         case 6: {
-            Class *curClass = headClass;
+            Class *curClass = curSY -> Classes;
 
             if (!curClass) {
                 cout << "There is no class now!!\n";
                 system("pause");
-                return SYMenu(username, curSY, headSemester, headClass, headSY);
+                return SYMenu(username, headSY, curSY);
             } else {
                 while (curClass) {
                     cout << curClass -> name << endl;
                     curClass = curClass -> next;
                 }
 
-                curClass = headClass;
+                curClass = curSY -> Classes;
 
                 do {
                     cout << "==================\n";
@@ -151,7 +152,7 @@ void SYMenu(string username, schoolYear *& curSY, Semester *& headSemester, Clas
                     if (curClass == nullptr)
                     {
                         cout << "You've entered a non-exist class name.\n";
-                        curClass = headClass;
+                        curClass = curSY -> Classes;
                     } else {
                         return classMenu(headClass, nameClass, username, headSY, headSemester, headClass, curSY);
                     }
@@ -162,7 +163,7 @@ void SYMenu(string username, schoolYear *& curSY, Semester *& headSemester, Clas
         }
             break;
         case 0:
-            return profile_menu(username, headSY, headSemester, headClass);
+            return profile_menu(username, headSY);
             break;
     }
 }

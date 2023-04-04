@@ -5,7 +5,7 @@
 #include <string>
 using namespace std;
 
-void loadProgress(schoolYear *&headSY, Semester *&headSemester, Class *& headClass) {
+void loadProgress(schoolYear *&headSY) {
 
     string tmp;
     ifstream fin;
@@ -48,7 +48,7 @@ void loadProgress(schoolYear *&headSY, Semester *&headSemester, Class *& headCla
 
 void loadClass(schoolYear * headSY) {
     ifstream fin;
-    string classPath = headSY -> name + "/" + "class.txt";
+    string classPath = headSY -> name + "//" + "class.txt";
     fin.open(classPath);
 
     
@@ -65,6 +65,8 @@ void loadClass(schoolYear * headSY) {
         }   
 
         headSY -> Classes = headClass;
+    } else {
+        cout << "can't open class.txt\n";
     }
         
     fin.close();
@@ -72,7 +74,7 @@ void loadClass(schoolYear * headSY) {
 
 void loadSemester(schoolYear * headSY) {
     ifstream fin;
-    string path = headSY -> name + "/" + "semester.txt";
+    string path = headSY -> name + "//" + "semester.txt";
     fin.open(path);
 
     if (!fin.is_open()) 
@@ -88,7 +90,7 @@ void loadSemester(schoolYear * headSY) {
         headSE -> season = tmp;
         headSE -> next = tmpSE;
 
-        string semesterIn4 = headSY -> name + "/" + char(tmp + 48) + "/" + "infor.txt";
+        string semesterIn4 = headSY -> name + "//" + char(tmp + 48) + "//" + "infor.txt";
 
         ifstream ifs;
         ifs.open(semesterIn4);

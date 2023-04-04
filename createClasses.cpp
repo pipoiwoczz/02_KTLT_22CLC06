@@ -5,7 +5,7 @@
 #include <fstream>
 #include <unistd.h>
 
-void createClass(Class *& headClass, schoolYear *& headSY)
+void createClass(schoolYear *& curSY)
 {
     string nameClass;
 
@@ -13,7 +13,7 @@ void createClass(Class *& headClass, schoolYear *& headSY)
     cout << "Pls enter name of class: ";
     getline(cin, nameClass);
 
-    string path = headSY -> name + "\\" + nameClass;
+    string path = curSY -> name + "\\" + nameClass;
 
     if (mkdir(path.c_str()) == -1)  {
         cout << "This class has already been created\n";
@@ -24,7 +24,7 @@ void createClass(Class *& headClass, schoolYear *& headSY)
         cout << "Choose your move: ";
         cin >> move;
         if (move == 1)  
-            createClass(headClass, headSY);
+            createClass(curSY);
         else
             return;
     }
@@ -32,7 +32,7 @@ void createClass(Class *& headClass, schoolYear *& headSY)
         ifstream ifs;
         ofstream ofs;
 
-        string sy = headSY -> name + "//";
+        string sy = curSY -> name + "//";
 
         ifs.open(sy + "class.txt");
         ofs.open(sy + "tmp.txt");
@@ -51,10 +51,10 @@ void createClass(Class *& headClass, schoolYear *& headSY)
         remove((sy + "class.txt").c_str());
         rename((sy + "tmp.txt").c_str(), (sy + "class.txt").c_str());
 
-        Class * tmpClass = headClass;
+        Class * tmpClass = curSY -> Classes;
 
-        headClass = new Class;
-        headClass -> name = nameClass;
-        headClass -> next = tmpClass;
+        curSY -> Classes = new Class;
+        curSY -> Classes -> name = nameClass;
+        curSY -> Classes -> next = tmpClass;
     }
 }

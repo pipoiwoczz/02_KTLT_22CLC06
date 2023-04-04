@@ -84,7 +84,8 @@ void inputStudentsToClass(Student*& pHead, schoolYear *curSY, Class * curClass)
 		ofs << curClass -> name << endl;
 		ofs << curr -> firstName << "," << curr -> lastName << endl;
 		ofs << curr -> gender << endl;
-		ofs << curr -> dateOfBirth;
+		ofs << curr -> dateOfBirth << endl;
+		ofs << curr -> socialId;
         ofs.close();
 
 		// add data to file student.txt in folder SY//Class (only include student ID)

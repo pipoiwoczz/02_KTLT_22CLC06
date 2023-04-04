@@ -7,7 +7,7 @@
 #include <cstring>
 using namespace std;
 
-void mainMenu(schoolYear *& headSY, Semester *& headSemester, Class *& headClass) {
+void mainMenu(schoolYear *& headSY) {
     system("cls");
     cout << "Main menu\n";
     cout << "1. Register\n";
@@ -21,10 +21,10 @@ void mainMenu(schoolYear *& headSY, Semester *& headSemester, Class *& headClass
         cin >> choice;
         switch (choice) {
             case 1: 
-                signUp(headSY, headSemester, headClass);
+                signUp(headSY);
                 break;
             case 2:
-                login(headSY, headSemester, headClass);
+                login(headSY);
                 break;
             case 0:
                 return;

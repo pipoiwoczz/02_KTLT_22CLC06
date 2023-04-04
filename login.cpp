@@ -33,7 +33,7 @@ bool isValidUsername(char *username) {
     return true;
 }
 
-bool isStaff(schoolYear *& headSY, Semester *& headSemester, Class *& headClass) {
+bool isStaff(schoolYear *& headSY) {
     string code;
     int x;
 
@@ -51,7 +51,7 @@ bool isStaff(schoolYear *& headSY, Semester *& headSemester, Class *& headClass)
                 do {
                     cin >> x;
                     if (x == 0) {
-                        mainMenu(headSY,headSemester, headClass);
+                        mainMenu(headSY);
                         return false;
                     }
                     if (x == 1) break;
@@ -62,7 +62,7 @@ bool isStaff(schoolYear *& headSY, Semester *& headSemester, Class *& headClass)
     return true;
 }
 
-void signUp(schoolYear *& headSY, Semester *& headSemester, Class *& headClass){
+void signUp(schoolYear *& headSY){
     system("cls");
     cin.ignore();
     char *username, *password;
@@ -73,7 +73,7 @@ void signUp(schoolYear *& headSY, Semester *& headSemester, Class *& headClass){
 
     cout << "You can only sign up as a teacher: \n";
     cout << "=================================\n";
-    isStaff(headSY, headSemester, headClass);
+    isStaff(headSY);
     cout << "Enter username: ";
     // cin.ignore();
     cin.getline(tmp, 100, '\n');
@@ -94,7 +94,7 @@ void signUp(schoolYear *& headSY, Semester *& headSemester, Class *& headClass){
     strcpy(password, tmp);
 
     if (!isValidUsername(username)) {
-        return mainMenu(headSY,headSemester, headClass);
+        return mainMenu(headSY);
     }
 
     char name[] = "User";
@@ -110,7 +110,7 @@ void signUp(schoolYear *& headSY, Semester *& headSemester, Class *& headClass){
         system("pause");
         delete password;
         delete username;
-        signUp(headSY,headSemester, headClass);
+        signUp(headSY);
         return;
     }
 
@@ -131,7 +131,7 @@ void signUp(schoolYear *& headSY, Semester *& headSemester, Class *& headClass){
     delete password;
     delete username;
 
-    mainMenu(headSY,headSemester, headClass);
+    mainMenu(headSY);
 }
 
 
@@ -162,7 +162,7 @@ void login(schoolYear *& headSY, Semester *& headSemester, Class *& headClass) {
         cout << "This account is not exist!!\n";
         cout << "What do you want to do now?\n";
         system("pause");
-        return mainMenu(headSY,headSemester, headClass);
+        return mainMenu(headSY);
     }
 
     fscanf(fi, "%s\n%s\n", usernameTmp, passTmp);
@@ -172,7 +172,7 @@ void login(schoolYear *& headSY, Semester *& headSemester, Class *& headClass) {
         system("pause");
         cout << "What do you want to do now?\n";
         fclose(fi);
-        return mainMenu(headSY,headSemester, headClass);
+        return mainMenu(headSY);
     }
 
     fclose(fi);
@@ -187,6 +187,6 @@ void login(schoolYear *& headSY, Semester *& headSemester, Class *& headClass) {
     }
 
     system("pause");
-    return profile_menu(tmpUser, headSY, headSemester, headClass);
+    return profile_menu(tmpUser, headSY);
 
 }

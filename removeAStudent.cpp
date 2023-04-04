@@ -24,6 +24,26 @@ void removeProfile(string studentID)
 	ifs.close();
 	remove(profileSt.c_str());
 
+	// remove student's id in file class//student.txt
+
+	string path = schoolYear + "//" + className + "//" + "student.txt";
+	string tmp;
+	ofstream ofs;
+	
+        ifs.open(path);
+        ofs.open("tmp.txt");
+        if (ifs.is_open()) {
+            while (getline (ifs, tmp)) {
+				if (tmp != studentID)
+                	ofs << tmp << endl;
+            }
+        }
+
+        ofs.close();
+        ifs.close();
+        remove(path.c_str());
+        rename("tmp.txt", path.c_str());
+
 }
 
 void removeAStudent(Student*& pHead)
