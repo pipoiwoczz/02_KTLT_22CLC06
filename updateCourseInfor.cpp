@@ -3,7 +3,7 @@
 void updateCourseInfor(Course*& pHead)
 {
 	string id;
-	Course* curr;
+	Course* curr = pHead;
 	cout << "Enter the course ID: ";
 	cin >> id;
 	while (curr) {
