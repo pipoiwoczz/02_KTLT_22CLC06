@@ -1,10 +1,9 @@
-#ifndef _FUNCTION_H_
-#define _FUNCTION_H_
+#ifndef _viewCourseScoreboard_
+#define _viewCourseScoreboard_
 
-#include <iostream>
-#include <string>
 #include "main.h"
+#include <iomanip>
 
-void viewScoreboardOfCourse(string s, string course);
+void viewScoreboardOfCourse(schoolYear *SY, Semester *Sem, Course *course);
 
 #endif
