@@ -39,8 +39,7 @@ bool isStaff(schoolYear *& headSY) {
 
     while (true) {
             cout << "Enter teacher key code to prove you're a teacher!!\n";
-            cin.ignore();
-            getline (cin, code);
+            cin >> code;
             if (code == "CS101") {
                 cout << "You enter correct key!!\n";
                 cout << "Now you can start your register\n\n";
@@ -76,7 +75,7 @@ void signUp(schoolYear *& headSY){
     isStaff(headSY);
     cout << "Enter username: ";
     // cin.ignore();
-    cin.getline(tmp, 100, '\n');
+    cin >> tmp;
 
     unsigned le = strlen(tmp) + 1;
     username = new char[le];
@@ -87,7 +86,8 @@ void signUp(schoolYear *& headSY){
 
     cout << "Enter password: ";
     // cin.ignore();
-    cin.getline(tmp, 1000, '\n');
+    // cin.getline(tmp, 1000, '\n');
+    cin >> tmp;
 
     le = strlen(tmp) + 1;
     password = new char[le];
@@ -135,7 +135,7 @@ void signUp(schoolYear *& headSY){
 }
 
 
-void login(schoolYear *& headSY, Semester *& headSemester, Class *& headClass) {
+void login(schoolYear *& headSY) {
     system("cls");
     char username[1000], password[1000];
 
@@ -143,13 +143,11 @@ void login(schoolYear *& headSY, Semester *& headSemester, Class *& headClass) {
 
     cout << "Enter your username: "; 
     cin.ignore();
-    cin.getline(username, 1000, '\n');
-    cout << username << endl;
+    cin >> username;
 
     cout << "Enter your password: ";
     // cin.ignore();
-    cin.getline(password, 1000, '\n');
-    cout << password << endl;
+    cin >> password;
 
     char tmp[1000] = "User\\";
     strcat(tmp, username);

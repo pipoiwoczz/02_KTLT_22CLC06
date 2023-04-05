@@ -1,3 +1,5 @@
 #include "main.h"
+#include <string>
+using namespace std;
 
-void classMenu(Class *& pHeadClass, string nameClass, string username, schoolYear *& headSY, Semester *& headSemester, Class *& headClass, schoolYear *& curSY);
+void classMenu(string username, schoolYear * headSY, schoolYear * curSY, string nameClass);

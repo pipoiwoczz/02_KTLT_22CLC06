@@ -5,6 +5,6 @@
 #include <string>
 using namespace std;
 
-void inputStudentsToCourse(Course*& pCourse);
+void inputStudentsToCourse(schoolYear *curSY, Semester * curSE, Course*& pCourse);
 
 #endif

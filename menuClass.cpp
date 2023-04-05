@@ -9,9 +9,9 @@
 #include <fstream>
 using namespace std;
 
-void classMenu(Class *&pHeadClass, string nameClass, string username, schoolYear *& headSY, Semester *& headSemester, Class *& headClass, schoolYear *& curSY)
+void classMenu(string username, schoolYear * headSY, schoolYear * curSY, string nameClass)
 {
-    Class *curClass = pHeadClass;
+    Class *curClass = curSY -> Classes;
 
     while (curClass -> name != nameClass) {
         curClass = curClass -> next;
@@ -34,32 +34,26 @@ void classMenu(Class *&pHeadClass, string nameClass, string username, schoolYear
             switch (move)
             {
                 case 1:
-                    inputStudentsToClass(curClass -> Students, curSY, curClass);
-                    system("pause");
-                    classMenu(pHeadClass, nameClass, username, headSY, headSemester, headClass, curSY);
+                    inputStudentsToClass(curClass -> Students, curSY, curClass);             
                     break;
                 case 2: 
                     displayListOfStudents(curClass -> Students, curSY -> name, curClass -> name);
-                    system("pause");
-                    classMenu(pHeadClass, nameClass, username, headSY, headSemester, headClass, curSY);
                     break;
                 case 3:
                     add1StToClass(curClass -> Students, curSY, curClass);
-                    system("pause");
-                    classMenu(pHeadClass, nameClass, username, headSY, headSemester, headClass, curSY);
                     break;
                 case 4:
                     removeAStudent(curClass -> Students);
-                    system("pause");
-                    classMenu(pHeadClass, nameClass, username, headSY, headSemester, headClass, curSY);
                     break;
                 case 0:
-                    return SYMenu(username, curSY, headSemester, headClass, headSY);
+                    return SYMenu(username, headSY, curSY);
                     break;
                 default:
                     cout << "You've entered wrong move\n";
                     cout << "Pls enter your move again: \n";
                     break;
-            }              
+            }  
+            system("pause");
+            classMenu(username, headSY, curSY, nameClass);            
         } while (move < 0 || move > 5);
 }

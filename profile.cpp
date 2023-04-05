@@ -227,7 +227,7 @@ void editProfile(string username, schoolYear *& headSY){
                 out.close();
 
                 remove(tmpfile);
-                rename("User\\tmp.txt", tmpfile);
+                rename("User\\tmp.txt", filename.c_str());
                 delete(tmpfile);
 
                 break;
@@ -237,7 +237,7 @@ void editProfile(string username, schoolYear *& headSY){
                 out.open("User\\tmp.txt");
                 while(getline(in, tmp)) {
 
-                    if (line == 4) {
+                    if (line == 5) {
                         string fName;
                         cin.ignore();
 	                    cout << "Enter your first name: ";
@@ -265,7 +265,7 @@ void editProfile(string username, schoolYear *& headSY){
                 out.open("User\\tmp.txt");
                 while(getline(in, tmp)) {
 
-                    if (line == 5) {
+                    if (line == 6) {
                         string lName;
                         cin.ignore();
 	                    cout << "Enter your last name: ";
@@ -283,17 +283,17 @@ void editProfile(string username, schoolYear *& headSY){
                 out.close();
 
                 remove(tmpfile);
-                rename("User\\tmp.txt", tmpfile);
+                rename("User\\tmp.txt", filename.c_str());
                 delete(tmpfile);
 
                 break;
 
             case 5:
                 in.open(filename);
-                out.open("tmp.txt");
+                out.open("User\\tmp.txt");
                 while(getline(in, tmp)) {
 
-                    if (line == 6) {
+                    if (line == 7) {
                         // int gender;
 
 	                    cout << "Please choose your gender: \n";
@@ -334,7 +334,7 @@ void editProfile(string username, schoolYear *& headSY){
                 out.open("User\\tmp.txt");
                 while(getline(in, tmp)) {
 
-                    if (line == 7) {
+                    if (line == 8) {
                         // int day, month, year;
                         cout << "Enter your date of birth (dd/mm/yy): ";
                         do {
@@ -367,7 +367,7 @@ void editProfile(string username, schoolYear *& headSY){
                 out.open("User\\tmp.txt");
                 while(getline(in, tmp)) {
 
-                    if (line == 8) {
+                    if (line == 9) {
                         // int ID;
                         cout << "Enter your social ID ";
                         cin >> ID;
@@ -425,7 +425,7 @@ bool isValidBirth(int day, int month, int year) {
     return true;
 }
 
-void profile_menu(string username, schoolYear *& headSY, Semester *& headSemester, Class *& headClass) {
+void profile_menu(string username, schoolYear *& headSY) {
     
     system("cls");
     int choice;
@@ -453,7 +453,7 @@ void profile_menu(string username, schoolYear *& headSY, Semester *& headSemeste
                 createSY(headSY);
                 cout << "SY Created!!\n";
                 system("pause");
-                profile_menu(username, headSY, headSemester, headClass);
+                profile_menu(username, headSY);
                 break;
             case 4: {
                 schoolYear * cur = headSY;
@@ -462,7 +462,7 @@ void profile_menu(string username, schoolYear *& headSY, Semester *& headSemeste
                     cur = cur -> next;
                 }
                 system("pause");
-                return profile_menu(username, headSY, headSemester, headClass);
+                return profile_menu(username, headSY);
                 break;
             }
             case 5: {
@@ -471,7 +471,6 @@ void profile_menu(string username, schoolYear *& headSY, Semester *& headSemeste
                     cout << curSY -> name << endl;
                     curSY = curSY -> next;
                 }
-                system("pause");
                 int move;
 
                 string SY;

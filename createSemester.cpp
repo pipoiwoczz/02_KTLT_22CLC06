@@ -17,6 +17,7 @@ void createSemester(string username, schoolYear * headSY, schoolYear * curSY)
 
     if (!firstSemester) {
         firstSemester = new Semester;
+        firstSemester -> season = 1;
         
         do {
             if (firstSemester -> season > 3 || firstSemester -> season < 0) 
@@ -87,6 +88,7 @@ void createSemester(string username, schoolYear * headSY, schoolYear * curSY)
         }
 
         tmp -> next = new Semester;
+        tmp -> next -> season = 1;
         // tmp = tmp -> next;
         
         do {

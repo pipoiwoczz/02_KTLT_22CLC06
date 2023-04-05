@@ -34,8 +34,6 @@ void SEMenu(string username, schoolYear * headSY, schoolYear * curSY, int choice
 
     int move;
     do {
-        system("pause");
-        SEMenu(username, headSY, curSY, choice);
         cout << "=============================\n";
         cout << "Enter your move: ";
         cin >> move;
@@ -45,7 +43,7 @@ void SEMenu(string username, schoolYear * headSY, schoolYear * curSY, int choice
                 addACourse(curSY, cur, cur -> Courses);
                 break;
             case 2:
-                inputStudentsToCourse(cur -> Courses);
+                inputStudentsToCourse(curSY, cur, cur -> Courses);
                 break;
             case 3:
                 viewListCourses(cur);
@@ -66,5 +64,7 @@ void SEMenu(string username, schoolYear * headSY, schoolYear * curSY, int choice
                 SYMenu(username, headSY, curSY);
                 break;
         }
+        system("pause");
+        SEMenu(username, headSY, curSY, choice);
     } while (move < 0 || move > 7);
 }
