@@ -1,19 +1,22 @@
 #include "viewStudentInACourse.h"
-#include <iostream>
-#include <string>
-#include "main.h"
 using namespace std;
 
-void viewStudentInACourse(string s, string course) {
-    ifstream ifs;
-    s = s + course + ".txt";
+void viewStudentInACourse(schoolYear *SY, Semester *Sem, Course *course) {
     string out;
-    ifs.open(s);
-    while (ifs) {
-        getline(ifs, out, ',');
-        cout << out << " ";
-        getline(ifs, out);
-        cout << out << endl;
-    }
+    ifstream ifs;
+        ifs.open("./" + SY -> name + "/" + to_string(Sem -> season) + "/" + course -> courseID + "/listStud.txt");
+        int i = 1; // Ordinal number
+        cout << "Student in this course: "<< endl;
+        cout << "--------------------" << endl;
+        cout << left << setw(5) << "No." << setw(10) << "ID" << "Name" << endl;
+        while (!ifs.eof()) {
+            cout << left << setw(5) << i; // Ordinal number
+            getline(ifs, out, ',');
+            cout << setw(10) << out; // Id
+            getline(ifs, out);
+            cout << out << endl; // Name
+            i++;
+        }
+        cout << "--------------------" << endl;
     ifs.close();
 }

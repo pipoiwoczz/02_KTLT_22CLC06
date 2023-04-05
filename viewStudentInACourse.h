@@ -1,10 +1,9 @@
-#ifndef _FUNCTION_H_
-#define _FUNCTION_H_
+#ifndef __viewStudInCourse__
+#define __viewStudInCourse__
 
-#include <iostream>
-#include <string>
 #include "main.h"
+#include <iomanip>
 
-void viewStudentInACourse(string s, string course);
+void viewStudentInACourse(schoolYear *SY, Semester *Sem, Course *course);
 
 #endif
