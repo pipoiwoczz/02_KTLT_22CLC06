@@ -1,6 +1,6 @@
 #include "updateCourseInfor.h"
 
-void updateCourseInfor(Course*& pHead)
+void updateCourseInfor(schoolYear* curSY, Semester* curSemester, Course*& pCourse)
 {
 	string id;
 	Course* curr = pHead;
@@ -54,6 +54,19 @@ void updateCourseInfor(Course*& pHead)
 				cout << "Option: ";
 				cin >> opt;
 			}
+
+			string pathCourse = "./" + curSY->name + "/" + to_string(curSemester->season) + "/" + curr->courseID + "/info.txt";
+			ofstream fout(pathCourse);
+			fout << curr->courseID << endl;
+			fout << curr->courseName << endl;
+			fout << curr->className << endl;
+			fout << curr->teacherName << endl;
+			fout << curr->credits << endl;
+			fout << curr->numberOfStudent << endl;
+			fout << curr->maxStudents << endl;
+			fout << curr->dayOfWeek << endl;
+			fout << curr->session;
+			fout.close();
 			return;
 		}
 		curr = curr->next;
