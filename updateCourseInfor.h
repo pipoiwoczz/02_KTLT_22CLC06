@@ -4,5 +4,5 @@
 #include "main.h"
 using namespace std;
 
-void updateCourseInfor(Course*& pHead);
+void updateCourseInfor(schoolYear* curSY, Semester* curSemester, Course*& pCourse);
 #endif

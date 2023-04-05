@@ -31,7 +31,8 @@ void addACourse(schoolYear *SY, Semester *semester, Course *& pHead)
 		cout << "CourseID: ";
 		cin >> tmp->courseID;
 		cout << "Course name: ";
-		cin >> tmp->courseName;
+		cin.ignore();
+		getline (cin, pHead->courseName);
 		cout << "Class name: ";
 		cin >> tmp->className;
 		cout << "The number of credits: ";
@@ -49,7 +50,7 @@ void addACourse(schoolYear *SY, Semester *semester, Course *& pHead)
 
 	// create folder and file
 
-	string path = "./" + SY -> name + "/" + to_string(semester -> season) + "_" + SY -> name + "/" + pHead -> courseID;
+	string path = "./" + SY -> name + "/" + to_string(semester -> season) + "//" + pHead -> courseID;
 	mkdir(path.c_str());
 	path += "//info.txt";
 	ofstream ofs;
@@ -86,4 +87,6 @@ void addACourse(schoolYear *SY, Semester *semester, Course *& pHead)
 
 	
 	mkdir((sy + pHead -> courseID).c_str());
+
+	cout << "Course created successfully!!\n";
 }

@@ -8,7 +8,7 @@ using namespace std;
 
 void inputStudentsToCourse(schoolYear *curSY, Semester * curSE, Course*& pCourse)
 {
-	cout << "Which Course Do You Want To Add Student: ";
+	cout << "Which Course Do You Want To Add Student: \n";
 	Course * curC = pCourse;
 	do {
 		if (!pCourse) {
@@ -21,6 +21,7 @@ void inputStudentsToCourse(schoolYear *curSY, Semester * curSE, Course*& pCourse
 				cout << curC -> courseID << endl;
 				curC = curC -> next;
 			}
+			cout << "Your course is: ";
 			string id;
 			cin >> id;
 			curC = pCourse;
