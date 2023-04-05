@@ -30,7 +30,7 @@ void createSemester(string username, schoolYear * headSY, schoolYear * curSY)
             cout << "2. Summer \n";
             cout << "3. Autumn \n";
             cout << "0. Exit\n";
-            cin >> firstSemester -> next -> season;
+            cin >> firstSemester -> season;
         } while (firstSemester -> season > 3 || firstSemester -> season < 0);
 
         if (firstSemester -> season == 0) {
@@ -64,9 +64,10 @@ void createSemester(string username, schoolYear * headSY, schoolYear * curSY)
         ifs.open(curSY -> name + "//semester.txt");
         ofs.open(curSY -> name + "//tmp.txt");
 
-        while (getline(ifs, tmp)) {
-            ofs << tmp << endl;
-        }
+        if (ifs.is_open())
+            while (getline(ifs, tmp)) {
+                ofs << tmp << endl;
+            }
 
         ofs << firstSemester -> season << endl;
 
@@ -151,6 +152,7 @@ void createSemester(string username, schoolYear * headSY, schoolYear * curSY)
         ofs << tmp -> season << " " << tmp -> startDate << " " << tmp -> endDate << endl;
         ofs.close();
     }
-
+    cout << "Class created \n\n";
+    system("pause");
 
 }
