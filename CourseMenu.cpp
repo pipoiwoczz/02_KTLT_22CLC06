@@ -3,6 +3,8 @@
 #include "main.h"
 #include "SEmenu.h"
 #include "updateCourseInfor.h"
+#include "viewStudentInACourse.h"
+#include "importCourseScoreboard.h"
 #include <string>
 using namespace std;
 
@@ -14,6 +16,9 @@ void courseMenu(string username, schoolYear * headSY, schoolYear * curSY, int ch
     cout << "2. Add a student to a course\n";
     cout << "3. Remove a student from a course\n";
     cout << "4. View list of Students in course\n";
+    cout << "5. Import ScoreBoard of students\n";
+    cout << "6. View the Scoreboard of the course\n";
+    cout << "7. Update a student's result\n";
     cout << "0. Back to previous menu\n";
     
     int move;
@@ -33,6 +38,10 @@ void courseMenu(string username, schoolYear * headSY, schoolYear * curSY, int ch
                 
                 break;
             case 4: 
+                viewStudentInACourse(curSY, curSE, curCour);
+                break;
+            case 5:
+                inputStudentScore();
                 break;
             case 0:
                 return SEMenu(username, headSY, curSY, choice);

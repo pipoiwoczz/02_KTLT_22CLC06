@@ -8,11 +8,11 @@ void viewStudentInACourse(schoolYear *SY, Semester *Sem, Course *course) {
         int i = 1; // Ordinal number
         cout << "Student in this course: "<< endl;
         cout << "--------------------" << endl;
-        cout << left << setw(5) << "No." << setw(10) << "ID" << "Name" << endl;
+        cout << left << setw(5) << "No." << setw(12) << "ID" << "Name" << endl;
         while (!ifs.eof()) {
             cout << left << setw(5) << i; // Ordinal number
             getline(ifs, out, ',');
-            cout << setw(10) << out; // Id
+            cout << setw(12) << out; // Id
             getline(ifs, out);
             cout << out << endl; // Name
             i++;
