@@ -1,6 +1,5 @@
 #include "createSemester.h"
 #include "login.h"
-#include "SYmenu.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -10,149 +9,72 @@
 #include "main.h"
 using namespace std;
 
-void createSemester(string username, schoolYear * headSY, schoolYear * curSY)
+void createSemester(string username, schoolYear * curSY)
 {
+    int season;
 
-    Semester * firstSemester = curSY -> Semesters;
+    cout << "Pls create a semester: " << endl;
+    cout << "1. Spring \n";
+    cout << "2. Summer \n";
+    cout << "3. Autumn \n";
 
-    if (!firstSemester) {
-        firstSemester = new Semester;
-        firstSemester -> season = 1;
-        
-        do {
-            if (firstSemester -> season > 3 || firstSemester -> season < 0) 
-            {
-                cout << "Please enter correct Semester!!\n";
-                continue;
-            }
-            cout << "Pls create a semester: " << endl;
-            cout << "1. Spring \n";
-            cout << "2. Summer \n";
-            cout << "3. Autumn \n";
-            cout << "0. Exit\n";
-            cin >> firstSemester -> season;
-        } while (firstSemester -> season > 3 || firstSemester -> season < 0);
+    cin >> season;
 
-        if (firstSemester -> season == 0) {
-            delete firstSemester;
-            firstSemester = nullptr;
-            return ;
+    string path = curSY -> name + "/" + char(season + 48) + "_" + curSY -> name + ".txt";
+
+    if (mkdir(path.c_str()) == -1) {
+            cout << "This Semester has been already created!\n";
+            system("pause");
+            
+            int move;
+            cout << "Do you want to continue creating semester ?";
+            cout << "\n1. Yes";
+            cout << "\n2.No";
+
+            if (move == 1)
+                return createSemester(username, curSY);
+            else
+                return;
         }
-        
-        cout << "Enter start date: ";
     
-        cin >> firstSemester -> startDate;
+    Semester * headSE = curSY -> Semesters;
+    Semester * tmp = headSE;
 
-        cout << "Enter end date: ";
-        cin >> firstSemester -> endDate;
+    headSE = new Semester;
+    headSE ->next = tmp;
+    headSE ->season = season;
 
-        curSY -> Semesters = firstSemester;
+    cout << "Enter start date: ";
+    cin >> headSE -> startDate;
 
-        string path = curSY -> name + "//" + char(firstSemester -> season + 48);
+    cout << "Enter end date: ";
+    cin >> headSE -> endDate;
+
+    curSY -> Semesters = headSE;
+
+    ofstream ofs;
+    ifstream ifs;
+    
+    ifs.open(curSY -> name + "//semester.txt");
+    ofs.open(curSY -> name + "//tmp.txt");
+
+    if (ifs.is_open()) {
         string tmp;
-        if (mkdir(path.c_str()) == -1) {
-            cout << "This Semester has been already exists!\n";
-            system("pause");
-            delete firstSemester;
-            firstSemester = nullptr;
-            return createSemester(username, headSY, curSY);
-        }
 
-        ofstream ofs;
-        ifstream ifs;
-
-        ifs.open(curSY -> name + "//semester.txt");
-        ofs.open(curSY -> name + "//tmp.txt");
-
-        if (ifs.is_open())
-            while (getline(ifs, tmp)) {
-                ofs << tmp << endl;
-            }
-
-        ofs << firstSemester -> season << endl;
-
-        ifs.close();
-        ofs.close();
-
-        remove((curSY -> name + "//semester.txt").c_str());
-        rename((curSY -> name + "//tmp.txt").c_str() ,(curSY -> name + "//semester.txt").c_str());
-        
-        ofs.open(path + "//" + "infor.txt");
-        ofs << firstSemester -> season << " " << firstSemester -> startDate << " " << firstSemester -> endDate << endl;
-        ofs.close();
-
-    } else {
-        Semester * tmp = curSY -> Semesters;
-
-        while (tmp -> next) {
-            tmp = tmp -> next;
-        }
-
-        tmp -> next = new Semester;
-        tmp -> next -> season = 1;
-        // tmp = tmp -> next;
-        
-        do {
-            if (tmp -> next -> season > 3 || tmp -> next -> season < 0) 
-            {
-                cout << "Please enter correct Semester!!\n";
-                continue;
-            }
-            cout << "Pls create a semester: " << endl;
-            cout << "1. Spring \n";
-            cout << "2. Summer \n";
-            cout << "3. Autumn \n";
-            cout << "0. Exit\n";
-            cin >> tmp -> next -> season;
-        } while (tmp -> next -> season > 3 || tmp -> next -> season < 0);
-
-        if (tmp -> next -> season == 0) {
-            delete tmp -> next;
-            tmp -> next = nullptr;
-            return ;      
-        }
-
-        cout << "Enter start date: ";
-        cin >> tmp -> next -> startDate;
-
-        cout << "Enter end date: ";
-        cin >> tmp -> next -> endDate;
-
-        string path = curSY -> name + "//" + char(tmp -> next -> season + 48);
-        string temp;
-
-        if (mkdir(path.c_str()) == -1) {
-            cout << "This Semester has been already exists!\n";
-            system("pause");
-            delete tmp -> next;
-            tmp -> next = nullptr;
-            return createSemester(username, headSY, curSY);
-        }
-
-        tmp = tmp -> next;
-
-        ofstream ofs;
-        ifstream ifs;
-        ifs.open(curSY -> name + "//semester.txt");
-        ofs.open(curSY -> name + "//tmp.txt");
-
-        while (getline(ifs, temp)) {
-            ofs << temp << endl;
-        }
-
-        ofs << tmp -> season << endl;
-
-        ifs.close();
-        ofs.close();
-
-        remove((curSY -> name + "//semester.txt").c_str());
-        rename((curSY -> name + "//tmp.txt").c_str() ,(curSY -> name + "//semester.txt").c_str());
-
-        ofs.open(path + "//" + "infor.txt");
-        ofs << tmp -> season << " " << tmp -> startDate << " " << tmp -> endDate << endl;
-        ofs.close();
+        while (getline(ifs, tmp)) 
+            ofs << tmp << endl;
     }
-    cout << "Class created \n\n";
-    system("pause");
+    
+    ofs << season;
+
+    ifs.close();
+    ofs.close();
+
+    remove((curSY -> name + "//semester.txt").c_str());
+    rename((curSY -> name + "//tmp.txt").c_str() ,(curSY -> name + "//semester.txt").c_str());
+
+    ofs.open(path + "//" + "infor.txt");
+    ofs << season << " " << headSE -> startDate << " " << headSE -> endDate << endl;
+    ofs.close();
 
 }

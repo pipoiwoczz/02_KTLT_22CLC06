@@ -34,7 +34,7 @@ void SYMenu(string username, schoolYear *& headSY, schoolYear *& curSY) {
 
     switch (move) {
         case 1: {
-            createSemester(username, headSY, curSY);
+            createSemester(username, curSY);
             return SYMenu(username, headSY, curSY);
             break;
         }
