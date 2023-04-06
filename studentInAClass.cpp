@@ -82,7 +82,7 @@ void inputStudentsToClass(Student*& pHead, schoolYear *curSY, Class * curClass)
 		ofs << curr -> studentId << endl << "1234" << endl;
 		ofs << curSY -> name << endl;
 		ofs << curClass -> name << endl;
-		ofs << curr -> firstName << "," << curr -> lastName << endl;
+		ofs << curr -> lastName << "," << curr -> firstName << endl;
 		ofs << curr -> gender << endl;
 		ofs << curr -> dateOfBirth << endl;
 		ofs << curr -> socialId;
@@ -127,7 +127,7 @@ void displayListOfStudents(Student* pHead, string SY, string cl)
 			cout << " ";
 		cout << "  ";
 		cout << temp->studentId << "  ";
-		cout << temp->firstName << " " << temp->lastName << "  ";
+		cout << temp->lastName << " " << temp->firstName << "  ";
 		cout << temp->gender << "  ";
 		cout << temp->dateOfBirth << "  ";
 		cout << temp->socialId << endl;
