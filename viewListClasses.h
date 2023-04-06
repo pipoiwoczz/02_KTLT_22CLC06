@@ -1,8 +1,6 @@
-#ifndef _FUNCTION_H_
-#define _FUNCTION_H_
+#ifndef _listClasses_
+#define _listClasses_
 
-#include <iostream>
-#include <string>
 #include "main.h"
 
 void viewListClasses(schoolYear *SchoolYear);
