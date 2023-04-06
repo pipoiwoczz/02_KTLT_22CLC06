@@ -1,10 +1,17 @@
-#ifndef _FUNCTION_H_
-#define _FUNCTION_H_
+#ifndef _classScoreboard_
+#define _classScoreboard_
 
-#include <iostream>
-#include <string>
 #include "main.h"
+#include <iomanip>
 
-void viewScoreboardOfClass();
+struct courseInThisSem {
+    string ID;
+    courseInThisSem *next;
+};
+
+bool checkExist(courseInThisSem *head, string value);
+void insertCourseAtBegin(courseInThisSem* &head, string value);
+void viewClassScoreboard(schoolYear *SY, Class *className);
+void deleteCourseLL(courseInThisSem* &head);
 
 #endif
