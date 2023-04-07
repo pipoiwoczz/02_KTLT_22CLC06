@@ -7,6 +7,7 @@ string searchStudent(string studentID)
 	string className;
 	for (int i = 0; i < 4; i++)
 		getline(ifs, className);
+	ifs.close();
 	return className;
 }
 
