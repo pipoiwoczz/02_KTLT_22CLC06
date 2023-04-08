@@ -47,7 +47,7 @@ void SEMenu(string username, schoolYear * headSY, schoolYear * curSY, int choice
             case 2:
                 viewListCourses(cur);
                 break;
-            case 3:
+            case 3: {
                 Course *curCour = cur -> Courses;
                 cout << "===================================\n";
                 cout << "\t\tCourse\n";
@@ -68,7 +68,7 @@ void SEMenu(string username, schoolYear * headSY, schoolYear * curSY, int choice
                     curCour = cur -> Courses;
 
                     cout << "======================================\n";
-                    cout << "Enter your course: ";
+                    cout << "Enter your course ID: ";
                     string courID;
                     cin >> courID;
                     while (curCour && curCour -> courseID != courID)   
@@ -79,16 +79,20 @@ void SEMenu(string username, schoolYear * headSY, schoolYear * curSY, int choice
                         continue;
                     }
                 } while (1);
+            }
                 break;
-            case 4: 
+            case 4: {
                 deleteACourse(curSY, cur, cur -> Courses);
+            }
                 break;
-            case 5:
+            case 5: {
                 updateCourseInfor(curSY, cur, cur -> Courses);
+            }
                 break;
-            case 0:
+            case 0:{
                 SYMenu(username, headSY, curSY);
-                break;
+            }
+            break;
         }
         system("pause");
         return SEMenu(username, headSY, curSY, choice);

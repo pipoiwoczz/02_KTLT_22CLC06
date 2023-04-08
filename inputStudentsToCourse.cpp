@@ -8,33 +8,6 @@ using namespace std;
 
 void inputStudentsToCourse(schoolYear *curSY, Semester * curSE, Course*& pCourse)
 {
-	cout << "Which Course Do You Want To Add Student: \n";
-	Course * curC = pCourse;
-	do {
-		if (!pCourse) {
-			cout << "There is no Course now!!\n";
-			cout << "Please add a course before adding student\n";
-			system("pause");
-			return;
-		} else {
-			while (curC) {
-				cout << curC -> courseID << endl;
-				curC = curC -> next;
-			}
-			cout << "Your course is: ";
-			string id;
-			cin >> id;
-			curC = pCourse;
-			while (curC && curC -> courseID != id) {
-				curC = curC -> next;
-			}
-			if (curC && curC -> courseID == id) {
-				break;
-			} else {
-				cout << "You entered wrong Course ID!!\nPlease enter again\n\n";
-			}
-		}
-	} while (1);
 	
 	ifstream fin;
 	string path, temp;

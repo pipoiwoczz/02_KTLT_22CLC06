@@ -1,6 +1,9 @@
 #include "copyScoreboard.h"
+#include "main.h"
+#include <string>
+using namespace std;
 
-void copyScoreboard(SchoolYear* currYear, Semester* currSem, Course* currCourse, string pathScoreboard)
+void copyScoreboard(schoolYear* currYear, Semester* currSem, Course* currCourse, string pathScoreboard)
 {
 	string pathCourse = "./" + currYear->name + "/" + to_string(currSem->season) + "/" + currCourse->courseID + "/scoreboard.txt";
 	ofstream ofs(pathCourse);

@@ -142,7 +142,7 @@ void login(schoolYear *& headSY) {
     cout << "LOG IN PAGE!!\n\n";
 
     cout << "Enter your username: "; 
-    cin.ignore();
+    // cin.ignore();
     cin >> username;
 
     cout << "Enter your password: ";

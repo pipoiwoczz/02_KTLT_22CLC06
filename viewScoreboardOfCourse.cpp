@@ -1,6 +1,7 @@
 #include "viewScoreboardOfCourse.h"
 #include "main.h"
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 void viewScoreboardOfCourse(schoolYear *SY, Semester *Sem, Course *course) {

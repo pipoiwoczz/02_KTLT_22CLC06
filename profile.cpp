@@ -306,7 +306,13 @@ void editProfile(string username, schoolYear *& headSY){
                         do {
                             cin >> gender;
                             if (gender >= 1 && gender <= 3) 
-                                out << gender << "\n";
+                                if (gender == 1) {
+                                    out << "Male" << endl;
+                                } else if (gender == 2) {
+                                    out << "Female\n";
+                                } else {
+                                    out << "Undefined\n";
+                                }
                             else {
                                 cout << "You've entered an invalid numbers!!\n";
                                 cout << "Please enter again\n";
@@ -477,22 +483,21 @@ void profile_menu(string username, schoolYear *& headSY) {
                 curSY = headSY;
                 cout << "Select your schooyear: ";
                 cin >> SY;
-                do {
+
+                while (curSY) {
+                    if (curSY -> name == SY)
+                        break;
+                    else 
+                        curSY = curSY -> next;
+                }
+
                     if (!curSY) {
                         cout << "Please enter correct schoolyear (or if you want to back to previous menu, please enter 0): ";
                         cin >> SY;
                         if (SY == "0") 
                             return profile_menu(username, headSY);
                         curSY = headSY;
-                        continue;
                     }
-
-                    if (curSY -> name == SY)
-                        break;
-                    else {
-                        curSY = curSY -> next;
-                    }
-                } while (curSY -> name != SY);
 
                 SYMenu(username, curSY, headSY);
                 

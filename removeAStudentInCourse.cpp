@@ -1,5 +1,8 @@
 #include "main.h"
 #include <cstdio>
+#include <iostream>
+#include <fstream>
+using namespace std;
 
 void removeAStudentInCourse(Course*& pCourse)
 {
@@ -7,13 +10,16 @@ void removeAStudentInCourse(Course*& pCourse)
 	cout << "Enter a student ID: ";
 	cin >> studentID;
 	Student* currSt = pCourse->students;
+
 	if (studentID == currSt->studentId) {
 		pCourse->students = pCourse->students->next;
 		delete currSt;
 		return;
 	}
+
 	Student* prevSt = currSt;
 	currSt = currSt->next;
+	
 	while (currSt) {
 		if (currSt->studentId == studentID) {
 			prevSt->next = currSt->next;
@@ -30,7 +36,7 @@ void removeAStudentInCourse(Course*& pCourse)
 			getline(fin, currSem);
 			fin.close();
 			string studentCourse = "./" + currYear + "/" + currSem + "/" + classSt + "/" + to_string(studentID) + "/" + pCourse->courseID + ".txt";
-			remove(studentCourse);
+			remove(studentCourse.c_str());
 
 			delete currSt;
 			currSt = prevSt->next;

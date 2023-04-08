@@ -20,7 +20,7 @@ void createSemester(string username, schoolYear * curSY)
 
     cin >> season;
 
-    string path = curSY -> name + "/" + char(season + 48) + "_" + curSY -> name + ".txt";
+    string path = curSY -> name + "/" + char(season + 48);
 
     if (mkdir(path.c_str()) == -1) {
             cout << "This Semester has been already created!\n";

@@ -3,8 +3,11 @@
 #include "main.h"
 #include "SEmenu.h"
 #include "updateCourseInfor.h"
+#include "viewScoreboardOfCourse.h"
+#include "updateStudentResult.h"
 #include "viewStudentInACourse.h"
-#include "importCourseScoreboard.h"
+#include "1StuToCourse.h"
+#include "removeAStudentInCourse.h"
 #include <string>
 using namespace std;
 
@@ -32,16 +35,22 @@ void courseMenu(string username, schoolYear * headSY, schoolYear * curSY, int ch
                 inputStudentsToCourse(curSY, curSE, curCour);
                 break;
             case 2:
-                cout << "ADd a student to course\n";
+                add1StudentToCourse(curSY, curSE, curCour);
                 break;
             case 3:
-                
+                removeAStudentInCourse(curCour);
                 break;
             case 4: 
                 viewStudentInACourse(curSY, curSE, curCour);
                 break;
             case 5:
-                inputStudentScore();
+                
+                break;
+            case 6:
+                viewScoreboardOfCourse(curSY, curSE, curCour);
+                break;
+            case 7:
+                updateStudentResultCourse(curSY, curSE, curCour);
                 break;
             case 0:
                 return SEMenu(username, headSY, curSY, choice);

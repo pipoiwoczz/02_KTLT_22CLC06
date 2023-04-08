@@ -1,4 +1,8 @@
 #include "saveStudentScoreboard.h"
+#include <string>
+#include <fstream>
+#include <iostream>
+using namespace std;
 
 string searchStudent(string studentID)
 {

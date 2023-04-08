@@ -1,7 +1,11 @@
 #include "1StuToCourse.h"
+#include "main.h"
+#include <fstream>
+#include <iostream>
+using namespace std;
 
 void add1StudentToCourse(schoolYear * curSY, Semester * curSE, Course * curCourse)  {
-    Student * tmpStudent;
+    Student * tmpStudent = new Student;
 
     cout << "==========Pls enter the information of the Student==========";
 
@@ -14,7 +18,7 @@ void add1StudentToCourse(schoolYear * curSY, Semester * curSE, Course * curCours
     cout << "Enter student's last name: ";
     getline(cin , tmpStudent -> lastName);
 
-    string path = curSY -> name + "/" + curSE -> season + "/" + curCourse -> name + "listStud.txt";
+    string path = curSY -> name + "/" + to_string(curSE -> season) + "/" + curCourse -> courseID + "/" + "listStud.txt";
     string infoStudent = tmpStudent -> studentId + "," + tmpStudent -> lastName + " " + tmpStudent -> firstName; 
     int flag = 0;
 
@@ -22,7 +26,7 @@ void add1StudentToCourse(schoolYear * curSY, Semester * curSE, Course * curCours
     ofstream ofs;
 
     ifs.open(path);
-    ofs.open(curSY -> name + "/" + curSE -> season + "/" + curCourse -> name + "tmp.txt");
+    ofs.open(curSY -> name + "/" + to_string(curSE -> season) + "/" + curCourse -> courseID + "/" + "tmp.txt");
 
     if (ifs.is_open())  {
         string tmp;
@@ -37,13 +41,13 @@ void add1StudentToCourse(schoolYear * curSY, Semester * curSE, Course * curCours
     }
 
     ofs << infoStudent;
-    ifs.close;
-    ofs.close;
+    ifs.close();
+    ofs.close();
 
     if (flag == 1)  {
         delete tmpStudent;
 
-        remove((curSY -> name + "/" + curSE -> season + "/" + curCourse -> name + "tmp.txt").c_str());
+        remove((curSY -> name + "/" + to_string(curSE -> season) + "/" + curCourse -> courseID + "/" + "tmp.txt").c_str());
 
         cout << "Student has already been in the course...";
         cout << "\nDo you want to continue adding 1 student to this course?";
@@ -65,10 +69,10 @@ void add1StudentToCourse(schoolYear * curSY, Semester * curSE, Course * curCours
                     cout << "Wrong choice. Pls try again.";
                     break;
             }
-        }   while (move != 1 && move != 2)
+        }   while (move != 1 && move != 2);
     } else    {
-        remove(path);
-        rename((curSY -> name + "/" + curSE -> season + "/" + curCourse -> name + "tmp.txt").c_str(), path.c_str());
+        remove(path.c_str());
+        rename((curSY -> name + "/" + to_string(curSE -> season) + "/" + curCourse -> courseID + "/" + "tmp.txt").c_str(), path.c_str());
         
         Student * tail = curCourse -> students;
 

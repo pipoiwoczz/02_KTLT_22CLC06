@@ -1,5 +1,6 @@
 #ifndef _KHOA_
 #define _KHOA_
+#include "main.h"
 
 void signUp(schoolYear *& headSY);
 
