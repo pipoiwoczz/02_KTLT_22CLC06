@@ -5,21 +5,25 @@
 using namespace std;
 
 void add1StudentToCourse(schoolYear * curSY, Semester * curSE, Course * curCourse)  {
-    Student * tmpStudent = new Student;
-
     cout << "==========Pls enter the information of the Student==========";
 
+    string id, firstName, lastName;
+
     cout << "\nStudent ID: ";
-    cin >> tmpStudent -> studentId;
-    cin.ignore();
-    cout << "Enter student's first name: ";
-    getline(cin , tmpStudent -> firstName);
+    getline(cin, id);
+
     cin.ignore();
     cout << "Enter student's last name: ";
-    getline(cin , tmpStudent -> lastName);
+    getline(cin, lastName);
+
+    cin.ignore();
+    cout << "Enter student's first name: ";
+    getline(cin, firstName);
+    
+    
 
     string path = curSY -> name + "/" + to_string(curSE -> season) + "/" + curCourse -> courseID + "/" + "listStud.txt";
-    string infoStudent = tmpStudent -> studentId + "," + tmpStudent -> lastName + " " + tmpStudent -> firstName; 
+    string infoStudent = id + "," + lastName + " " + firstName; 
     int flag = 0;
 
     ifstream ifs;
@@ -45,8 +49,6 @@ void add1StudentToCourse(schoolYear * curSY, Semester * curSE, Course * curCours
     ofs.close();
 
     if (flag == 1)  {
-        delete tmpStudent;
-
         remove((curSY -> name + "/" + to_string(curSE -> season) + "/" + curCourse -> courseID + "/" + "tmp.txt").c_str());
 
         cout << "Student has already been in the course...";
@@ -77,16 +79,19 @@ void add1StudentToCourse(schoolYear * curSY, Semester * curSE, Course * curCours
         Student * tail = curCourse -> students;
 
         if (tail == nullptr)    {
-            curCourse -> students = new Student;
-            curCourse -> students = tmpStudent;
-        }
+            tail = new Student;
+            curCourse -> students = tail;
+        }    
         else    {
-            while (tail -> next)
+            while (tail -> next)    
                 tail = tail -> next;
-            
-            tail -> next = tmpStudent;
+            tail -> next = nullptr;
+            tail -> next = new Student;
+            tail = tail -> next;
         }
-        
-        delete tmpStudent;
+
+        tail -> studentId = id;
+        tail -> lastName = lastName;
+        tail -> firstName = firstName;
     }
 }
