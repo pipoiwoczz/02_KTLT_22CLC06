@@ -5,4 +5,5 @@
 using namespace std;
 
 void updateCourseInfor(schoolYear* curSY, Semester* curSemester, Course*& pCourse);
+void updateInforClassCourse(schoolYear* curSY, Semester* curSemester, Course*& curCourse);
 #endif
