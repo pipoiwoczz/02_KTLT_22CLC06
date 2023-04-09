@@ -86,7 +86,49 @@ void SEMenu(string username, schoolYear * headSY, schoolYear * curSY, int choice
             }
                 break;
             case 5: {
-                updateCourseInfor(curSY, cur, cur -> Courses);
+                Course* curCour = cur->Courses;
+                cout << "===================================\n";
+                cout << "\t\tCourse\n";
+                if (!curCour) {
+                    cout << "There is no Course now\n";
+                    break;
+                }
+                else {
+                    while (curCour) {
+                        cout << curCour->courseID << endl;
+                        curCour = curCour->next;
+                    }
+                }
+                curCour = cur->Courses;
+                do {
+                    if (!curCour) {
+                        cout << "You've enterd an invalid Course ID, Please enter again\n";
+                    }
+                    curCour = cur->Courses;
+
+                    cout << "======================================\n";
+                    cout << "Enter your course ID: ";
+                    string courID;
+                    cin >> courID;
+                    while (curCour && curCour->courseID != courID)
+                        curCour = curCour->next;
+                    if (curCour) {
+                        int move;
+                        cout << "Accessed successful. Next move?\n";
+                        cout << "1. Update the course information\n";
+                        cout << "2. Update a course class information\n";
+                        cout << "Your move: ";
+                        cin >> move;
+
+                        if (move == 1)
+                            return updateCourseInfor(headSY, cur, curCour);
+                        else
+                            return updateInforClassCourse(headSY, cur, curCour);
+                    }
+                    else {
+                        continue;
+                    }
+                } while (1);
             }
                 break;
             case 0:{
