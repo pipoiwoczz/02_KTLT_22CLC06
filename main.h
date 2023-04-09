@@ -35,13 +35,21 @@ struct Account {
     string username, password;
 };
 
-struct Course {
-    string courseName, className, teacherName;
+struct CourseClass {
+    string teacherName;
+    string className;
     string dayOfWeek, session;
-    string courseID;
-    int credits, maxStudents = 50;
+    int maxStudents = 50;
     int numberOfStudent = 0;
     Student* students = nullptr;
+    CourseClass * next = nullptr;
+};
+
+struct Course {
+    string courseName;
+    int credits;
+    string courseID;
+    CourseClass * CourseClass = nullptr;
     Course* next = nullptr;
 };
 
