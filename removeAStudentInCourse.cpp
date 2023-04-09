@@ -4,45 +4,63 @@
 #include <fstream>
 using namespace std;
 
-void removeAStudentInCourse(Course*& pCourse)
+void removeAStudentInCourse(schoolYear * curSY, Semester * curSE ,Course* pCourse)
 {
+    // choose Course Class to remove a student  
+    CourseClass * curCC = pCourse -> CourseClass;
+	cout << "---------List of Class in this Course------------\n";
+	while (curCC) {
+		cout << curCC -> className << endl;
+		curCC = curCC -> next;
+	}
+	cout << "---------------------------------------------------\n";
+
+	string className;
+	cout << "Enter class's name: ";
+	cin >> className;
+
+	curCC = pCourse -> CourseClass;
+	while (curCC && curCC -> className != className) {
+		curCC = curCC -> next;
+	} 
+
+	if (!curCC) {
+		cout << "You enter invalid class name!\n";
+		cout << "Input 0 to get back to previous menu or anything to enter class name again\n";
+		string temp;
+		cin >> temp;
+		if (temp == "0") {
+			return;
+		} else {
+			return removeAStudentInCourse(curSY, curSE, pCourse);
+		}
+	}
+
 	int studentID;
 	cout << "Enter a student ID: ";
 	cin >> studentID;
-	Student* currSt = pCourse->students;
-
-	if (studentID == currSt->studentId) {
-		pCourse->students = pCourse->students->next;
-		delete currSt;
-		return;
-	}
-
-	Student* prevSt = currSt;
-	currSt = currSt->next;
 	
-	while (currSt) {
-		if (currSt->studentId == studentID) {
-			prevSt->next = currSt->next;
-
-			string profileSt = "./profile/" + to_string(studentID) + ".txt";
-			ifstream fin(profileSt);
-			string currYear, classSt;
-			for (int i = 0; i < 3; i++)
-				getline(fin, currYear);
-			getline(fin, classSt);
-			fin.close();
-			string currSem;
-			fin.open("./SY.txt");
-			getline(fin, currSem);
-			fin.close();
-			string studentCourse = "./" + currYear + "/" + currSem + "/" + classSt + "/" + to_string(studentID) + "/" + pCourse->courseID + ".txt";
-			remove(studentCourse.c_str());
-
-			delete currSt;
-			currSt = prevSt->next;
-			return;
-		}
-		prevSt = currSt;
-		currSt = currSt->next;
-	}
+    string path = curSY -> name + "/" + to_string(curSE -> season) + "/" + pCourse -> courseID + "/" + curCC -> className + "/listStud.txt";
+    ifstream ifs(path);
+    ofstream ofs;
+    if(!ifs.is_open()) {
+        cout << "This class has no student yet\n";
+        return;
+    } else {
+        ofs.open("tmp.txt");
+        string temp;
+        while (getline (ifs, temp,  ',')) {
+            if (temp != to_string(studentID)) {
+                ofs << temp << ",";
+                getline (ifs, temp);
+                ofs << temp << endl;
+            } else {
+                getline(ifs, temp);
+            }
+        }
+    }
+    ifs.close();
+    ofs.close();
+    remove(path.c_str());
+    rename("tmp.txt", path.c_str());
 }

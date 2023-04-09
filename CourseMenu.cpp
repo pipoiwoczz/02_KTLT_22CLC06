@@ -8,6 +8,7 @@
 #include "viewStudentInACourse.h"
 #include "1StuToCourse.h"
 #include "removeAStudentInCourse.h"
+#include "saveStudentScoreboard.h"
 #include <string>
 using namespace std;
 
@@ -18,10 +19,12 @@ void courseMenu(string username, schoolYear * headSY, schoolYear * curSY, int ch
     cout << "1. Upload a list of students\n";
     cout << "2. Add a student to a course\n";
     cout << "3. Remove a student from a course\n";
-    cout << "4. View list of Students in course\n";
+    cout << "4. View list of Students in a course class\n";
     cout << "5. Import ScoreBoard of students\n";
-    cout << "6. View the Scoreboard of the course\n";
+    cout << "6. View the Scoreboard of a course class\n";
     cout << "7. Update a student's result\n";
+    cout << "8. View list of Students in course \n";
+    cout << "9. View the Scoreboard of the course\n";
     cout << "0. Back to previous menu\n";
     
     int move;
@@ -38,19 +41,23 @@ void courseMenu(string username, schoolYear * headSY, schoolYear * curSY, int ch
                 add1StudentToCourse(curSY, curSE, curCour);
                 break;
             case 3:
-                removeAStudentInCourse(curCour);
+                removeAStudentInCourse(curSY, curSE, curCour);
                 break;
             case 4: 
                 viewStudentInACourse(curSY, curSE, curCour);
                 break;
             case 5:
-                
+                saveStudentScoreboard(curSY, curSE, curCour);
                 break;
             case 6:
                 viewScoreboardOfCourse(curSY, curSE, curCour);
                 break;
             case 7:
                 updateStudentResultCourse(curSY, curSE, curCour);
+                break;
+            case 8:
+                break;
+            case 9:
                 break;
             case 0:
                 return SEMenu(username, headSY, curSY, choice);

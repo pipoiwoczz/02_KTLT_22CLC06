@@ -86,11 +86,11 @@ void SEMenu(string username, schoolYear * headSY, schoolYear * curSY, int choice
             }
                 break;
             case 5: {
-                updateCourseInfor(curSY, cur, cur -> Courses);
+                // updateCourseInfor(curSY, cur, cur -> Courses);
             }
                 break;
             case 0:{
-                SYMenu(username, headSY, curSY);
+                return SYMenu(username, headSY, curSY);
             }
             break;
         }
