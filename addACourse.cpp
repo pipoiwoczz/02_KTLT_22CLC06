@@ -40,8 +40,11 @@ void addACourse(schoolYear *SY, Semester *semester, Course *& pHead)
 				delete curCC;
 				break;
 			}
+			cin.ignore();
+			cout << "Teacher's name of this class: ";
+			getline(cin, curCC ->teacherName);
 			cout << "The maximum number of students in the course: ";
-			cin >> curCC->maxStudents;
+			cin >> curCC->numberOfStudent;
 			cout << "Day of week: ";
 			cin >> curCC->dayOfWeek;
 			cout << "The session performed on: ";
@@ -81,22 +84,38 @@ void addACourse(schoolYear *SY, Semester *semester, Course *& pHead)
 		curCC = curCC -> next;
 	}
 
-
-	path += "//info.txt";
+	// create infor.txt for each class in course
 	ofstream ofs;
-	ofs.open(path);
-		ofs << tmp -> courseID << endl;
-		ofs << tmp -> courseName << endl;
-		ofs << tmp -> credits << endl;
 		curCC = tmp -> CourseClass;
 		while (curCC) {
-			ofs << curCC -> className << "," << curCC -> teacherName << "," << curCC -> maxStudents << "," << curCC -> dayOfWeek << "," << curCC -> session << endl;
-			curCC = curCC -> next;	
+			ofs.open(path + "//" + curCC -> className + "//info.txt");
+			ofs << tmp -> courseID << endl;
+			ofs << tmp -> courseName << endl;
+			ofs << curCC -> className << endl;
+			ofs << curCC -> teacherName << endl;
+			ofs << tmp -> credits << endl;
+			ofs << curCC -> numberOfStudent << endl;
+			ofs << curCC -> dayOfWeek << endl;
+			ofs << curCC -> session;
+			curCC = curCC -> next;
+			ofs.close();
 		} 
-		
+	
+	// create class.txt
+	ifstream ifs;
+
+	curCC = tmp -> CourseClass;
+	path += "//class.txt";
+	
+	ofs.open(path);
+	while (curCC) {
+		ofs << curCC -> className << endl;
+		curCC = curCC -> next;
+	}	
 	ofs.close();
 
-	ifstream ifs;
+
+	// add course to course.txt
 
         string sy = SY -> name + "//" + char(semester -> season + 48) + "//";
 
@@ -114,6 +133,7 @@ void addACourse(schoolYear *SY, Semester *semester, Course *& pHead)
 
         ifs.close();
         ofs.close();
+
         remove((sy + "course.txt").c_str());
         rename((sy + "tmp.txt").c_str(), (sy + "course.txt").c_str());
 
@@ -121,5 +141,4 @@ void addACourse(schoolYear *SY, Semester *semester, Course *& pHead)
 	mkdir((sy + tmp -> courseID).c_str());
 
 	cout << "Course created successfully!!\n";
-	delete tmp;
 }
