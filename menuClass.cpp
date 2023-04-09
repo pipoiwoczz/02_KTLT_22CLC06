@@ -2,6 +2,7 @@
 #include "studentInAClass.h"
 #include "removeAStudent.h"
 #include "Add1StToClass.h"
+#include "viewScoreboardOfClass.h"
 #include "SYmenu.h"
 #include "profile.h"
 #include <string>
@@ -25,6 +26,7 @@ void classMenu(string username, schoolYear * headSY, schoolYear * curSY, string 
         cout << "2. View students in class\n";
         cout << "3. Add 1 student\n";
         cout << "4. Remove 1 student\n";
+        cout << "5. View Scoreboard of this class\n";
         cout << "0. Return to previous menu\n";
         cout << "=========================\n";
         
@@ -44,6 +46,9 @@ void classMenu(string username, schoolYear * headSY, schoolYear * curSY, string 
                     break;
                 case 4:
                     removeAStudent(curSY, curClass);
+                    break;
+                case 5:
+                    viewClassScoreboard(curSY, curClass);
                     break;
                 case 0:
                     return SYMenu(username, headSY, curSY);
