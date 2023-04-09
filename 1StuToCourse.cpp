@@ -1,16 +1,47 @@
 #include "1StuToCourse.h"
 #include "main.h"
 #include <fstream>
+#include <string>
 #include <iostream>
 using namespace std;
 
 void add1StudentToCourse(schoolYear * curSY, Semester * curSE, Course * curCourse)  {
+    CourseClass * curCC = curCourse -> CourseClass;
+	cout << "---------List of Class in this Course------------\n";
+	while (curCC) {
+		cout << curCC -> className << endl;
+		curCC = curCC -> next;
+	}
+	cout << "---------------------------------------------------\n";
+
+	string className;
+	cout << "Enter class's name: ";
+	cin >> className;
+
+	curCC = curCourse -> CourseClass;
+	while (curCC && curCC -> className != className) {
+		curCC = curCC -> next;
+	} 
+
+	if (!curCC) {
+		cout << "You enter invalid class name!\n";
+		cout << "Input 0 to get back to previous menu or anything to enter class name again\n";
+		string temp;
+		cin >> temp;
+		if (temp == "0") {
+			return;
+		} else {
+			return add1StudentToCourse(curSY, curSE, curCourse);
+		}
+	}
+
     cout << "==========Pls enter the information of the Student==========";
 
-    string id, firstName, lastName;
+    string firstName, lastName;
+    int id;
 
     cout << "\nStudent ID: ";
-    getline(cin, id);
+    cin >> id;
 
     cin.ignore();
     cout << "Enter student's last name: ";
@@ -22,8 +53,8 @@ void add1StudentToCourse(schoolYear * curSY, Semester * curSE, Course * curCours
     
     
 
-    string path = curSY -> name + "/" + to_string(curSE -> season) + "/" + curCourse -> courseID + "/" + "listStud.txt";
-    string infoStudent = id + "," + lastName + " " + firstName; 
+    string path = curSY -> name + "/" + to_string(curSE -> season) + "/" + curCourse -> courseID + "//" + curCC ->className +  "/" + "listStud.txt";
+    string infoStudent = to_string(id) + "," + lastName + " " + firstName; 
     int flag = 0;
 
     ifstream ifs;
@@ -72,26 +103,8 @@ void add1StudentToCourse(schoolYear * curSY, Semester * curSE, Course * curCours
                     break;
             }
         }   while (move != 1 && move != 2);
-    } else    {
+    } else {
         remove(path.c_str());
         rename((curSY -> name + "/" + to_string(curSE -> season) + "/" + curCourse -> courseID + "/" + "tmp.txt").c_str(), path.c_str());
-        
-        Student * tail = curCourse -> students;
-
-        if (tail == nullptr)    {
-            tail = new Student;
-            curCourse -> students = tail;
-        }    
-        else    {
-            while (tail -> next)    
-                tail = tail -> next;
-            tail -> next = nullptr;
-            tail -> next = new Student;
-            tail = tail -> next;
-        }
-
-        tail -> studentId = id;
-        tail -> lastName = lastName;
-        tail -> firstName = firstName;
     }
 }
