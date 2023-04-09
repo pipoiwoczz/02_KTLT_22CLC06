@@ -4,6 +4,5 @@
 #include "main.h"
 using namespace std;
 
-void removeProfile(string studentID);
-void removeAStudent(Student*& pHead);
+void removeAStudent(schoolYear * curSY, Class * curClass);
 #endif

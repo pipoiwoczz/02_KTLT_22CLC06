@@ -4,5 +4,5 @@
 using namespace std;
 
 string searchStudent(string studentID);
-void saveStudentScoreboard(schoolYear* year, string pathOfScoreboard, string courseID);
+void saveStudentScoreboard(schoolYear *year, Semester *curSE ,string courseID);
 #endif

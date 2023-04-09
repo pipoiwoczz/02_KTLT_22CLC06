@@ -8,151 +8,74 @@
 using namespace std;
 
 void add1StToClass(Student *& headStudent, schoolYear * curSY, Class * curClass) {
-    Student * tmp = headStudent;
+    Student * student = new Student;
     int no = 1;
 
-    if (!headStudent) {
-        headStudent = new Student;
-        headStudent -> No = no;
-        cout << "Enter student's ID: ";
-        cin >> headStudent -> studentId;
+    cout << "Enter student's ID: ";
+        cin >> student -> studentId;
         cin.ignore();
         cout << "Enter student's first name: ";
-        getline(cin , headStudent -> firstName);
+        getline(cin , student -> firstName);
         cin.ignore();
         cout << "Enter student's last name: ";
-        getline(cin , headStudent -> lastName);
+        getline(cin , student -> lastName);
         cout << "Enter student's gender: ";
-        cin >> headStudent -> gender;
+        cin >> student -> gender;
         cout << "Enter student's birthday: ";
-        cin >> headStudent -> dateOfBirth;
+        cin >> student -> dateOfBirth;
         cout << "Enter student's social ID: ";
-        cin >> headStudent -> socialId;
+        cin >> student -> socialId;
 
-        mkdir("profile");
-
-        ofstream ofs;
-        string path = "profile//";
-        int n = headStudent -> studentId;
-
-        char tmp2[100] = "";
-        string idNum;
-		int cnt = 0;
-        while (n != 0) {
-            tmp2[cnt] = char(n % 10 + 48);
-            n /= 10;
-			cnt++;
-        }
-
-		for (int i = cnt - 1; i >= 0; i--) {
-			path += tmp2[i];
-        	idNum += tmp2[i];
-		}
-
-		string path2 = curSY -> name + "\\" + curClass -> name + "\\" + idNum;
-		mkdir(path2.c_str());
-
-        path += ".txt";
-
-        ofs.open(path);
-		ofs << headStudent -> studentId << endl << "1234" << endl;
-		ofs << curSY -> name << endl;
-		ofs << curClass -> name << endl;
-		ofs << headStudent -> firstName << "," << headStudent -> lastName << endl;
-		ofs << headStudent -> gender << endl;
-		ofs << headStudent -> dateOfBirth;
-        ofs.close();        
-
-        path = curSY -> name + "\\" + curClass -> name + "\\" + "student.txt";
-        ifstream ifs;
-        string temp;
-
-        ifs.open(path);
-        ofs.open("tmp.txt");
-        if (ifs.is_open()) 
-            while (getline(ifs, temp)) {
-                ofs << temp << endl;
-            }
-        ofs << headStudent -> studentId;
-        ifs.close();
-        ofs.close();
-        remove(path.c_str());
-        rename("tmp.txt", path.c_str());
-
+    string profilePath = "profile//" + to_string(student -> studentId) + ".txt";
+    mkdir("profile");
+    ifstream fin(profilePath);
+    if (fin.is_open()) {
+        cout << "This student has already exist in this schoolyear\n";
+        delete student;
+        system("pause");
+        return add1StToClass(headStudent, curSY, curClass);
     } else {
-        no++;
-        while (tmp -> next) {
-            tmp = tmp -> next;
-            no++;
-        }
-        tmp -> next = new Student;
-        tmp = tmp -> next;
-        tmp -> No = no;
-        cout << "Enter student's ID: ";
-        cin >> tmp -> studentId;
-        cin.ignore();
-        cout << "Enter student's first name: ";
-        getline(cin , tmp -> firstName);
-        cin.ignore();
-        cout << "Enter student's last name: ";
-        getline(cin , tmp -> lastName);
-        cout << "Enter student's gender: ";
-        cin >> tmp -> gender;
-        cout << "Enter student's birthday: ";
-        cin >> tmp -> dateOfBirth;
-        cout << "Enter student's social ID: ";
-        cin >> tmp -> socialId;
-
-        mkdir("profile");
-        
-        ofstream ofs;
-        string path = "profile//";
-        int n = tmp -> studentId;
-
-        char tmp2[100] = "";
-        string idNum;
-		int cnt = 0;
-        while (n != 0) {
-            tmp2[cnt] = char(n % 10 + 48);
-            n /= 10;
-			cnt++;
-        }
-
-		for (int i = cnt - 1; i >= 0; i--) {
-			path += tmp2[i];
-        	idNum += tmp2[i];
-		}
-
-		string path2 = curSY -> name + "\\" + curClass -> name + "\\" + idNum;
-		mkdir(path2.c_str());
-
-        path += ".txt";
-
-        ofs.open(path);
-		ofs << tmp -> studentId << endl << "1234" << endl;
-		ofs << curSY -> name << endl;
-		ofs << curClass -> name << endl;
-		ofs << tmp -> firstName << "," << tmp -> lastName << endl;
-		ofs << tmp -> gender << endl;
-    	ofs << tmp -> dateOfBirth;
-        ofs.close();
-
-        path = curSY -> name + "\\" + curClass -> name + "\\" + "student.txt";
-        ifstream ifs;
-        string temp;
-
-        ifs.open(path);
-        ofs.open("tmp.txt");
-        if (ifs.is_open()) 
-            while (getline(ifs, temp)) {
-                ofs << temp << endl;
-            }
-        ofs << tmp -> studentId;
-        ifs.close();
-        ofs.close();
-        remove(path.c_str());
-        rename("tmp.txt", path.c_str());
+        ofstream out(profilePath);
+        out << student -> studentId << endl << "1234\n";
+        out << curSY -> name << endl;
+        out << curClass -> name << endl;
+        out << 1 << endl;
+        out << student -> lastName << "," << student -> firstName << endl;
+        out << student -> gender << endl;
+        out << student -> dateOfBirth << endl;
+        out << student -> socialId;
+        out.close();
     }
 
+    mkdir((curSY -> name + "//" + curClass -> name + "//" + to_string(student -> studentId)).c_str());
 
+    string stPath = curSY -> name + "//" + curClass -> name + "//" + "student.txt";
+    ifstream ifs(stPath);
+    ofstream ofs("tmp.txt");
+    if (ifs.is_open()) {
+        string tmp;
+        while (getline(ifs, tmp)) {
+            ofs << tmp << endl;
+            if (tmp == to_string(student -> studentId)) {
+                cout << "This student has aldready exists\n\n";
+                ofs.close();
+                remove("tmp.txt");
+                ifs.close();
+                delete student;
+                system("pause");
+                return add1StToClass(headStudent, curSY, curClass);
+            }
+        }
+        ofs <<student -> studentId;
+    } else {
+        ofs <<student -> studentId;
+    }
+
+    delete student;
+    ifs.close();
+    ofs.close();
+
+    remove(stPath.c_str());
+    rename("tmp.txt", stPath.c_str());
+    
 }

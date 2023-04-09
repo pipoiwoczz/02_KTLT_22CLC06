@@ -1,4 +1,5 @@
 #include "saveStudentScoreboard.h"
+#include "main.h"
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -15,9 +16,17 @@ string searchStudent(string studentID)
 	return className;
 }
 
-void saveStudentScoreboard(schoolYear *year, string pathOfScoreboard, string courseID)
+void saveStudentScoreboard(schoolYear *year, Semester *curSE ,string courseID)
 {
+	string pathOfScoreboard;
+	cout << "Please enter the path of the Scoreboard of this course: ";
+	cin >> pathOfScoreboard;
 	ifstream fin(pathOfScoreboard);
+	if (!fin.is_open()) {
+		cout << "This file doesn't exist!!\nPlease enter again\n";
+		system("pause");
+		return saveStudentScoreboard(year, curSE, courseID);
+	}
 	string temp;
 
 	while (!fin.eof()) {
@@ -37,4 +46,7 @@ void saveStudentScoreboard(schoolYear *year, string pathOfScoreboard, string cou
 		fout.close();
 	}
 	fin.close();
+
+	ofstream ofs;
+	string path = year -> name + "//" + to_string(curSE -> season) + "//" + courseID + "//" + "scoreboard.txt";
 }

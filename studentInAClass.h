@@ -6,7 +6,7 @@
 #include <string>
 using namespace std;
 
-void displayListOfStudents(Student* pHead, string SY, string cl);
-void inputStudentsToClass(Student*& pHead, schoolYear *curSY, Class * curClass);
+void displayListOfStudents(string SY, string Class);
+void inputStudentsToClass(schoolYear *curSY, Class * curClass);
 
 #endif

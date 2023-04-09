@@ -34,16 +34,16 @@ void classMenu(string username, schoolYear * headSY, schoolYear * curSY, string 
             switch (move)
             {
                 case 1:
-                    inputStudentsToClass(curClass -> Students, curSY, curClass);             
+                    inputStudentsToClass(curSY, curClass);             
                     break;
                 case 2: 
-                    displayListOfStudents(curClass -> Students, curSY -> name, curClass -> name);
+                    displayListOfStudents(curSY -> name, curClass -> name);
                     break;
                 case 3:
                     add1StToClass(curClass -> Students, curSY, curClass);
                     break;
                 case 4:
-                    removeAStudent(curClass -> Students);
+                    removeAStudent(curSY, curClass);
                     break;
                 case 0:
                     return SYMenu(username, headSY, curSY);
