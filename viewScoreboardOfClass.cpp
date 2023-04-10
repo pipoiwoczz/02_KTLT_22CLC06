@@ -1,6 +1,5 @@
 #include "viewScoreboardOfClass.h"
 
-///////////// left and right, are they okay if I just use right once?
 bool checkExist(courseInThisSem *head, string value) {
     while (head) {
         if (head -> ID == value) return true;
@@ -29,12 +28,13 @@ void viewClassScoreboard(schoolYear *SY, Class *className) {
         while (!ifs.eof()) {
             getline(ifs, ID); // Student's ID
             // Open the file saving courses that a student will learn in this semester
-            student.open("./" + SY -> name + "/" + className -> name + "/" + ID + "/" + sem + "_" + SY -> name + ".txt");
-                getline(student, course);
-                getline(student, course);
+            student.open("./" + SY -> name + "/" + className -> name + "/" + ID + "/" + sem + "_" + SY -> name + ".txt"); // <sem>_<SY>.txt
+                getline(student, course); // GPA in this semester -> no need here
+                getline(student, course); // credit -> no need either
                 while (!student.eof()) {
-                    getline(student, course); // get a course 
+                    getline(student, course,','); // get a course's ID
                     if (!checkExist(head, course)) insertCourseAtBegin(head, course);
+                    getline(student, course); // class of the course -> no need here
                 }
             student.close();
         }
@@ -44,7 +44,7 @@ void viewClassScoreboard(schoolYear *SY, Class *className) {
     // Print out first line to the screen
     cout << className -> name << endl;
     cout << "----------" << endl;
-    cout << left << setw(34) << "Name";
+    cout << left << setw(34) << "Name"; // the name of the column that represents student's name
     courseInThisSem *cur = head; // A temp pointer used to traverse
     while (cur) {
         cout << setw(10) << cur -> ID; // course ID
@@ -61,7 +61,7 @@ void viewClassScoreboard(schoolYear *SY, Class *className) {
                 cout << left << setw(34) << name; // Prints out student name
             student.close();
 
-            cur = head;
+            cur = head; // refresh the "cur" variable
             while (cur) {
                 student.open("./" + SY -> name + "/" + className -> name + "/" + ID + "/" + cur -> ID + ".txt");
                     // If this student does not enroll in this course, print out x
