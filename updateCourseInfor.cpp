@@ -45,7 +45,7 @@ void updateCourseInfor(schoolYear* curSY, Semester* curSemester, Course*& curCou
 	string pathClasses = "./" + curSY->name + "/" + to_string(curSemester->season) + "/" + curCourse->courseID + "/class.txt";
 	ifstream ifs(pathClasses);
 		while (!ifs.eof()) {
-			CourseClass* temp = pCourse->CourseClass;
+			CourseClass* temp = curCourse->CourseClass;
 			string classname;
 			getline(ifs, classname);
 				
