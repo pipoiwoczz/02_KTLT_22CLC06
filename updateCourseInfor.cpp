@@ -85,7 +85,7 @@ void updateInforClassCourse(schoolYear* curSY, Semester* curSemester, Course*& c
 		cout << currCC->className << endl;
 		currCC->next;
 	}
-	currCC = curCour->CourseClass;
+	currCC = curCourse->CourseClass;
 
 	do {
 		if (!currCC) 
