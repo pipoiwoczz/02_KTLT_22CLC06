@@ -1,10 +1,11 @@
-#ifndef _FUNCTION_H_
-#define _FUNCTION_H_
+#ifndef _viewStudentScoreboard_
+#define _viewStudentScoreboard_
 
-#include <iostream>
-#include <string>
 #include "main.h"
+#include <iomanip>
 
-void viewCoursesStudent(string Id);
+void viewStudentScoreboard(string Id);
+void viewStudentScoreboardChooseSem(string Id, string chosenSemester, string chosenSY);
+void viewStudentScoreboardAllCourses(string Id);
 
 #endif
