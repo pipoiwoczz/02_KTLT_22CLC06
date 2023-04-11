@@ -4,6 +4,7 @@
 #include "main.h"
 #include <iomanip>
 
-void viewStudentInACourse(schoolYear *SY, Semester *Sem, Course *course);
+void viewStudentInACourseClass(schoolYear *SY, Semester *Sem, Course *course);
+void studentInACourse(schoolYear *SY, Semester *Sem, Course *course);
 
 #endif

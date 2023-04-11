@@ -44,7 +44,7 @@ void courseMenu(string username, schoolYear * headSY, schoolYear * curSY, int ch
                 removeAStudentInCourse(curSY, curSE, curCour);
                 break;
             case 4: 
-                viewStudentInACourse(curSY, curSE, curCour);
+                viewStudentInACourseClass(curSY, curSE, curCour);
                 break;
             case 5:
                 saveStudentScoreboard(curSY, curSE, curCour);
@@ -56,6 +56,7 @@ void courseMenu(string username, schoolYear * headSY, schoolYear * curSY, int ch
                 updateStudentResultCourse(curSY, curSE, curCour);
                 break;
             case 8:
+                studentInACourse(curSY, curSE, curCour);
                 break;
             case 9:
                 break;

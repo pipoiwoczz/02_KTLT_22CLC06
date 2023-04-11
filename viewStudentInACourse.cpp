@@ -1,7 +1,7 @@
 #include "viewStudentInACourse.h"
 using namespace std;
 
-void viewStudentInACourse(schoolYear *SY, Semester *Sem, Course *course) {
+void viewStudentInACourseClass(schoolYear *SY, Semester *Sem, Course *course) {
     // choose Course Class to view students  
     CourseClass * curCC = course -> CourseClass;
 	cout << "---------List of Class in this Course------------\n";
@@ -28,7 +28,7 @@ void viewStudentInACourse(schoolYear *SY, Semester *Sem, Course *course) {
 		if (temp == "0") {
 			return;
 		} else {
-			return viewStudentInACourse(SY, Sem, course);
+			return viewStudentInACourseClass(SY, Sem, course);
 		}
 	}
 
@@ -36,7 +36,7 @@ void viewStudentInACourse(schoolYear *SY, Semester *Sem, Course *course) {
     ifstream ifs;
         ifs.open("./" + SY -> name + "/" + to_string(Sem -> season) + "/" + course -> courseID + "/" + curCC ->className + "/listStud.txt");
         int i = 1; // Ordinal number
-        cout << "Student in this course: "<< endl;
+        cout << "Student in this course class: "<< endl;
         cout << "--------------------" << endl;
         cout << left << setw(5) << "No." << setw(12) << "ID" << "Name" << endl;
         while (!ifs.eof()) {
@@ -49,4 +49,27 @@ void viewStudentInACourse(schoolYear *SY, Semester *Sem, Course *course) {
         }
         cout << "--------------------" << endl;
     ifs.close();
+}
+
+void studentInACourse(schoolYear *SY, Semester *Sem, Course *course) {
+	string path = "./" + SY -> name + "/" + to_string(Sem -> season) + "/" + course -> courseID + "/class.txt";
+	string courseClass, studentID, studentName;
+	ifstream ifs, Class;
+	int i=1; // Ordinal number
+	cout << "List of student in this course: " << endl;
+    cout << "--------------------" << endl;
+    cout << left << setw(5) << "No." << setw(12) << "ID" << setw(8) << "Class" << "Name" << endl;
+	ifs.open(path);
+		while (!ifs.eof()) {
+			getline(ifs, courseClass);
+			Class.open("./" + SY -> name + "/" + to_string(Sem -> season) + "/" + course -> courseID + "/" + courseClass + "/listStud.txt");
+				while (!Class.eof()) {
+					getline(Class, studentID, ',');
+					getline(Class, studentName);
+					cout << left << setw(5) << i << setw(12) << studentID << setw(8) << courseClass << studentName << endl;
+					i++;
+				}
+			Class.close();
+		}
+	ifs.close();
 }
