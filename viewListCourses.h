@@ -3,6 +3,11 @@
 
 #include "main.h"
 
-void viewListCourses(Semester *semester);
+struct listCourse {
+    string ID;
+    listCourse *next = nullptr;
+};
+
+void viewListCourses();
 
 #endif
