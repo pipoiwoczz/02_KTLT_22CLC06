@@ -7,37 +7,23 @@ using namespace std;
 // #include <filesystem>
 // using namespace filesystem;
 
-void removeAStudent(schoolYear * curSY, Class * curClass)
+void removeAStudent(string nameSY, string nameClass)
 {
 	int id;
 	cout << "Enter the ID of student: ";
 	cin >> id;
-	// if (pHead->studentId == id) {
-	// 	pHead = pHead->next;
-	// 	removeProfile(to_string(prev->studentId));
-	// 	delete prev;
-	// 	return;
-	// }
-	// while (prev) {
-	// 	if (curr->studentId == id) {
-	// 		prev->next = curr->next;
-	// 		removeProfile(to_string(curr->studentId));
-	// 		delete curr;
-	// 		return;
-	// 	}
-	// 	prev = curr;
-	// 	curr = curr->next;
-	// }		
+	
 	string studentID = to_string(id);
-	string studentFile = curSY -> name + "/" + curClass -> name + "/" + "student.txt";
+	string path_SY_Class_student = nameSY + "/" + nameClass + "/" + "student.txt";
 
-	ifstream ifs(studentFile);
+	ifstream ifs(path_SY_Class_student);
 	bool flag;
 
 	// check if this student isn't in this class
 
 	if (!ifs.is_open()) {
 		cout << "There is no student in this class now!\n";
+		cout << "Please input students to this class first!\n";
 		system("pause");
 		return;
 	} else {
@@ -50,47 +36,60 @@ void removeAStudent(schoolYear * curSY, Class * curClass)
 			flag = false;
 		}
 	}
+
 	ifs.close();
+
 	if (flag == false) {
-		cout << "This student doesn't exist in this class\n";
-		system("pause");
-		return;
+		cout << "The student doesn't exist in this class\n";
+		cout << "\nDo you want to remove another student in this class?";
+		cout << "\n1. Yes";
+		cout << "\n2. No";
+
+		int move;
+		
+		do	{
+			cout << "Please choose your move: ";
+			cin >> move;
+
+			switch (move)	{
+				case 1: 
+					return removeAStudent(nameSY, nameClass);
+				case 2: 
+					return;
+				default:	
+					cout << "You've entered wrong choice";
+					cout << "\nPlease try again";
+					cout << endl;
+			}	
+		}	while (move != 1 && move != 2);
 	}
 
-	string profileSt = "profile//" + studentID + ".txt";
-	cout << profileSt << endl;
-	ifs.open(profileSt);
+	string path_SY_Class_MSSV = nameSY + "//" + nameClass + "//" + studentID;
 
-	string className, schoolYear;
-	getline(ifs, schoolYear);
-	getline(ifs, schoolYear);
-	getline(ifs, schoolYear);
-	getline(ifs, className);
-	string pathStInClass = schoolYear + "//" + className + "//" + studentID;
+	// 	remove folder in SY -> class -> mssv
+	rmdir(path_SY_Class_MSSV.c_str());
 
-	rmdir(pathStInClass.c_str());
-	
-	ifs.close();
+	string path_Pro5_MSSV = "profile/" + studentID + ".txt";	
+
+	//	remove profile -> mssv.txt 
 	remove(profileSt.c_str());
 
 	// remove student's id in file class//student.txt
 
-	string path = schoolYear + "//" + className + "//" + "student.txt";
 	string tmp;
 	ofstream ofs;
 	
-        ifs.open(path);
-        ofs.open("tmp.txt");
-        if (ifs.is_open()) {
-            while (getline (ifs, tmp)) {
-				if (tmp != studentID)
-                	ofs << tmp << endl;
-            }
-        }
+	ifs.open(path_SY_Class_student);
+	ofs.open("tmp.txt");
+	if (ifs.is_open()) {
+		while (getline (ifs, tmp)) {
+			if (tmp != studentID)
+				ofs << tmp << endl;
+		}
+	}
 
-        ofs.close();
-        ifs.close();
-        remove(path.c_str());
-        rename("tmp.txt", path.c_str());
-
+	ofs.close();
+	ifs.close();
+	remove(path.c_str());
+	rename("tmp.txt", path_SY_Class_student.c_str());
 }
