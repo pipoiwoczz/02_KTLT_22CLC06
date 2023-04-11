@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "profileStudent.h"
 using namespace std;
 
 void createFolder(char *name) {
@@ -73,16 +74,24 @@ void signUp(schoolYear *& headSY){
     cout << "You can only sign up as a teacher: \n";
     cout << "=================================\n";
     isStaff(headSY);
-    cout << "Enter username: ";
-    // cin.ignore();
-    cin >> tmp;
+    unsigned le;
+    do { //////// NEW HERE
+        cout << "Enter username (The username must not be equal to 8 numbers): ";
+        cin >> tmp;
+        if (strlen(tmp) != 8) break;
+        for (int i=0; i<8; i++) {
+            if (!isdigit(tmp[i])) break;
+        }
+        cout << "The username must include at least a letter or a special character" << endl;
+        cout << "Please enter a valid username!" << endl;
 
-    unsigned le = strlen(tmp) + 1;
+    } while (true); ///// END NEW
+    le = strlen(tmp) + 1;
     username = new char[le];
     strcpy(username, tmp);
 
     strcat(sTmp, username);
-    strcat(sTmp,  ".txt");
+    strcat(sTmp,  ".txt"); // Create a path leading to the file saving user info
 
     cout << "Enter password: ";
     // cin.ignore();
@@ -137,7 +146,7 @@ void signUp(schoolYear *& headSY){
 
 void login(schoolYear *& headSY) {
     system("cls");
-    char username[1000], password[1000];
+    string username, password;
 
     cout << "LOG IN PAGE!!\n\n";
 
@@ -149,42 +158,51 @@ void login(schoolYear *& headSY) {
     // cin.ignore();
     cin >> password;
 
-    char tmp[1000] = "User\\";
-    strcat(tmp, username);
-    strcat(tmp, ".txt");
+    bool isStudent = true;
+    if (username.length() == 8) {
+        for (char c : username) {
+            if (!isdigit(c)) {
+                isStudent = false; 
+                break;
+            }
+        }
+    }
 
-    char passTmp[1000] = {0}, usernameTmp[1000] = {0};
+    string tmp;
+    if (isStudent) tmp = "./profile/";
+    else tmp = ".User/";
+    tmp += username + ".txt";
 
-    FILE *fi = fopen(tmp, "r");
-    if (fi == NULL) {
+    string passTmp, usernameTmp;
+
+    ifstream ifs;
+    ifs.open(tmp);
+    if (!ifs.is_open()) {
         cout << "This account is not exist!!\n";
         cout << "What do you want to do now?\n";
         system("pause");
         return mainMenu(headSY);
     }
 
-    fscanf(fi, "%s\n%s\n", usernameTmp, passTmp);
+    getline(ifs, usernameTmp);
+    getline(ifs, passTmp);
 
-    if (strcmp(password, passTmp) != 0) {
-        cout << "You entered wrong password!!\n";
+    if (password != passTmp) {
+        cout << "You entered a wrong password!!\n";
         system("pause");
         cout << "What do you want to do now?\n";
-        fclose(fi);
+        ifs.close();
         return mainMenu(headSY);
     }
 
-    fclose(fi);
+    ifs.close();
 
     cout << "Log in successfully !!\n\n";
 
-    string tmpUser = "";
-    unsigned int le = strlen(username);
-
-    for (unsigned int i = 0; i < le; i++) {
-        tmpUser += username[i];
-    }
+    string tmpUser = username;
+    unsigned int le = username.length();
 
     system("pause");
+    if (isStudent) return profileStudent(username, headSY);
     return profile_menu(tmpUser, headSY);
-
 }

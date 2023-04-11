@@ -9,5 +9,9 @@ struct listCourse {
 };
 
 void viewListCourses();
+void insertCourseBeg(listCourse* &course, string ID);
+void insertCourse(listCourse* &Course, string ID);
+void deleteLLCourse(listCourse* &course);
+void viewCourseClass(string courseID);
 
 #endif
