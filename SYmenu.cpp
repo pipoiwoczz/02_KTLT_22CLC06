@@ -23,7 +23,6 @@ void SYMenu(string username, schoolYear *& headSY, schoolYear *& curSY) {
     cout << "0. Back to previous menu\n";
 
     int move;
-    string nameClass;
 
     cout << "======================\n";
     do {
@@ -127,43 +126,57 @@ void SYMenu(string username, schoolYear *& headSY, schoolYear *& curSY) {
             break;
 
         case 6: {
-            Class *curClass = curSY -> Classes;
+            ifstream ifs;
+            string path_SY_classtxt = nameSY + "/" + "class.txt";
 
-            if (!curClass) {
+            ifs.open(path_SY_classtxt.c_str());
+    
+            if (!ifs.is_open()) {
                 cout << "There is no class now!!\n";
+                cout << "Please create classes first!!\n";
+                
+                ifs.close();
+                return SYMenu(username, headSY, curSY);
+            }
+
+            cout << "Current available school year: \n";
+            
+            string tmp;
+
+            while (getline(ifs, tmp))   
+                cout << tmp << endl;
+            
+
+            string nameClass;
+
+            cout << "==================\n";
+            cout << "Please enter class's name: ";
+            cin >> nameClass;
+
+            
+            int flag = 0;
+
+            while (getline(ifs, tmp))   {
+                if (tmp == nameClass)   {
+                    flag == 1;
+                    break;
+                }
+            }
+
+            if (flag == 0)  {
+                ifs.close();
+
+                cout << "You've entered a non-existed class name.\n";
+                cout << "Please press enter to return to the current school year menu.\n";
                 system("pause");
                 return SYMenu(username, headSY, curSY);
-            } else {
-                while (curClass) {
-                    cout << curClass -> name << endl;
-                    curClass = curClass -> next;
-                }
+            }
 
-                curClass = curSY -> Classes;
-
-                do {
-                    cout << "==================\n";
-                    cout << "Please enter class's name: ";
-                    cin >> nameClass;
-
-                    while (curClass && curClass -> name != nameClass)
-                    curClass = curClass -> next;
-
-                    if (curClass == nullptr)
-                    {
-                        cout << "You've entered a non-exist class name.\n";
-                        curClass = curSY -> Classes;
-                    } else {
-                        return classMenu(username, headSY, curSY, nameClass);
-                    }
-
-                } while (1);
+            return classMenu(username, nameSY, nameClass);
 
             }
-        }
-            break;
         case 0:
             return profile_menu(username, headSY);
             break;
-    }
+        }   
 }
