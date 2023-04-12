@@ -3,6 +3,6 @@
 
 #include "main.h"
 
-void viewListCoursesInSem(Semester *semester);
+void viewListCoursesInSem(string SY, string semester);
 
 #endif
