@@ -8,7 +8,7 @@
 #include "viewCoursesStudent.h"
 #include "viewStudentScoreboard.h"
 
-void profileStudent(string username, schoolYear* headSY);
+void profileStudent(string username);
 void scoreboard_menu(string username, string Class, string SY);
 void viewProfile(string studentID);
 void changeProfile(string studentID);
