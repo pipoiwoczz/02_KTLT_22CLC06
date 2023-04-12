@@ -10,9 +10,9 @@ void viewStudentScoreboard(string Id) {
         getline(ifs, SY); // School year
         getline(ifs, Class); // Class
     ifs.close();
-    ifs.open("./SY.txt");
-        getline(ifs, Semester); // Semester
+    ifs.open("./curTime.txt");
         getline(ifs, curSY); // current school year
+        getline(ifs, Semester); // Semester
     ifs.close();
 
     // school year saving data of student
@@ -80,12 +80,12 @@ void viewStudentScoreboardChooseSem(string Id, string chosenSemester, string cho
     ifs.open(path);
 
         getline(ifs, GPA); // GPA in this semester
+        getline(ifs, line); // number of credits -> no use here
         cout << "Scoreboard of this semester:" << endl;
         cout << "--------------------" << endl;
         cout << "GPA: " << GPA << endl;
         cout << "----------" << endl;
         cout << left << setw(12) << "Course ID" << setw(30) << "Course name" << setw(8) << "Class" << setw(8) << "Credits" << setw(6) << "Total" << setw(6) << "Final" << setw(8) << "Midterm" << setw(6) << "Other" << endl;
-        getline(ifs, line); // number of credits -> no use here
         while (!ifs.eof()) {
             getline(ifs, line, ','); // Get a course's ID
             getline(ifs, courseClass); // Get class name of the course
@@ -140,14 +140,14 @@ void viewStudentScoreboardAllCourses(string Id) {
     ifs.open(path); // total.txt
 
         getline(ifs, GPA); // GPA all semester
+        getline(ifs, line); // number of credits -> no use here
         cout << "Scoreboard of all semester:" << endl;
         cout << "--------------------" << endl;
         cout << "Overall GPA: " << GPA << endl;
         cout << "----------" << endl;
         cout << left << setw(12) << "Course ID" << setw(30) << "Course name" << setw(8) << "Class" << setw(8) << "Credits" << setw(6) << "Total" << setw(6) << "Final" << setw(8) << "Midterm" << setw(6) << "Other" << endl;
-        getline(ifs, line); // number of credits -> no use here
         while (!ifs.eof()) {
-            getline(ifs, line); // semester of a schoolYear
+            getline(ifs, line); // semester of a schoolYear <sem>_<SY>
             semInSchool.open("./" + SY + "/" + Class + "/" + Id + "/" + line + ".txt"); // <sem>_<SY>.txt
                 getline(semInSchool, courseID); // GPA in this semester -> no use here
                 getline(semInSchool, courseID); // total credit in this semester -> no use here

@@ -1,39 +1,50 @@
 #include "viewStudentInACourse.h"
 
-void viewStudentInACourseClass(schoolYear *SY, Semester *Sem, Course *course) {
+void viewStudentInACourseClass(string SY, string Sem, string course) {
     // choose Course Class to view students  
-    CourseClass * curCC = course -> CourseClass;
-	cout << "---------List of Class in this Course------------\n";
-	while (curCC) {
-		cout << curCC -> className << endl;
-		curCC = curCC -> next;
-	}
-	cout << "---------------------------------------------------\n";
+	string cClass, path, chosenClass;
+	ifstream courseClass;
+	path = "./" + SY + "/" + Sem + "/" + course + "/class.txt";
 
-	string className;
+	// View list of classes in a course
+	courseClass.open(path);
+		cout << "---------List of Class in this Course------------\n";
+		while (!courseClass.eof()) {
+			getline(courseClass, cClass);
+			cout << cClass << endl;
+		}
+		cout << "---------------------------------------------------\n";
+	courseClass.close();
+
 	cout << "Enter class's name: ";
-	cin >> className;
+	cin >> chosenClass;
 
-	curCC = course -> CourseClass;
-	while (curCC && curCC -> className != className) {
-		curCC = curCC -> next;
-	} 
+	// Check whether the input is correct or not
+	bool exist = false;
+	courseClass.open(path);
+		while (!courseClass.eof()) {
+			getline(courseClass, cClass);
+			if (cClass == chosenClass) {
+				exist = true;
+				break;
+			}
+		}		
+	courseClass.close();
 
-	if (!curCC) {
-		cout << "You enter invalid class name!\n";
-		cout << "Input 0 to get back to previous menu or anything to enter class name again\n";
+	if (!exist) {
+		cout << "You've entered an invalid class name!\n";
+		cout << "Enter 0 to get back to previous menu or any key else to enter class name again\n";
+		cout << "Your choice: ";
 		string temp;
 		cin >> temp;
-		if (temp == "0") {
-			return;
-		} else {
-			return viewStudentInACourseClass(SY, Sem, course);
-		}
+
+		if (temp == "0") return;
+		else return viewStudentInACourseClass(SY, Sem, course);
 	}
 
     string out;
     ifstream ifs;
-        ifs.open("./" + SY -> name + "/" + to_string(Sem -> season) + "/" + course -> courseID + "/" + curCC ->className + "/listStud.txt");
+        ifs.open("./" + SY + "/" + Sem + "/" + course + "/" + chosenClass + "/listStud.txt");
         int i = 1; // Ordinal number
         cout << "Student in this course class: "<< endl;
         cout << "--------------------" << endl;
@@ -50,18 +61,20 @@ void viewStudentInACourseClass(schoolYear *SY, Semester *Sem, Course *course) {
     ifs.close();
 }
 
-void studentInACourse(schoolYear *SY, Semester *Sem, Course *course) {
-	string path = "./" + SY -> name + "/" + to_string(Sem -> season) + "/" + course -> courseID + "/class.txt";
+// This function view list of student in a course of a semester
+void studentInACourse(string SY, string Sem, string course) {
+	string path = "./" + SY + "/" + Sem + "/" + course + "/class.txt";
 	string courseClass, studentID, studentName;
 	ifstream ifs, Class;
 	int i=1; // Ordinal number
 	cout << "List of student in this course: " << endl;
     cout << "--------------------" << endl;
     cout << left << setw(5) << "No." << setw(12) << "ID" << setw(8) << "Class" << "Name" << endl;
+
 	ifs.open(path);
 		while (!ifs.eof()) {
 			getline(ifs, courseClass);
-			Class.open("./" + SY -> name + "/" + to_string(Sem -> season) + "/" + course -> courseID + "/" + courseClass + "/listStud.txt");
+			Class.open("./" + SY + "/" + Sem + "/" + course + "/" + courseClass + "/listStud.txt");
 				while (!Class.eof()) {
 					getline(Class, studentID, ',');
 					getline(Class, studentName);
