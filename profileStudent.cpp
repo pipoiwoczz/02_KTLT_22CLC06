@@ -1,7 +1,7 @@
 #include "profileStudent.h"
 
-void profileStudent(string username, SchoolYear* headSY)
-{
+void profileStudent(string username, schoolYear* headSY)
+{ 
 	system("cls");
 	string SY, Class;
 	ifstream ifs;
@@ -31,18 +31,18 @@ void profileStudent(string username, SchoolYear* headSY)
 				break;
 			case 2:
                 changeProfile(username);
-				return profileStudent(username);
+				return profileStudent(username, headSY);
 				break;
 			case 3: 
 				viewCourseStudent(username);
-				return profileStudent(username);
+				return profileStudent(username, headSY);
 				break;
 			case 4: // FUNCTION viewClassSchedule()
-				return profileStudent(username);
+				return profileStudent(username, headSY);
 				break;
 			case 5:
 				scoreboard_menu(username, Class, SY);
-				return profileStudent(username);
+				return profileStudent(username, headSY);
 				break;
 			case 0:
 				cout << "LOGGED OUT SUCCESSFULLY.\n";

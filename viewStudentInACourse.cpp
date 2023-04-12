@@ -1,5 +1,4 @@
 #include "viewStudentInACourse.h"
-using namespace std;
 
 void viewStudentInACourseClass(schoolYear *SY, Semester *Sem, Course *course) {
     // choose Course Class to view students  

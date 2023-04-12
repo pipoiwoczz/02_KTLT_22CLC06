@@ -1,8 +1,4 @@
 #include "viewScoreboardOfCourse.h"
-#include "main.h"
-#include <iostream>
-#include <fstream>
-using namespace std;
 
 void viewScoreboardOfCourse(schoolYear *SY, Semester *Sem, Course *curCourse) {
     // choose Course Class to remove a student  
@@ -38,7 +34,7 @@ void viewScoreboardOfCourse(schoolYear *SY, Semester *Sem, Course *curCourse) {
 
     ifstream ifs;
     string out;
-    ifs.open("./" + SY -> name + "/" + to_string(Sem -> season) + "/" + curCourse -> courseID + "//" + curCC -> className + "/scoreboard.txt");
+    ifs.open("./" + SY -> name + "/" + to_string(Sem -> season) + "/" + curCourse -> courseID + "/" + curCC -> className + "/scoreboard.txt");
     if (!ifs.is_open()) {
         cout << "This course hasn't been updated scoreboard\n";
         system("pause");
