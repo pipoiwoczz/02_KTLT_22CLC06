@@ -8,7 +8,7 @@ void login(schoolYear *& headSY);
 
 void createFolder(char *name);
 
-bool isValidUsername(char *username, bool check);
+bool isValidUsername(char *username);
 
 bool isStaff(schoolYear *& headSY);
 

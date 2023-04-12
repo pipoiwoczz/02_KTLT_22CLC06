@@ -34,7 +34,7 @@ void profileStudent(string username, schoolYear* headSY)
 				return profileStudent(username, headSY);
 				break;
 			case 3: 
-				viewCourseStudent(username);
+				viewCoursesStudent(username);
 				return profileStudent(username, headSY);
 				break;
 			case 4: // FUNCTION viewClassSchedule()
@@ -47,7 +47,7 @@ void profileStudent(string username, schoolYear* headSY)
 			case 0:
 				cout << "LOGGED OUT SUCCESSFULLY.\n";
 				getch();
-				return main_menu(headSY);
+				return mainMenu(headSY);
 				break;
 		}
 	} while (choice >= 1 && choice <= 5);
@@ -82,7 +82,7 @@ void scoreboard_menu(string username, string Class, string SY)
 				viewStudentScoreboardChooseSem(username, sem, SY);
 				break;
 			}
-			case 2: viewStudentScoreboardAllCourses(username, SY); break;
+			case 2: viewStudentScoreboardAllCourses(username); break;
 			default: break;
 		}
 	} while (opt >= 1 && opt <= 2);

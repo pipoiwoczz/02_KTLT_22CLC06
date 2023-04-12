@@ -5,7 +5,7 @@ void updateCourseInfor(schoolYear* curSY, Semester* curSemester, Course*& curCou
 	system("clear");
 	int opt = -1;
 	cout << curCourse->courseID << endl;
-	cout << "What do you want to update?"
+	cout << "What do you want to update?";
 	cout << "\n1. Course ID\n";
 	cout << "2. Course Name\n";
 	cout << "3. Number of credits\n";
@@ -51,7 +51,7 @@ void updateCourseInfor(schoolYear* curSY, Semester* curSemester, Course*& curCou
 				
 			while (temp) {
 				if (temp->className == classname) {
-					string pahtClassInfor = "./" + curSY->name + "/" + to_string(curSemester->season) + "/" + curCourse->courseID + "/" + classname + "/info.txt";
+					string pathClassInfor = "./" + curSY->name + "/" + to_string(curSemester->season) + "/" + curCourse->courseID + "/" + classname + "/info.txt";
 					ofstream fout(pathClassInfor);
 						fout << curCourse->courseID << endl;
 						fout << curCourse->courseName << endl;
@@ -79,7 +79,7 @@ void updateInforClassCourse(schoolYear* curSY, Semester* curSemester, Course*& c
 	cout << "\t\tCourse classes\n";
 	if (!currCC) {
 		cout << "There is no classes now.\n";
-		break;
+		return;
 	}
 	while (currCC) {
 		cout << currCC->className << endl;
