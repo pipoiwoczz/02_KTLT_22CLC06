@@ -1,4 +1,5 @@
 #include "main.h"
+#include "Add1StToClass.h"
 #include <string>
 #include <cstring>
 #include <stdlib.h>
@@ -7,7 +8,8 @@
 #include <fstream>
 using namespace std;
 
-void add1StToClass(Student *& headStudent, schoolYear * curSY, Class * curClass) {
+// Undecided how to set up profile/mssv.txt
+void add1StToClass(string nameSY, string nameClass) {
     Student stu;
     int no = 1;
 
@@ -46,7 +48,7 @@ void add1StToClass(Student *& headStudent, schoolYear * curSY, Class * curClass)
 
 			switch (move)	{
 				case 1: 
-					return add1StToClass(headStudent, curSY, curClass);
+					return add1StToClass(nameSY, nameClass);
 				case 2: 
                     return;
 				default:	
@@ -56,11 +58,12 @@ void add1StToClass(Student *& headStudent, schoolYear * curSY, Class * curClass)
 			}	
 		}	while (move != 1 && move != 2);
     } else {
+
         // crete file profile/MSSV.txt
         ofstream out(path_Pro5_MSSV);
         out << stu.studentId << endl << "1234\n";
-        out << curSY -> name << endl;
-        out << curClass -> name << endl;
+        out << nameSY << endl;
+        out << nameClass << endl;
         out << 1 << endl;
         out << stu.lastName << "," << stu.firstName << endl;
         out << stu.gender << endl;
@@ -69,9 +72,9 @@ void add1StToClass(Student *& headStudent, schoolYear * curSY, Class * curClass)
         out.close();
     }
 
-    mkdir((curSY -> name + "//" + curClass -> name + "//" + to_string(stu.studentId)).c_str());
+    mkdir((nameSY + "//" + nameClass + "//" + to_string(stu.studentId)).c_str());
 
-    string stPath = curSY -> name + "//" + curClass -> name + "//" + "student.txt";
+    string stPath = nameSY + "//" + nameClass + "//" + "student.txt";
     ifstream ifs(stPath);
     ofstream ofs("tmp.txt");
     if (ifs.is_open()) {
@@ -84,7 +87,7 @@ void add1StToClass(Student *& headStudent, schoolYear * curSY, Class * curClass)
                 remove("tmp.txt");
                 ifs.close();
                 system("pause");
-                return add1StToClass(headStudent, curSY, curClass);
+                return add1StToClass(nameSY, nameClass);
             }
         }
         ofs <<stu.studentId;

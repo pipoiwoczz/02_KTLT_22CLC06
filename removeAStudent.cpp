@@ -1,7 +1,7 @@
 #include "removeAStudent.h"
 #include "main.h"
 #include <string>
-#include <direct.h>
+//#include <direct.h>
 #include <stdio.h>
 using namespace std;
 // #include <filesystem>
@@ -66,13 +66,13 @@ void removeAStudent(string nameSY, string nameClass)
 
 	string path_SY_Class_MSSV = nameSY + "//" + nameClass + "//" + studentID;
 
-	// 	remove folder in SY -> class -> mssv
+	// 	remove folder in SY/class/mssv
 	rmdir(path_SY_Class_MSSV.c_str());
 
 	string path_Pro5_MSSV = "profile/" + studentID + ".txt";	
 
-	//	remove profile -> mssv.txt 
-	remove(profileSt.c_str());
+	//	remove profile/mssv.txt 
+	remove(path_Pro5_MSSV.c_str());
 
 	// remove student's id in file class//student.txt
 
@@ -90,6 +90,6 @@ void removeAStudent(string nameSY, string nameClass)
 
 	ofs.close();
 	ifs.close();
-	remove(path.c_str());
+	remove(path_SY_Class_student.c_str());
 	rename("tmp.txt", path_SY_Class_student.c_str());
 }

@@ -3,6 +3,6 @@
 
 #include "main.h"
 
-void add1StToClass(Student *& headStudent, schoolYear * curSY, Class * curClass);
+void add1StToClass(string nameSY, string nameClass);
 
 #endif

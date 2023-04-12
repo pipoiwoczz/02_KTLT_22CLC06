@@ -7,6 +7,6 @@
 using namespace std;
 
 void displayListOfStudents(string SY, string Class);
-void inputStudentsToClass(schoolYear *curSY, Class * curClass);
+void inputStudentsToClass(string nameSY, string nameClass);
 
 #endif

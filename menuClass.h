@@ -2,4 +2,4 @@
 #include <string>
 using namespace std;
 
-void classMenu(string username, schoolYear * headSY, schoolYear * curSY, string nameClass);
+void classMenu(string username, string nameSY, string nameClass);
