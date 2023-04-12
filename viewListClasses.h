@@ -3,6 +3,6 @@
 
 #include "main.h"
 
-void viewListClasses(schoolYear *SchoolYear);
+void viewListClasses();
 
 #endif

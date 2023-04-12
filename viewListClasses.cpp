@@ -1,13 +1,18 @@
 #include "viewListClasses.h"
 
-void viewListClasses(schoolYear *SchoolYear) {
+void viewListClasses() {
+    string classes, schoolYear;
     cout << "List of classes: " << endl;
-    while (SchoolYear) {
-        Class *Classes = SchoolYear -> Classes;
-        while (Classes) {
-            cout << Classes -> name << endl;
-            Classes = Classes -> next;
+    ifstream ifs, year;
+    ifs.open("./SY.txt");
+        while (!ifs.eof()) {
+            getline(ifs, schoolYear);
+            year.open("./" + schoolYear + "/class.txt");
+                while (!year.eof()) {
+                    getline(year, classes);
+                    cout << classes << endl;
+                }
+            year.close();
         }
-        SchoolYear = SchoolYear -> next;
-    }
+    ifs.close();
 }
