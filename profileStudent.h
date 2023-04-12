@@ -1,6 +1,7 @@
 #ifndef _profileStudent_
 #define _profileStudent_
 
+#include <conio.h>
 #include "main.h"
 #include "mainmenu.h"
 #include "profile.h"
