@@ -5,13 +5,22 @@
 #include <iostream>
 using namespace std;
 
-void inputStudentsToCourse(schoolYear *curSY, Semester * curSE, Course*& pCourse)
+void inputStudentsToCourse(string curSY, int season, string courseID)
 {
-	CourseClass * curCC = pCourse -> CourseClass;
+	string classPath = curSY + "//" + char(season + 48) + "//" + courseID + "//" + "class.txt";
+	ifstream ifs;
+	ofstream ofs;
 	cout << "---------List of Class in this Course------------\n";
-	while (curCC) {
-		cout << curCC -> className << endl;
-		curCC = curCC -> next;
+	ifs.open(classPath);
+	if (ifs.is_open()) {
+		string tmp;
+		while (getline(ifs, tmp)) {
+			cout << tmp << endl;
+		}
+		ifs.close();
+	} else {
+		cout << "This course has now class\n";
+		return;
 	}
 	cout << "---------------------------------------------------\n";
 
@@ -19,12 +28,16 @@ void inputStudentsToCourse(schoolYear *curSY, Semester * curSE, Course*& pCourse
 	cout << "Enter class's name: ";
 	cin >> className;
 
-	curCC = pCourse -> CourseClass;
-	while (curCC && curCC -> className != className) {
-		curCC = curCC -> next;
-	} 
+	ifs.open(classPath);
+	if (ifs.is_open()) {
+		string tmp;
+		while (getline(ifs, tmp)) {
+			if (tmp == className) break;
+		}
+	}
 
-	if (!curCC) {
+	if (ifs.eof()) {
+		ifs.close();
 		cout << "You enter invalid class name!\n";
 		cout << "Input 0 to get back to previous menu or anything to enter class name again\n";
 		string temp;
@@ -32,9 +45,10 @@ void inputStudentsToCourse(schoolYear *curSY, Semester * curSE, Course*& pCourse
 		if (temp == "0") {
 			return;
 		} else {
-			return inputStudentsToCourse(curSY, curSE, pCourse);
+			return inputStudentsToCourse(curSY, season, courseID);
 		}
 	}
+	ifs.close();
 
 	ifstream fin;
 	string path, temp;
@@ -59,7 +73,7 @@ void inputStudentsToCourse(schoolYear *curSY, Semester * curSE, Course*& pCourse
 		getline(fin, tmp);
 		currStudent -> lastName = tmp;
 
-		string path = curSY -> name + "//" + char(curSE ->season + 48) + "//" + pCourse -> courseID + "//" + curCC -> className + "//" + "listStud.txt";
+		string path = curSY + "//" + char(season + 48) + "//" + courseID + "//" + className + "//" + "listStud.txt";
         ifstream ifs;
 		ofstream ofs;
 

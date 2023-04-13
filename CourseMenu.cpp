@@ -12,10 +12,10 @@
 #include <string>
 using namespace std;
 
-void courseMenu(string username, schoolYear * headSY, schoolYear * curSY, int choice, Semester * curSE, Course *& curCour) {
+void courseMenu(string username, string curSY, int season, string courseID) {
 
     system("cls");
-    cout << "Course Menu: " << curCour -> courseID << endl;
+    cout << "Course Menu: " << courseID << endl;
     cout << "1. Upload a list of students\n";
     cout << "2. Add a student to a course\n";
     cout << "3. Remove a student from a course\n";
@@ -35,36 +35,36 @@ void courseMenu(string username, schoolYear * headSY, schoolYear * curSY, int ch
 
         switch (move) {
             case 1: 
-                inputStudentsToCourse(curSY, curSE, curCour);
+                inputStudentsToCourse(curSY, season, courseID);
                 break;
             case 2:
-                add1StudentToCourse(curSY, curSE, curCour);
+                add1StudentToCourse(curSY, season, courseID);
                 break;
             case 3:
-                removeAStudentInCourse(curSY, curSE, curCour);
+                removeAStudentInCourse(curSY, season, courseID);
                 break;
             case 4: 
-                viewStudentInACourseClass(curSY -> name, to_string(curSE -> season), curCour -> courseID);
+                viewStudentInACourseClass(curSY, to_string(season), courseID);
                 break;
             case 5:
-                saveStudentScoreboard(curSY, curSE, curCour);
+                saveStudentScoreboard(curSY, season, courseID);
                 break;
             case 6:
-                viewScoreboardOfCourse(curSY -> name, to_string(curSE -> season), curCour -> courseID);
+                viewScoreboardOfCourse(curSY, to_string(season), courseID);
                 break;
             case 7:
-                updateStudentResultCourse(curSY, curSE, curCour);
+                updateStudentResultCourse(curSY, season, courseID);
                 break;
             case 8:
-                studentInACourse(curSY -> name, to_string(curSE -> season), curCour -> courseID);
+                studentInACourse(curSY , to_string(season), courseID);
                 break;
             case 9:
                 break;
             case 0:
-                return SEMenu(username, headSY, curSY, choice);
+                return SEMenu(username, curSY, season);
                 break;
         }
         system("pause");
-        return courseMenu(username, headSY, curSY, choice, curSE, curCour);
+        return courseMenu(username, curSY, season, courseID);
     } while (move < 0 || move > 4);
 }

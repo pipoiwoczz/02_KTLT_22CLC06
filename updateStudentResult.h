@@ -6,7 +6,7 @@ struct Score {
     Score* next = nullptr;
 };
 
-void updateStudentResultCourse(schoolYear *SY, Semester *sem, Course *course);
+void updateStudentResultCourse(string curSY, int season, string courseID);
 void exportFileInfoToLL(Score* &head, string path);
 void deleteLLScore(Score* &head);
 void reverseList(Score* &pHead);

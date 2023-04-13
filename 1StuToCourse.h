@@ -1,4 +1,4 @@
 #include "main.h"
 #include <cstring>
 
-void add1StudentToCourse(schoolYear * curSY, Semester * curSE, Course * curCourse);
+void add1StudentToCourse(string curSY, int season, string courseID);

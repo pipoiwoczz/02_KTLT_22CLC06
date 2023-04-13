@@ -4,6 +4,6 @@
 #include <string>
 using namespace std;
 
-void courseMenu(string username, schoolYear * headSY, schoolYear * curSY, int choice, Semester * curSE, Course *& curCour);
+void courseMenu(string username, string curSY, int season, string courseID);
 
 #endif

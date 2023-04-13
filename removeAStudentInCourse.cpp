@@ -4,14 +4,24 @@
 #include <fstream>
 using namespace std;
 
-void removeAStudentInCourse(schoolYear * curSY, Semester * curSE ,Course* pCourse)
+void removeAStudentInCourse(string curSY, int season, string courseID)
 {
     // choose Course Class to remove a student  
-    CourseClass * curCC = pCourse -> CourseClass;
+    string classPath = curSY + "//" + char(season + 48) + "//" + courseID + "//" + "class.txt";
+	ifstream ifs;
+	ofstream ofs;
+
 	cout << "---------List of Class in this Course------------\n";
-	while (curCC) {
-		cout << curCC -> className << endl;
-		curCC = curCC -> next;
+	ifs.open(classPath);
+	if (ifs.is_open()) {
+		string tmp;
+		while (getline(ifs, tmp)) {
+			cout << tmp << endl;
+		}
+		ifs.close();
+	} else {
+		cout << "This course has now class\n";
+		return;
 	}
 	cout << "---------------------------------------------------\n";
 
@@ -19,12 +29,16 @@ void removeAStudentInCourse(schoolYear * curSY, Semester * curSE ,Course* pCours
 	cout << "Enter class's name: ";
 	cin >> className;
 
-	curCC = pCourse -> CourseClass;
-	while (curCC && curCC -> className != className) {
-		curCC = curCC -> next;
-	} 
+	ifs.open(classPath);
+	if (ifs.is_open()) {
+		string tmp;
+		while (getline(ifs, tmp)) {
+			if (tmp == className) break;
+		}
+	}
 
-	if (!curCC) {
+	if (ifs.eof()) {
+		ifs.close();
 		cout << "You enter invalid class name!\n";
 		cout << "Input 0 to get back to previous menu or anything to enter class name again\n";
 		string temp;
@@ -32,15 +46,18 @@ void removeAStudentInCourse(schoolYear * curSY, Semester * curSE ,Course* pCours
 		if (temp == "0") {
 			return;
 		} else {
-			return removeAStudentInCourse(curSY, curSE, pCourse);
+			return removeAStudentInCourse(curSY, season, courseID);
 		}
 	}
+	ifs.close();
+
 
 	int studentID;
 	cout << "Enter a student ID: ";
 	cin >> studentID;
 	
-    string path = curSY -> name + "/" + to_string(curSE -> season) + "/" + pCourse -> courseID + "/" + curCC -> className + "/listStud.txt";
+	// remove in the listStud.txt
+    string path =  curSY + "/" + to_string(season) + "/" + courseID + "/" +  className + "/listStud.txt";
     ifstream ifs(path);
     ofstream ofs;
     if(!ifs.is_open()) {

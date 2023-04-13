@@ -16,14 +16,23 @@ string searchStudent(string studentID)
 	return className;
 }
 
-void saveStudentScoreboard(schoolYear *year, Semester *curSE ,Course *curCourse)
-{
-	// choose Course Class to remove a student  
-    CourseClass * curCC = curCourse -> CourseClass;
+void saveStudentScoreboard(string curSY, int season, string courseID)
+{ 
+    string classPath = curSY + "//" + char(season + 48) + "//" + courseID + "//" + "class.txt";
+	ifstream ifs;
+	ofstream ofs;
+
 	cout << "---------List of Class in this Course------------\n";
-	while (curCC) {
-		cout << curCC -> className << endl;
-		curCC = curCC -> next;
+	ifs.open(classPath);
+	if (ifs.is_open()) {
+		string tmp;
+		while (getline(ifs, tmp)) {
+			cout << tmp << endl;
+		}
+		ifs.close();
+	} else {
+		cout << "This course has now class\n";
+		return;
 	}
 	cout << "---------------------------------------------------\n";
 
@@ -31,12 +40,20 @@ void saveStudentScoreboard(schoolYear *year, Semester *curSE ,Course *curCourse)
 	cout << "Enter class's name: ";
 	cin >> className;
 
-	curCC = curCourse -> CourseClass;
-	while (curCC && curCC -> className != className) {
-		curCC = curCC -> next;
-	} 
+	string className;
+	cout << "Enter class's name: ";
+	cin >> className;
 
-	if (!curCC) {
+	ifs.open(classPath);
+	if (ifs.is_open()) {
+		string tmp;
+		while (getline(ifs, tmp)) {
+			if (tmp == className) break;
+		}
+	}
+
+	if (ifs.eof()) {
+		ifs.close();
 		cout << "You enter invalid class name!\n";
 		cout << "Input 0 to get back to previous menu or anything to enter class name again\n";
 		string temp;
@@ -44,9 +61,10 @@ void saveStudentScoreboard(schoolYear *year, Semester *curSE ,Course *curCourse)
 		if (temp == "0") {
 			return;
 		} else {
-			return saveStudentScoreboard(year, curSE, curCourse);
+			return saveStudentScoreboard(curSY, season, courseID);
 		}
 	}
+	ifs.close();
 
 
 	string pathOfScoreboard;
@@ -55,22 +73,23 @@ void saveStudentScoreboard(schoolYear *year, Semester *curSE ,Course *curCourse)
 	ifstream fin(pathOfScoreboard);
 	if (!fin.is_open()) {
 		cout << "This file doesn't exist!!\nPlease enter again\n";
-		return saveStudentScoreboard(year, curSE, curCourse);
+		system("pause");
+		return saveStudentScoreboard(curSY, season, courseID);
 	}
 	string temp;
 
 	while (!fin.eof()) {
 		getline(fin, temp, ','); // no
 		getline(fin, temp, ','); // studentid
-		string className = searchStudent(temp);
-		string folder = "./" + year->name + "/" + className + "/" + temp + "/" + curCourse -> courseID + ".txt";
+		string className2 = searchStudent(temp);
+		string folder = "./" + curSY + "/" + className2 + "/" + temp + "/" + courseID + ".txt";
 		
 		ofstream fout(folder);
 		getline(fin, temp, ',');
 		for (int i = 0; i < 3; i++) {
 			getline(fin, temp, ',');
 		}
-		fout << curCC -> className << ",";
+		fout << className << ",";
 		getline(fin, temp);
 		fout << temp;
 		fout.close();
@@ -78,7 +97,7 @@ void saveStudentScoreboard(schoolYear *year, Semester *curSE ,Course *curCourse)
 	fin.close();
 
 	ofstream ofs;
-	string path = year -> name + "//" + to_string(curSE -> season) + "//" + curCourse -> courseID + "//" + curCC -> className + "//" + "scoreboard.txt";
+	string path = curSY + "//" + to_string( season) + "//" + courseID + "//" + className + "//" + "scoreboard.txt";
 
 	ofs.open(path);
 	fin.open(pathOfScoreboard);

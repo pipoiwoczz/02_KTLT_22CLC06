@@ -38,10 +38,11 @@ void SEMenu(string username, string curSY, int season) {
         cin >> move;
 
         switch (move) {
-            case 1: 
-                addACourse(curSY, season);
+            case 1: {
+                addACourse(curSY, season); 
+            }
                 break;
-            case 2:
+            case 2: {
                 string path = curSY + "//" + to_string(season) + "//course.txt";
                 ifstream ifs;
                 ifs.open(path);
@@ -54,6 +55,7 @@ void SEMenu(string username, string curSY, int season) {
                         cout << tmp << endl;
                     ifs.close();
                 }
+            }
                 break;
             case 3: {
 
@@ -89,13 +91,15 @@ void SEMenu(string username, string curSY, int season) {
                         while (getline (ifs, tmp)) 
                             if (tmp == courseID) {
                                 ifs.close();
-                                return courseMenu();
+                                return courseMenu(username, curSY, season, courseID);
                             }
                         ifs.close();
                         cout << "You've enterd an invalid Course ID, Please enter again\n";
 
                     }
                 } while (1);
+            }
+                break;
 
             case 4: {
                 cout << "===================================\n";
@@ -140,7 +144,45 @@ void SEMenu(string username, string curSY, int season) {
             }
                 break;
             case 5: {
-                updateCourseInfor(curSY, cur, cur -> Courses);
+                cout << "===================================\n";
+                cout << "\t\tCourse\n";
+
+                string path = curSY + "//" + to_string(season) + "//course.txt";
+                ifstream ifs;
+                ifs.open(path);
+                if (!ifs.is_open()) {
+                    cout << "There is no course created yet\n";
+                    cout << "Please create a course first\n";
+                    return;
+                } else {
+                    string tmp;
+                    while (getline (ifs, tmp)) 
+                        cout << tmp << endl;
+                    ifs.close();
+                }
+
+                string courseID;
+                cout << "======================================\n";
+                cout << "Please enter your Course ID: ";
+                cin.ignore();
+                getline(cin, courseID);
+
+                ifs.open(path);
+                do {
+                    if (!ifs.is_open()) {
+                        cout << "There is no course created yet\n";
+                        cout << "Please create a course first\n";
+                    } else {
+                        string tmp;
+                        while (getline (ifs, tmp)) 
+                            if (tmp == courseID) {
+                                ifs.close();
+                                return deleteACourse(curSY, season, courseID);
+                        }
+                        ifs.close();
+                        cout << "You've enterd an invalid Course ID, Please enter again\n";
+                    }
+                } while (1);
             }
                 break;
             case 0:{

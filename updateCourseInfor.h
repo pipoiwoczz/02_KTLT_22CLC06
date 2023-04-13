@@ -4,6 +4,6 @@
 #include "main.h"
 using namespace std;
 
-void updateCourseInfor(schoolYear* curSY, Semester* curSemester, Course*& pCourse);
+void updateCourseInfor(string curSY, int season, string &courseID);
 void updateInforClassCourse(schoolYear* curSY, Semester* curSemester, Course*& curCourse);
 #endif

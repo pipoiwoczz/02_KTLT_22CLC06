@@ -5,12 +5,22 @@
 #include <iostream>
 using namespace std;
 
-void add1StudentToCourse(schoolYear * curSY, Semester * curSE, Course * curCourse)  {
-    CourseClass * curCC = curCourse -> CourseClass;
+void add1StudentToCourse(string curSY, int season, string courseID)  {
+    string classPath = curSY + "//" + char(season + 48) + "//" + courseID + "//" + "class.txt";
+	ifstream ifs;
+	ofstream ofs;
+
 	cout << "---------List of Class in this Course------------\n";
-	while (curCC) {
-		cout << curCC -> className << endl;
-		curCC = curCC -> next;
+	ifs.open(classPath);
+	if (ifs.is_open()) {
+		string tmp;
+		while (getline(ifs, tmp)) {
+			cout << tmp << endl;
+		}
+		ifs.close();
+	} else {
+		cout << "This course has now class\n";
+		return;
 	}
 	cout << "---------------------------------------------------\n";
 
@@ -18,12 +28,16 @@ void add1StudentToCourse(schoolYear * curSY, Semester * curSE, Course * curCours
 	cout << "Enter class's name: ";
 	cin >> className;
 
-	curCC = curCourse -> CourseClass;
-	while (curCC && curCC -> className != className) {
-		curCC = curCC -> next;
-	} 
+	ifs.open(classPath);
+	if (ifs.is_open()) {
+		string tmp;
+		while (getline(ifs, tmp)) {
+			if (tmp == className) break;
+		}
+	}
 
-	if (!curCC) {
+	if (ifs.eof()) {
+		ifs.close();
 		cout << "You enter invalid class name!\n";
 		cout << "Input 0 to get back to previous menu or anything to enter class name again\n";
 		string temp;
@@ -31,9 +45,10 @@ void add1StudentToCourse(schoolYear * curSY, Semester * curSE, Course * curCours
 		if (temp == "0") {
 			return;
 		} else {
-			return add1StudentToCourse(curSY, curSE, curCourse);
+			return add1StudentToCourse(curSY, season, courseID);
 		}
 	}
+	ifs.close();
 
     cout << "==========Pls enter the information of the Student==========";
 
@@ -53,7 +68,7 @@ void add1StudentToCourse(schoolYear * curSY, Semester * curSE, Course * curCours
     
     
 
-    string path = curSY -> name + "/" + to_string(curSE -> season) + "/" + curCourse -> courseID + "//" + curCC ->className +  "/" + "listStud.txt";
+    string path = curSY + "/" + to_string(season) + "/" +  courseID + "//" + className +  "/" + "listStud.txt";
     string infoStudent = to_string(id) + "," + lastName + " " + firstName; 
     int flag = 0;
 
@@ -61,7 +76,7 @@ void add1StudentToCourse(schoolYear * curSY, Semester * curSE, Course * curCours
     ofstream ofs;
 
     ifs.open(path);
-    ofs.open(curSY -> name + "/" + to_string(curSE -> season) + "/" + curCourse -> courseID + "/" + "tmp.txt");
+    ofs.open(curSY + "/" + to_string(season) + "/" + courseID + "/" + "tmp.txt");
 
     if (ifs.is_open())  {
         string tmp;
@@ -80,7 +95,7 @@ void add1StudentToCourse(schoolYear * curSY, Semester * curSE, Course * curCours
     ofs.close();
 
     if (flag == 1)  {
-        remove((curSY -> name + "/" + to_string(curSE -> season) + "/" + curCourse -> courseID + "/" + "tmp.txt").c_str());
+        remove((curSY + "/" + to_string(season) + "/" +  courseID + "/" + "tmp.txt").c_str());
 
         cout << "Student has already been in the course...";
         cout << "\nDo you want to continue adding 1 student to this course?";
@@ -95,7 +110,7 @@ void add1StudentToCourse(schoolYear * curSY, Semester * curSE, Course * curCours
 
             switch (move)   {
                 case 1: 
-                    return add1StudentToCourse(curSY, curSE, curCourse);
+                    return add1StudentToCourse(curSY, season, courseID);
                 case 2:
                     return;
                 default:
@@ -105,6 +120,6 @@ void add1StudentToCourse(schoolYear * curSY, Semester * curSE, Course * curCours
         }   while (move != 1 && move != 2);
     } else {
         remove(path.c_str());
-        rename((curSY -> name + "/" + to_string(curSE -> season) + "/" + curCourse -> courseID + "/" + "tmp.txt").c_str(), path.c_str());
+        rename((curSY + "/" + to_string( season) + "/" + courseID + "/" + "tmp.txt").c_str(), path.c_str());
     }
 }

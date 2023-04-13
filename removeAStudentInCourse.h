@@ -1,5 +1,5 @@
 #ifndef _removeAStudentInCourse_
 #include "main.h"
 
-void removeAStudentInCourse(schoolYear * curSY, Semester * curSE ,Course* pCourse);
+void removeAStudentInCourse(string curSY, int season, string courseID);
 #endif

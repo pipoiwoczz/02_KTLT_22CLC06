@@ -1,12 +1,12 @@
 #include "updateStudentResult.h"
 
-void updateStudentResultCourse(schoolYear *SY, Semester *sem, Course *course) {
+void updateStudentResultCourse(string SY, int season, string course) {
     ifstream ifs;
     ofstream ofs;
     string Id, line;
 
     bool exist = false;
-    string pathCourse = "./" + SY -> name + "/" + to_string(sem -> season) +  "/" + course -> courseID;
+    string pathCourse = "./" + SY  + "/" + to_string(season) +  "/" + course ;
 
     ////////// CHECK WHETHER THE ID IS VALID OR NOT
     do {
@@ -119,7 +119,7 @@ void updateStudentResultCourse(schoolYear *SY, Semester *sem, Course *course) {
         for (int i=1; i<=4; i++) getline(ifs, line);
     ifs.close();
 
-    string pathInClass = "./" + SY -> name + "/" + line + "/" + Id + "/" + course -> courseID + ".txt";
+    string pathInClass = "./" + SY  + "/" + line + "/" + Id + "/" + course  + ".txt";
     // This path leads to the file score of student in the folder student of folder class
 
     cur = pScore; // Set the cur back to the pHead

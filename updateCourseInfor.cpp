@@ -1,10 +1,19 @@
 #include "updateCourseInfor.h"
+#include "main.h"
 
-void updateCourseInfor(schoolYear* curSY, Semester* curSemester, Course*& curCourse)
+void updateCourseInfor(string curSY, int season, string &courseID)
 {
-	system("clear");
+	string courseName = "0";
+	string className, teacherName, dayOfWeek, session;
+	int numberOfStudent;
+	int credits = 0;
+	ifstream ifs, fin;
+	ofstream ofs;
+
+
+	system("cls");
 	int opt = -1;
-	cout << curCourse->courseID << endl;
+	cout << courseID << endl;
 	cout << "What do you want to update?";
 	cout << "\n1. Course ID\n";
 	cout << "2. Course Name\n";
@@ -16,25 +25,25 @@ void updateCourseInfor(schoolYear* curSY, Semester* curSemester, Course*& curCou
 	while (opt != 0) {
 		if (opt == 1) {
 			cout << "New course ID: ";
-			cin >> curCourse->courseID;
+			cin >> courseID;
 		}
 		if (opt == 2) {
 			cin.ignore();
 			cout << "New course name: ";
-			getline(cin, curCourse->courseName);
+			getline(cin, courseName);
 		}
 		if (opt == 3) {
 			cout << "New number of credits: ";
-			cin >> curCourse->credits;
+			cin >> credits;
 		}
 		if (opt == 4) {
 			cout << "New course ID: ";
-			cin >> curCourse->courseID;
+			cin >> courseID;
 			cin.ignore();
 			cout << "New course name: ";
-			getline(cin, curCourse->courseName);
+			getline(cin, courseName);
 			cout << "New number of credits: ";
-			cin >> curCourse->credits;
+			cin >> credits;
 		}
 		cout << "Updated successfully!\n\n";
 		cout << "Option: ";
@@ -42,32 +51,41 @@ void updateCourseInfor(schoolYear* curSY, Semester* curSemester, Course*& curCou
 	}
 
 	// Update to all course classes
-	string pathClasses = "./" + curSY->name + "/" + to_string(curSemester->season) + "/" + curCourse->courseID + "/class.txt";
-	ifstream ifs(pathClasses);
-		while (!ifs.eof()) {
-			CourseClass* temp = curCourse->CourseClass;
-			string classname;
-			getline(ifs, classname);
-				
-			while (temp) {
-				if (temp->className == classname) {
-					string pathClassInfor = "./" + curSY->name + "/" + to_string(curSemester->season) + "/" + curCourse->courseID + "/" + classname + "/info.txt";
-					ofstream fout(pathClassInfor);
-						fout << curCourse->courseID << endl;
-						fout << curCourse->courseName << endl;
-						fout << temp->className << endl;
-						fout << temp->teacherName << endl;
-						fout << curCourse->credits << endl;
-						fout << temp->numberOfStudent << endl;
-						fout << temp->dayOfWeek << endl;
-						fout << temp->session << endl;
-					fout.close();
-					break;
-				}
-				temp = temp->next;
-			}
+	string path = curSY + "//" + to_string(season) + "//" + courseID + "//class.txt";
+
+	ifs.open(path);
+	if (ifs.is_open()) {
+		string tmp;
+		while (getline (ifs, tmp)) {
+			string infoPath = curSY + "//" + to_string(season) + "//" + courseID + "//" + tmp + "//info.txt";
+
+			// get info of course class
+			fin.open(infoPath);
+			fin >> tmp;
+			if (courseName == "0") fin >> courseName;
+			else fin >> tmp;
+			fin >> className;
+			fin >> teacherName;
+			if (credits == 0) fin >> credits;
+			else fin >> tmp;
+			fin >> numberOfStudent;
+			fin >> dayOfWeek;
+			fin >> session;
+			fin.close();
+
+			ofs.open(infoPath);
+			ofs << courseID << endl;
+			ofs << courseName << endl;
+			ofs << className << endl;
+			ofs << teacherName << endl;
+			ofs << credits << endl;
+			ofs << numberOfStudent << endl;
+			ofs << dayOfWeek << endl;;
+			ofs << session << endl;
+			ofs.close();
 		}
-	ifs.close();
+		ifs.close();
+	}
 }
 
 void updateInforClassCourse(schoolYear* curSY, Semester* curSemester, Course*& curCourse)
