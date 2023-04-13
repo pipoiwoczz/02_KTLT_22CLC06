@@ -24,7 +24,7 @@ void SEMenu(string username, string curSY, int season) {
     cout << "1. Add a course\n";
     // cout << "2. Upload a list of students\n";
     cout << "2. View list of courses\n";
-    cout << "3. Choose a course\n";
+    cout << "3. Choose a course in this Semester\n";
     // cout << "5. Add a student to a course\n";
     // cout << "6. Remove a student from a course\n";
     cout << "4. Delete a course\n";
@@ -39,47 +39,104 @@ void SEMenu(string username, string curSY, int season) {
 
         switch (move) {
             case 1: 
-                addACourse(curSY, cur, cur -> Courses);
+                addACourse(curSY, season);
                 break;
             case 2:
-                viewListCourses(cur);
+                string path = curSY + "//" + to_string(season) + "//course.txt";
+                ifstream ifs;
+                ifs.open(path);
+                if (!ifs.is_open()) {
+                    cout << "There is no course created yet\n";
+                    cout << "Please create a course first\n";
+                } else {
+                    string tmp;
+                    while (getline (ifs, tmp)) 
+                        cout << tmp << endl;
+                    ifs.close();
+                }
                 break;
             case 3: {
-                Course *curCour = cur -> Courses;
+
                 cout << "===================================\n";
                 cout << "\t\tCourse\n";
-                if (!curCour) {
-                    cout << "There is no Course now\n";
-                    break;
-                } else {
-                    while (curCour) {
-                        cout << curCour -> courseID << endl;
-                        curCour = curCour -> next;
-                    }
-                }
-                curCour = cur -> Courses;
-                do {
-                    if (!curCour) {
-                        cout << "You've enterd an invalid Course ID, Please enter again\n";
-                    }
-                    curCour = cur -> Courses;
 
-                    cout << "======================================\n";
-                    cout << "Enter your course ID: ";
-                    string courID;
-                    cin >> courID;
-                    while (curCour && curCour -> courseID != courID)   
-                        curCour = curCour -> next;
-                    if (curCour) {
-                        return courseMenu(username , headSY, curSY, choice, cur, curCour);
+                string path = curSY + "//" + to_string(season) + "//course.txt";
+                ifstream ifs;
+                ifs.open(path);
+                if (!ifs.is_open()) {
+                    cout << "There is no course created yet\n";
+                    cout << "Please create a course first\n";
+                } else {
+                    string tmp;
+                    while (getline (ifs, tmp)) 
+                        cout << tmp << endl;
+                    ifs.close();
+                }
+
+                string courseID;
+                cout << "======================================\n";
+                cout << "Please enter your Course ID: ";
+                cin.ignore();
+                getline(cin, courseID);
+
+                ifs.open(path);
+                do {
+                        if (!ifs.is_open()) {
+                        cout << "There is no course created yet\n";
+                        cout << "Please create a course first\n";
                     } else {
-                        continue;
+                        string tmp;
+                        while (getline (ifs, tmp)) 
+                            if (tmp == courseID) {
+                                ifs.close();
+                                return courseMenu();
+                            }
+                        ifs.close();
+                        cout << "You've enterd an invalid Course ID, Please enter again\n";
+
                     }
                 } while (1);
-            }
-                break;
+
             case 4: {
-                deleteACourse(curSY, cur, cur -> Courses);
+                cout << "===================================\n";
+                cout << "\t\tCourse\n";
+
+                string path = curSY + "//" + to_string(season) + "//course.txt";
+                ifstream ifs;
+                ifs.open(path);
+                if (!ifs.is_open()) {
+                    cout << "There is no course created yet\n";
+                    cout << "Please create a course first\n";
+                    return;
+                } else {
+                    string tmp;
+                    while (getline (ifs, tmp)) 
+                        cout << tmp << endl;
+                    ifs.close();
+                }
+
+                string courseID;
+                cout << "======================================\n";
+                cout << "Please enter your Course ID: ";
+                cin.ignore();
+                getline(cin, courseID);
+
+                ifs.open(path);
+                do {
+                    if (!ifs.is_open()) {
+                        cout << "There is no course created yet\n";
+                        cout << "Please create a course first\n";
+                    } else {
+                        string tmp;
+                        while (getline (ifs, tmp)) 
+                            if (tmp == courseID) {
+                                ifs.close();
+                                return deleteACourse(curSY, season, courseID);
+                        }
+                        ifs.close();
+                        cout << "You've enterd an invalid Course ID, Please enter again\n";
+                    }
+                } while (1);
             }
                 break;
             case 5: {
@@ -87,11 +144,11 @@ void SEMenu(string username, string curSY, int season) {
             }
                 break;
             case 0:{
-                SYMenu(username, headSY, curSY);
+                SYMenu(username, curSY);
             }
             break;
         }
         system("pause");
-        return SEMenu(username, headSY, curSY, choice);
+        return SEMenu(username, curSY, season);
     } while (move < 0 || move > 4);
 }

@@ -203,6 +203,6 @@ void login() {
     unsigned int le = username.length();
 
     system("pause");
-    if (isStudent) return profileStudent(username, headSY);
+    if (isStudent) return profileStudent(username);
     return profile_menu(tmpUser);
 }

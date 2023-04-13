@@ -5,6 +5,6 @@
 
 using namespace std;
 
-void addACourse(schoolYear *SY, Semester *semester, Course*& pHead);
+void addACourse(string curSY, int season);
 
 #endif

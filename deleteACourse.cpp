@@ -8,78 +8,45 @@
 using namespace std;
 
 
-void deleteACourse(schoolYear *year, Semester *sem, Course*& pCourse)
+void deleteACourse(string curSY, int season, string courseID)
 {
-	Course* curr;
-	string courseid;
-	cout << "Enter the course ID needed to delete: ";
-	cin >> courseid;
-	curr = pCourse;
+	string classPath = curSY +"//" + to_string(season) + "//" + courseID + "//";
 
-	// find course
-	while (curr && curr -> courseID != courseid) {
-		curr = curr -> next;
-	} 
-	// check if course id is not correct
-	if (!curr) {
-		cout << "This course's ID is not exist\n";
-		cout << "Enter 0 if you want to exit or anything else if you want to continue\n";
-		string choice;
-		cin >> choice;
-		if (choice == "0") {
-			return;
-		} else {
-			return deleteACourse(year, sem, pCourse);
-		}
-	} else {
-		CourseClass * curCC = curr -> CourseClass;
-		while (curCC) {
+	ifstream ifs;
+	ofstream ofs;
+
+	ifs.open(classPath + "class.txt");
+	if (ifs.is_open()) {
+		string tmp;
+		while (getline(ifs, tmp)) {
 			// delete file info.txt
-			remove((year -> name + "/" + to_string(sem -> season) + "/" + curr -> courseID + "/" + curCC -> className + "/info.txt").c_str());
+			remove((classPath + tmp + "//info.txt").c_str());
 			// delete folder class
-			rmdir((year -> name + "/" + to_string(sem -> season) + "/" + curr -> courseID + "/" + curCC -> className).c_str());
-			// delete CourseClass of Course
-			CourseClass *tmpCC = curCC;
-			curCC = curCC -> next;
-			delete tmpCC;
-		}
-
-		// delete class.txt in folder CourseID
-		remove((year -> name + "/" + to_string(sem -> season) + "/" + curr -> courseID + "/class.txt").c_str());
-
-		// delete folder CourseID
-		rmdir((year -> name + "/" + to_string(sem -> season) + "/" + curr -> courseID).c_str());
-
-		// delete courseID in file course.txt 
-		ifstream ifs((year -> name + "/" + to_string(sem -> season) + "/" + "course.txt").c_str());
-		ofstream ofs("tmp.txt");
-
-		if (ifs.is_open()) {
-			string temp;
-			while (getline (ifs, temp)) {
-				if (temp == courseid);
-				else ofs << temp << endl;
-			}
-		}
-
-		ifs.close();
-		ofs.close();
-
-		remove((year -> name + "/" + to_string(sem -> season) + "/" + "course.txt").c_str());
-		rename("tmp.txt", (year -> name + "/" + to_string(sem -> season) + "/" + "course.txt").c_str());
-
-
-		// delete Course
-		Course * tmp = pCourse;
-		if (tmp == curr) {
-			pCourse = pCourse -> next;
-			delete curr;
-		} else {
-			while (tmp -> next != curr)
-				tmp = tmp -> next;
-			tmp -> next = curr -> next;
-			
-			delete curr; 
+			rmdir((classPath + tmp).c_str());
 		}
 	}
+
+	// delete class.txt in folder CourseID
+	remove((classPath + "class.txt").c_str());
+
+	// delete folder CourseID
+	rmdir((curSY + "//" + to_string(season) + "//" + courseID).c_str());
+
+	// delete courseID in file course.txt 
+	ifstream ifs((curSY + "//" + to_string(season) +  "//" + "course.txt").c_str());
+	ofstream ofs("tmp.txt");
+
+	if (ifs.is_open()) {
+		string temp;
+		while (getline (ifs, temp)) {
+			if (temp == courseID);
+			else ofs << temp << endl;
+		}
+	}
+
+	ifs.close();
+	ofs.close();
+
+	remove((curSY + "//" + to_string(season) +  "//" + "course.txt").c_str());
+	rename("tmp.txt", (curSY + "//" + to_string(season) +  "//" + "course.txt").c_str());		
 }

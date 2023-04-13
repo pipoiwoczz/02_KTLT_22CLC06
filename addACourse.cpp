@@ -7,32 +7,34 @@
 using namespace std;
 // namespace fs = std::filesystem;
 
-void addACourse(schoolYear *SY, Semester *semester, Course *& pHead)
+void addACourse(string curSY, int season)
 {
-	Course * tmp;
 	string courseID, courseName;
 	int credits;
 
-	tmp = new Course;
-		cout << "CourseID: ";
-		cin >> courseID;
-		cout << "Course name: ";
-		cin.ignore();
-		getline (cin, courseName);
-		cout << "The number of credits: ";
-		cin >> credits;
+	cout << "CourseID: ";
+	cin >> courseID;
+	cout << "Course name: ";
+	cin.ignore();
+	getline (cin, courseName);
+	cout << "The number of credits: ";
+	cin >> credits;
 
-		cout << "\tInput classes in course\n";
+	// create CourseID folder
+
+	string path = "./" + curSY + "/" + to_string(season) + "//" + courseID;
+	mkdir(path.c_str());
+
+	cout << "\tInput classes in course\n";
+
 		do {
 			string className, teacherName, dayOfWeek, session;
 			int numberOfStudents;
-			CourseClass * curCC = new CourseClass;
 
 			cout << "Class name(input 0 if want to stop): ";
 
-			cin >> curCC->className;
-			if (curCC -> className == "0") {
-				delete curCC;
+			cin >> className;
+			if (className == "0") {
 				break;
 			}
 			cin.ignore();
@@ -44,88 +46,68 @@ void addACourse(schoolYear *SY, Semester *semester, Course *& pHead)
 			cin >> dayOfWeek;
 			cout << "The session performed on: ";
 			cin >> session;
-
-
 			cout << endl;
-		} while (1);
 
 
-	
+			// create Class in Course Folder
+			string classPath = curSY + "/" + to_string(season) + "//" + courseID + "//" + className;
+			mkdir(classPath.c_str());
 
 
-	// create folder and file
-
-	// string classFolder = SY -> name + "//" + to_string(semester -> season) + "//" + tmp -> courseID + "//" + tmp -> className;
-	// mkdir(classFolder.c_str());
-
-	// create CourseID folder
-
-	string path = "./" + SY -> name + "/" + to_string(semester -> season) + "//" + tmp -> courseID;
-	mkdir(path.c_str());
-
-	// create Class in Course Folder
-	CourseClass * curCC = tmp -> CourseClass;
-	while (curCC) {
-		string classPath = SY -> name + "/" + to_string(semester -> season) + "//" + tmp -> courseID + "//" + curCC -> className;
-		mkdir(classPath.c_str());
-		curCC = curCC -> next;
-	}
-
-	// create infor.txt for each class in course
-	ofstream ofs;
-		curCC = tmp -> CourseClass;
-		while (curCC) {
-			ofs.open(path + "//" + curCC -> className + "//info.txt");
-			ofs << tmp -> courseID << endl;
-			ofs << tmp -> courseName << endl;
-			ofs << curCC -> className << endl;
-			ofs << curCC -> teacherName << endl;
-			ofs << tmp -> credits << endl;
-			ofs << curCC -> numberOfStudent << endl;
-			ofs << curCC -> dayOfWeek << endl;
-			ofs << curCC -> session;
-			curCC = curCC -> next;
+			// create infor.txt for each class in course
+			ofstream ofs;
+			ofs.open(path + "//" + className + "//info.txt");
+			ofs <<  courseID << endl;
+			ofs <<  courseName << endl;
+			ofs <<  className << endl;
+			ofs <<  teacherName << endl;
+			ofs << credits << endl;
+			ofs <<  numberOfStudents << endl;
+			ofs << dayOfWeek << endl;
+			ofs << session;
 			ofs.close();
-		} 
-	
-	// create class.txt
-	ifstream ifs;
-
-	curCC = tmp -> CourseClass;
-	path += "//class.txt";
-	
-	ofs.open(path);
-	while (curCC) {
-		ofs << curCC -> className << endl;
-		curCC = curCC -> next;
-	}	
-	ofs.close();
 
 
-	// add course to course.txt
+			// create class.txt
+			string txtPath = path + "//class.txt";
+			ifstream ifs;
+			ifs.open(txtPath);
+			ofs.open("tmp.txt");
+			if (ifs.is_open()) {
+				string temp;
+				while (getline(ifs, temp)) {
+					ofs << temp << endl;
+				}
+			}
+			ofs << className;
+			ifs.close();
+			ofs.close();
+			remove(txtPath.c_str());
+			rename("tmp.txt", txtPath.c_str());
 
-        string sy = SY -> name + "//" + char(semester -> season + 48) + "//";
 
-        ifs.open(sy + "course.txt");
-        ofs.open(sy + "tmp.txt");
+			// add course to course.txt
+			string sy = curSY+ "//" + char(season + 48) + "//";
 
-        if (ifs.is_open())
-            while (!ifs.eof())  {
-                string tmp;
-                getline(ifs, tmp);
-                ofs << tmp << endl;
-            }        
+			ifs.open(sy + "course.txt");
+			ofs.open(sy + "tmp.txt");
 
-        ofs << pHead -> courseID;
+			if (ifs.is_open())
+				while (!ifs.eof())  {
+					string tmp;
+					getline(ifs, tmp);
+					ofs << tmp << endl;
+				}        
 
-        ifs.close();
-        ofs.close();
+			ofs << courseID;
 
-        remove((sy + "course.txt").c_str());
-        rename((sy + "tmp.txt").c_str(), (sy + "course.txt").c_str());
+			ifs.close();
+			ofs.close();
 
-	
-	mkdir((sy + tmp -> courseID).c_str());
+			remove((sy + "course.txt").c_str());
+			rename((sy + "tmp.txt").c_str(), (sy + "course.txt").c_str());
+
+		} while (1);
 
 	cout << "Course created successfully!!\n";
 }
