@@ -13,7 +13,6 @@ using namespace std;
 void classMenu(string username, string nameSY, string nameClass)
 {
     system("cls");
-    int move; 
     ifstream fin;
 
     cout << "\tClass Menu: " << nameClass << endl;
@@ -25,6 +24,7 @@ void classMenu(string username, string nameSY, string nameClass)
     cout << "0. Return to previous menu\n";
     cout << "=========================\n";
     
+    int move;
     do {
         cout << "Pls enter your move: ";
         cin >> move;      
@@ -46,7 +46,7 @@ void classMenu(string username, string nameSY, string nameClass)
                 viewClassScoreboard(nameSY, nameClass);
                 break;
             case 0:
-                return SYMenu(username, nameSY, nameClass);
+                return SYMenu(username, nameSY);
                 break;
             default:
                 cout << "You've entered wrong move\n";
@@ -54,6 +54,6 @@ void classMenu(string username, string nameSY, string nameClass)
                 break;
         }  
         system("pause");
-        classMenu(username, nameSY, nameClass);            
+        return classMenu(username, nameSY, nameClass);            
     } while (move < 0 || move > 5);
 }

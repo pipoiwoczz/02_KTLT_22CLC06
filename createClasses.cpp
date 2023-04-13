@@ -5,7 +5,7 @@
 #include <fstream>
 #include <unistd.h>
 
-void createClass(schoolYear *& curSY)
+void createClass(string nameSY);
 {
     string nameClass;
 
@@ -13,11 +13,11 @@ void createClass(schoolYear *& curSY)
     cout << "Pls enter name of class: ";
     getline(cin, nameClass);
 
-    string path = curSY -> name + "\\" + nameClass;
+    string path = nameSY + "\\" + nameClass;
 
     if (mkdir(path.c_str()) == -1)  {
         cout << "This class has already been created\n";
-        cout << "Do you want to continue creating class? \n";
+        cout << "Do you want to create another class? \n";
         cout << "1. Yes\n";
         cout << "2. No \n";
         int move;
