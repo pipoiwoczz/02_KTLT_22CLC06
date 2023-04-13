@@ -1,8 +1,5 @@
 #include "createSemester.h"
 #include "login.h"
-#include <iostream>
-#include <fstream>
-#include <string>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <cstring>

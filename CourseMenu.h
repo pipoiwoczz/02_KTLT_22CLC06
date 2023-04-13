@@ -1,5 +1,5 @@
-#ifndef _KHOA_
-#define _KHOA_
+#ifndef _courseMENU_
+#define _courseMENU_
 #include "main.h"
 #include <string>
 using namespace std;

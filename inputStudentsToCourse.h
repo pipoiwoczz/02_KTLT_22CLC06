@@ -1,4 +1,6 @@
 #ifndef _inputStudentsToCourse_
+#define _inputStudentsToCourse_
+
 #include "main.h"
 #include <iostream>
 #include <fstream>

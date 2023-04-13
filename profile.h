@@ -1,9 +1,8 @@
-#include <string>
-#include "main.h"
-using namespace std;
+#ifndef _profileStaff_
+#define _profileStaff_
 
-#ifndef _KHOA_
-#define _KHOA
+#include "main.h"
+
 
 void viewProfile(string username);
 

@@ -1,5 +1,5 @@
-#ifndef _KHOA_
-#define _KHOA_
+#ifndef _add1StToClass_
+#define _add1StToClass_
 
 #include "main.h"
 

@@ -1,5 +1,5 @@
-#ifndef _KHOA_
-#define _KHOA_
+#ifndef _createStudentAcc_
+#define _createStudentAcc_
 
 #include <fstream>
 #include "main.h"

@@ -1,5 +1,5 @@
-#ifndef _FUNCTION_KHOA
-#define _FUNCTION_KHOA
+#ifndef _mainMenu_
+#define _mainMenu_
 #include "main.h"
 
 

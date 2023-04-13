@@ -1,5 +1,5 @@
-#ifndef _KHOA_
-#define _KHOA_
+#ifndef _Login_
+#define _Login_
 #include "main.h"
 
 void signUp();

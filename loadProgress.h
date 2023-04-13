@@ -1,5 +1,5 @@
-#ifndef _KHOA_
-#define _KHOA_
+#ifndef _loadProgress_
+#define _loadProgress_
 #include "main.h"
 
 void loadProgress(schoolYear *&headSY);
