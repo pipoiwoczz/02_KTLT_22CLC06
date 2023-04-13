@@ -473,9 +473,11 @@ void profile_menu(string username) {
                     cout << "There is no school year now\n";
                 } else {
                     string tmp;
+                    cout << "There is no school year now\n";
                     while (getline (ifs, tmp)) {
                         cout << tmp << endl;
                     }
+                    cout << "--------------------------\n";
                     ifs.close();
                 }
                 system("pause");
@@ -489,7 +491,7 @@ void profile_menu(string username) {
                 //     curSY = curSY -> next;
                 // }
 
-                cout << "/tAll School Year\n";
+                cout << "\tAll Available School Year\n";
                 
                 ifstream ifs("SY.txt");
                 
@@ -501,6 +503,7 @@ void profile_menu(string username) {
                         cout << tmp << endl;
                     }
                     ifs.close();
+                    cout << "--------------------------\n";
                 }
                 
                 int move;

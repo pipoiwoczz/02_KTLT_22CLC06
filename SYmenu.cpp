@@ -47,8 +47,11 @@ void SYMenu(string username, string curSY) {
                 cout << "Please create Semesters first!\n";
             } else {    
                 string tmp;
-                while (getline (ifs, tmp))
-                    cout << tmp << endl;
+                while (getline (ifs, tmp)) {
+                    if (tmp == "1") cout << "Spring\n";
+                    if (tmp == "2") cout << "Summer\n" ;
+                    if (tmp == "3") cout << "Autumn\n";
+                }
                 ifs.close();
             }
 
@@ -70,7 +73,7 @@ void SYMenu(string username, string curSY) {
                     cout << i;
                     if (tmp == "1") cout << ". Spring\n";
                     if (tmp == "2") cout << ". Summer\n" ;
-                    else cout << ". Autumn\n";
+                    if (tmp == "3") cout << ". Autumn\n";
                     i++;
                 }
                 ifs.close();

@@ -166,11 +166,14 @@ void login() {
                 break;
             }
         }
+    } else {
+        isStudent = false;
     }
+    
 
     string tmp;
     if (isStudent) tmp = "./profile/";
-    else tmp = ".User/";
+    else tmp = "User/";
     tmp += username + ".txt";
 
     string passTmp, usernameTmp;
@@ -190,7 +193,6 @@ void login() {
     if (password != passTmp) {
         cout << "You entered a wrong password!!\n";
         system("pause");
-        cout << "What do you want to do now?\n";
         ifs.close();
         return mainMenu();
     }
