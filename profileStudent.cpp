@@ -26,7 +26,7 @@ void profileStudent(string username)
 		cin >> choice;
 		switch (choice) {
 			case 1:
-				viewProfile(username);
+				viewProfileStudent(username);
 				return profileStudent(username);
 				break;
 			case 2:
@@ -91,7 +91,7 @@ void scoreboard_menu(string username, string Class, string SY)
 	getch();
 }
 
-void viewProfile(string studentID)
+void viewProfileStudent(string studentID)
 {
 	string pathProfile = "./profile/" + studentID + ".txt";
 	string temp;

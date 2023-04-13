@@ -58,8 +58,8 @@ void removeAStudentInCourse(string curSY, int season, string courseID)
 	
 	// remove in the listStud.txt
     string path =  curSY + "/" + to_string(season) + "/" + courseID + "/" +  className + "/listStud.txt";
-    ifstream ifs(path);
-    ofstream ofs;
+    ifs.open(path);
+
     if(!ifs.is_open()) {
         cout << "This class has no student yet\n";
         return;

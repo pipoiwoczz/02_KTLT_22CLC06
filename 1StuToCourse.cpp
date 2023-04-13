@@ -72,9 +72,6 @@ void add1StudentToCourse(string curSY, int season, string courseID)  {
     string infoStudent = to_string(id) + "," + lastName + " " + firstName; 
     int flag = 0;
 
-    ifstream ifs;
-    ofstream ofs;
-
     ifs.open(path);
     ofs.open(curSY + "/" + to_string(season) + "/" + courseID + "/" + "tmp.txt");
 

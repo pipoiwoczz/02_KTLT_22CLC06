@@ -33,8 +33,8 @@ void deleteACourse(string curSY, int season, string courseID)
 	rmdir((curSY + "//" + to_string(season) + "//" + courseID).c_str());
 
 	// delete courseID in file course.txt 
-	ifstream ifs((curSY + "//" + to_string(season) +  "//" + "course.txt").c_str());
-	ofstream ofs("tmp.txt");
+	ifs.open((curSY + "//" + to_string(season) +  "//" + "course.txt").c_str());
+	ofs.open("tmp.txt");
 
 	if (ifs.is_open()) {
 		string temp;

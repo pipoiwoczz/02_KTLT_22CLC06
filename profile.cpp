@@ -525,8 +525,6 @@ void profile_menu(string username) {
                 //         curSY = headSY;
                 //     }
 
-                ifstream ifs;
-
                 do {
                     ifs.open("SY.txt");
                 

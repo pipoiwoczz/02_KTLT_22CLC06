@@ -10,7 +10,7 @@
 
 void profileStudent(string username);
 void scoreboard_menu(string username, string Class, string SY);
-void viewProfile(string studentID);
+void viewProfileStudent(string studentID);
 void changeProfile(string studentID);
 
 #endif

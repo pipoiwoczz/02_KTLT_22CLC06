@@ -1,11 +1,13 @@
 #include "createClasses.h"
 #include "login.h"
+#include "main.h"
 #include <cstring>
 #include <string>
 #include <fstream>
 #include <unistd.h>
+using namespace std;
 
-void createClass(string nameSY);
+void createClass(string username, string nameSY)
 {
     string nameClass;
 
@@ -24,15 +26,14 @@ void createClass(string nameSY);
         cout << "Choose your move: ";
         cin >> move;
         if (move == 1)  
-            createClass(curSY);
+            createClass(username, nameSY);
         else
             return;
-    }
-    else    {
+    } else {
         ifstream ifs;
         ofstream ofs;
 
-        string sy = curSY -> name + "//";
+        string sy = nameSY + "//";
 
         ifs.open(sy + "class.txt");
         ofs.open(sy + "tmp.txt");
@@ -41,7 +42,7 @@ void createClass(string nameSY);
             while (!ifs.eof())  {
                 string tmp;
                 getline(ifs, tmp);
-                ofs << tmp << endl;
+                    ofs << tmp << endl;
             }        
 
         ofs << nameClass;
@@ -50,11 +51,5 @@ void createClass(string nameSY);
         ofs.close();
         remove((sy + "class.txt").c_str());
         rename((sy + "tmp.txt").c_str(), (sy + "class.txt").c_str());
-
-        Class * tmpClass = curSY -> Classes;
-
-        curSY -> Classes = new Class;
-        curSY -> Classes -> name = nameClass;
-        curSY -> Classes -> next = tmpClass;
     }
 }

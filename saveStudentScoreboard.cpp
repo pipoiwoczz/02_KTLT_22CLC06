@@ -40,10 +40,6 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 	cout << "Enter class's name: ";
 	cin >> className;
 
-	string className;
-	cout << "Enter class's name: ";
-	cin >> className;
-
 	ifs.open(classPath);
 	if (ifs.is_open()) {
 		string tmp;
@@ -96,7 +92,6 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 	}
 	fin.close();
 
-	ofstream ofs;
 	string path = curSY + "//" + to_string( season) + "//" + courseID + "//" + className + "//" + "scoreboard.txt";
 
 	ofs.open(path);

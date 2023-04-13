@@ -1,4 +1,4 @@
 #include "main.h"
 
-void createClass(schoolYear *& curSY);
+void createClass(string username, string nameSY);
 

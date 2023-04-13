@@ -63,7 +63,7 @@ void SYMenu(string username, string curSY) {
             if (!ifs.is_open()) {
                 cout << "There is no Semester created yet";
                 cout << "Please create Semesters first!\n";
-                return SYmenu(username, curSY);
+                return SYMenu(username, curSY);
             } else {    
                 string tmp;
                 while (getline (ifs, tmp)) {
@@ -95,13 +95,13 @@ void SYMenu(string username, string curSY) {
             ofs << curSY << endl << choice;         
             ofs.close();
 
-            return SEMenu(username, headSY,curSY, choice);
+            return SEMenu(username,curSY, choice);
         }
 
         case 4:
-            createClass(curSY);
+            createClass(username, curSY);
             system("pause");
-            SYMenu(username, headSY, curSY);
+            SYMenu(username, curSY);
             break;
 
         case 5: {
@@ -115,7 +115,7 @@ void SYMenu(string username, string curSY) {
                 cout << "Please create classes first!!\n";
                 
                 ifs.close();
-                return SYMenu(username, headSY, curSY);
+                return SYMenu(username, curSY);
             }
 
             cout << "Current available school year: \n";
@@ -131,7 +131,7 @@ void SYMenu(string username, string curSY) {
 
         case 6: {
             ifstream ifs;
-            string path_SY_classtxt = nameSY + "/" + "class.txt";
+            string path_SY_classtxt = curSY + "/" + "class.txt";
 
             ifs.open(path_SY_classtxt.c_str());
     
@@ -140,7 +140,7 @@ void SYMenu(string username, string curSY) {
                 cout << "Please create classes first!!\n";
                 
                 ifs.close();
-                return SYMenu(username, headSY, curSY);
+                return SYMenu(username, curSY);
             }
 
             cout << "Current available school year: \n";
@@ -179,7 +179,7 @@ void SYMenu(string username, string curSY) {
             return classMenu(username, curSY, nameClass);
             }
         case 0:
-            return profile_menu(username, headSY);
+            return profile_menu(username);
             break;
         }   
 }
