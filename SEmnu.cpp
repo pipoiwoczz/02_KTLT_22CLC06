@@ -81,9 +81,10 @@ void SEMenu(string username, string curSY, int season) {
                 cin.ignore();
                 getline(cin, courseID);
 
-                ifs.open(path);
+                
                 do {
-                        if (!ifs.is_open()) {
+                    ifs.open(path);
+                    if (!ifs.is_open()) {
                         cout << "There is no course created yet\n";
                         cout << "Please create a course first\n";
                     } else {
@@ -95,7 +96,6 @@ void SEMenu(string username, string curSY, int season) {
                             }
                         ifs.close();
                         cout << "You've enterd an invalid Course ID, Please enter again\n";
-
                     }
                 } while (1);
             }

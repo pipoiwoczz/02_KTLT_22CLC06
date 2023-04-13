@@ -472,7 +472,7 @@ void profile_menu(string username) {
                     cout << "There is no school year now\n";
                 } else {
                     string tmp;
-                    cout << "There is no school year now\n";
+                    cout << "All available School Year\n";
                     while (getline (ifs, tmp)) {
                         cout << tmp << endl;
                     }
@@ -510,22 +510,6 @@ void profile_menu(string username) {
                 string SY;
                 cout << "Select your schooyear: ";
                 cin >> SY;
-
-                // curSY = headSY;
-                // while (curSY) {
-                //     if (curSY -> name == SY)
-                //         break;
-                //     else 
-                //         curSY = curSY -> next;
-                // }
-
-                //     if (!curSY) {
-                //         cout << "Please enter correct schoolyear (or if you want to back to previous menu, please enter 0): ";
-                //         cin >> SY;
-                //         if (SY == "0") 
-                //             return profile_menu(username, headSY);
-                //         curSY = headSY;
-                //     }
 
                 do {
                     ifs.open("SY.txt");

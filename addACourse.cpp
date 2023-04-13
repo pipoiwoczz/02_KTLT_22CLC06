@@ -11,6 +11,8 @@ void addACourse(string curSY, int season)
 {
 	string courseID, courseName;
 	int credits;
+	ifstream ifs;
+	ofstream ofs;
 
 	cout << "CourseID: ";
 	cin >> courseID;
@@ -25,6 +27,26 @@ void addACourse(string curSY, int season)
 	string path = "./" + curSY + "/" + to_string(season) + "//" + courseID;
 	_mkdir(path.c_str());
 
+	string sy = curSY + "//" + char(season + 48) + "//";
+
+	ifs.open(sy + "course.txt");
+	ofs.open(sy + "tmp.txt");
+
+	string tmp;
+	if (ifs.is_open())
+		while (getline(ifs, tmp)) {
+			ofs << tmp << endl;
+		}
+
+	ofs << courseID;
+
+	ifs.close();
+	ofs.close();
+
+	remove((sy + "course.txt").c_str());
+	rename((sy + "tmp.txt").c_str(), (sy + "course.txt").c_str());
+
+	cout << "--------------------------------------\n";
 	cout << "\tInput classes in course\n";
 
 		do {
@@ -55,7 +77,6 @@ void addACourse(string curSY, int season)
 
 
 			// create infor.txt for each class in course
-			ofstream ofs;
 			ofs.open(path + "//" + className + "//info.txt");
 			ofs <<  courseID << endl;
 			ofs <<  courseName << endl;
@@ -69,8 +90,7 @@ void addACourse(string curSY, int season)
 
 
 			// create class.txt
-			string txtPath = path + "//class.txt";
-			ifstream ifs;
+			string txtPath = curSY + "/" + to_string(season) + "//" + courseID + "//class.txt";
 			ifs.open(txtPath);
 			ofs.open("tmp.txt");
 			if (ifs.is_open()) {
@@ -87,25 +107,6 @@ void addACourse(string curSY, int season)
 
 
 			// add course to course.txt
-			string sy = curSY+ "//" + char(season + 48) + "//";
-
-			ifs.open(sy + "course.txt");
-			ofs.open(sy + "tmp.txt");
-
-			if (ifs.is_open())
-				while (!ifs.eof())  {
-					string tmp;
-					getline(ifs, tmp);
-					ofs << tmp << endl;
-				}        
-
-			ofs << courseID;
-
-			ifs.close();
-			ofs.close();
-
-			remove((sy + "course.txt").c_str());
-			rename((sy + "tmp.txt").c_str(), (sy + "course.txt").c_str());
 
 		} while (1);
 
