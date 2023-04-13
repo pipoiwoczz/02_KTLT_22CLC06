@@ -2,14 +2,14 @@
 #define _KHOA_
 #include "main.h"
 
-void signUp(schoolYear *& headSY);
+void signUp();
 
-void login(schoolYear *& headSY);
+void login();
 
 void createFolder(char *name);
 
 bool isValidUsername(char *username);
 
-bool isStaff(schoolYear *& headSY);
+bool isStaff();
 
 #endif

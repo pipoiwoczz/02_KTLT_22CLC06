@@ -12,17 +12,14 @@
 #include <fstream>
 using namespace std;
 
-void SEMenu(string username, schoolYear * headSY, schoolYear * curSY, int choice) {
-    Semester *cur = curSY -> Semesters;
+void SEMenu(string username, string curSY, int season) {
 
-    while (cur && cur -> season != choice)
-        cur = cur -> next;
 
     system("cls");
     cout << "\tSemester Menu: ";
-    if (cur -> season == 1) cout << "Spring\n";
-    if (cur -> season == 2) cout << "Summer\n";
-    if (cur -> season == 3) cout << "Autumn\n";
+    if (season == 1) cout << "Spring\n";
+    if (season == 2) cout << "Summer\n";
+    if (season == 3) cout << "Autumn\n";
 
     cout << "1. Add a course\n";
     // cout << "2. Upload a list of students\n";

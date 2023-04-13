@@ -11,7 +11,7 @@ int main() {
     loadProgress(headSY);
     system("pause");
 
-    mainMenu(headSY);
+    mainMenu();
 
     while (headSY) {
         schoolYear * tmp = headSY;

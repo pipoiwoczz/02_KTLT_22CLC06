@@ -10,10 +10,10 @@
 #include <fstream>
 using namespace std;
 
-void SYMenu(string username, schoolYear *& headSY, schoolYear *& curSY) {
+void SYMenu(string username, string curSY) {
 
     system("cls");
-    cout << "\tSchool Year Menu: " << curSY -> name << endl;
+    cout << "\tSchool Year Menu: " << curSY << endl;
     cout << "1. Create Semester\n";
     cout << "2. View available Semester\n";
     cout << "3. Choose available Semester\n";
@@ -34,70 +34,77 @@ void SYMenu(string username, schoolYear *& headSY, schoolYear *& curSY) {
     switch (move) {
         case 1: {
             createSemester(username, curSY);
-            return SYMenu(username, headSY, curSY);
+            return SYMenu(username, curSY);
             break;
         }
 
         case 2: {
-            Semester * cur = curSY -> Semesters;
-            while (cur) {
-                if (cur -> season == 1) {
-                    cout << "Spring\n";
-                } else {
-                    if (cur -> season == 2) {
-                        cout << "Summer\n";
-                    } else {
-                        cout << "Autumn\n";
-                    }
-                }
-                cur = cur -> next;
+            // Semester * cur = curSY -> Semesters;
+            // while (cur) {
+            //     if (cur -> season == 1) {
+            //         cout << "Spring\n";
+            //     } else {
+            //         if (cur -> season == 2) {
+            //             cout << "Summer\n";
+            //         } else {
+            //             cout << "Autumn\n";
+            //         }
+            //     }
+            //     cur = cur -> next;
+            // }
+
+            ifstream ifs;
+            ifs.open(curSY + "/semester.txt");
+
+            if (!ifs.is_open()) {
+                cout << "There is no Semester created yet";
+            } else {    
+                string tmp;
+                while (getline (ifs, tmp))
+                    cout << tmp << endl;
+                ifs.close();
             }
             system("pause");
-            SYMenu(username, headSY, curSY);
+            SYMenu(username, curSY);
         }
             break;
 
         case 3: {
-            Semester * cur = curSY -> Semesters;
-
-            int i = 1;
-            while (cur) {
-                if (cur -> season == 1) {
-                    cout << i << ".Spring\n";
-                } else {
-                    if (cur -> season == 2) {
-                        cout << i << ".Summer\n";
-                    } else {
-                        cout << i << ".Autumn\n";
-                    }
+            int i;
+            ifstream ifs;
+            ifs.open(curSY + "/semester.txt");
+            if (!ifs.is_open()) {
+                cout << "There is no Semester created yet";
+            } else {    
+                string tmp;
+                while (getline (ifs, tmp)) {
+                    cout << tmp;
+                    if (tmp == "1") cout << ". Spring\n";
+                    if (tmp == "2") cout << ". Summer\n" ;
+                    else cout << ". Autumn\n";
+                    i++;
                 }
-                cur = cur -> next;
-                i++;
+                ifs.close();
+            
             }
+
             int choice;
             do {
                 cout << "==================\n";
                 cout << "Enter your move: ";
                 cin >> choice;
-            } while (choice > 3 || choice < 1);
+            } while (choice >= i || choice < 1);
 
             ofstream ofs;
             ifstream ifs;
             string tmp;
-            ifs.open("SY.txt");
-            ofs.open("tmp.txt");
+            ofs.open("curTime.txt");
             if (ifs.is_open()) {
-                ofs << choice << endl;
-                while (getline (ifs, tmp)) {
-                    ofs << tmp << endl;
-                }
+                ofs << curSY << endl << choice;
             }            
             ofs.close();
-            ifs.close();
-            remove("SY.txt");
-            rename("tmp.txt", "SY.txt");
 
-            return SEMenu( username, headSY,curSY, choice);
+            return SEMenu(username, headSY,curSY, choice);
         }
 
         case 4:

@@ -10,27 +10,22 @@ using namespace std;
 void addACourse(schoolYear *SY, Semester *semester, Course *& pHead)
 {
 	Course * tmp;
+	string courseID, courseName;
+	int credits;
 
 	tmp = new Course;
 		cout << "CourseID: ";
-		cin >> tmp->courseID;
+		cin >> courseID;
 		cout << "Course name: ";
 		cin.ignore();
-		getline (cin, tmp->courseName);
+		getline (cin, courseName);
 		cout << "The number of credits: ";
-		cin >> tmp->credits;
-
-	if (!pHead) {
-		pHead = tmp;
-	} else {
-		Course * tail = pHead;
-		while (tail -> next) 
-			tail = tail -> next;
-		tail -> next = tmp;
-	}
+		cin >> credits;
 
 		cout << "\tInput classes in course\n";
 		do {
+			string className, teacherName, dayOfWeek, session;
+			int numberOfStudents;
 			CourseClass * curCC = new CourseClass;
 
 			cout << "Class name(input 0 if want to stop): ";
@@ -42,22 +37,14 @@ void addACourse(schoolYear *SY, Semester *semester, Course *& pHead)
 			}
 			cin.ignore();
 			cout << "Teacher's name of this class: ";
-			getline(cin, curCC ->teacherName);
+			getline(cin, teacherName);
 			cout << "The maximum number of students in the course: ";
-			cin >> curCC->numberOfStudent;
+			cin >> numberOfStudents;
 			cout << "Day of week: ";
-			cin >> curCC->dayOfWeek;
+			cin >> dayOfWeek;
 			cout << "The session performed on: ";
-			cin >> curCC->session;
+			cin >> session;
 
-			if (!tmp -> CourseClass) {
-				tmp -> CourseClass = curCC;
-			} else {
-				CourseClass * tail = tmp -> CourseClass;
-				while (tail -> next) 
-					tail = tail -> next;
-				tail -> next = curCC;
-			}
 
 			cout << endl;
 		} while (1);

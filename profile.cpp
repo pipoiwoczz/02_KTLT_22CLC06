@@ -14,7 +14,7 @@
 #include <conio.h>
 using namespace std;
 
-void viewProfile(string username, schoolYear *& headSY) {
+void viewProfile(string username) {
     string tmp;
     string filename = "User\\" + username + ".txt";
     ifstream ifs;
@@ -23,7 +23,7 @@ void viewProfile(string username, schoolYear *& headSY) {
     if (!ifs.is_open()) {
         cout << "SOME THING WRONG \n\n\n";
         system("pause");
-        return profile_menu(username, headSY);
+        return profile_menu(username);
     }
     getline(ifs, tmp);
     cout << "Username: " << tmp << endl;
@@ -41,7 +41,7 @@ void viewProfile(string username, schoolYear *& headSY) {
         ifs.close();
         cout << "Press anykey to get back to profile menu\n\n";
         getch();
-        profile_menu(username, headSY);
+        profile_menu(username);
         return;
     }
 
@@ -66,11 +66,11 @@ void viewProfile(string username, schoolYear *& headSY) {
 
     cout << "Press anykey to get back to profile menu\n\n";
     getch();
-    profile_menu(username, headSY);
+    profile_menu(username);
 
 }
 
-void editProfile(string username, schoolYear *& headSY){
+void editProfile(string username){
     int choice;
     string filename = "User\\" + username + ".txt";
     string tmp;
@@ -395,7 +395,7 @@ void editProfile(string username, schoolYear *& headSY){
                 break;
 
             case 0:
-                return profile_menu(username, headSY);
+                return profile_menu(username);
 
             default:
                 cout << "You've enter an invalid number!!\n";
@@ -409,7 +409,7 @@ void editProfile(string username, schoolYear *& headSY){
     cout << "==================================\n";
     cout << "Press anykey to continue\n";
     getch();
-    editProfile(username, headSY);
+    editProfile(username);
 
 }
 
@@ -431,7 +431,7 @@ bool isValidBirth(int day, int month, int year) {
     return true;
 }
 
-void profile_menu(string username, schoolYear *& headSY) {
+void profile_menu(string username) {
     
     system("cls");
     int choice;
@@ -452,61 +452,109 @@ void profile_menu(string username, schoolYear *& headSY) {
         cout << "===========================\n";
         switch (choice) {
             case 1:
-                return viewProfile(username, headSY);
+                return viewProfile(username);
             case 2:
-                return editProfile(username, headSY);
+                return editProfile(username);
             case 3:
-                createSY(headSY);
+                createSY();
                 cout << "SY Created!!\n";
                 system("pause");
-                profile_menu(username, headSY);
+                profile_menu(username);
                 break;
             case 4: {
-                schoolYear * cur = headSY;
-                while(cur)  {
-                    cout << cur -> name << endl;
-                    cur = cur -> next;
+                // schoolYear * cur = headSY;
+                // while(cur)  {
+                //     cout << cur -> name << endl;
+                //     cur = cur -> next;
+                // }
+                ifstream ifs("SY.txt");
+                
+                if (!ifs.is_open()) {
+                    cout << "There is no school year now\n";
+                } else {
+                    string tmp;
+                    while (getline (ifs, tmp)) {
+                        cout << tmp << endl;
+                    }
+                    ifs.close();
                 }
                 system("pause");
-                return profile_menu(username, headSY);
+                return profile_menu(username);
                 break;
             }
             case 5: {
-                schoolYear * curSY = headSY;
-                while(curSY)  {
-                    cout << curSY -> name << endl;
-                    curSY = curSY -> next;
+                // schoolYear * curSY = headSY;
+                // while(curSY)  {
+                //     cout << curSY -> name << endl;
+                //     curSY = curSY -> next;
+                // }
+
+                cout << "/tAll School Year\n";
+                
+                ifstream ifs("SY.txt");
+                
+                if (!ifs.is_open()) {
+                    cout << "There is no school year now\n";
+                } else {
+                    string tmp;
+                    while (getline (ifs, tmp)) {
+                        cout << tmp << endl;
+                    }
+                    ifs.close();
                 }
+                
                 int move;
 
                 string SY;
-                curSY = headSY;
                 cout << "Select your schooyear: ";
                 cin >> SY;
 
-                while (curSY) {
-                    if (curSY -> name == SY)
-                        break;
-                    else 
-                        curSY = curSY -> next;
-                }
+                // curSY = headSY;
+                // while (curSY) {
+                //     if (curSY -> name == SY)
+                //         break;
+                //     else 
+                //         curSY = curSY -> next;
+                // }
 
-                    if (!curSY) {
-                        cout << "Please enter correct schoolyear (or if you want to back to previous menu, please enter 0): ";
-                        cin >> SY;
-                        if (SY == "0") 
-                            return profile_menu(username, headSY);
-                        curSY = headSY;
-                    }
+                //     if (!curSY) {
+                //         cout << "Please enter correct schoolyear (or if you want to back to previous menu, please enter 0): ";
+                //         cin >> SY;
+                //         if (SY == "0") 
+                //             return profile_menu(username, headSY);
+                //         curSY = headSY;
+                //     }
 
-                SYMenu(username, curSY, headSY);
+                ifstream ifs;
+
+                do {
+                    ifs.open("SY.txt");
                 
+                    if (!ifs.is_open()) {
+                        cout << "There is no school year now\n";
+                        system("pause");
+                        return profile_menu(username);
+                    } else {
+                        string tmp;
+                        while (getline (ifs, tmp)) {
+                            if (tmp == SY) {
+                                ofstream ofs("curTime.txt");
+                                ofs << SY << endl;
+                                ofs.close();
+                                return SYMenu(username, SY); // SY is now Cur SY
+                            }
+                        }
+                        ifs.close();
+                        cout << "You've enter an invalid school year\nPlease enter again\n";
+                    }
+                } while (!ifs.is_open());
+                                
                 break;
             }
             case 0: {
                 cout << "You logged out successfully!!\n";
                 getch();
-                return mainMenu(headSY);
+                return mainMenu();
                 break;
             }
             default:

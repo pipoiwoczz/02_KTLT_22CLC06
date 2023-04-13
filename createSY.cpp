@@ -61,7 +61,7 @@ void insertSYAtBeginning(schoolYear *& pHeadSY, string nameSY)
     pHeadSY -> next = pTemp;
 }
 
-void createSY(schoolYear *& headSY)
+void createSY()
 {
     string SY;
 
@@ -70,7 +70,7 @@ void createSY(schoolYear *& headSY)
 
     if (isValidSY(SY) == true && existedSY(SY) == false)
     {
-        insertSYAtBeginning(headSY, SY);
+        // insertSYAtBeginning(headSY, SY); // no more LL
         ofstream ofs;
         ifstream ifs;
         string tmp;
@@ -83,12 +83,13 @@ void createSY(schoolYear *& headSY)
         }
         
         ofs << SY << endl;
-        ofs << 1;
         ofs.close();
         ifs.close();
         remove("SY.txt");
         rename("tmp.txt", "SY.txt");
         mkdir(SY.c_str());
+
+        
     }
     else
     {
@@ -105,7 +106,7 @@ void createSY(schoolYear *& headSY)
         cin >> move;
 
         if (move == 1)
-            createSY(headSY);
+            createSY();
         else
             return;
     }

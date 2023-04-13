@@ -1,6 +1,7 @@
 #include "profileStudent.h"
 
-void profileStudent(string username) { 
+void profileStudent(string username)
+{ 
 	system("cls");
 	string SY, Class;
 	ifstream ifs;
@@ -11,40 +12,49 @@ void profileStudent(string username) {
 
 	int choice;
 
+	cout << "\t\tMENU\n";
+	cout << "---------------------------\n";
+	cout << "1. View profile\n";
+	cout << "2. Change profile\n";
+	cout << "3. View courses you will study in this semester\n";
+	cout << "4. View class schedule\n";
+	cout << "5. View scoreboard\n";
+	cout << "0. Log out\n";
+	cout << "Your choice: ";
+	
 	do {
-        cout << "\t\tMENU\n";
-        cout << "---------------------------\n";
-        cout << "1. View profile\n";
-        cout << "2. Change profile\n";
-        cout << "3. View courses you will study in this semester\n";
-        cout << "4. View scoreboard\n";
-        cout << "0. Log out\n";
-        cout << "Your choice: ";
-
 		cin >> choice;
 		switch (choice) {
 			case 1:
 				viewProfile(username);
+				return profileStudent(username);
 				break;
 			case 2:
                 changeProfile(username);
+				return profileStudent(username);
 				break;
 			case 3: 
 				viewCoursesStudent(username);
+				return profileStudent(username);
 				break;
-			case 4:
+			case 4: // FUNCTION viewClassSchedule()
+				return profileStudent(username);
+				break;
+			case 5:
 				scoreboard_menu(username, Class, SY);
+				return profileStudent(username);
 				break;
 			case 0:
 				cout << "LOGGED OUT SUCCESSFULLY.\n";
 				getch();
-				// return mainMenu(headSY);
+				return mainMenu();
 				break;
 		}
-	} while (choice >= 1 && choice <= 4);
+	} while (choice >= 1 && choice <= 5);
 }
 
-void scoreboard_menu(string username, string Class, string SY) {
+void scoreboard_menu(string username, string Class, string SY)
+{
 	ifstream ifs;
 	viewStudentScoreboard(username);
 	int opt;
@@ -60,8 +70,8 @@ void scoreboard_menu(string username, string Class, string SY) {
 			case 1: {
 				string sem;
 				ifs.open("./" + SY + "/" + Class + "/" + username + "/total.txt");
-				getline(ifs, sem); // GPA -> no use here
-				getline(ifs, sem); // credit -> no use either
+				getline(ifs, sem);
+				getline(ifs, sem);
 				while (!ifs.eof()) {
 					getline(ifs, sem);
 					cout << sem << endl;
@@ -72,11 +82,8 @@ void scoreboard_menu(string username, string Class, string SY) {
 				viewStudentScoreboardChooseSem(username, sem, SY);
 				break;
 			}
-			case 2: 
-                viewStudentScoreboardAllCourses(username); 
-                break;
-			default: 
-                break;
+			case 2: viewStudentScoreboardAllCourses(username); break;
+			default: break;
 		}
 	} while (opt >= 1 && opt <= 2);
 	cout << "=======================\n";
@@ -84,7 +91,8 @@ void scoreboard_menu(string username, string Class, string SY) {
 	getch();
 }
 
-void viewProfile(string studentID) {
+void viewProfile(string studentID)
+{
 	string pathProfile = "./profile/" + studentID + ".txt";
 	string temp;
 	ifstream ifs(pathProfile);
@@ -131,7 +139,7 @@ void viewProfile(string studentID) {
 
 void changeProfile(string studentID) {
     int choice;
-    string filename = "./profile/" + studentID + ".txt";
+    string filename = "profile\\" + studentID + ".txt";
     string tmp;
     string confirmPass;
     char* tmpfile;
@@ -144,21 +152,21 @@ void changeProfile(string studentID) {
         tmpfile[i] = filename[i];
     }
 
+    cout << "\tWhat do you want to edit?\n";
+
+    cout << "1. All Profile\n";
+    cout << "2. Password\n";
+    cout << "3. First Name\n";
+    cout << "4. Last Name\n";
+    cout << "5. Gender\n";
+    cout << "6. Date Of Birth\n";
+    cout << "7. Social ID\n";
+    cout << "0. Back to profile menu\n";
+
+    cout << "================================\n";
+    cout << "Your choice is: ";
+
     do {
-        cout << "\tWhat do you want to edit?\n";
-
-        cout << "1. All Profile\n";
-        cout << "2. Password\n";
-        cout << "3. First Name\n";
-        cout << "4. Last Name\n";
-        cout << "5. Gender\n";
-        cout << "6. Date Of Birth\n";
-        cout << "7. Social ID\n";
-        cout << "0. Back to profile menu\n";
-
-        cout << "================================\n";
-        cout << "Your choice is: ";
-        
         cin >> choice;
         int line = 1;
 
@@ -462,7 +470,7 @@ void changeProfile(string studentID) {
             break;
 
         case 0:
-            return profileStudent(studentID);
+            return profile_menu(studentID.c_str());
 
         default:
             cout << "You've enter an invalid number!!\n";

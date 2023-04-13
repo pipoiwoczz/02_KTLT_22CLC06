@@ -6,4 +6,4 @@ void insertSYAtBeginning(schoolYear *& pHeadSY, string nameSY);
 
 bool isValidSY(string SY);
 
-void createSY(schoolYear *& pArrSY);
+void createSY();

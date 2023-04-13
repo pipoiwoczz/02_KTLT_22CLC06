@@ -34,7 +34,7 @@ bool isValidUsername(char *username) {
     return true;
 }
 
-bool isStaff(schoolYear *& headSY) {
+bool isStaff() {
     string code;
     int x;
 
@@ -51,7 +51,7 @@ bool isStaff(schoolYear *& headSY) {
                 do {
                     cin >> x;
                     if (x == 0) {
-                        mainMenu(headSY);
+                        mainMenu();
                         return false;
                     }
                     if (x == 1) break;
@@ -62,7 +62,7 @@ bool isStaff(schoolYear *& headSY) {
     return true;
 }
 
-void signUp(schoolYear *& headSY){
+void signUp(){
     system("cls");
     cin.ignore();
     char *username, *password;
@@ -73,7 +73,7 @@ void signUp(schoolYear *& headSY){
 
     cout << "You can only sign up as a teacher: \n";
     cout << "=================================\n";
-    isStaff(headSY);
+    isStaff();
     unsigned le;
     do { //////// NEW HERE
         cout << "Enter username (The username must not be equal to 8 numbers): ";
@@ -103,7 +103,7 @@ void signUp(schoolYear *& headSY){
     strcpy(password, tmp);
 
     if (!isValidUsername(username)) {
-        return mainMenu(headSY);
+        return mainMenu();
     }
 
     char name[] = "User";
@@ -119,7 +119,7 @@ void signUp(schoolYear *& headSY){
         system("pause");
         delete password;
         delete username;
-        signUp(headSY);
+        signUp();
         return;
     }
 
@@ -140,11 +140,11 @@ void signUp(schoolYear *& headSY){
     delete password;
     delete username;
 
-    mainMenu(headSY);
+    mainMenu();
 }
 
 
-void login(schoolYear *& headSY) {
+void login() {
     system("cls");
     string username, password;
 
@@ -181,7 +181,7 @@ void login(schoolYear *& headSY) {
         cout << "This account is not exist!!\n";
         cout << "What do you want to do now?\n";
         system("pause");
-        return mainMenu(headSY);
+        return mainMenu();
     }
 
     getline(ifs, usernameTmp);
@@ -192,7 +192,7 @@ void login(schoolYear *& headSY) {
         system("pause");
         cout << "What do you want to do now?\n";
         ifs.close();
-        return mainMenu(headSY);
+        return mainMenu();
     }
 
     ifs.close();
@@ -203,6 +203,6 @@ void login(schoolYear *& headSY) {
     unsigned int le = username.length();
 
     system("pause");
-    if (isStudent) return profileStudent(username);
-    return profile_menu(tmpUser, headSY);
+    if (isStudent) return profileStudent(username, headSY);
+    return profile_menu(tmpUser);
 }
