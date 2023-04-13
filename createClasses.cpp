@@ -4,7 +4,7 @@
 #include <cstring>
 #include <string>
 #include <fstream>
-#include <unistd.h>
+#include <direct.h>
 using namespace std;
 
 void createClass(string username, string nameSY)
@@ -17,7 +17,7 @@ void createClass(string username, string nameSY)
 
     string path = nameSY + "\\" + nameClass;
 
-    if (mkdir(path.c_str()) == -1)  {
+    if (_mkdir(path.c_str()) == -1)  {
         cout << "This class has already been created\n";
         cout << "Do you want to create another class? \n";
         cout << "1. Yes\n";

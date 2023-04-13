@@ -3,7 +3,7 @@
 #include <string>
 #include <cstring>
 #include <stdlib.h>
-#include <unistd.h>
+#include <direct.h>
 #include <iostream>
 #include <fstream>
 using namespace std;
@@ -28,7 +28,7 @@ void add1StToClass(string nameSY, string nameClass) {
     cout << "Enter student's social ID: ";
     cin >> stu.socialId;
 
-    mkdir("profile");
+    _mkdir("profile");
     string path_Pro5_MSSV = "profile//" + to_string(stu.studentId) + ".txt";
 
     ifstream fin(path_Pro5_MSSV);
@@ -72,7 +72,7 @@ void add1StToClass(string nameSY, string nameClass) {
         out.close();
     }
 
-    mkdir((nameSY + "//" + nameClass + "//" + to_string(stu.studentId)).c_str());
+    _mkdir((nameSY + "//" + nameClass + "//" + to_string(stu.studentId)).c_str());
 
     string stPath = nameSY + "//" + nameClass + "//" + "student.txt";
     ifstream ifs(stPath);

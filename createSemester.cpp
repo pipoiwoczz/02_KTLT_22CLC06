@@ -1,7 +1,7 @@
 #include "createSemester.h"
 #include "login.h"
 #include <sys/stat.h>
-#include <unistd.h>
+#include <direct.h>
 #include <cstring>
 #include "main.h"
 using namespace std;
@@ -19,7 +19,7 @@ void createSemester(string username, string curSY)
 
     string path = curSY + "/" + char(season + 48);
 
-    if (mkdir(path.c_str()) == -1) {
+    if (_mkdir(path.c_str()) == -1) {
             cout << "This Semester has been already created!\n";
             system("pause");
             
@@ -27,6 +27,7 @@ void createSemester(string username, string curSY)
             cout << "Do you want to continue creating semester ?";
             cout << "\n1. Yes";
             cout << "\n2.No";
+            cin >> move;
 
             if (move == 1)
                 return createSemester(username, curSY);

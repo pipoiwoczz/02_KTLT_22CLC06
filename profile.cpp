@@ -11,7 +11,6 @@
 #include <iostream>
 #include <stdio.h>
 #include <fstream>
-#include <conio.h>
 using namespace std;
 
 void viewProfile(string username) {
@@ -40,7 +39,7 @@ void viewProfile(string username) {
         cout << "Social ID: None\n";
         ifs.close();
         cout << "Press anykey to get back to profile menu\n\n";
-        getch();
+        system("pause");
         profile_menu(username);
         return;
     }
@@ -65,7 +64,7 @@ void viewProfile(string username) {
     ifs.close();
 
     cout << "Press anykey to get back to profile menu\n\n";
-    getch();
+    system("pause");
     profile_menu(username);
 
 }
@@ -408,7 +407,7 @@ void editProfile(string username){
 
     cout << "==================================\n";
     cout << "Press anykey to continue\n";
-    getch();
+    system("pause");
     editProfile(username);
 
 }
@@ -554,7 +553,7 @@ void profile_menu(string username) {
             }
             case 0: {
                 cout << "You logged out successfully!!\n";
-                getch();
+                system("pause");
                 return mainMenu();
                 break;
             }

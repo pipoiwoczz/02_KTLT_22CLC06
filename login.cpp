@@ -1,5 +1,10 @@
+#ifdef _MSC_VER
+#define _CRT_SECURE_NO_WARNINGS
+#endif
+
 #include "profile.h"
 #include "login.h"
+#include "main.h"
 #include "mainMenu.h"
 #include <iostream>
 #include <cstring>
@@ -7,14 +12,14 @@
 #include <conio.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <unistd.h>
+#include <direct.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "profileStudent.h"
 using namespace std;
 
 void createFolder(char *name) {
-    mkdir(name);
+    _mkdir(name);
 }
 
 bool isValidUsername(char *username) {

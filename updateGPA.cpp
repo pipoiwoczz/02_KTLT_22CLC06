@@ -1,4 +1,10 @@
+#ifdef _MSC_VER
+#define _CRT_SECURE_NO_WARNINGS
+#endif
+
 #include "updateGPA.h"
+#include "main.h"
+
 
 void updateGPA(string ID) {
     ifstream ifs, course, curSem;

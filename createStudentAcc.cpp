@@ -1,3 +1,7 @@
+#ifdef _MSC_VER
+#define _CRT_SECURE_NO_WARNINGS
+#endif
+
 #include <iostream>
 #include "main.h"
 #include "createStudentAcc.h"
@@ -8,7 +12,7 @@ void createStudentAccount(Student * pHeadStudent) {
     ofstream ofs;
     int ID = pHeadStudent -> studentId;
     char strID[33];
-    itoa(ID, strID, 15);
+    _itoa(ID, strID, 15);
     while (pHeadStudent != nullptr) {
         filename = folder + string(strID) + ".txt";
         ofs.open(filename);

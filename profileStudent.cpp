@@ -1,4 +1,5 @@
 #include "profileStudent.h"
+#include "main.h"
 
 void profileStudent(string username)
 { 
@@ -46,7 +47,7 @@ void profileStudent(string username)
 				break;
 			case 0:
 				cout << "LOGGED OUT SUCCESSFULLY.\n";
-				getch();
+				system("pause");
 				return mainMenu();
 				break;
 		}
@@ -88,7 +89,7 @@ void scoreboard_menu(string username, string Class, string SY)
 	} while (opt >= 1 && opt <= 2);
 	cout << "=======================\n";
 	cout << "Press any keys to continue\n";
-	getch();
+	system("pause");
 }
 
 void viewProfileStudent(string studentID)
@@ -134,7 +135,7 @@ void viewProfileStudent(string studentID)
 
 	ifs.close();
 	cout << "\nPress any key to continue.\n";
-	getch();
+	system("pause");
 }
 
 void changeProfile(string studentID) {
@@ -483,5 +484,5 @@ void changeProfile(string studentID) {
 
     cout << "==================================\n";
     cout << "Press anykey to continue\n";
-    getch();
+    system("pause");
 }

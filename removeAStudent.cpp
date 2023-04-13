@@ -67,7 +67,7 @@ void removeAStudent(string nameSY, string nameClass)
 	string path_SY_Class_MSSV = nameSY + "//" + nameClass + "//" + studentID;
 
 	// 	remove folder in SY/class/mssv
-	rmdir(path_SY_Class_MSSV.c_str());
+	_rmdir(path_SY_Class_MSSV.c_str());
 
 	string path_Pro5_MSSV = "profile/" + studentID + ".txt";	
 

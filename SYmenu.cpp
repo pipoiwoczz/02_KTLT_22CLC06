@@ -66,6 +66,7 @@ void SYMenu(string username, string curSY) {
             if (!ifs.is_open()) {
                 cout << "There is no Semester created yet";
                 cout << "Please create Semesters first!\n";
+                system("pause");
                 return SYMenu(username, curSY);
             } else {    
                 string tmp;
@@ -77,7 +78,7 @@ void SYMenu(string username, string curSY) {
                     i++;
                 }
                 ifs.close();
-            
+                
             }
 
             int choice;
@@ -118,6 +119,7 @@ void SYMenu(string username, string curSY) {
                 cout << "Please create classes first!!\n";
                 
                 ifs.close();
+                system("pause");
                 return SYMenu(username, curSY);
             }
 
@@ -129,6 +131,7 @@ void SYMenu(string username, string curSY) {
                 cout << tmp << endl;
             
             ifs.close();
+            system("pause");
             return SYMenu(username, curSY);
         }
 
@@ -152,6 +155,7 @@ void SYMenu(string username, string curSY) {
 
             while (getline(ifs, tmp))   
                 cout << tmp << endl;
+            ifs.close();
             
 
             string nameClass;
@@ -162,10 +166,12 @@ void SYMenu(string username, string curSY) {
 
             
             int flag = 0;
+            
+            ifs.open(path_SY_classtxt.c_str());
 
             while (getline(ifs, tmp))   {
                 if (tmp == nameClass)   {
-                    flag == 1;
+                    flag = 1;
                     break;
                 }
             }

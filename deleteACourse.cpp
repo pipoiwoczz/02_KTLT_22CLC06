@@ -22,7 +22,7 @@ void deleteACourse(string curSY, int season, string courseID)
 			// delete file info.txt
 			remove((classPath + tmp + "//info.txt").c_str());
 			// delete folder class
-			rmdir((classPath + tmp).c_str());
+			_rmdir((classPath + tmp).c_str());
 		}
 	}
 
@@ -30,7 +30,7 @@ void deleteACourse(string curSY, int season, string courseID)
 	remove((classPath + "class.txt").c_str());
 
 	// delete folder CourseID
-	rmdir((curSY + "//" + to_string(season) + "//" + courseID).c_str());
+	_rmdir((curSY + "//" + to_string(season) + "//" + courseID).c_str());
 
 	// delete courseID in file course.txt 
 	ifs.open((curSY + "//" + to_string(season) +  "//" + "course.txt").c_str());

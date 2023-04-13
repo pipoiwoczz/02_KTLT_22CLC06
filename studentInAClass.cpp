@@ -1,6 +1,5 @@
 #include "studentInAClass.h"
 #include "main.h"
-#include <unistd.h>
 #include <fstream>
 #include <iomanip>
 using namespace std;
@@ -60,14 +59,14 @@ void inputStudentsToClass(string nameSY, string nameClass)
 		getline(ifs, temp);
 		tmp.socialId = temp;
 
-		mkdir("profile");
+		_mkdir("profile");
         ofstream ofs;
         string path_Pro5_MSSV = "profile/" + to_string(tmp.studentId) + ".txt";
 
 		string path_SY_Class_MSSV = nameSY + "/" + nameClass + "/" + to_string(tmp.studentId);
 
 		// create folder MSSV in SY/Class
-		mkdir(path_SY_Class_MSSV.c_str());
+		_mkdir(path_SY_Class_MSSV.c_str());
 
 		// add data to profile/mssv.txt
 		// Still deciding how to output in4 of student to file 

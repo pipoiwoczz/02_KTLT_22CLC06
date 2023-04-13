@@ -1,7 +1,7 @@
 #include "addACourse.h"
 #include "main.h"
 #include <filesystem>
-#include <unistd.h>
+#include <direct.h>
 #include <string>
 #include <iostream>
 using namespace std;
@@ -23,7 +23,7 @@ void addACourse(string curSY, int season)
 	// create CourseID folder
 
 	string path = "./" + curSY + "/" + to_string(season) + "//" + courseID;
-	mkdir(path.c_str());
+	_mkdir(path.c_str());
 
 	cout << "\tInput classes in course\n";
 
@@ -51,7 +51,7 @@ void addACourse(string curSY, int season)
 
 			// create Class in Course Folder
 			string classPath = curSY + "/" + to_string(season) + "//" + courseID + "//" + className;
-			mkdir(classPath.c_str());
+			_mkdir(classPath.c_str());
 
 
 			// create infor.txt for each class in course

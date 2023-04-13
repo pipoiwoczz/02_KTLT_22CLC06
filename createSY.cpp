@@ -4,7 +4,7 @@
 #include <cstring>
 #include <string>
 #include <fstream>
-#include <unistd.h>
+#include <direct.h>
 using namespace std;
 
 bool isValidSY(string SY)
@@ -87,7 +87,7 @@ void createSY()
         ifs.close();
         remove("SY.txt");
         rename("tmp.txt", "SY.txt");
-        mkdir(SY.c_str());
+        _mkdir(SY.c_str());
 
         
     }
