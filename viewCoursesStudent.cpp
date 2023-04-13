@@ -22,6 +22,10 @@ void viewCoursesStudent(string Id) {
 
     path = "./" + SY + "/" + Class + "/" + Id + "/" + Sem + "_" + curSY + ".txt"; // Get info of courses leaning in this sem
     ifs.open(path);
+        if (!ifs.is_open()) {
+            cout << "There's no course in this semester" << endl;
+            return;
+        }
         cout << "Courses you will study in this semester: " << endl;
         cout << "--------------------" << endl;
         getline(ifs, line); // GPA -> no need here

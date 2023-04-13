@@ -31,11 +31,12 @@ void viewScoreboardOfCourse(string SY, string Sem, string curCourse) {
 	courseClass.close();
 
 	if (!exist) {
-		cout << "You've entered an invalid class name!\n";
-		cout << "Enter 0 to get back to previous menu or any key else to enter class name again\n";
+		cout << "You've entered an incorrect class name!\n";
+		cout << "Enter 0 to get back to previous menu or any of other keys to enter class name again\n";
 		cout << "Your choice: ";
 		string temp;
 		cin >> temp;
+    	cout << "--------------------" << endl;
 
 		if (temp == "0") return;
 		else return viewScoreboardOfCourse(SY, Sem, curCourse);
@@ -51,6 +52,7 @@ void viewScoreboardOfCourse(string SY, string Sem, string curCourse) {
         return;
     }
 
+    cout << "--------------------" << endl;
     cout << "Course's scoreboard:" << endl;
     cout << "--------------------" << endl;
     cout << left << setw(5) << "No." << setw(10) << "ID" << setw(34) << "Name" << setw(8) << "Total" << setw(8) << "Final" << setw(8) << "Midterm" << setw(8) << "Other" << endl;

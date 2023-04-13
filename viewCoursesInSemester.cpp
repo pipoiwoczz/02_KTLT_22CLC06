@@ -6,9 +6,13 @@ void viewListCoursesInSem(string SY, string semester) {
     string course;
     ifstream ifs;
     ifs.open("./" + SY + "/" + semester + "/course.txt");
-        while (!ifs.eof()) {
-            getline(ifs, course);
-            cout << course << endl;
+        if (!ifs.is_open()) {
+            cout << "There's no course in this semester" << endl;
+        } else {
+            while (!ifs.eof()) {
+                getline(ifs, course);
+                cout << course << endl;
+            }
         }
     ifs.close();
     cout << "----------" << endl;

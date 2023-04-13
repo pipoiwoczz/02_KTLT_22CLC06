@@ -16,8 +16,22 @@ void insertCourseAtBegin(courseInThisSem* &head, string value) {
 }
 
 void viewClassScoreboard(string SY, string className) {
+    cout << "----------" << endl;
+    cout << "Class: " << className << endl;
+    cout << "----------" << endl;
+
     ifstream ifs, student;
     string course, ID, name, total, final, GPA, curSem, curSY;
+
+    ifs.open("./" + SY + "/" + className + "/student.txt");
+        // Check if this file have nothing or does not exist
+        if (ifs.eof() || !ifs.is_open()) {
+            cout << "This class haven't had any student yet" << endl; 
+            cout << "--------------------" << endl;
+            return;
+        }
+    ifs.close();
+
     ifs.open("./curTime.txt");
         getline(ifs, curSY); // Current year
         getline(ifs, curSem); // Current Semester
@@ -30,12 +44,14 @@ void viewClassScoreboard(string SY, string className) {
             getline(ifs, ID); // Student's ID
             // Open the file saving courses that a student will learn in this semester
             student.open("./" + SY + "/" + className + "/" + ID + "/" + curSem + "_" + curSY + ".txt"); // <sem>_<SY>.txt
-                getline(student, course); // GPA in this semester -> no need here
-                getline(student, course); // credit -> no need either
-                while (!student.eof()) {
-                    getline(student, course,','); // get a course's ID
-                    if (!checkExist(head, course)) insertCourseAtBegin(head, course);
-                    getline(student, course); // class of the course -> no need here
+                if (student.is_open()) { // if this student does not learn in this sem -> do not do this code segment
+                    getline(student, course); // GPA in this semester -> no need here
+                    getline(student, course); // credit -> no need either
+                    while (!student.eof()) {
+                        getline(student, course,','); // get a course's ID
+                        if (!checkExist(head, course)) insertCourseAtBegin(head, course);
+                        getline(student, course); // class of the course -> no need here
+                    }
                 }
             student.close();
         }
@@ -43,8 +59,6 @@ void viewClassScoreboard(string SY, string className) {
 
     // Now we have the linked list of courses
     // Print out first line to the screen
-    cout << className << endl;
-    cout << "----------" << endl;
     cout << left << setw(34) << "Name"; // the name of the column that represents student's name
     courseInThisSem *cur = head; // A temp pointer used to traverse
     while (cur) {
@@ -55,6 +69,7 @@ void viewClassScoreboard(string SY, string className) {
 
     // 2nd, 3rd, 4th, ... line
     ifs.open("./" + SY + "/" + className + "/student.txt");
+        // Check if this file have nothing or does not exist
         while (!ifs.eof()) {
             getline(ifs, ID); // Student's ID
             student.open("./profile/" + ID + ".txt");
@@ -67,28 +82,33 @@ void viewClassScoreboard(string SY, string className) {
                 student.open("./" + SY + "/" + className + "/" + ID + "/" + cur -> ID + ".txt");
                     // If this student does not enroll in this course, print out x
                     if (!student.is_open()) cout << setw(10) << "x";
-                    getline(student, total, ',');
-                    getline(student, final, ',');
+                    else {
+                        getline(student, total, ',');
+                        getline(student, final, ',');
+                        cout << setw(10) << final; // Final mark
+                    }
                 student.close();
-                cout << setw(10) << final; // Final mark
 
                 cur = cur -> next;
             }
             
             student.open("./" + SY + "/" + className + "/" + ID + "/" + curSem + "_" + curSY + ".txt");
                 getline(student, GPA);
-                cout << setw(5) << GPA; // GPA in this sem
+                if (!student.is_open()) cout << setw(5) << 0;
+                else cout << setw(5) << GPA; // GPA in this sem
             student.close();
 
             student.open("./" + SY + "/" + className + "/" + ID + "/total.txt");
                 getline(student, GPA);
-                cout << setw(12) << GPA << endl; // OVerall GPA
+                if (!student.is_open()) cout << setw(12) << 0 << endl;
+                else cout << setw(12) << GPA << endl; // OVerall GPA
             student.close();
         }
     ifs.close();    
     cout << "--------------------" << endl;
 
     deleteCourseLL(head); // Delete linked list
+    return;
 }
 
 void deleteCourseLL(courseInThisSem* &head) {

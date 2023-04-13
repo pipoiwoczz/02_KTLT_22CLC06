@@ -32,11 +32,12 @@ void viewStudentInACourseClass(string SY, string Sem, string course) {
 	courseClass.close();
 
 	if (!exist) {
-		cout << "You've entered an invalid class name!\n";
-		cout << "Enter 0 to get back to previous menu or any key else to enter class name again\n";
+		cout << "You've entered an incorrect class name!\n";
+		cout << "Enter 0 to get back to previous menu or any of other keys to enter class name again\n";
 		cout << "Your choice: ";
 		string temp;
 		cin >> temp;
+    	cout << "--------------------" << endl;
 
 		if (temp == "0") return;
 		else return viewStudentInACourseClass(SY, Sem, course);
@@ -48,11 +49,11 @@ void viewStudentInACourseClass(string SY, string Sem, string course) {
         int i = 1; // Ordinal number
         cout << "Student in this course class: "<< endl;
         cout << "--------------------" << endl;
-        cout << left << setw(5) << "No." << setw(12) << "ID" << "Name" << endl;
+        cout << left << setw(4) << "No." << setw(10) << "ID" << "Name" << endl;
         while (!ifs.eof()) {
-            cout << left << setw(5) << i; // Ordinal number
+            cout << left << setw(4) << i; // Ordinal number
             getline(ifs, out, ',');
-            cout << setw(12) << out; // Id
+            cout << setw(10) << out; // Id
             getline(ifs, out);
             cout << out << endl; // Name
             i++;
@@ -69,7 +70,7 @@ void studentInACourse(string SY, string Sem, string course) {
 	int i=1; // Ordinal number
 	cout << "List of student in this course: " << endl;
     cout << "--------------------" << endl;
-    cout << left << setw(5) << "No." << setw(12) << "ID" << setw(8) << "Class" << "Name" << endl;
+    cout << left << setw(4) << "No." << setw(10) << "ID" << setw(9) << "Class" << "Name" << endl;
 
 	ifs.open(path);
 		while (!ifs.eof()) {
@@ -78,10 +79,11 @@ void studentInACourse(string SY, string Sem, string course) {
 				while (!Class.eof()) {
 					getline(Class, studentID, ',');
 					getline(Class, studentName);
-					cout << left << setw(5) << i << setw(12) << studentID << setw(8) << courseClass << studentName << endl;
+					cout << left << setw(4) << i << setw(10) << studentID << setw(9) << courseClass << studentName << endl;
 					i++;
 				}
 			Class.close();
 		}
 	ifs.close();
+    cout << "--------------------" << endl;
 }

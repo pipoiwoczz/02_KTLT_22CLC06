@@ -21,7 +21,7 @@ void viewStudentScoreboard(string Id) {
     ifs.open(path);
 
         getline(ifs, GPA); // GPA in this semester
-        cout << "Scoreboard of this semester:" << endl;
+        cout << "Your scoreboard of this semester:" << endl;
         cout << "--------------------" << endl;
         cout << "GPA: " << GPA << endl;
         cout << "----------" << endl;
@@ -81,7 +81,7 @@ void viewStudentScoreboardChooseSem(string Id, string chosenSemester, string cho
 
         getline(ifs, GPA); // GPA in this semester
         getline(ifs, line); // number of credits -> no use here
-        cout << "Scoreboard of this semester:" << endl;
+        cout << "Scoreboard of semester " << chosenSemester << ", " << chosenSY << ":" << endl;
         cout << "--------------------" << endl;
         cout << "GPA: " << GPA << endl;
         cout << "----------" << endl;
@@ -124,7 +124,7 @@ void viewStudentScoreboardChooseSem(string Id, string chosenSemester, string cho
 }
 
 void viewStudentScoreboardAllCourses(string Id) {
-    string path, line, SY, Class, Semester, GPA, courseClass, courseID, curSem, curSY;
+    string path, line, SY, Class, Semester, GPA, courseClass, courseID, curSem, curSY, score;
     path = "./profile/" + Id + ".txt"; // get info to open files
     ifstream ifs, semInSchool;
     ifs.open(path);
@@ -145,10 +145,11 @@ void viewStudentScoreboardAllCourses(string Id) {
         cout << "--------------------" << endl;
         cout << "Overall GPA: " << GPA << endl;
         cout << "----------" << endl;
-        cout << left << setw(12) << "Course ID" << setw(30) << "Course name" << setw(8) << "Class" << setw(8) << "Credits" << setw(6) << "Total" << setw(6) << "Final" << setw(8) << "Midterm" << setw(6) << "Other" << endl;
+        cout << left << setw(12) << "Course ID" << setw(30) << "Course name" << setw(9) << "Class" << setw(8) << "Credits" << setw(6) << "Total" << setw(6) << "Final" << setw(8) << "Midterm" << setw(6) << "Other" << endl;
         while (!ifs.eof()) {
             getline(ifs, line); // semester of a schoolYear <sem>_<SY>
-            semInSchool.open("./" + SY + "/" + Class + "/" + Id + "/" + line + ".txt"); // <sem>_<SY>.txt
+            path = "./" + SY + "/" + Class + "/" + Id + "/" + line + ".txt";
+            semInSchool.open(path); // <sem>_<SY>.txt
                 getline(semInSchool, courseID); // GPA in this semester -> no use here
                 getline(semInSchool, courseID); // total credit in this semester -> no use here
                 while (!semInSchool.eof()) {
@@ -157,18 +158,18 @@ void viewStudentScoreboardAllCourses(string Id) {
                     ifstream course;
                     // open file info of a course
 
-                    curSem = line.substr(0, 0); // Lấy chuỗi con ở vị trí 0
+                    curSem = line.substr(0, 1); // Lấy chuỗi con ở vị trí 0
                     curSY = line.substr(2); // Lấy chuỗi con từ 2 đến hết chuỗi
 
                     path = "./" + curSY + "/" + curSem + "/" + courseID + "/" + courseClass + "/info.txt";
                     course.open(path); // info.txt
                         string courseName, className, numCredits;
-                        cout << left << setw(12) << line; // courseId is also the value of variable "line"
+                        cout << left << setw(12) << courseID;
                         getline(course, courseName); // course's ID -> don't need this information because we've already had it
                         getline(course, courseName);
                         cout << setw(30) << courseName; // name of course
                         getline(course, className);
-                        cout << setw(8) << className; // name of class of the course
+                        cout << setw(9) << className; // name of class of the course
                         getline(course, numCredits); // Get teacher's name -> don't need here
                         getline(course, numCredits);
                         cout << setw(8) << numCredits; // number of credits of the course
@@ -177,14 +178,14 @@ void viewStudentScoreboardAllCourses(string Id) {
                     // open file score of a student
                     path = "./" + SY + "/" + Class + "/" + Id + "/" + courseID + ".txt";
                     course.open(path); // <courseID>.txt
-                        getline(course, line,',');
-                        cout << setw(6) << line; // Total mark
-                        getline(course, line,',');
-                        cout << setw(6) << line; // Final mark
-                        getline(course, line,',');
-                        cout << setw(8) << line; // Midterm mark
-                        getline(course, line);
-                        cout << setw(6) << line << endl; // Other mark
+                        getline(course, score,',');
+                        cout << setw(6) << score; // Total mark
+                        getline(course, score,',');
+                        cout << setw(6) << score; // Final mark
+                        getline(course, score,',');
+                        cout << setw(8) << score; // Midterm mark
+                        getline(course, score);
+                        cout << setw(6) << score << endl; // Other mark
                     course.close();
                 }
             semInSchool.close();

@@ -34,7 +34,9 @@ void insertCourse(listCourse* &Course, string ID) {
 }
 
 void viewListCourses() {
-    cout << "List of courses: " << endl;
+    cout << "--------------------" << endl;
+    cout << "List of all courses in the system: " << endl;
+    cout << "----------" << endl;
     string SY, thisCourse;
     ifstream year, sem;
     listCourse *course = nullptr;
@@ -43,9 +45,11 @@ void viewListCourses() {
             getline(year, SY);
             for (int i=1; i<4; i++) { // semester 1 to 3
                 sem.open("./" + SY + "/" + to_string(i) + "/course.txt");
-                    while (!sem.eof()) {
-                        getline(sem, thisCourse); // get a course's id
-                        insertCourse(course, thisCourse); // insert to linked list
+                    if (sem.is_open()) {
+                        while (!sem.eof()) {
+                            getline(sem, thisCourse); // get a course's id
+                            insertCourse(course, thisCourse); // insert to linked list
+                        }
                     }
                 sem.close();
             }
@@ -57,6 +61,8 @@ void viewListCourses() {
         cout << cur -> ID << endl;
         cur = cur -> next;
     }
+    if (course == nullptr) cout << "There's no course in the system!" << endl;
+    cout << "----------" << endl;
 
     deleteLLCourse(course);
 }
@@ -70,18 +76,25 @@ void deleteLLCourse(listCourse* &course) {
 }
 
 void viewCourseClass(string courseID) { // courseID is the ID of the course that user wants to view list of class of it
-    cout << "List of classes of a course: " << endl;
-    string SY, thisClass;
+    cout << "--------------------" << endl;
+    cout << "List of classes of course " << courseID << ":" << endl;
+    cout << "----------" << endl;
+    string SY, thisClass, path;
     ifstream year, courseClass;
     listCourse *course = nullptr;
+    bool thereIsACoure = false;
     year.open("./SY.txt");
         while (!year.eof()) {
             getline(year, SY);
             for (int i=1; i<4; i++) { // semester 1 to 3
-                courseClass.open("./" + SY + "/" + to_string(i) + "/" + courseID + "/class.txt");
-                    while (!courseClass.eof()) {
-                        getline(courseClass, thisClass); // get a class's name
-                        insertCourse(course, thisClass); // insert to linked list
+                path = "./" + SY + "/" + to_string(i) + "/" + courseID + "/class.txt";
+                courseClass.open(path);
+                    if (courseClass.is_open()) {
+                        while (!courseClass.eof()) {
+                            thereIsACoure = true;
+                            getline(courseClass, thisClass); // get a class's name
+                            insertCourse(course, thisClass); // insert to linked list
+                        }
                     }
                 courseClass.close();
             }
@@ -93,6 +106,8 @@ void viewCourseClass(string courseID) { // courseID is the ID of the course that
         cout << cur -> ID << endl; // Print out to the screen
         cur = cur -> next;
     }
+    if (!thereIsACoure) cout << "There's no class in this course!" << endl;
+    cout << "----------" << endl;
 
     deleteLLCourse(course);    
 }
