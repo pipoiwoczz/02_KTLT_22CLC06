@@ -8,11 +8,14 @@ using namespace std;
 // 	Undicided how to set up profile/mssv.txt
 void inputStudentsToClass(string nameSY, string nameClass)
 {
+	_mkdir("profile");
+
 	ifstream ifs;
 	string fileInput;
 
 	cout << "Enter the path of a CSV file containing students: ";
 	cin >> fileInput;
+	ifs.open(fileInput);
 
 	if (!ifs.is_open()) {
 		ifs.close();
@@ -56,10 +59,9 @@ void inputStudentsToClass(string nameSY, string nameClass)
 		tmp.gender = temp;
 		getline(ifs, temp, ',');
 		tmp.dateOfBirth = temp;
-		getline(ifs, temp);
+		getline(ifs, temp, '\n');
 		tmp.socialId = temp;
 
-		_mkdir("profile");
         ofstream ofs;
         string path_Pro5_MSSV = "profile/" + to_string(tmp.studentId) + ".txt";
 
@@ -75,7 +77,6 @@ void inputStudentsToClass(string nameSY, string nameClass)
 		ofs << tmp.studentId << endl << "1234" << endl;
 		ofs << nameSY << endl;
 		ofs << nameClass << endl;
-		ofs << 1 << endl;
 		ofs << tmp.lastName << "," << tmp.firstName << endl;
 		ofs << tmp.gender << endl;
 		ofs << tmp.dateOfBirth << endl;
@@ -89,8 +90,8 @@ void inputStudentsToClass(string nameSY, string nameClass)
 
         fin.open(path_SY_Class_MSSV);
         ofs.open("tmp.txt");
-        if (ifs.is_open()) 
-            while (getline(ifs, temp)) {
+        if (fin.is_open()) 
+            while (getline(fin, temp, '\n')) {
                 ofs << temp << endl;
             }
 		ofs << tmp.studentId;
@@ -117,6 +118,8 @@ void displayListOfStudents(string nameSY, string nameClass)
 		system("pause");
 		return;
 	} else {
+		cout << "\n----------------------List of Students------------------------\n";
+		cout << setw(3) << "No" << setw(10) << "MSSV" << setw(26) << "Full Name" << setw(9) << "Gender" << setw(11) << "DoB" << setw(14) << "Social ID" << endl << endl;
 		string mssv;
 		while (getline(ifs, mssv)) {
 			cout << setw(3) << no;
@@ -133,7 +136,7 @@ void displayListOfStudents(string nameSY, string nameClass)
 				string tmp2;
 				getline(fin, tmp2);
 				tmp2 = tmp2 + " " + tmp;
-				cout << setw(20) << tmp2;
+				cout << setw(26) << tmp2;
 				getline(fin, tmp);
 				cout << setw(9) << tmp;
 				getline(fin, tmp);

@@ -38,7 +38,7 @@ void add1StToClass(string nameSY, string nameClass) {
 
         cout << "Do you want to continue adding 1 student to this class?";
         cout << "\n1.Yes";
-        cout << "\n2.No";
+        cout << "\n2.No\n";
 
         int move;
 		
@@ -64,7 +64,6 @@ void add1StToClass(string nameSY, string nameClass) {
         out << stu.studentId << endl << "1234\n";
         out << nameSY << endl;
         out << nameClass << endl;
-        out << 1 << endl;
         out << stu.lastName << "," << stu.firstName << endl;
         out << stu.gender << endl;
         out << stu.dateOfBirth << endl;

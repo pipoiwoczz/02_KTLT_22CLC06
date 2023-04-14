@@ -43,7 +43,7 @@ void removeAStudent(string nameSY, string nameClass)
 		cout << "The student doesn't exist in this class\n";
 		cout << "\nDo you want to remove another student in this class?";
 		cout << "\n1. Yes";
-		cout << "\n2. No";
+		cout << "\n2. No\n";
 
 		int move;
 		

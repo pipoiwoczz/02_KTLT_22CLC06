@@ -530,8 +530,11 @@ void profile_menu(string username) {
                         }
                         ifs.close();
                         cout << "You've enter an invalid school year\nPlease enter again\n";
+                        cout << "--------------------------\n";
+                        cout << "Select your schooyear: ";
+                        cin >> SY;
                     }
-                } while (!ifs.is_open());
+                } while (1);
                                 
                 break;
             }
