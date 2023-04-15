@@ -8,7 +8,7 @@
 
 void updateGPA(string ID) {
     ifstream ifs, course, curSem;
-    string line, SY, Class, Sem, curSY; //////////////////// Sửa lại đối số truyền vào hàm điiii, OKKKKKKKKK
+    string line, SY, Class, Sem, curSY, courseClass;
 
     string GPA, thisTermCredit, courseCredit, totalCredit;
     float floatGPA = 0;
@@ -28,9 +28,10 @@ void updateGPA(string ID) {
         getline(ifs, GPA);
         getline(ifs, thisTermCredit);
         while (!ifs.eof()) {
-            getline(ifs, line); // line's value is course's ID now
+            getline(ifs, line,','); // line's value is course's ID now
+            getline(ifs, courseClass); // course class
             // Get the number of credit of a course
-            course.open("./" + SY + "/" + Sem + "/" + line + "/info.txt");
+            course.open("./" + SY + "/" + Sem + "/" + line + "/" + courseClass + "/info.txt");
                 for (int i=0; i<5; i++) getline(course, courseCredit); ///// course's credit
             course.close();
 
@@ -43,6 +44,10 @@ void updateGPA(string ID) {
         floatGPA /= stoi(thisTermCredit);
     ifs.close();
     
+    cout << floatGPA << endl;
+    floatGPA *= 10;
+    floatGPA = round(floatGPA);
+    floatGPA /= 10;
     stringstream ss;
     ss << fixed << setprecision(1) << floatGPA; // round to the first decimal place
     string formattedGPA = ss.str();
@@ -74,6 +79,9 @@ void updateGPA(string ID) {
         floatGPA /= stoi(totalCredit);
     ifs.close();
     
+    floatGPA *= 10;
+    floatGPA = round(floatGPA);
+    floatGPA /= 10;
     stringstream anotherGPA;
     anotherGPA << fixed << setprecision(1) << floatGPA; // round to the first decimal place
     formattedGPA = anotherGPA.str();
@@ -81,5 +89,4 @@ void updateGPA(string ID) {
     file = fopen(path, "r+");
         fputs(formattedGPA.c_str(), file);
     fclose(file);
-    
 }

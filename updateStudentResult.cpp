@@ -1,24 +1,43 @@
 #include "updateStudentResult.h"
 
-void updateStudentResultCourse(string SY, int season, string course) {
-    ifstream ifs;
+void updateStudentResultCourse(string curSY, int season, string course) {
+    ifstream ifs, thisCourse;
     ofstream ofs;
-    string Id, line;
+    string Id, line, Class, SY, courseClass;
 
     bool exist = false;
-    string pathCourse = "./" + SY  + "/" + to_string(season) +  "/" + course ;
+    string pathCourse = "./" + curSY  + "/" + to_string(season) +  "/" + course ;
 
     ////////// CHECK WHETHER THE ID IS VALID OR NOT
     do {
         cout << "Enter a student's ID: "; cin >> Id;
 
-        // Check if the ID is existing in the file listStud.txt of the course
-        ifs.open(pathCourse + "/listStud.txt");
-        while (ifs) {
-            getline(ifs, line, ',');
-            if (Id == line) exist = true;
-            getline(ifs, line); ///// new
-        }
+        ifs.open("./profile/" + Id + ".txt");
+            if (ifs.is_open()) {
+                getline(ifs, SY); // school year
+                getline(ifs, SY); // password
+                getline(ifs, SY);
+                getline(ifs, Class);
+
+                // Check if the ID is existing in the file listStud.txt of the course
+                thisCourse.open("./" + SY + "/" + Class + "/" + Id + "/" + to_string(season) + "_" + curSY + ".txt");
+                    if (thisCourse.is_open()) {
+                        getline(thisCourse, courseClass); // GPA in this sem
+                        getline(thisCourse, courseClass); // credit in this sem
+                        getline(thisCourse, courseClass,','); // course id
+                        getline(thisCourse, courseClass); // course class
+                    }
+                thisCourse.close();
+                thisCourse.open(pathCourse + "/" + courseClass + "/listStud.txt");
+                    if (thisCourse.is_open()) {
+                        while (thisCourse) {
+                            getline(thisCourse, line, ','); // student ID
+                            if (Id == line) exist = true;
+                            getline(thisCourse, line); // Student name
+                        }
+                    }
+                thisCourse.close();
+            }
         ifs.close();
 
         if (!exist) {
@@ -37,7 +56,7 @@ void updateStudentResultCourse(string SY, int season, string course) {
     } while (!exist);
     ////////// END CHECKING
 
-    pathCourse += "/scoreboard.txt"; // This path is used to renew the info of the scoreboard of a course
+    pathCourse += "/" + courseClass + "/scoreboard.txt"; // This path is used to renew the info of the scoreboard of a course
     Score *pScore = nullptr, *cur;
     exportFileInfoToLL(pScore, pathCourse); // insert data of scoreboard.txt of a course to a linked list
     cur = pScore;
@@ -46,7 +65,13 @@ void updateStudentResultCourse(string SY, int season, string course) {
 
     ////////// EDITING RESULT OF A STUDENT 
     int choice;
-    string score;
+    string oldTotal, total, finalM, midterm, other;
+    oldTotal = cur -> totalMark;
+    total = oldTotal;
+    finalM = cur -> finalMark;
+    midterm = cur -> midtermMark;
+    other = cur -> otherMark;
+
     do {
         cout << "---------------" << endl;
         cout << "Which score do you want to update?" << endl;
@@ -61,20 +86,20 @@ void updateStudentResultCourse(string SY, int season, string course) {
         switch (choice) {
             case 1: 
                 // NEED THIS CASE, BECAUSE WE DON'T KNOW WHICH SCORE TAKE HOW MUCH PERCENTAGE IN TOTAL
-                cout << "Enter the total mark: "; cin >> score;
-                cur -> totalMark = score;
+                cout << "Enter the total mark: "; cin >> total;
+                cur -> totalMark = total;
                 break;
             case 2:
-                cout << "Enter the final mark: "; cin >> score;
-                cur -> finalMark = score;
+                cout << "Enter the final mark: "; cin >> finalM;
+                cur -> finalMark = finalM;
                 break;
             case 3: 
-                cout << "Enter the midterm mark: "; cin >> score;
-                cur -> midtermMark = score;
+                cout << "Enter the midterm mark: "; cin >> midterm;
+                cur -> midtermMark = midterm;
                 break;
             case 4: 
-                cout << "Enter the other mark: "; cin >> score;
-                cur -> otherMark = score;
+                cout << "Enter the other mark: "; cin >> other;
+                cur -> otherMark = other;
                 break;
             default:
                 return;
@@ -87,10 +112,16 @@ void updateStudentResultCourse(string SY, int season, string course) {
 
         cout << "Your choice: "; cin >> choice;
         cout << "---------------" << endl;
-        if (choice == 2) break; 
+        if (choice == 2) {
+            cout << "Exiting..." << endl;
+            break; 
+        }
+        if (choice != 1 && choice != 2) {
+            cout << "Invalid choice, please enter a valid choice" << endl;
+        }
         // if choice == 1, we continue the while loop
         // if choice == 2, we go to the next code segment
-    } while (choice);
+    } while (choice != 2);
     ////////// FINISH EDITING RESULT
     
     // NEED TO REVERSE LL //////////////////////////////////////////////
@@ -114,23 +145,21 @@ void updateStudentResultCourse(string SY, int season, string course) {
 
     ////////// REWRITE THE DATA TO THE SCORE FILE OF FOLDER STUDENT IN FOLDER CLASS
     // Read the info of the class that the student belongs to
-    string pathProfile = "./profile/" + Id + ".txt";
-    ifs.open(pathProfile);
-        for (int i=1; i<=4; i++) getline(ifs, line);
-    ifs.close();
 
-    string pathInClass = "./" + SY  + "/" + line + "/" + Id + "/" + course  + ".txt";
+    string pathInClass = "./" + curSY  + "/" + Class + "/" + Id + "/" + course  + ".txt";
     // This path leads to the file score of student in the folder student of folder class
 
-    cur = pScore; // Set the cur back to the pHead
-    while (cur && cur -> studentID != Id) 
-        cur = cur -> next; // traverse to the Node save info of the student whose score is being updating
+    // cur = pScore; // Set the cur back to the pHead
+    // while (cur && cur -> studentID != Id) 
+    //     cur = cur -> next; // traverse to the Node save info of the student whose score is being updating
+
     ofs.open(pathInClass);
-        ofs << cur -> totalMark << "," << cur -> finalMark << "," << cur -> midtermMark << "," << cur -> otherMark; 
+        // ofs << cur -> totalMark << "," << cur -> finalMark << "," << cur -> midtermMark << "," << cur -> otherMark; 
+        ofs << total << "," << finalM << "," << midterm << "," << other; 
     ofs.close();
     ////////// END WRITING
     
-    updateGPA(Id);
+    if (oldTotal != total) updateGPA(Id);
     deleteLLScore(pScore);
 }
 
