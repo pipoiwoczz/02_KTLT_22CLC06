@@ -30,7 +30,7 @@ void updateStudentResultCourse(string curSY, int season, string course) {
                 thisCourse.close();
                 thisCourse.open(pathCourse + "/" + courseClass + "/listStud.txt");
                     if (thisCourse.is_open()) {
-                        while (thisCourse) {
+                        while (!thisCourse.eof()) {
                             getline(thisCourse, line, ','); // student ID
                             if (Id == line) exist = true;
                             getline(thisCourse, line); // Student name

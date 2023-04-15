@@ -79,7 +79,7 @@ void studentInACourse(string SY, string Sem, string course) {
 				while (!Class.eof()) {
 					getline(Class, studentID, ',');
 					getline(Class, studentName);
-					cout << left << setw(4) << i << setw(10) << studentID << setw(9) << courseClass << studentName << endl;
+					if (!Class.eof()) cout << left << setw(4) << i << setw(10) << studentID << setw(9) << courseClass << studentName << endl;
 					i++;
 				}
 			Class.close();

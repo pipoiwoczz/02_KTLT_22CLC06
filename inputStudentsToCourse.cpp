@@ -27,16 +27,17 @@ void inputStudentsToCourse(string curSY, int season, string courseID)
 	string className;
 	cout << "Enter class's name: ";
 	cin >> className;
-
+	bool flag = false;
 	ifs.open(classPath);
 	if (ifs.is_open()) {
 		string tmp;
 		while (getline(ifs, tmp)) {
-			if (tmp == className) break;
+			if (tmp == className) flag = true;;
 		}
+		ifs.close();
 	}
 
-	if (ifs.eof()) {
+	if (!flag) {
 		ifs.close();
 		cout << "You enter invalid class name!\n";
 		cout << "Input 0 to get back to previous menu or anything to enter class name again\n";
@@ -48,7 +49,6 @@ void inputStudentsToCourse(string curSY, int season, string courseID)
 			return inputStudentsToCourse(curSY, season, courseID);
 		}
 	}
-	ifs.close();
 
 	ifstream fin;
 	string path, temp;

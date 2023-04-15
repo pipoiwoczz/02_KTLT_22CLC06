@@ -186,7 +186,7 @@ void SEMenu(string username, string curSY, int season) {
             }
                 break;
             case 0:{
-                SYMenu(username, curSY);
+                return SYMenu(username, curSY);
             }
             break;
         }

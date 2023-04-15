@@ -61,8 +61,10 @@ void viewScoreboardOfCourse(string SY, string Sem, string curCourse) {
             cout << left << setw(5) << out;
             getline(ifs, out, ','); // ID
             cout << left << setw(10) << out;
-            getline(ifs, out, ','); // Name
-            cout << left << setw(34) << out;
+            getline(ifs, out, ','); // Last Name
+			string tmp;
+			getline(ifs, tmp, ','); // First Name
+            cout << left << setw(34) << out + " " + tmp;
             getline(ifs, out, ','); // Total
             cout << left << setw(8) << out;
             getline(ifs, out, ','); // Final 

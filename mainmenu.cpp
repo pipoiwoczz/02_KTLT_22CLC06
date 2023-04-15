@@ -32,7 +32,7 @@ void mainMenu() {
                 cout << "This is an invalid choice!!\n";
                 cout << "Please choose again\n";
                 cout << "Your choice is: ";
-                cin >> choice;
+
                 break;
         }
     } while (choice > 2 || choice < 0);

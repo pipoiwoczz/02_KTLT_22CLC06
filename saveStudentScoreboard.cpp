@@ -5,6 +5,34 @@
 #include <iostream>
 using namespace std;
 
+int getCourseCredit(string curSY, string season, string courseID) {
+	int courseCre;
+	ifstream ifs;
+	ofstream ofs;
+
+	string coursePath = curSY + "/" + season + "/" + courseID + "/class.txt";
+	string coureClass;
+	ifs.open(coursePath);
+	if (ifs.is_open()) {
+		getline(ifs, coureClass);
+		ifs.close();
+	}
+
+	string courseClassPath = curSY + "/" + season + "/" + courseID + "/" + coureClass + "/info.txt";
+	ifs.open(courseClassPath);
+	if (ifs.is_open()) {
+		string tmp;
+		getline(ifs, tmp); // course ID 
+		getline(ifs, tmp); // course Name;
+		getline(ifs, tmp); // class Name
+		getline(ifs, tmp); // teachername
+		ifs >> courseCre;
+		ifs.close();
+	}
+
+	return courseCre;
+}
+
 string searchStudent(string studentID)
 {
 	string pathProfile = "./profile/" + studentID + ".txt";
@@ -19,6 +47,8 @@ string searchStudent(string studentID)
 void saveStudentScoreboard(string curSY, int season, string courseID)
 { 
     string classPath = curSY + "//" + char(season + 48) + "//" + courseID + "//" + "class.txt";
+	float courseTotal;
+	int courseCre = getCourseCredit(curSY, to_string(season), courseID);
 	ifstream ifs;
 	ofstream ofs;
 
@@ -73,26 +103,102 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 		return saveStudentScoreboard(curSY, season, courseID);
 	}
 	string temp;
+	string stID;
+	string Class;
 
 	while (!fin.eof()) {
 		getline(fin, temp, ','); // no
 		getline(fin, temp, ','); // studentid
-		string className2 = searchStudent(temp);
-		string folder = "./" + curSY + "/" + className2 + "/" + temp + "/" + courseID + ".txt";
+		Class = searchStudent(temp);
+		stID = temp;
+		string folder = "./" + curSY + "/" + Class + "/" + temp + "/" + courseID + ".txt";
 		
 		ofstream fout(folder);
 		getline(fin, temp, ',');
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 4; i++) {
 			getline(fin, temp, ',');
 		}
 		fout << className << ",";
+		fin >> courseTotal;
+		fout << courseTotal;
 		getline(fin, temp);
 		fout << temp;
+
+		string total = curSY + "/" + Class + "/" + stID + "/total.txt";
+		string sesy = curSY + "/" + Class + "/" + stID + "/" + to_string(season) + "_" + curSY + ".txt";
+
+		// CHECK IF This se-sy is exist or not
+		bool flag = false;
+		ifs.open(sesy);
+		if (ifs.is_open()) {
+			int seCre;
+			float seGPA;
+			ifs >> seGPA;
+			ifs >> seCre;
+			seGPA *= seCre;
+			seGPA += courseCre * courseTotal;
+			seCre += courseCre;
+			ofs.open("tmp.txt");
+			if (ofs.is_open()) {
+				ofs << seGPA << endl;
+				ofs << seCre << endl;
+				string temp;
+				while (getline(ifs, temp))
+					ofs << temp << endl;
+				ofs.close();
+			}
+			remove(sesy.c_str());
+			rename("tmp.txt", sesy.c_str());
+			ifs.close();
+		}
+		else {
+			ofs.open(sesy);
+			ofs << courseTotal << endl << courseCre << endl << courseID << "," << Class;
+			ofs.close();
+			flag = true;
+		}
+
+
+		ifs.open(total); // open total.txt
+		if (!ifs.is_open()) { // if there is no file total.txt before 
+			ofs.open(total);
+			ofs << courseTotal << endl;
+			ofs << courseCre;
+			if (flag == true) 
+				ofs << curSY + "/" + Class + "/" + stID + "/" + to_string(season) + "_" + curSY;
+			ofs.close();
+		}
+		else { // if this is exist before, updating this file
+			int totalCredits;
+			float GPA;
+			ifs >> totalCredits;
+			ifs >> GPA;
+			GPA *= totalCredits;
+			GPA += courseCre * courseTotal;
+			totalCredits += courseCre;
+			ofs.open("tmp.txt");
+			if (ofs.is_open()) {
+				ofs << GPA << endl;
+				ofs << totalCredits << endl;
+				string temp;
+				while (getline(ifs, temp))
+					ofs << temp << endl;
+				if (flag == true)
+					ofs << curSY + "/" + Class + "/" + stID + "/" + to_string(season) + "_" + curSY;
+				ofs.close();
+			}
+			ifs.close();
+			remove(total.c_str());
+			rename("tmp.txt", total.c_str());
+		}
+
+		
+
 		fout.close();
 	}
 	fin.close();
 
-	string path = curSY + "//" + to_string( season) + "//" + courseID + "//" + className + "//" + "scoreboard.txt";
+	string path = curSY + "//" + to_string(season) + "//" + courseID + "//" + className + "//" + "scoreboard.txt";
 
 	ofs.open(path);
 	fin.open(pathOfScoreboard);

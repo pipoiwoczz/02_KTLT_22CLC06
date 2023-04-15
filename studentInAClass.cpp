@@ -119,7 +119,7 @@ void displayListOfStudents(string nameSY, string nameClass)
 		return;
 	} else {
 		cout << "\n----------------------List of Students------------------------\n";
-		cout << setw(3) << "No" << setw(10) << "MSSV" << setw(26) << "Full Name" << setw(9) << "Gender" << setw(11) << "DoB" << setw(14) << "Social ID" << endl << endl;
+		cout << left << setw(3) << "No" << setw(10) << "MSSV" << setw(34) << "Full Name" << setw(9) << "Gender" << setw(13) << "DoB" << setw(14) << "Social ID" << endl << endl;
 		string mssv;
 		while (getline(ifs, mssv)) {
 			cout << setw(3) << no;
@@ -128,7 +128,7 @@ void displayListOfStudents(string nameSY, string nameClass)
 			if (fin.is_open()) {
 				string tmp;
 				getline(fin, tmp);
-				cout << setw(10) << tmp;
+				cout << left << setw(10) << tmp;
 				getline(fin, tmp);
 				getline(fin, tmp);
 				getline(fin, tmp);
@@ -136,11 +136,11 @@ void displayListOfStudents(string nameSY, string nameClass)
 				string tmp2;
 				getline(fin, tmp2);
 				tmp2 = tmp2 + " " + tmp;
-				cout << setw(26) << tmp2;
+				cout << setw(34) << tmp2;
 				getline(fin, tmp);
 				cout << setw(9) << tmp;
 				getline(fin, tmp);
-				cout << setw(11) << tmp;
+				cout << setw(13) << tmp;
 				getline(fin, tmp);
 				cout << setw(14) << tmp << endl;
 			}
