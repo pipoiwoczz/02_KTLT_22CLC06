@@ -3,7 +3,7 @@
 
 #include "main.h"
 
-void updateCourseInfor(string curSY, int season, string &courseID);
-void updateInforClassCourse(schoolYear* curSY, Semester* curSemester, Course*& curCourse);
+void updateCourseInfor(string curSY, int season, string& courseID);
+void updateInforClassCourse(string curSY, string curSemester, string curCourse);
 
 #endif

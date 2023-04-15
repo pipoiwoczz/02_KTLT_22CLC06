@@ -131,32 +131,37 @@ void updateInforClassCourse(string curSY, string curSemester, string curCourse)
 	cout << "What do you want to update?\n";
 	cout << "1. Class name\n";
 	cout << "2. Teacher name\n";
-	cout << "3. Day of week\n";
-	cout << "4. Session\n";
-	cout << "5. All above\n";
+	cout << "3. Max number of students\n";
+	cout << "4. Day of week\n";
+	cout << "5. Session\n";
+	cout << "6. All above\n";
 	cout << "PRESS 0 TO STOP\n";
 	cout << "Your option: ";
 	cin >> opt;
-	string teacherName, dayOfWeek, Session;
+	string teacherName, maxStudent, dayOfWeek, Session;
 	while (opt != 0) {
 		if (opt == 1) {
 			cout << "New class name: ";
 			cin >> classname;
 		}
-		if (opt == 2) {
+		else if (opt == 2) {
 			cin.ignore();
 			cout << "New teacher name: ";
 			getline(cin, teacherName);
 		}
-		if (opt == 3) {
+		else if (opt == 3) {
+			cout << "New max number of students: ";
+			cin >> maxStudent;
+		}
+		else if (opt == 4) {
 			cout << "New day of week: ";
 			cin >> dayOfWeek;
 		}
-		if (opt == 4) {
+		else if (opt == 5) {
 			cout << "New session: ";
 			cin >> Session;
 		}
-		if (opt == 5) {
+		else if (opt == 6) {
 			cout << "New class name: ";
 			cin >> classname;
 
@@ -164,27 +169,39 @@ void updateInforClassCourse(string curSY, string curSemester, string curCourse)
 			cout << "New teacher name: ";
 			getline(cin, teacherName);
 
+			cout << "New max number of students: ";
+			cin >> maxStudent;
+
 			cout << "New day of week: ";
 			cin >> dayOfWeek;
 
 			cout << "New session: ";
 			cin >> Session;
 		}
-		cout << "\n Updated successfully.\n";
+		cout << "\nUpdated successfully.\n";
 		cout << "Your option: ";
 		cin >> opt;
 	}
 
 	string pathInfo = "./" + curSY + "/" + curSemester + "/" + curCourse + "/" + chosenClass + "/info.txt";
-	fstream fout;
-	fout.open(pathInfo, ios::in|ios::out);
-		fout << curCourse->courseID << endl;
-		fout << curCourse->courseName << endl;
-		fout << currCC->className << endl;
-		fout << currCC->teacherName << endl;
-		fout << curCourse->credits << endl;
-		fout << currCC->numberOfStudent << endl;
-		fout << currCC->dayOfWeek << endl;
-		fout << currCC->session << endl;
-	fout.close();
+	string courseID, courseName, credits;
+	fstream infoFile;
+
+	infoFile.open(pathInfo, ios::in);
+		getline(infoFile, courseID);
+		getline(infoFile, courseName);
+		for (int i = 0; i < 3; i++)
+			getline(infoFile, credits);
+	infoFile.close();
+
+	infoFile.open(pathInfo, ios::out);
+		infoFile << courseID << endl;
+		infoFile << courseName << endl;
+		infoFile << classname << endl;
+		infoFile << teacherName << endl;
+		infoFile << credits << endl;
+		infoFile << maxStudent << endl;
+		infoFile << dayOfWeek << endl;
+		infoFile << Session;
+	infoFile.close();
 }
