@@ -13,30 +13,28 @@ void updateCourseInfor(string curSY, int season, string &courseID)
 
 	system("cls");
 	int opt = -1;
-	cout << courseID << endl;
-	cout << "What do you want to update?";
-	cout << "\n1. Course ID\n";
-	cout << "2. Course Name\n";
-	cout << "3. Number of credits\n";
-	cout << "4. All above\n";
-	cout << "QUIT, PRESS 0";
-	cout << "Option: ";
-	cin >> opt;
-	while (opt != 0) {
+	do {
+		cout << courseID << endl;
+		cout << "What do you want to update?";
+		cout << "\n1. Course ID\n";
+		cout << "2. Course Name\n";
+		cout << "3. Number of credits\n";
+		cout << "4. All above\n";
+		cout << "QUIT, PRESS 0" << endl;
+		cout << "Your choice: ";
+		cin >> opt;
+
 		if (opt == 1) {
 			cout << "New course ID: ";
 			cin >> courseID;
-		}
-		if (opt == 2) {
+		} else if (opt == 2) {
 			cin.ignore();
 			cout << "New course name: ";
 			getline(cin, courseName);
-		}
-		if (opt == 3) {
+		} else if (opt == 3) {
 			cout << "New number of credits: ";
 			cin >> credits;
-		}
-		if (opt == 4) {
+		} else if (opt == 4) {
 			cout << "New course ID: ";
 			cin >> courseID;
 			cin.ignore();
@@ -46,18 +44,16 @@ void updateCourseInfor(string curSY, int season, string &courseID)
 			cin >> credits;
 		}
 		cout << "Updated successfully!\n\n";
-		cout << "Option: ";
-		cin >> opt;
-	}
+	} while (opt != 0);
 
 	// Update to all course classes
-	string path = curSY + "//" + to_string(season) + "//" + courseID + "//class.txt";
+	string path = "./" + curSY + "/" + to_string(season) + "/" + courseID + "/class.txt";
 
 	ifs.open(path);
 	if (ifs.is_open()) {
 		string tmp;
 		while (getline (ifs, tmp)) {
-			string infoPath = curSY + "//" + to_string(season) + "//" + courseID + "//" + tmp + "//info.txt";
+			string infoPath = "./" + curSY + "/" + to_string(season) + "/" + courseID + "/" + tmp + "/info.txt";
 
 			// get info of course class
 			fin.open(infoPath);
@@ -88,42 +84,50 @@ void updateCourseInfor(string curSY, int season, string &courseID)
 	}
 }
 
-void updateInforClassCourse(schoolYear* curSY, Semester* curSemester, Course*& curCourse)
+void updateInforClassCourse(string curSY, string curSemester, string curCourse)
 {
 	system("clear");
 
-	CourseClass* currCC = curCourse->CourseClass;
-	cout << "===================================\n";
-	cout << "\t\tCourse classes\n";
-	if (!currCC) {
-		cout << "There is no classes now.\n";
-		return;
-	}
-	while (currCC) {
-		cout << currCC->className << endl;
-		currCC->next;
-	}
-	currCC = curCourse->CourseClass;
+	string courseClass, classname, chosenClass;
+	ifstream ifs;
+	ifs.open("./" + curSY + "/" + curSemester + "/" + curCourse + "/class.txt");
+		cout << "--------------------" << endl;
+		cout << "Course classes" << endl;
+		cout << "----------" << endl;
+		if (!ifs.is_open()) {
+			cout << "There is no class in this course" << endl;
+			cout << "----------" << endl;
+			ifs.close();
+			return;
+		}
+		while (!ifs.eof()) {
+			getline(ifs, courseClass);
+			cout << courseClass << endl;
+		}
+		cout << "----------" << endl;
+	ifs.close();
 
-	do {
-		if (!currCC) 
-			cout << "You entered an invalid class name.\nPlease enter again.\n";
-
-		currCC = curCourse->CourseClass;
-		string classname;
-		cout << "======================================\n";
-		cout << "Enter your class name: ";
-		cin >> classname;
-		while (currCC && currCC->className != classname)
-			currCC->next;
-		if (currCC)
-			break;
-		else
-			continue;
-	} while (true);
+	ifs.open("./" + curSY + "/" + curSemester + "/" + curCourse + "/class.txt");
+		bool exist = false;
+		do {
+			ifs.seekg(SEEK_SET);
+			cout << "--------------------" << endl;
+			cout << "Enter your class name: ";
+			cin >> chosenClass;
+			while (!ifs.eof()) {
+				getline(ifs, classname);
+				if (chosenClass == classname) {
+					exist = true;
+					break;
+				}
+			}
+			if (!exist) cout << "You entered an invalid class name.\nPlease enter again.\n";
+			cout << "--------------------" << endl;
+		} while (!exist);
+	ifs.close();
 
 	int opt = -1;
-	cout << endl << currCC->className << endl;
+	cout << chosenClass << endl;
 	cout << "What do you want to update?\n";
 	cout << "1. Class name\n";
 	cout << "2. Teacher name\n";
@@ -133,45 +137,47 @@ void updateInforClassCourse(schoolYear* curSY, Semester* curSemester, Course*& c
 	cout << "PRESS 0 TO STOP\n";
 	cout << "Your option: ";
 	cin >> opt;
+	string teacherName, dayOfWeek, Session;
 	while (opt != 0) {
 		if (opt == 1) {
 			cout << "New class name: ";
-			cin >> currCC->className;
+			cin >> classname;
 		}
 		if (opt == 2) {
 			cin.ignore();
 			cout << "New teacher name: ";
-			getline(cin, currCC->teacherName);
+			getline(cin, teacherName);
 		}
 		if (opt == 3) {
 			cout << "New day of week: ";
-			cin >> currCC->dayOfWeek;
+			cin >> dayOfWeek;
 		}
 		if (opt == 4) {
 			cout << "New session: ";
-			cin >> currCC->session;
+			cin >> Session;
 		}
 		if (opt == 5) {
 			cout << "New class name: ";
-			cin >> currCC->className;
+			cin >> classname;
 
 			cin.ignore();
 			cout << "New teacher name: ";
-			getline(cin, currCC->teacherName);
+			getline(cin, teacherName);
 
 			cout << "New day of week: ";
-			cin >> currCC->dayOfWeek;
+			cin >> dayOfWeek;
 
 			cout << "New session: ";
-			cin >> currCC->session;
+			cin >> Session;
 		}
 		cout << "\n Updated successfully.\n";
 		cout << "Your option: ";
 		cin >> opt;
 	}
 
-	string pathInfo = "./" + curSY->name + "/" + to_string(curSemester->season) + "/" + curCourse->courseID + "/" + currCC->className + "/info.txt";
-	ofstream fout(pathInfo);
+	string pathInfo = "./" + curSY + "/" + curSemester + "/" + curCourse + "/" + chosenClass + "/info.txt";
+	fstream fout;
+	fout.open(pathInfo, ios::in|ios::out);
 		fout << curCourse->courseID << endl;
 		fout << curCourse->courseName << endl;
 		fout << currCC->className << endl;
