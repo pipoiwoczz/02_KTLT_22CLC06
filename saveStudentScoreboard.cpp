@@ -48,7 +48,7 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 { 
     string classPath = curSY + "//" + char(season + 48) + "//" + courseID + "//" + "class.txt";
 	float courseTotal;
-	int courseCre = getCourseCredit(curSY, to_string(season), courseID);
+	int courseCre = getCourseCredit(curSY, to_string(season), courseID); // get course credits
 	ifstream ifs;
 	ofstream ofs;
 
@@ -70,15 +70,16 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 	cout << "Enter class's name: ";
 	cin >> className;
 
+	bool check = false;
 	ifs.open(classPath);
 	if (ifs.is_open()) {
 		string tmp;
 		while (getline(ifs, tmp)) {
-			if (tmp == className) break;
+			if (tmp == className) check = true;
 		}
 	}
 
-	if (ifs.eof()) {
+	if (!check) {
 		ifs.close();
 		cout << "You enter invalid class name!\n";
 		cout << "Input 0 to get back to previous menu or anything to enter class name again\n";
@@ -114,12 +115,11 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 		string folder = "./" + curSY + "/" + Class + "/" + temp + "/" + courseID + ".txt";
 		
 		ofstream fout(folder);
-		getline(fin, temp, ',');
-		for (int i = 0; i < 4; i++) {
-			getline(fin, temp, ',');
+		for (int i = 0; i < 2; i++) {
+			getline(fin, temp, ','); // get first name and last name
 		}
 		fout << className << ",";
-		fin >> courseTotal;
+		fin >> courseTotal;			// get course total
 		fout << courseTotal;
 		getline(fin, temp);
 		fout << temp;
@@ -153,7 +153,7 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 		}
 		else {
 			ofs.open(sesy);
-			ofs << courseTotal << endl << courseCre << endl << courseID << "," << Class;
+			ofs << courseTotal << endl << courseCre << endl << courseID << "," << className;
 			ofs.close();
 			flag = true;
 		}
@@ -165,7 +165,7 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 			ofs << courseTotal << endl;
 			ofs << courseCre;
 			if (flag == true) 
-				ofs << curSY + "/" + Class + "/" + stID + "/" + to_string(season) + "_" + curSY;
+				ofs << to_string(season) + "_" + curSY;
 			ofs.close();
 		}
 		else { // if this is exist before, updating this file
@@ -184,7 +184,7 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 				while (getline(ifs, temp))
 					ofs << temp << endl;
 				if (flag == true)
-					ofs << curSY + "/" + Class + "/" + stID + "/" + to_string(season) + "_" + curSY;
+					ofs << to_string(season) + "_" + curSY;
 				ofs.close();
 			}
 			ifs.close();

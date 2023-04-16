@@ -29,15 +29,16 @@ void removeAStudentInCourse(string curSY, int season, string courseID)
 	cout << "Enter class's name: ";
 	cin >> className;
 
+	bool check = false;
 	ifs.open(classPath);
 	if (ifs.is_open()) {
 		string tmp;
 		while (getline(ifs, tmp)) {
-			if (tmp == className) break;
+			if (tmp == className) check = true;
 		}
 	}
 
-	if (ifs.eof()) {
+	if (!check) {
 		ifs.close();
 		cout << "You enter invalid class name!\n";
 		cout << "Input 0 to get back to previous menu or anything to enter class name again\n";

@@ -73,9 +73,23 @@ void inputStudentsToCourse(string curSY, int season, string courseID)
 		getline(fin, tmp);
 		currStudent -> lastName = tmp;
 
-		string path = curSY + "//" + char(season + 48) + "//" + courseID + "//" + className + "//" + "listStud.txt";
-        ifstream ifs;
+		ifstream ifs;
 		ofstream ofs;
+
+		string profilePathCheck = "profile/" + to_string(currStudent->studentId) + ".txt";
+		ifs.open(profilePathCheck);
+		if (!ifs.is_open()) {
+			cout << currStudent->studentId << " isn't exist in this schoolyear\n";
+			cout << "This student will not add to this course class\n";
+			system("pause");
+			continue;
+		}
+		else {
+			ifs.close();
+		}
+
+		string path = curSY + "//" + char(season + 48) + "//" + courseID + "//" + className + "//" + "listStud.txt";
+        
 
         ifs.open(path);
         ofs.open("tmp.txt");

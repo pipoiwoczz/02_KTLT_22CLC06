@@ -46,19 +46,24 @@ void viewStudentInACourseClass(string SY, string Sem, string course) {
     string out;
     ifstream ifs;
         ifs.open("./" + SY + "/" + Sem + "/" + course + "/" + chosenClass + "/listStud.txt");
-        int i = 1; // Ordinal number
-        cout << "Student in this course class: "<< endl;
-        cout << "--------------------" << endl;
-        cout << left << setw(4) << "No." << setw(10) << "ID" << "Name" << endl;
-        while (!ifs.eof()) {
-            cout << left << setw(4) << i; // Ordinal number
-            getline(ifs, out, ',');
-            cout << setw(10) << out; // Id
-            getline(ifs, out);
-            cout << out << endl; // Name
-            i++;
-        }
-        cout << "--------------------" << endl;
+		if (ifs.is_open()) {
+			int i = 1; // Ordinal number
+			cout << "Student in this course class: " << endl;
+			cout << "--------------------" << endl;
+			cout << left << setw(4) << "No." << setw(10) << "ID" << "Name" << endl;
+			while (!ifs.eof()) {
+				cout << left << setw(4) << i; // Ordinal number
+				getline(ifs, out, ',');
+				cout << setw(10) << out; // Id
+				getline(ifs, out);
+				cout << out << endl; // Name
+				i++;
+			}
+			cout << "--------------------" << endl;
+		}
+		else {
+			cout << "This Course Class has no Students\n";
+		}
     ifs.close();
 }
 
