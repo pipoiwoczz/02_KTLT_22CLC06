@@ -3,7 +3,7 @@
 
 void updateCourseInfor(string curSY, int season, string &courseID)
 {
-	string courseName = "0";
+	string courseName = "0", tempCourseId = "0";
 	string className, teacherName, dayOfWeek, session;
 	int numberOfStudent;
 	int credits = 0;
@@ -20,13 +20,14 @@ void updateCourseInfor(string curSY, int season, string &courseID)
 		cout << "2. Course Name\n";
 		cout << "3. Number of credits\n";
 		cout << "4. All above\n";
+		cout << "5. Update a course class information\n";
 		cout << "QUIT, PRESS 0" << endl;
 		cout << "Your choice: ";
 		cin >> opt;
 
 		if (opt == 1) {
 			cout << "New course ID: ";
-			cin >> courseID;
+			cin >> tempCourseId;
 		} else if (opt == 2) {
 			cin.ignore();
 			cout << "New course name: ";
@@ -42,7 +43,9 @@ void updateCourseInfor(string curSY, int season, string &courseID)
 			getline(cin, courseName);
 			cout << "New number of credits: ";
 			cin >> credits;
-		}
+		} else if (opt == 5)
+			updateInforClassCourse(curSY, to_string(season), courseID);
+
 		cout << "Updated successfully!\n\n";
 	} while (opt != 0);
 
@@ -70,7 +73,7 @@ void updateCourseInfor(string curSY, int season, string &courseID)
 			fin.close();
 
 			ofs.open(infoPath);
-			ofs << courseID << endl;
+			ofs << tempCourseId << endl;
 			ofs << courseName << endl;
 			ofs << className << endl;
 			ofs << teacherName << endl;
@@ -81,6 +84,10 @@ void updateCourseInfor(string curSY, int season, string &courseID)
 			ofs.close();
 		}
 		ifs.close();
+		if (tempCourseId != "0") {
+			courseID = tempCourseId;
+			int res = rename(("./" + curSY + "/" + to_string(season) + "/" + courseID).c_str(), ("./" + curSY + "/" + to_string(season) + "/" + tempCourseId).c_str());
+		}
 	}
 }
 
