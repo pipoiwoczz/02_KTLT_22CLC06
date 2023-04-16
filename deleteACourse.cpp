@@ -6,7 +6,7 @@
 #include <string>
 #include <filesystem>
 using namespace std;
-
+using namespace filesystem;
 
 void deleteACourse(string curSY, int season, string courseID)
 {
@@ -15,6 +15,7 @@ void deleteACourse(string curSY, int season, string courseID)
 	ifstream ifs;
 	ofstream ofs;
 
+	/*
 	ifs.open(classPath + "class.txt");
 	if (ifs.is_open()) {
 		string tmp;
@@ -30,7 +31,9 @@ void deleteACourse(string curSY, int season, string courseID)
 	remove((classPath + "class.txt").c_str());
 
 	// delete folder CourseID
-	_rmdir((curSY + "//" + to_string(season) + "//" + courseID).c_str());
+	_rmdir((curSY + "//" + to_string(season) + "//" + courseID).c_str()); */
+
+	remove_all(curSY + "//" + to_string(season) + "//" + courseID);
 
 	// delete courseID in file course.txt 
 	ifs.open((curSY + "//" + to_string(season) +  "//" + "course.txt").c_str());

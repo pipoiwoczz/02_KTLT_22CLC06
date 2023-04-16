@@ -162,6 +162,7 @@ void SEMenu(string username, string curSY, int season) {
                 }
 
                 string courseID;
+                bool flag = false;
                 cout << "======================================\n";
                 cout << "Please enter your Course ID: ";
                 cin.ignore();
@@ -177,12 +178,14 @@ void SEMenu(string username, string curSY, int season) {
                         while (getline (ifs, tmp)) 
                             if (tmp == courseID) {
                                 ifs.close();
-                                return deleteACourse(curSY, season, courseID);
+                                flag = true;
+                                updateCourseInfor(curSY, season, courseID);
                         }
+                        if (ifs.eof())
+                            cout << "You've enterd an invalid Course ID, Please enter again\n";
                         ifs.close();
-                        cout << "You've enterd an invalid Course ID, Please enter again\n";
                     }
-                } while (1);
+                } while (!flag);
             }
                 break;
             case 0:{
