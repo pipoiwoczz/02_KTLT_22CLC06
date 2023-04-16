@@ -10,7 +10,7 @@ using namespace filesystem;
 
 void deleteACourse(string curSY, int season, string courseID)
 {
-	string classPath = curSY +"//" + to_string(season) + "//" + courseID + "//";
+	string classPath = curSY + "//" + to_string(season) + "//" + courseID + "//";
 
 	ifstream ifs;
 	ofstream ofs;

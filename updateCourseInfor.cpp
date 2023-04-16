@@ -51,6 +51,23 @@ void updateCourseInfor(string curSY, int season, string &courseID)
 
 	// Update to all course classes
 	string path = "./" + curSY + "/" + to_string(season) + "/" + courseID + "/class.txt";
+	string coursePath = "./" + curSY + "/" + to_string(season) + "/" + courseID + "/course.txt";
+
+	ifs.open(coursePath);
+	if (ifs.is_open()) {
+		string tmp;
+		ofs.open("tmp.txt");
+		while (getline(ifs, tmp)) {
+			if (tmp == tempCourseId) {
+				ofs << tempCourseId << endl;
+			}
+			else {
+				ofs << tmp << endl;
+			}
+		}
+		ifs.close();
+		ofs.close();
+	}
 
 	ifs.open(path);
 	if (ifs.is_open()) {
@@ -85,15 +102,15 @@ void updateCourseInfor(string curSY, int season, string &courseID)
 		}
 		ifs.close();
 		if (tempCourseId != "0") {
-			courseID = tempCourseId;
 			int res = rename(("./" + curSY + "/" + to_string(season) + "/" + courseID).c_str(), ("./" + curSY + "/" + to_string(season) + "/" + tempCourseId).c_str());
+			courseID = tempCourseId;
 		}
 	}
 }
 
 void updateInforClassCourse(string curSY, string curSemester, string curCourse)
 {
-	system("clear");
+	system("cls");
 
 	string courseClass, classname, chosenClass;
 	ifstream ifs;

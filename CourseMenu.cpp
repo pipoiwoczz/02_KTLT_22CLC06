@@ -24,7 +24,7 @@ void courseMenu(string username, string curSY, int season, string courseID) {
     cout << "6. View the Scoreboard of a course class\n";
     cout << "7. Update a student's result\n";
     cout << "8. View list of Students in course \n";
-    cout << "9. View the Scoreboard of the course\n";
+    cout << "9. View the Scoreboard of this course\n";
     cout << "0. Back to previous menu\n";
     
     int move;
@@ -59,6 +59,7 @@ void courseMenu(string username, string curSY, int season, string courseID) {
                 studentInACourse(curSY , to_string(season), courseID);
                 break;
             case 9:
+                viewScoreboardOfCourse(curSY, to_string(season), courseID);
                 break;
             case 0:
                 return SEMenu(username, curSY, season);

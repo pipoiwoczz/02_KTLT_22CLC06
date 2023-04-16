@@ -76,14 +76,15 @@ void SEMenu(string username, string curSY, int season) {
                 }
 
                 string courseID;
-                cout << "======================================\n";
-                cout << "Please enter your Course ID: ";
-                cin.ignore();
-                getline(cin, courseID);
-
+                
                 
                 do {
+                    
+                    cout << "======================================\n";
+                    cout << "Please enter your Course ID: ";
+                    cin >> courseID;
                     ifs.open(path);
+                    bool flag = false;
                     if (!ifs.is_open()) {
                         cout << "There is no course created yet\n";
                         cout << "Please create a course first\n";
@@ -95,7 +96,8 @@ void SEMenu(string username, string curSY, int season) {
                                 return courseMenu(username, curSY, season, courseID);
                             }
                         ifs.close();
-                        cout << "You've enterd an invalid Course ID, Please enter again\n";
+                        cout << "You've enterd an invalid Course ID, Please enter again\n"; 
+                        cout << "Please enter again\n";
                     }
                 } while (1);
             }
@@ -111,7 +113,7 @@ void SEMenu(string username, string curSY, int season) {
                 if (!ifs.is_open()) {
                     cout << "There is no course created yet\n";
                     cout << "Please create a course first\n";
-                    return;
+                    break;
                 } else {
                     string tmp;
                     while (getline (ifs, tmp)) 
@@ -120,13 +122,15 @@ void SEMenu(string username, string curSY, int season) {
                 }
 
                 string courseID;
-                cout << "======================================\n";
-                cout << "Please enter your Course ID: ";
-                cin.ignore();
-                getline(cin, courseID);
+               
+                
 
                 ifs.open(path);
+                bool flag = false;;
                 do {
+=                    cout << "======================================\n";
+                    cout << "Please enter your Course ID: ";
+                    cin >> courseID;
                     if (!ifs.is_open()) {
                         cout << "There is no course created yet\n";
                         cout << "Please create a course first\n";
@@ -135,10 +139,11 @@ void SEMenu(string username, string curSY, int season) {
                         while (getline (ifs, tmp)) 
                             if (tmp == courseID) {
                                 ifs.close();
-                                return deleteACourse(curSY, season, courseID);
+                                deleteACourse(curSY, season, courseID);
+                                flag = true;
                         }
                         ifs.close();
-                        cout << "You've enterd an invalid Course ID, Please enter again\n";
+                        if (!flag) cout << "You've enterd an invalid Course ID, Please enter again\n";
                     }
                 } while (1);
             }
@@ -162,14 +167,16 @@ void SEMenu(string username, string curSY, int season) {
                 }
 
                 string courseID;
+                
+                
                 bool flag = false;
-                cout << "======================================\n";
-                cout << "Please enter your Course ID: ";
-                cin.ignore();
-                getline(cin, courseID);
-
                 ifs.open(path);
                 do {
+                    cout << "======================================\n";
+                    cout << "Please enter your Course ID: ";
+                    
+                    cin >> courseID;
+
                     if (!ifs.is_open()) {
                         cout << "There is no course created yet\n";
                         cout << "Please create a course first\n";
@@ -181,9 +188,9 @@ void SEMenu(string username, string curSY, int season) {
                                 flag = true;
                                 updateCourseInfor(curSY, season, courseID);
                         }
-                        if (ifs.eof())
-                            cout << "You've enterd an invalid Course ID, Please enter again\n";
                         ifs.close();
+                        if (!flag)   cout << "You've enterd an invalid Course ID, Please enter again\n";
+                        
                     }
                 } while (!flag);
             }
