@@ -14,6 +14,7 @@ void createSemester(string username, string curSY)
     cout << "1. Spring \n";
     cout << "2. Summer \n";
     cout << "3. Autumn \n";
+    cout << "Semester you want to create: ";
 
     cin >> season;
 
@@ -26,7 +27,8 @@ void createSemester(string username, string curSY)
             int move;
             cout << "Do you want to continue creating semester ?";
             cout << "\n1. Yes";
-            cout << "\n2.No";
+            cout << "\n2.No\n";
+            cout << "Enter your move: ";
             cin >> move;
 
             if (move == 1)

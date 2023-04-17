@@ -9,7 +9,7 @@ using namespace std;
 
 void mainMenu() {
     system("cls");
-    cout << "Main menu\n";
+    cout << "\tMain menu\n";
     cout << "1. Register\n";
     cout << "2. Log In\n";
     cout << "0. Stop Program\n";

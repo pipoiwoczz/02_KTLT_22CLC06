@@ -494,8 +494,10 @@ void profile_menu(string username) {
                 
                 ifstream ifs("SY.txt");
                 
-                if (!ifs.is_open()) {
+                if (!ifs.is_open() || ifs.eof()) {
                     cout << "There is no school year now\n";
+                    system("pause");
+                    return profile_menu(username);
                 } else {
                     string tmp;
                     while (getline (ifs, tmp)) {
@@ -514,7 +516,7 @@ void profile_menu(string username) {
                 do {
                     ifs.open("SY.txt");
                 
-                    if (!ifs.is_open()) {
+                    if (!ifs.is_open() || ifs.eof()) {
                         cout << "There is no school year now\n";
                         system("pause");
                         return profile_menu(username);

@@ -43,7 +43,7 @@ void SYMenu(string username, string curSY) {
             ifs.open(curSY + "/semester.txt");
 
             if (!ifs.is_open()) {
-                cout << "There is no Semester created yet";
+                cout << "There is no Semester created yet\n";
                 cout << "Please create Semesters first!\n";
             } else {    
                 string tmp;
@@ -92,14 +92,21 @@ void SYMenu(string username, string curSY) {
                 }
             } while (choice >= i || choice < 1);
 
+            int season = 0;
+            ifs.open(curSY + "/semester.txt");
+            for (int j = 0; j < choice; j++) {
+                ifs >> season;
+            }
+            ifs.close();
+
             ofstream ofs;
 
             //  Modify curTime.txt
             ofs.open("curTime.txt");
-            ofs << curSY << endl << choice;         
+            ofs << curSY << endl << season;
             ofs.close();
 
-            return SEMenu(username,curSY, choice);
+            return SEMenu(username,curSY, season);
         }
 
         case 4:
@@ -144,7 +151,7 @@ void SYMenu(string username, string curSY) {
             if (!ifs.is_open()) {
                 cout << "There is no class now!!\n";
                 cout << "Please create classes first!!\n";
-                
+                system("pause");
                 ifs.close();
                 return SYMenu(username, curSY);
             }

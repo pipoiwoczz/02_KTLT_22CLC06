@@ -128,7 +128,7 @@ void SEMenu(string username, string curSY, int season) {
                 ifs.open(path);
                 bool flag = false;;
                 do {
-=                    cout << "======================================\n";
+                    cout << "======================================\n";
                     cout << "Please enter your Course ID: ";
                     cin >> courseID;
                     if (!ifs.is_open()) {

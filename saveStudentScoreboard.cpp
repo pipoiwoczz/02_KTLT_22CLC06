@@ -1,5 +1,6 @@
 #include "saveStudentScoreboard.h"
 #include "main.h"
+#include "CourseMenu.h"
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -46,6 +47,8 @@ string searchStudent(string studentID)
 
 void saveStudentScoreboard(string curSY, int season, string courseID)
 { 
+
+
     string classPath = curSY + "//" + char(season + 48) + "//" + courseID + "//" + "class.txt";
 	float courseTotal;
 	int courseCre = getCourseCredit(curSY, to_string(season), courseID); // get course credits
@@ -93,6 +96,17 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 	}
 	ifs.close();
 
+	// CHECK THIS COURSE CLASS HAVE STUDENTS YET OR NOT
+	string listStud = curSY + "//" + char(season + 48) + "//" + courseID + "//" + className + "/listStud.txt";
+
+	ifs.open(listStud);
+	if (!ifs.is_open() || ifs.eof()) {
+		cout << "THIS COURSE CLASS HAS NO STUDENT YET\n";
+		cout << "PLEASE IMPORT STUDENT FIRST\n";
+		system("pause");
+		return;
+	}
+
 
 	string pathOfScoreboard;
 	cout << "Please enter the path of the Scoreboard of this course: ";
@@ -135,9 +149,9 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 			float seGPA;
 			ifs >> seGPA;
 			ifs >> seCre;
-			seGPA *= seCre;
-			seGPA += courseCre * courseTotal;
+			seGPA *= seCre * 1.0;
 			seCre += courseCre;
+			seGPA = (seGPA + courseCre * courseTotal) / seCre * 1.0;
 			ofs.open("tmp.txt");
 			if (ofs.is_open()) {
 				ofs << seGPA << endl;
@@ -145,6 +159,7 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 				string temp;
 				while (getline(ifs, temp))
 					ofs << temp << endl;
+				ofs << courseID << "," << className;
 				ofs.close();
 			}
 			remove(sesy.c_str());
@@ -165,17 +180,17 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 			ofs << courseTotal << endl;
 			ofs << courseCre;
 			if (flag == true) 
-				ofs << to_string(season) + "_" + curSY;
+				ofs << endl << to_string(season) + "_" + curSY;
 			ofs.close();
 		}
 		else { // if this is exist before, updating this file
 			int totalCredits;
 			float GPA;
-			ifs >> totalCredits;
 			ifs >> GPA;
+			ifs >> totalCredits;
 			GPA *= totalCredits;
-			GPA += courseCre * courseTotal;
 			totalCredits += courseCre;
+			GPA = (GPA + courseCre * courseTotal) / totalCredits;
 			ofs.open("tmp.txt");
 			if (ofs.is_open()) {
 				ofs << GPA << endl;
@@ -184,7 +199,7 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 				while (getline(ifs, temp))
 					ofs << temp << endl;
 				if (flag == true)
-					ofs << to_string(season) + "_" + curSY;
+					ofs << endl << to_string(season) + "_" + curSY;
 				ofs.close();
 			}
 			ifs.close();

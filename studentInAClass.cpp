@@ -22,7 +22,7 @@ void inputStudentsToClass(string nameSY, string nameClass)
 		cout << "The file doesn't exist.";
 		cout << "\nDo you want to continue adding students of class (by importing file)?";
 		cout << "\n1. Yes";
-		cout << "\n2. No";
+		cout << "\n2. No\n";
 
 		int move;
 		
