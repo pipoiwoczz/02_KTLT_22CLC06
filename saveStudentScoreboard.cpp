@@ -155,18 +155,20 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 			ofs.open("tmp.txt");
 			if (ofs.is_open()) {
 				ofs << seGPA << endl;
-				ofs << seCre << endl;
+				ofs << seCre;
 				string temp;
 				while (getline(ifs, temp))
-					ofs << temp << endl;
+					ofs << endl << temp;
 				ofs << courseID << "," << className;
 				ofs.close();
 			}
+			ifs.close();
 			remove(sesy.c_str());
 			rename("tmp.txt", sesy.c_str());
-			ifs.close();
+			
 		}
 		else {
+			ifs.close();
 			ofs.open(sesy);
 			ofs << courseTotal << endl << courseCre << endl << courseID << "," << className;
 			ofs.close();
@@ -194,10 +196,10 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 			ofs.open("tmp.txt");
 			if (ofs.is_open()) {
 				ofs << GPA << endl;
-				ofs << totalCredits << endl;
+				ofs << totalCredits;
 				string temp;
 				while (getline(ifs, temp))
-					ofs << temp << endl;
+					ofs << endl <<  temp ;
 				if (flag == true)
 					ofs << endl << to_string(season) + "_" + curSY;
 				ofs.close();

@@ -101,7 +101,7 @@ void createSY()
         int move;
         cout << "1. Continue creating a new school year\n";
         cout << "2. Exit\n";
-        cout << "-------------------------------------";
+        cout << "-------------------------------------\n";
         cout << "Enter your move : ";
         cin >> move;
 
