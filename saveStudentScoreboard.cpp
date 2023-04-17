@@ -159,7 +159,7 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 				string temp;
 				while (getline(ifs, temp))
 					ofs << endl << temp;
-				ofs << courseID << "," << className;
+				ofs << endl << courseID << "," << className;
 				ofs.close();
 			}
 			ifs.close();
