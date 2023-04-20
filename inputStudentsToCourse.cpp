@@ -97,7 +97,7 @@ void inputStudentsToCourse(string curSY, int season, string courseID)
             while (getline(ifs, temp)) {
                 ofs << temp << endl;
             }
-		ofs << currStudent -> studentId << "," << currStudent -> firstName << " " << currStudent -> lastName << endl;
+		ofs << currStudent->studentId << "," << currStudent->firstName << " " << currStudent->lastName;
         ifs.close();
         ofs.close();
         remove(path.c_str());

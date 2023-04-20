@@ -59,12 +59,12 @@ void add1StudentToCourse(string curSY, int season, string courseID)  {
     cout << "\nStudent ID: ";
     cin >> id;
 
-    cin.ignore();
     cout << "Enter student's last name: ";
+    cin.ignore();
     getline(cin, lastName);
 
-    cin.ignore();
     cout << "Enter student's first name: ";
+    cin.ignore();
     getline(cin, firstName);
     
     string profilePathCheck = "profile/" + to_string(id) + ".txt";
@@ -129,6 +129,6 @@ void add1StudentToCourse(string curSY, int season, string courseID)  {
         }   while (move != 1 && move != 2);
     } else {
         remove(path.c_str());
-        rename((curSY + "/" + to_string(season) + "/" + courseID + "/" + "tmp.txt").c_str(), path.c_str());
+        int res = rename((curSY + "/" + to_string(season) + "/" + courseID + "/" + "tmp.txt").c_str(), path.c_str());
     }
 }

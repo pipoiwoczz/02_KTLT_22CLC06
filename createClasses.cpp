@@ -50,6 +50,6 @@ void createClass(string username, string nameSY)
         ifs.close();
         ofs.close();
         remove((sy + "class.txt").c_str());
-        rename((sy + "tmp.txt").c_str(), (sy + "class.txt").c_str());
+        int res = rename((sy + "tmp.txt").c_str(), (sy + "class.txt").c_str());
     }
 }

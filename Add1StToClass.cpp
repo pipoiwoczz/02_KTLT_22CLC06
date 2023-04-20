@@ -15,10 +15,9 @@ void add1StToClass(string nameSY, string nameClass) {
 
     cout << "Enter student's ID: ";
     cin >> stu.studentId;
-    cin.ignore();
     cout << "Enter student's first name: ";
-    getline(cin , stu.firstName);
     cin.ignore();
+    getline(cin , stu.firstName);
     cout << "Enter student's last name: ";
     getline(cin , stu.lastName);
     cout << "Enter student's gender: ";
