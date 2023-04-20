@@ -90,7 +90,10 @@ void updateCourseInfor(string curSY, int season, string &courseID)
 			fin.close();
 
 			ofs.open(infoPath);
-			ofs << tempCourseId << endl;
+			if (tempCourseId != "0")
+				ofs << tempCourseId << endl;
+			else
+				ofs << courseID << endl;
 			ofs << courseName << endl;
 			ofs << className << endl;
 			ofs << teacherName << endl;
