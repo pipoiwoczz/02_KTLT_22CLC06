@@ -64,8 +64,7 @@ void add1StudentToCourse(string curSY, int season, string courseID)  {
     getline(cin, lastName);
 
     cout << "Enter student's first name: ";
-    cin.ignore();
-    getline(cin, firstName);
+    cin >> firstName;
     
     string profilePathCheck = "profile/" + to_string(id) + ".txt";
     ifs.open(profilePathCheck);

@@ -123,8 +123,6 @@ void SEMenu(string username, string curSY, int season) {
 
                 string courseID;
                
-                
-
                 ifs.open(path);
                 bool flag = false;;
                 do {
@@ -144,6 +142,10 @@ void SEMenu(string username, string curSY, int season) {
                         }
                         ifs.close();
                         if (!flag) cout << "You've enterd an invalid Course ID, Please enter again\n";
+                        else {
+                            cout << "Delete successfully.\n";
+                            return SEMenu(username, curSY, season);
+                        }
                     }
                 } while (1);
             }

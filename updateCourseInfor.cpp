@@ -3,10 +3,10 @@
 
 void updateCourseInfor(string curSY, int season, string &courseID)
 {
-	string courseName = "0", tempCourseId = "0";
-	string className, teacherName, dayOfWeek, session;
-	int numberOfStudent;
-	int credits = 0;
+	string tmpCourseName = "0", tempCourseId = "0";
+	string courseName, className, teacherName, credits, dayOfWeek, session;
+	string numberOfStudent;
+	int tmpCredits = 0;
 	ifstream ifs, fin;
 	ofstream ofs;
 
@@ -29,20 +29,20 @@ void updateCourseInfor(string curSY, int season, string &courseID)
 			cout << "New course ID: ";
 			cin >> tempCourseId;
 		} else if (opt == 2) {
-			cin.ignore();
 			cout << "New course name: ";
-			getline(cin, courseName);
+			cin.ignore();
+			getline(cin, tmpCourseName);
 		} else if (opt == 3) {
 			cout << "New number of credits: ";
-			cin >> credits;
+			cin >> tmpCredits;
 		} else if (opt == 4) {
 			cout << "New course ID: ";
-			cin >> courseID;
-			cin.ignore();
+			cin >> tempCourseId;
 			cout << "New course name: ";
-			getline(cin, courseName);
+			cin.ignore();
+			getline(cin, tmpCourseName);
 			cout << "New number of credits: ";
-			cin >> credits;
+			cin >> tmpCredits;
 		} else if (opt == 5)
 			updateInforClassCourse(curSY, to_string(season), courseID);
 
@@ -51,19 +51,19 @@ void updateCourseInfor(string curSY, int season, string &courseID)
 
 	// Update to all course classes
 	string path = "./" + curSY + "/" + to_string(season) + "/" + courseID + "/class.txt";
-	string coursePath = "./" + curSY + "/" + to_string(season) + "/" + courseID + "/course.txt";
+	string coursePath = "./" + curSY + "/" + to_string(season) + "/course.txt";
 
 	ifs.open(coursePath);
 	if (ifs.is_open()) {
 		string tmp;
-		ofs.open("tmp.txt");
+		ofs.open("./" + curSY + "/" + to_string(season) + "/tmp.txt");
 		while (getline(ifs, tmp)) {
-			if (tmp == tempCourseId) {
-				ofs << tempCourseId << endl;
-			}
-			else {
-				ofs << tmp << endl;
-			}
+			if (tempCourseId != "0" && tmp == courseID)
+				ofs << tempCourseId;
+			else
+				ofs << tmp;
+			if (!ifs.eof())
+				ofs << endl;
 		}
 		ifs.close();
 		ofs.close();
@@ -77,35 +77,45 @@ void updateCourseInfor(string curSY, int season, string &courseID)
 
 			// get info of course class
 			fin.open(infoPath);
-			fin >> tmp;
-			if (courseName == "0") fin >> courseName;
-			else fin >> tmp;
-			fin >> className;
-			fin >> teacherName;
-			if (credits == 0) fin >> credits;
-			else fin >> tmp;
-			fin >> numberOfStudent;
-			fin >> dayOfWeek;
-			fin >> session;
+				getline(fin, tmp);
+				getline(fin, courseName);
+				getline(fin, className);
+				getline(fin, teacherName);
+				getline(fin, credits);
+				getline(fin, numberOfStudent);
+				getline(fin, dayOfWeek);
+				getline(fin, session);
 			fin.close();
 
 			ofs.open(infoPath);
-			if (tempCourseId != "0")
-				ofs << tempCourseId << endl;
-			else
-				ofs << courseID << endl;
-			ofs << courseName << endl;
-			ofs << className << endl;
-			ofs << teacherName << endl;
-			ofs << credits << endl;
-			ofs << numberOfStudent << endl;
-			ofs << dayOfWeek << endl;;
-			ofs << session << endl;
+				if (tempCourseId != "0")
+					ofs << tempCourseId << endl;
+				else
+					ofs << courseID << endl;
+
+				if (tmpCourseName != "0")
+					ofs << tmpCourseName << endl;
+				else
+					ofs << courseName << endl;
+
+				ofs << className << endl;
+				ofs << teacherName << endl;
+
+				if (tmpCredits != 0)
+					ofs << tmpCredits << endl;
+				else
+					ofs << credits << endl;
+
+				ofs << numberOfStudent << endl;
+				ofs << dayOfWeek << endl;;
+				ofs << session;
 			ofs.close();
 		}
 		ifs.close();
 		if (tempCourseId != "0") {
-			int res = rename(("./" + curSY + "/" + to_string(season) + "/" + courseID).c_str(), ("./" + curSY + "/" + to_string(season) + "/" + tempCourseId).c_str());
+			int res1 = rename(("./" + curSY + "/" + to_string(season) + "/" + courseID).c_str(), ("./" + curSY + "/" + to_string(season) + "/" + tempCourseId).c_str());
+			remove(coursePath.c_str());
+			int res2 = rename(("./" + curSY + "/" + to_string(season) + "/tmp.txt").c_str(), coursePath.c_str());
 			courseID = tempCourseId;
 		}
 	}

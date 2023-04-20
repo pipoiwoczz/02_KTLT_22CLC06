@@ -71,7 +71,9 @@ void removeAStudentInCourse(string curSY, int season, string courseID)
             if (temp != to_string(studentID)) {
                 ofs << temp << ",";
                 getline (ifs, temp);
-                ofs << temp << endl;
+				ofs << temp;
+				if (!ifs.eof())
+					ofs << endl;
             } else {
                 getline(ifs, temp);
             }
