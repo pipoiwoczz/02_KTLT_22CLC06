@@ -1,17 +1,14 @@
 #include "saveStudentScoreboard.h"
 #include "main.h"
 #include "CourseMenu.h"
-#include <string>
-#include <fstream>
-#include <iostream>
 using namespace std;
 
 int getCourseCredit(string curSY, string season, string courseID) {
-	int courseCre;
+	string courseCre;
 	ifstream ifs;
 	ofstream ofs;
 
-	string coursePath = curSY + "/" + season + "/" + courseID + "/class.txt";
+	string coursePath = "./" + curSY + "/" + season + "/" + courseID + "/class.txt";
 	string coureClass;
 	ifs.open(coursePath);
 	if (ifs.is_open()) {
@@ -19,7 +16,7 @@ int getCourseCredit(string curSY, string season, string courseID) {
 		ifs.close();
 	}
 
-	string courseClassPath = curSY + "/" + season + "/" + courseID + "/" + coureClass + "/info.txt";
+	string courseClassPath = "./" + curSY + "/" + season + "/" + courseID + "/" + coureClass + "/info.txt";
 	ifs.open(courseClassPath);
 	if (ifs.is_open()) {
 		string tmp;
@@ -31,7 +28,7 @@ int getCourseCredit(string curSY, string season, string courseID) {
 		ifs.close();
 	}
 
-	return courseCre;
+	return stoi(courseCre);
 }
 
 string searchStudent(string studentID)
@@ -47,9 +44,7 @@ string searchStudent(string studentID)
 
 void saveStudentScoreboard(string curSY, int season, string courseID)
 { 
-
-
-    string classPath = curSY + "//" + char(season + 48) + "//" + courseID + "//" + "class.txt";
+    string classPath = "./" + curSY + "/" + char(season + 48) + "/" + courseID + "/class.txt";
 	float courseTotal;
 	int courseCre = getCourseCredit(curSY, to_string(season), courseID); // get course credits
 	ifstream ifs;
@@ -64,7 +59,8 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 		}
 		ifs.close();
 	} else {
-		cout << "This course has now class\n";
+		cout << "There's no class in this course" << endl;
+		ifs.close();
 		return;
 	}
 	cout << "---------------------------------------------------\n";
@@ -97,8 +93,7 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 	ifs.close();
 
 	// CHECK THIS COURSE CLASS HAVE STUDENTS YET OR NOT
-	string listStud = curSY + "//" + char(season + 48) + "//" + courseID + "//" + className + "/listStud.txt";
-
+	string listStud = "./" + curSY + "/" + char(season + 48) + "/" + courseID + "/" + className + "/listStud.txt";
 	ifs.open(listStud);
 	if (!ifs.is_open() || ifs.eof()) {
 		cout << "THIS COURSE CLASS HAS NO STUDENT YET\n";
@@ -109,7 +104,7 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 
 
 	string pathOfScoreboard;
-	cout << "Please enter the path of the Scoreboard of this course: ";
+	cout << "Please enter the path of the scoreboard of this course: ";
 	cin >> pathOfScoreboard;
 	ifstream fin(pathOfScoreboard);
 	if (!fin.is_open()) {
@@ -120,7 +115,6 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 	string temp;
 	string stID;
 	string Class;
-
 	while (!fin.eof()) {
 		getline(fin, temp, ','); // no
 		getline(fin, temp, ','); // studentid
@@ -138,8 +132,8 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 		getline(fin, temp);
 		fout << temp;
 
-		string total = curSY + "/" + Class + "/" + stID + "/total.txt";
-		string sesy = curSY + "/" + Class + "/" + stID + "/" + to_string(season) + "_" + curSY + ".txt";
+		string total = "./" + curSY + "/" + Class + "/" + stID + "/total.txt";
+		string sesy = "./" + curSY + "/" + Class + "/" + stID + "/" + to_string(season) + "_" + curSY + ".txt";
 
 		// CHECK IF This se-sy is exist or not
 		bool flag = false;
@@ -152,7 +146,7 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 			seGPA *= seCre * 1.0;
 			seCre += courseCre;
 			seGPA = (seGPA + courseCre * courseTotal) / seCre * 1.0;
-			ofs.open("tmp.txt");
+			ofs.open("./tmp.txt");
 			if (ofs.is_open()) {
 				ofs << seGPA << endl;
 				ofs << seCre;
@@ -164,7 +158,7 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 			}
 			ifs.close();
 			remove(sesy.c_str());
-			rename("tmp.txt", sesy.c_str());
+			rename("./tmp.txt", sesy.c_str());
 			
 		}
 		else {
@@ -215,7 +209,7 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 	}
 	fin.close();
 
-	string path = curSY + "//" + to_string(season) + "//" + courseID + "//" + className + "//" + "scoreboard.txt";
+	string path ="./" + curSY + "/" + to_string(season) + "/" + courseID + "/" + className + "/" + "scoreboard.txt";
 
 	ofs.open(path);
 	fin.open(pathOfScoreboard);
