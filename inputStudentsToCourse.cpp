@@ -7,7 +7,7 @@ using namespace std;
 
 void inputStudentsToCourse(string curSY, int season, string courseID)
 {
-	string classPath = curSY + "//" + char(season + 48) + "//" + courseID + "//" + "class.txt";
+	string classPath = "./" + curSY + "/" + char(season + 48) + "/" + courseID + "/" + "class.txt";
 	ifstream ifs;
 	ofstream ofs;
 	cout << "---------List of Class in this Course------------\n";
@@ -19,7 +19,7 @@ void inputStudentsToCourse(string curSY, int season, string courseID)
 		}
 		ifs.close();
 	} else {
-		cout << "This course has now class\n";
+		cout << "This course has no class\n";
 		return;
 	}
 	cout << "---------------------------------------------------\n";
@@ -76,7 +76,7 @@ void inputStudentsToCourse(string curSY, int season, string courseID)
 		ifstream ifs;
 		ofstream ofs;
 
-		string profilePathCheck = "profile/" + to_string(currStudent->studentId) + ".txt";
+		string profilePathCheck = "./profile/" + to_string(currStudent->studentId) + ".txt";
 		ifs.open(profilePathCheck);
 		if (!ifs.is_open()) {
 			cout << currStudent->studentId << " isn't exist in this schoolyear\n";
@@ -88,7 +88,7 @@ void inputStudentsToCourse(string curSY, int season, string courseID)
 			ifs.close();
 		}
 
-		string path = curSY + "//" + char(season + 48) + "//" + courseID + "//" + className + "//" + "listStud.txt";
+		string path = "./" + curSY + "/" + char(season + 48) + "/" + courseID + "/" + className + "/" + "listStud.txt";
         
 
         ifs.open(path);
