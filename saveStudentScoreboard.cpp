@@ -45,7 +45,7 @@ string searchStudent(string studentID)
 void saveStudentScoreboard(string curSY, int season, string courseID)
 { 
     string classPath = "./" + curSY + "/" + char(season + 48) + "/" + courseID + "/class.txt";
-	float courseTotal;
+	string courseTotal;
 	int courseCre = getCourseCredit(curSY, to_string(season), courseID); // get course credits
 	ifstream ifs;
 	ofstream ofs;
@@ -117,18 +117,17 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 	string Class;
 	while (!fin.eof()) {
 		getline(fin, temp, ','); // no
-		getline(fin, temp, ','); // studentid
-		Class = searchStudent(temp);
-		stID = temp;
-		string folder = "./" + curSY + "/" + Class + "/" + temp + "/" + courseID + ".txt";
+		getline(fin, stID, ','); // studentid
+		Class = searchStudent(stID);
+		string stScore = "./" + curSY + "/" + Class + "/" + stID + "/" + courseID + ".txt";
 		
-		ofstream fout(folder);
+		ofstream fout(stScore);
 		for (int i = 0; i < 2; i++) {
 			getline(fin, temp, ','); // get first name and last name
 		}
 		fout << className << ",";
-		fin >> courseTotal;			// get course total
-		fout << courseTotal;
+		getline(fin, courseTotal, ',');			// get course total
+		fout << courseTotal << ",";
 		getline(fin, temp);
 		fout << temp;
 
@@ -145,8 +144,8 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 			ifs >> seCre;
 			seGPA *= seCre * 1.0;
 			seCre += courseCre;
-			seGPA = (seGPA + courseCre * courseTotal) / seCre * 1.0;
-			ofs.open("./tmp.txt");
+			seGPA = (seGPA + courseCre * stof(courseTotal)) / seCre * 1.0;
+			ofs.open("./" + curSY + "/" + Class + "/" + stID + "/tmp.txt");
 			if (ofs.is_open()) {
 				ofs << seGPA << endl;
 				ofs << seCre;
@@ -158,7 +157,7 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 			}
 			ifs.close();
 			remove(sesy.c_str());
-			rename("./tmp.txt", sesy.c_str());
+			rename(("./" + curSY + "/" + Class + "/" + stID + "/tmp.txt").c_str(), sesy.c_str());
 			
 		}
 		else {
@@ -186,7 +185,7 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 			ifs >> totalCredits;
 			GPA *= totalCredits;
 			totalCredits += courseCre;
-			GPA = (GPA + courseCre * courseTotal) / totalCredits;
+			GPA = (GPA + courseCre * stof(courseTotal)) / totalCredits;
 			ofs.open("tmp.txt");
 			if (ofs.is_open()) {
 				ofs << GPA << endl;
