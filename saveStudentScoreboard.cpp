@@ -10,11 +10,11 @@ int getCourseCredit(string curSY, string season, string courseID) {
 
 	string coursePath = "./" + curSY + "/" + season + "/" + courseID + "/class.txt";
 	string coureClass;
+
 	ifs.open(coursePath);
-	if (ifs.is_open()) {
+	if (ifs.is_open()) 
 		getline(ifs, coureClass);
-		ifs.close();
-	}
+	ifs.close();
 
 	string courseClassPath = "./" + curSY + "/" + season + "/" + courseID + "/" + coureClass + "/info.txt";
 	ifs.open(courseClassPath);
@@ -102,6 +102,7 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 		return;
 	}
 
+	ifs.close();
 
 	string pathOfScoreboard;
 	cout << "Please enter the path of the scoreboard of this course: ";
@@ -153,21 +154,20 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 				while (getline(ifs, temp))
 					ofs << endl << temp;
 				ofs << endl << courseID << "," << className;
-				ofs.close();
 			}
-			ifs.close();
+			ofs.close();
 			remove(sesy.c_str());
 			rename(("./" + curSY + "/" + Class + "/" + stID + "/tmp.txt").c_str(), sesy.c_str());
 			
 		}
 		else {
-			ifs.close();
 			ofs.open(sesy);
 			ofs << courseTotal << endl << courseCre << endl << courseID << "," << className;
 			ofs.close();
 			flag = true;
 		}
 
+		ifs.close();
 
 		ifs.open(total); // open total.txt
 		if (!ifs.is_open()) { // if there is no file total.txt before 
