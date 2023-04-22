@@ -1,9 +1,4 @@
 #include "1StuToCourse.h"
-#include "main.h"
-#include <fstream>
-#include <string>
-#include <iostream>
-using namespace std;
 
 void add1StudentToCourse(string curSY, int season, string courseID)  {
     string classPath = curSY + "//" + char(season + 48) + "//" + courseID + "//" + "class.txt";

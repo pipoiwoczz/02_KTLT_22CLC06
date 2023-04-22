@@ -1,14 +1,4 @@
 #include "SYmenu.h"
-#include "main.h"
-#include "createSemester.h"
-#include "profile.h"
-#include "SEmenu.h"
-#include "createClasses.h"
-#include "menuClass.h"
-#include <iostream>
-#include <string>
-#include <fstream>
-using namespace std;
 
 void SYMenu(string username, string curSY) {
 

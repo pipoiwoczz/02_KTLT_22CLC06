@@ -1,8 +1,4 @@
-#include "main.h"
-#include <cstdio>
-#include <iostream>
-#include <fstream>
-using namespace std;
+#include "removeAStudentInCourse.h"
 
 void removeAStudentInCourse(string curSY, int season, string courseID)
 {

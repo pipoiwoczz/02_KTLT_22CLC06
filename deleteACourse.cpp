@@ -1,12 +1,4 @@
 #include "deleteACourse.h"
-#include "main.h"
-#include "SEmenu.h"
-#include <stdio.h>
-#include <fstream>
-#include <string>
-#include <filesystem>
-using namespace std;
-using namespace filesystem;
 
 void deleteACourse(string curSY, int season, string courseID)
 {

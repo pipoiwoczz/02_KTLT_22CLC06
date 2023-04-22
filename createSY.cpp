@@ -1,11 +1,4 @@
 #include "createSY.h"
-#include <iostream>
-#include "login.h"
-#include <cstring>
-#include <string>
-#include <fstream>
-#include <direct.h>
-using namespace std;
 
 bool isValidSY(string SY)
 {

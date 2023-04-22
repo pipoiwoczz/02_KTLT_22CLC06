@@ -1,8 +1,8 @@
 #ifndef _removeAStudent_
 #define _removeAStudent_
-#include <iostream>
+
 #include "main.h"
-using namespace std;
+#include <stdio.h>
 
 void removeAStudent(string nameSY, string nameClass);
 #endif

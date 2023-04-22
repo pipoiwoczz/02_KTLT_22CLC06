@@ -1,14 +1,4 @@
-#include "main.h"
-#include "studentInAClass.h"
-#include "removeAStudent.h"
-#include "Add1StToClass.h"
-#include "viewScoreboardOfClass.h"
-#include "SYmenu.h"
-#include "profile.h"
-#include <string>
-#include <iostream>
-#include <fstream>
-using namespace std;
+#include "menuClass.h"
 
 void classMenu(string username, string nameSY, string nameClass)
 {

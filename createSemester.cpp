@@ -1,10 +1,4 @@
 #include "createSemester.h"
-#include "login.h"
-#include <sys/stat.h>
-#include <direct.h>
-#include <cstring>
-#include "main.h"
-using namespace std;
 
 void createSemester(string username, string curSY)
 {

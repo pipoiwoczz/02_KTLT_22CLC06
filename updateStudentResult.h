@@ -1,7 +1,6 @@
 #ifndef _updateStudentResult_
 #define _updateStudentResult_
 
-
 #include "main.h"
 #include "updateGPA.h"
 

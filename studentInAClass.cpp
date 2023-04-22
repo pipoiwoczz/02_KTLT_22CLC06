@@ -1,9 +1,4 @@
 #include "studentInAClass.h"
-#include "main.h"
-#include <fstream>
-#include <iomanip>
-using namespace std;
-
 
 // 	Undicided how to set up profile/mssv.txt
 void inputStudentsToClass(string nameSY, string nameClass)

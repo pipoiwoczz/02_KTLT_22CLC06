@@ -1,5 +1,4 @@
 #include "profileStudent.h"
-#include "main.h"
 
 void profileStudent(string username)
 { 

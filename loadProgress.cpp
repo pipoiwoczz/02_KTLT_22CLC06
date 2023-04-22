@@ -1,9 +1,4 @@
-#include "main.h"   
 #include "loadProgress.h"
-#include <iostream>
-#include <fstream>
-#include <string>
-using namespace std;
 
 void loadProgress(schoolYear *&headSY) {
 

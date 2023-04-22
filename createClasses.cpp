@@ -1,11 +1,4 @@
 #include "createClasses.h"
-#include "login.h"
-#include "main.h"
-#include <cstring>
-#include <string>
-#include <fstream>
-#include <direct.h>
-using namespace std;
 
 void createClass(string username, string nameSY)
 {

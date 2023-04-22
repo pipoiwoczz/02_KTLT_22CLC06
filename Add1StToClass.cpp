@@ -1,12 +1,4 @@
-#include "main.h"
 #include "Add1StToClass.h"
-#include <string>
-#include <cstring>
-#include <stdlib.h>
-#include <direct.h>
-#include <iostream>
-#include <fstream>
-using namespace std;
 
 // Undecided how to set up profile/mssv.txt
 void add1StToClass(string nameSY, string nameClass) {

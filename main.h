@@ -4,10 +4,12 @@
 
 #ifndef _main_
 #define _main_
+
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <direct.h>
+
 using namespace std;
 
 struct Grade {

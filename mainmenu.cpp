@@ -1,11 +1,4 @@
-#include <iostream>
-#include "main.h"
 #include "mainmenu.h"
-#include "login.h"
-#include "profile.h"
-#include <string>
-#include <cstring>
-using namespace std;
 
 void mainMenu() {
     system("cls");

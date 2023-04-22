@@ -1,11 +1,4 @@
 #include "removeAStudent.h"
-#include "main.h"
-#include <string>
-//#include <direct.h>
-#include <stdio.h>
-using namespace std;
-// #include <filesystem>
-// using namespace filesystem;
 
 void removeAStudent(string nameSY, string nameClass)
 {

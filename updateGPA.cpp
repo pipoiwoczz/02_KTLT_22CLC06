@@ -1,6 +1,4 @@
 #include "updateGPA.h"
-#include "main.h"
-
 
 void updateGPA(string ID) {
     ifstream ifs, course, curSem;

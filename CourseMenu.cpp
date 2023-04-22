@@ -1,16 +1,4 @@
 #include "CourseMenu.h"
-#include "inputStudentsToCourse.h"
-#include "main.h"
-#include "SEmenu.h"
-#include "updateCourseInfor.h"
-#include "viewScoreboardOfCourse.h"
-#include "updateStudentResult.h"
-#include "viewStudentInACourse.h"
-#include "1StuToCourse.h"
-#include "removeAStudentInCourse.h"
-#include "saveStudentScoreboard.h"
-#include <string>
-using namespace std;
 
 void courseMenu(string username, string curSY, int season, string courseID) {
 

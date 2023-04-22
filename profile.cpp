@@ -1,17 +1,4 @@
 #include "profile.h"
-#include "main.h"
-#include "login.h"
-#include "createClasses.h"
-#include "createSY.h"
-#include "SYmenu.h"
-#include "mainmenu.h"
-#include "menuClass.h"
-#include <cstring>
-#include <string>
-#include <iostream>
-#include <stdio.h>
-#include <fstream>
-using namespace std;
 
 void viewProfile(string username) {
     string tmp;

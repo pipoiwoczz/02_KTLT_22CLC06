@@ -1,10 +1,4 @@
 #include "addACourse.h"
-#include "main.h"
-#include <filesystem>
-#include <direct.h>
-#include <string>
-#include <iostream>
-using namespace std;
 // namespace fs = std::filesystem;
 
 void addACourse(string curSY, int season)

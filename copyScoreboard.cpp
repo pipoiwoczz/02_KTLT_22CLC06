@@ -1,7 +1,4 @@
 #include "copyScoreboard.h"
-#include "main.h"
-#include <string>
-using namespace std;
 
 void copyScoreboard(schoolYear* currYear, Semester* currSem, Course* currCourse, string pathScoreboard)
 {

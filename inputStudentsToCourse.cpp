@@ -1,9 +1,4 @@
 #include "inputStudentsToCourse.h"
-#include "main.h"
-#include <string>
-#include <fstream>
-#include <iostream>
-using namespace std;
 
 void inputStudentsToCourse(string curSY, int season, string courseID)
 {

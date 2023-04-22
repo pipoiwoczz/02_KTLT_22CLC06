@@ -1,16 +1,4 @@
-#include "main.h"
-#include "addACourse.h"
-#include "updateCourseInfor.h"
-#include "viewListCourses.h"
-#include "removeAStudent.h"
-#include "deleteACourse.h"
-#include "profile.h"
-#include "inputStudentsToCourse.h"
-#include "CourseMenu.h"
-#include "SYmenu.h"
-#include <iostream>
-#include <fstream>
-using namespace std;
+#include "SEmenu.h"
 
 void SEMenu(string username, string curSY, int season) {
 

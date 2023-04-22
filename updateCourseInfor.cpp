@@ -1,5 +1,4 @@
 #include "updateCourseInfor.h"
-#include "main.h"
 
 void updateCourseInfor(string curSY, int season, string &courseID)
 {

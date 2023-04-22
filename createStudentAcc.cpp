@@ -2,10 +2,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
-#include <iostream>
-#include "main.h"
 #include "createStudentAcc.h"
-using namespace std;
 
 void createStudentAccount(Student * pHeadStudent) {
     string folder = "User\\", filename = "";
