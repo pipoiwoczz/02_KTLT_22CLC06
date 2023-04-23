@@ -2,6 +2,18 @@
 
 bool isValidSY(string SY)
 {
+    ifstream ifs;
+    ifs.open("SY.txt");
+
+    string tmpSY;
+    while (getline(ifs, tmpSY)) {
+        if (tmpSY == SY) {
+			ifs.close();
+			return false;
+		}
+	}
+    ifs.close();
+
     string year1, year2;
     int idx = 0;
 
