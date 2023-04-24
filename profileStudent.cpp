@@ -17,8 +17,7 @@ void profileStudent(string username)
 	cout << "1. View profile\n";
 	cout << "2. Change profile\n";
 	cout << "3. View courses you will study in this semester\n";
-	cout << "4. View class schedule\n";
-	cout << "5. View scoreboard\n";
+	cout << "4. View scoreboard\n";
 	cout << "0. Log out\n";
 	cout << "Your choice: ";
 	
@@ -35,12 +34,10 @@ void profileStudent(string username)
 				break;
 			case 3: 
 				viewCoursesStudent(username);
+                system("pause");
 				return profileStudent(username);
 				break;
-			case 4: // FUNCTION viewClassSchedule()
-				return profileStudent(username);
-				break;
-			case 5:
+			case 4:
 				scoreboard_menu(username, Class, SY);
 				return profileStudent(username);
 				break;
@@ -50,7 +47,7 @@ void profileStudent(string username)
 				return mainMenu();
 				break;
 		}
-	} while (choice >= 1 && choice <= 5);
+	} while (choice >= 1 && choice <= 4);
 }
 
 void scoreboard_menu(string username, string Class, string SY)
@@ -94,6 +91,7 @@ void scoreboard_menu(string username, string Class, string SY)
 void viewProfileStudent(string studentID)
 {
 	string pathProfile = "./profile/" + studentID + ".txt";
+    string stID;
 	string temp;
 	ifstream ifs(pathProfile);
 	if (!ifs.is_open()) {
@@ -102,8 +100,8 @@ void viewProfileStudent(string studentID)
 		return;
 	}
 
-	getline(ifs, temp);
-	cout << "\nUsername: " << temp << endl;
+	getline(ifs, stID);
+	cout << "\nUsername: " << stID << endl;
 
 	getline(ifs, temp);
 	cout << "Password: " << temp << endl;
@@ -114,10 +112,9 @@ void viewProfileStudent(string studentID)
 	getline(ifs, temp);
 	cout << "Class: " << temp << endl;
 
-	getline(ifs, temp);
-	cout << "Student ID: " << temp << endl;
+	cout << "Student ID: " << stID << endl;
 
-	getline(ifs, temp);
+	getline(ifs, temp, ',');
 	cout << "First name: " << temp << endl;
 
 	getline(ifs, temp);
@@ -465,7 +462,7 @@ void changeProfile(string studentID) {
 
             remove(tmpfile);
             rename("profile\\tmp.txt", tmpfile);
-            delete(tmpfile);
+            delete[] tmpfile;
 
             break;
 
