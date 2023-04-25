@@ -1,79 +1,51 @@
 #include "viewScoreboardOfCourse.h"
 
 void viewScoreboardOfCourse(string SY, string Sem, string curCourse) {
-	string cClass, path, chosenClass;
+	string path; 
 	ifstream courseClass;
+
 	path = "./" + SY + "/" + Sem + "/" + curCourse + "/class.txt";
 
 	// View list of classes in a course
+	string cClass, chosenClass;
 	courseClass.open(path);
-		cout << "---------List of Class in this Course------------\n";
 		while (!courseClass.eof()) {
 			getline(courseClass, cClass);
-			cout << cClass << endl;
+			cout << "Class " << cClass << endl;
+
+			ifstream ifs;
+			ifs.open("./" + SY + "/" + Sem + "/" + curCourse + "/" + cClass + "/scoreboard.txt");
+				if (ifs.is_open())	{
+					cout << "\t" << left << setw(5) << "No" << setw(10) << "ID";
+					cout << left << setw(22) << "Last name" << setw(12) << "First Name";
+					cout << left << setw(8) << "Total" << setw(8) << "Final" << setw(8) << "Midterm" << setw(8) << "Other" << endl;
+					while (!ifs.eof()) {
+						string tmp;
+
+						getline(ifs, tmp, ','); // Ordinal number
+						cout << "\t" << left << setw(5) << tmp;
+						getline(ifs, tmp, ','); // ID
+						cout << left << setw(10) << tmp;
+						getline(ifs, tmp, ','); // Last Name
+						cout << left << setw(22) << tmp;
+						getline(ifs, tmp, ','); // First Name
+						cout << left << setw(12) << tmp;
+						getline(ifs, tmp, ','); // Total
+						cout << left << setw(8) << tmp;
+						getline(ifs, tmp, ','); // Final 
+						cout << left << setw(8) << tmp;
+						getline(ifs, tmp, ','); // Midterm
+						cout << left << setw(8) << tmp;
+						getline(ifs, tmp); // Other
+						cout << left << setw(8) << tmp << endl;
+					}
+				}
+				else	{
+					cout << "\tThis class doesn't have a scoreboard yet.";
+					cout << "\n\tPlease import a scoreboard first.\n";
+				}
+
+			ifs.close();
 		}
-		cout << "---------------------------------------------------\n";
 	courseClass.close();
-
-	cout << "Enter class's name: ";
-	cin >> chosenClass;
-
-	// Check whether the input is correct or not
-	bool exist = false;
-	courseClass.open(path);
-		while (!courseClass.eof()) {
-			getline(courseClass, cClass);
-			if (cClass == chosenClass) {
-				exist = true;
-				break;
-			}
-		}		
-	courseClass.close();
-
-	if (!exist) {
-		cout << "You've entered an incorrect class name!\n";
-		cout << "Enter 0 to get back to previous menu or any of other keys to enter class name again\n";
-		cout << "Your choice: ";
-		string temp;
-		cin >> temp;
-    	cout << "--------------------" << endl;
-
-		if (temp == "0") return;
-		else return viewScoreboardOfCourse(SY, Sem, curCourse);
-	}
-
-
-    ifstream ifs;
-    string out;
-    ifs.open("./" + SY + "/" + Sem + "/" + curCourse + "/" + chosenClass + "/scoreboard.txt");
-    if (!ifs.is_open()) {
-        cout << "This course hasn't been updated scoreboard!" << endl;
-        system("pause");
-        return;
-    }
-
-    cout << "--------------------" << endl;
-    cout << "Course's scoreboard:" << endl;
-    cout << "--------------------" << endl;
-    cout << left << setw(5) << "No." << setw(10) << "ID" << setw(34) << "Name" << setw(8) << "Total" << setw(8) << "Final" << setw(8) << "Midterm" << setw(8) << "Other" << endl;
-        while (!ifs.eof()) {
-            getline(ifs, out, ','); // Ordinal number
-            cout << left << setw(5) << out;
-            getline(ifs, out, ','); // ID
-            cout << left << setw(10) << out;
-            getline(ifs, out, ','); // Last Name
-			string tmp;
-			getline(ifs, tmp, ','); // First Name
-            cout << left << setw(34) << out + " " + tmp;
-            getline(ifs, out, ','); // Total
-            cout << left << setw(8) << out;
-            getline(ifs, out, ','); // Final 
-            cout << left << setw(8) << out;
-            getline(ifs, out, ','); // Midterm
-            cout << left << setw(8) << out;
-            getline(ifs, out); // Other
-            cout << left << setw(8) << out << endl;
-        }
-    ifs.close();
-    cout << "--------------------" << endl;
 }
