@@ -311,7 +311,7 @@ void ProfilePage(string username) {
     Sleep(150);
 
     string tmp;
-    string filename = "User\\" + username + ".txt";
+    string filename = "./User\\" + username + ".txt";
     ifstream ifs;
 
     ifs.open(filename, ios::in);
@@ -371,6 +371,7 @@ void changeProfilePage(string username) {
     wstring temp[2];
     temp[0] = L"█▀▀ █▀▄ █ ▀█▀   █▀█ █▀█ █▀█ █▀▀ █ █░░ █▀▀   █▀█ ▄▀█ █▀▀ █▀▀";
     temp[1] = L"██▄ █▄▀ █ ░█░   █▀▀ █▀▄ █▄█ █▀░ █ █▄▄ ██▄   █▀▀ █▀█ █▄█ ██▄";
+    printCharacter(L"Press F1 to back to previous menu", { short(My_Windows.Right - 34), 0 }, Color::black, Color::bright_white);
     for (int i = 0; i < 2; i++) {
 		printCenterCharacters(temp[i], Color::black, Color::bright_white, i + 2, My_Windows);
 	}
@@ -380,7 +381,7 @@ void changeProfilePage(string username) {
     if (fin.is_open()) {
 		getline(fin, username1);
 		getline(fin, password1);
-		getline(fin, teacherID1);
+        getline(fin, teacherID1);
         getline(fin, teacherID1);
 		getline(fin, firstname1);
 		getline(fin, lastname1);
@@ -412,6 +413,12 @@ void changeProfilePage(string username) {
     printCharacter(L"" + wstring(socialid1.begin(), socialid1.end()), { 45 + 12, 31 }, Color::gray, Color::bright_white);
     drawBox(32);
     printCenterCharacters(L"Press ESC to back to main menu", Color::red, Color::bright_white, 36, My_Windows);
+    int key = getKey();
+    if (key == 27)
+        return mainmenuOpt();
+
+    if (key == 59)
+        return ProfileMenuPage(username);
 
     gotoxy(46, 9);
     password1 = getStringInput();
@@ -438,6 +445,7 @@ void changeProfilePage(string username) {
     if (password1 == "") {
 		password1 = tmp;
 	}
+    getline(ifs, tmp);
     getline(ifs, tmp); // teacherID
     if (teacherID1 == "") {
         teacherID1 = tmp;
@@ -479,7 +487,7 @@ void changeProfilePage(string username) {
     printCenterCharacters(L"Press anykey to continue...", Color::purple, Color::bright_white, 0, My_Windows);
     getKey();
 
-    return studentMenuPage(username);
+    return ProfilePage(username);
 }
 
 void SYMenuPage(string username, string SY) {
