@@ -58,7 +58,7 @@ void createSYPage(string username) {
 
 void CreateSemesterPage(string username, string SY) {
     system("cls");
-    printCenterCharacters(L"˜”*°•.˜”*°• CREATE SEMESTER PAGE •°*”˜.•°*”˜", Color::light_red, Color::bright_white, 2, My_Windows);
+    printCenterCharacters(L"Ëœâ€*Â°â€¢.Ëœâ€*Â°â€¢ CREATE SEMESTER PAGE â€¢Â°*â€Ëœ.â€¢Â°*â€Ëœ", Color::light_red, Color::bright_white, 2, My_Windows);
     short idx = 5;
 
     printCenterCharacters(L"Choose Semester Here", Color::light_red, Color::bright_white, idx, My_Windows);
@@ -232,7 +232,7 @@ void CreateACourse(string username, string SY, short season) {
         printCenterCharacters(L"<<<<SPRING>>>>", Color::green, Color::bright_white, 3, My_Windows);
     if (season == 2)
         printCenterCharacters(L"<<<<SUMMER>>>>", Color::green, Color::bright_white, 3, My_Windows);
-    else
+    if (season == 3)
         printCenterCharacters(L"<<<<AUTUMN>>>>", Color::green, Color::bright_white, 3, My_Windows);
 
     string path_course = SY + "/" + to_string(season) + "/course.txt";

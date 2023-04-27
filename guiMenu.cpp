@@ -193,7 +193,7 @@ void RegisterPage() {
             fout << password << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl;
             fout.close();
             printCenterCharacters(L"Register Successfully", Color::green, Color::bright_white, 26, My_Windows);
-            printCenterCharacters(L"Press anykey to continue...", Color::purple, Color::bright_white, 0, My_Windows);
+            printCenterCharacters(L"Press anykey to continue...", Color::green, Color::bright_white, 28, My_Windows);
             getKey();
             return mainmenuOpt();
         }
@@ -479,7 +479,7 @@ void changeProfilePage(string username) {
     printCenterCharacters(L"Press anykey to continue...", Color::purple, Color::bright_white, 0, My_Windows);
     getKey();
 
-    ProfileMenuPage(username);
+    return studentMenuPage(username);
 }
 
 void SYMenuPage(string username, string SY) {
@@ -911,9 +911,9 @@ void CourseMenuPage(string username, string SY, short season, string courseID) {
 void CourseClassMenuPage(string username, string SY, short season, string courseID, string classID) {
     system("cls");
     wstring temp[3];
-    temp[0] = L"░█▀▀█ ░█▀▀▀█ ░█─░█ ░█▀▀█ ░█▀▀▀█ ░█▀▀▀ 　 ░█▀▀█ ░█─── ─█▀▀█ ░█▀▀▀█ ░█▀▀▀█ 　 ░█▀▄▀█ ░█▀▀▀ ░█▄─░█ ░█─░█";
-    temp[1] = L"░█─── ░█──░█ ░█─░█ ░█▄▄▀ ─▀▀▀▄▄ ░█▀▀▀ 　 ░█─── ░█─── ░█▄▄█ ─▀▀▀▄▄ ─▀▀▀▄▄ 　 ░█░█░█ ░█▀▀▀ ░█░█░█ ░█─░█";
-    temp[2] = L"░█▄▄█ ░█▄▄▄█ ─▀▄▄▀ ░█─░█ ░█▄▄▄█ ░█▄▄▄ 　 ░█▄▄█ ░█▄▄█ ░█─░█ ░█▄▄▄█ ░█▄▄▄█ 　 ░█──░█ ░█▄▄▄ ░█──▀█ ─▀▄▄▀";
+    temp[0] = L"░█▀▀█ ░█▀▀▀█ ░█─░█ ░█▀▀█ ░█▀▀▀█ ░█▀▀▀    ░█▀▀█ ░█─── ─█▀▀█ ░█▀▀▀█ ░█▀▀▀█    ░█▀▄▀█ ░█▀▀▀ ░█▄─░█ ░█─░█";
+    temp[1] = L"░█─── ░█──░█ ░█─░█ ░█▄▄▀ ─▀▀▀▄▄ ░█▀▀▀    ░█─── ░█─── ░█▄▄█ ─▀▀▀▄▄ ─▀▀▀▄▄    ░█░█░█ ░█▀▀▀ ░█░█░█ ░█─░█";
+    temp[2] = L"░█▄▄█ ░█▄▄▄█ ─▀▄▄▀ ░█─░█ ░█▄▄▄█ ░█▄▄▄    ░█▄▄█ ░█▄▄█ ░█─░█ ░█▄▄▄█ ░█▄▄▄█    ░█──░█ ░█▄▄▄ ░█──▀█ ─▀▄▄▀";
     for(int i = 0; i < 3; i++)
     {
         printCenterCharacters(temp[i], Color::red, Color::bright_white, 2 + i, My_Windows);
@@ -933,7 +933,7 @@ void CourseClassMenuPage(string username, string SY, short season, string course
     if (key == 27)
         return mainmenuOpt();
     if (key == 59)
-        return SemesterMenuPage(username, SY, season);
+        return CourseMenuPage(username, SY, season, courseID);
 
     short line = 1;
 
@@ -978,7 +978,7 @@ void CourseClassMenuPage(string username, string SY, short season, string course
         if (key == 27)
             return mainmenuOpt();
         if (key == 59)
-            return SemesterMenuPage(username, SY, season);
+            return CourseMenuPage(username, SY, season, courseID);
         if (key == 72) {
 			if (line == 1)
 				line = 5;
@@ -1010,7 +1010,7 @@ void studentMenuPage(string username) {
     system("cls"); 
     wstring temp[3];
     temp[0] = L"▒█▀▀▀█ ▀▀█▀▀ ▒█░▒█ ▒█▀▀▄ ▒█▀▀▀ ▒█▄░▒█ ▀▀█▀▀ 　 ▒█▀▄▀█ ▒█▀▀▀ ▒█▄░▒█ ▒█░▒█";
-    temp[1] = L"░▀▀▀▄▄ ░▒█░░ ▒█░▒█ ▒█░▒█ ▒█▀▀▀ ▒█▒█▒█ ░▒█░░ 　 ▒█▒█▒█ ▒█▀▀▀ ▒█▒█▒█ ▒█░▒█ ";
+    temp[1] = L"░▀▀▀▄▄ ░▒█░░ ▒█░▒█ ▒█░▒█ ▒█▀▀▀ ▒█▒█▒█ ░▒█░░ 　 ▒█▒█▒█ ▒█▀▀▀ ▒█▒█▒█ ▒█░▒█";
     temp[2] = L"▒█▄▄▄█ ░▒█░░ ░▀▄▄▀ ▒█▄▄▀ ▒█▄▄▄ ▒█░░▀█ ░▒█░░ 　 ▒█░░▒█ ▒█▄▄▄ ▒█░░▀█ ░▀▄▄▀";
     for (int i = 0; i < 3; i++)
     {
