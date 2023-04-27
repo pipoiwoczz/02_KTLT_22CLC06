@@ -1,11 +1,12 @@
-#ifndef _saveStudentScoreboard_
-#define _saveStudentScoreboard_
+#pragma once
+#ifndef _viewStudentScoreboard_
+#define _viewStudentScoreboard_
 
 #include "main.h"
-#include "CourseMenu.h"
-/*
-int getCourseCredit(string curSY, string season, string courseID);
-string searchStudent(string studentID);
-void saveStudentScoreboard(string curSY, int season, string courseID);
-*/
+#include <iomanip>
+
+void viewStudentScoreboard(string Id);
+void viewStudentScoreboardChooseSem(string Id);
+void viewStudentScoreboardAllCourses(string Id);
+
 #endif
