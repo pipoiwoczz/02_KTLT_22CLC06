@@ -33,7 +33,7 @@ void classMenu(string username, string nameSY, string nameClass)
                 removeAStudent(nameSY, nameClass);
                 break;
             case 5:
-                viewClassScoreboard(nameSY, nameClass);
+                //viewClassScoreboard(nameSY, nameClass);
                 break;
             case 0:
                 return SYMenu(username, nameSY);

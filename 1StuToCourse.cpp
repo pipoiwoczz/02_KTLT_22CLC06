@@ -72,7 +72,7 @@ void add1StudentToCourse(string curSY, int season, string courseID)  {
     else {
         ifs.close();
     }
-    
+        
 
     string path = curSY + "/" + to_string(season) + "/" +  courseID + "//" + className +  "/" + "listStud.txt";
     string infoStudent = to_string(id) + "," + lastName + " " + firstName; 

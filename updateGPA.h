@@ -1,3 +1,4 @@
+#pragma once
 #ifndef _updateGPA_
 #define _updateGPA_
 

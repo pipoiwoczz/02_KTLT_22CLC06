@@ -1,5 +1,6 @@
 #include "viewScoreboardOfClass.h"
 
+/*
 bool checkExist(courseInThisSem *head, string value) {
     while (head) {
         if (head -> ID == value) return true;
@@ -15,7 +16,7 @@ void insertCourseAtBegin(courseInThisSem* &head, string value) {
     head = temp;
 }
 
-void viewClassScoreboard(string SY, string className) {
+void viewClassScoreboard(string username, string SY, string className) {
     cout << "----------" << endl;
     cout << "Class: " << className << endl;
     cout << "----------" << endl;
@@ -119,3 +120,4 @@ void deleteCourseLL(courseInThisSem* &head) {
         temp = head;
     }
 }
+*/

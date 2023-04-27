@@ -1,4 +1,5 @@
 #include "viewStudentScoreboard.h"
+#include "gui.h"
 
 void viewStudentScoreboard(string Id) {
     string path, line, SY, curSY, Class, Semester, GPA, courseClass;
@@ -10,8 +11,8 @@ void viewStudentScoreboard(string Id) {
         getline(ifs, SY); // School year
         getline(ifs, Class); // Class
     ifs.close();
-    ifs.open("./curTime.txt");
-        getline(ifs, curSY); // current school year
+
+    getline(ifs, curSY); // current school year
         getline(ifs, Semester); // Semester
     ifs.close();
 
@@ -124,6 +125,20 @@ void viewStudentScoreboardChooseSem(string Id, string chosenSemester, string cho
 }
 
 void viewStudentScoreboardAllCourses(string Id) {
+    system("cls");
+    wstring tmp[3];
+    tmp[0] = L"▒█░░▒█ ▀█▀ ▒█▀▀▀ ▒█░░▒█ 　 ▒█▀▀▀█ ▒█▀▀█ ▒█▀▀▀█ ▒█▀▀█ ▒█▀▀▀ ▒█▀▀█ ▒█▀▀▀█ ░█▀▀█ ▒█▀▀█ ▒█▀▀▄";
+    tmp[1] = L"░▒█▒█░ ▒█░ ▒█▀▀▀ ▒█▒█▒█ 　 ░▀▀▀▄▄ ▒█░░░ ▒█░░▒█ ▒█▄▄▀ ▒█▀▀▀ ▒█▀▀▄ ▒█░░▒█ ▒█▄▄█ ▒█▄▄▀ ▒█░▒█";
+    tmp[2] = L"░░▀▄▀░ ▄█▄ ▒█▄▄▄ ▒█▄▀▄█ 　 ▒█▄▄▄█ ▒█▄▄█ ▒█▄▄▄█ ▒█░▒█ ▒█▄▄▄ ▒█▄▄█ ▒█▄▄▄█ ▒█░▒█ ▒█░▒█ ▒█▄▄▀";
+    for (int i = 0; i < 3; i++)
+    {
+        printCenterCharacters(tmp[i], Color::light_green, Color::bright_white, i + 2, My_Windows);
+        Sleep(100);
+    }
+    printCharacter(L"Press ESC to back to main menu", { 0, 0 }, Color::black, Color::bright_white);
+    Sleep(100);
+    printCenterCharacters(wstring(username.begin(), username.end()), Color::light_green, Color::bright_white, 5, My_Windows);
+    Sleep(200);
     string path, line, SY, Class, Semester, GPA, courseClass, courseID, curSem, curSY, score;
     path = "./profile/" + Id + ".txt"; // get info to open files
     ifstream ifs, semInSchool;

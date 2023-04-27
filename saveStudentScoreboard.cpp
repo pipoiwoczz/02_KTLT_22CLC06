@@ -1,5 +1,5 @@
 #include "saveStudentScoreboard.h"
-
+/*
 int getCourseCredit(string curSY, string season, string courseID) {
 	string courseCre;
 	ifstream ifs;
@@ -211,3 +211,4 @@ void saveStudentScoreboard(string curSY, int season, string courseID)
 	fin.close();
 	ofs.close();
 }
+*/

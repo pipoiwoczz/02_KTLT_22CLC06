@@ -1,4 +1,5 @@
 #include "updateStudentResult.h"
+/*
 
 void updateStudentResultCourse(string curSY, int season, string course) {
     ifstream ifs, thisCourse;
@@ -209,3 +210,4 @@ void reverseList(Score* &pHead) {
     }
     if (pHead) pHead -> next = curA;
 }
+*/

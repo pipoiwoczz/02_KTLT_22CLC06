@@ -35,13 +35,13 @@ void courseMenu(string username, string curSY, int season, string courseID) {
                 viewStudentInACourseClass(curSY, to_string(season), courseID);
                 break;
             case 5:
-                saveStudentScoreboard(curSY, season, courseID);
+                //saveStudentScoreboard(curSY, season, courseID);
                 break;
             case 6:
                 viewScoreboardOfCourse(curSY, to_string(season), courseID);
                 break;
             case 7:
-                updateStudentResultCourse(curSY, season, courseID);
+                //updateStudentResultCourse(curSY, season, courseID);
                 break;
             case 8:
                 studentInACourse(curSY , to_string(season), courseID);

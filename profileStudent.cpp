@@ -53,7 +53,7 @@ void profileStudent(string username)
 void scoreboard_menu(string username, string Class, string SY)
 {
 	ifstream ifs;
-	viewStudentScoreboard(username);
+	//viewStudentScoreboard(username);
 	int opt;
 	cout << "What do you want to do next?\n";
 	cout << "1. Choose a semester to view scoreboard\n";
@@ -76,10 +76,10 @@ void scoreboard_menu(string username, string Class, string SY)
 				ifs.close();
 				cout << "Enter the semester you want to ";
 				cin >> sem;
-				viewStudentScoreboardChooseSem(username, sem, SY);
+				//viewStudentScoreboardChooseSem(username, sem, SY);
 				break;
 			}
-			case 2: viewStudentScoreboardAllCourses(username); break;
+			case 2: //viewStudentScoreboardAllCourses(username); break;
 			default: break;
 		}
 	} while (opt >= 1 && opt <= 2);
@@ -256,7 +256,7 @@ void changeProfile(string studentID) {
 
             remove(tmpfile);
             rename("profile\\tmp.txt", tmpfile);
-            delete(tmpfile);
+            delete[] (tmpfile);
 
             break;
 
