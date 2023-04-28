@@ -620,7 +620,7 @@ void viewListOfStudentInACourse(string username, string SY, short season, string
 	else {
 		printCenterCharacters(L"----------------------List of Students------------------------", Color::purple, Color::bright_white, 4, My_Windows);
 		gotoxy(40, 6);
-		std::cout << left << setw(4) << "NO" << setw(11) << "MSSV" << "Full Name" << endl;
+		std::cout << left << setw(4) << "NO" << setw(11) << "MSSV" << setw(20) << "Full Name" << "Course Class" << endl;
 		while (getline(ifs, tmp)) {
 			if (tmp != "\n" && tmp != "") {
 				string classPath = SY + "/" + to_string(season) + "/" + courseID + "/" + tmp + "/listStud.txt";
@@ -631,7 +631,7 @@ void viewListOfStudentInACourse(string username, string SY, short season, string
 					getline(fin, stName);
 					while (getline(fin, stID, ',') && getline(fin, stName)) {
 						gotoxy(40, line);
-						std::cout << left << setw(4) << no << setw(11) << stID << stName << endl;
+						std::cout << left << setw(4) << no << setw(11) << stID << setw(20) << stName << tmp << endl;
 						line++;
 						no++;
 					}

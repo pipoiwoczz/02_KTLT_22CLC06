@@ -25,7 +25,7 @@ void viewProfile(string username) {
         cout << "Date of Birth: None\n";
         cout << "Social ID: None\n";
         ifs.close();
-        cout << "Press anykey to get back to profile menu\n\n";
+        cout << "Press any key to get back to profile menu\n\n";
         system("pause");
         profile_menu(username);
         return;
@@ -50,7 +50,7 @@ void viewProfile(string username) {
 
     ifs.close();
 
-    cout << "Press anykey to get back to profile menu\n\n";
+    cout << "Press any key to get back to profile menu\n\n";
     system("pause");
     profile_menu(username);
 
@@ -393,7 +393,7 @@ void editProfile(string username){
     } while (choice < 0 || choice > 7);
 
     cout << "==================================\n";
-    cout << "Press anykey to continue\n";
+    cout << "Press any key to continue\n";
     system("pause");
     editProfile(username);
 

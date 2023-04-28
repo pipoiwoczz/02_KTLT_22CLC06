@@ -18,7 +18,7 @@ void createSYPage(string username) {
         SY = getStringInput();
         if (!isValidSY(SY)) {
             printCharacter(L"You've entered invalid School year", { 45, 0 }, Color::red, Color::bright_white);
-            printCenterCharacters(L"Press anykey to continue...", Color::purple, Color::bright_white, 0, My_Windows);
+            printCenterCharacters(L"Press any key to continue...", Color::purple, Color::bright_white, 0, My_Windows);
             getKey();
             createSYPage(username);
         }
@@ -41,7 +41,7 @@ void createSYPage(string username) {
         SY = getStringInput();
         if (!isValidSY(SY)) {
             printCenterCharacters(L"You've entered invalid School year", Color::red, Color::bright_white, i + 8, My_Windows);
-            printCenterCharacters(L"Press anykey to continue...", Color::purple, Color::bright_white, 0, My_Windows);
+            printCenterCharacters(L"Press any key to continue...", Color::purple, Color::bright_white, 0, My_Windows);
             getKey();
             createSYPage(username);
         }
@@ -51,7 +51,7 @@ void createSYPage(string username) {
         _mkdir(SY.c_str());
     }
 
-    printCenterCharacters(L"Press anykey to continue...", Color::purple, Color::bright_white, 0, My_Windows);
+    printCenterCharacters(L"Press any key to continue...", Color::purple, Color::bright_white, 0, My_Windows);
     getKey();
     return ProfileMenuPage(username);
 }
@@ -135,7 +135,7 @@ void CreateSemesterPage(string username, string SY) {
                 enddate = getStringInput();
                 ofstream ofs((SY + "/" + to_string(line) + "/info.txt").c_str());
                 ofs << line << " " << startdate << " " << enddate;
-                printCenterCharacters(L"Press anykey to modify this semester...", Color::purple, Color::bright_white, 0, My_Windows);
+                printCenterCharacters(L"Press any key to modify this semester...", Color::purple, Color::bright_white, 0, My_Windows);
                 key = getKey();
                 if (key == 27) {
                     return mainmenuOpt();
@@ -149,7 +149,7 @@ void CreateSemesterPage(string username, string SY) {
             }
             else {
                 printCenterCharacters(L"Create Semester Failed", Color::red, Color::bright_white, idx + 6, My_Windows);
-                printCenterCharacters(L"Press anykey to choose again...", Color::purple, Color::bright_white, 0, My_Windows);
+                printCenterCharacters(L"Press any key to choose again...", Color::purple, Color::bright_white, 0, My_Windows);
                 key = getKey();
                 if (key == 27) {
                     return mainmenuOpt();
@@ -169,19 +169,27 @@ void CreateClassPage(string username, string SY) {
     printCenterCharacters(temp, Color::black, Color::bright_white, 2, My_Windows);
 
     printCharacter(L"Press ESC to back to main menu", { 0, 0 }, Color::black, Color::bright_white);
+    printCharacter(L"Press F1 to back to previous menu", { short(My_Windows.Right - 34), 0 }, Color::black, Color::bright_white);
 
     printCharacter(L"Class ID: ", { 45, 5 }, Color::blue, Color::bright_white);
     drawBox(6);
     string classID;
     gotoxy(46, 7);
+
+    int key = getKey();
+    if (key == 27)
+        return mainmenuOpt();
+    if (key == 59)
+        return SYMenuPage(username, SY);
+
     classID = getStringInput();
 
     string path = SY + "/" + classID;
     if (_mkdir(path.c_str()) == 0) {
-        printCharacter(L"Press F1 to back to previous menu", { short(My_Windows.Right - 34), 0}, Color::black, Color::bright_white);
+        //printCharacter(L"Press F1 to back to previous menu", { short(My_Windows.Right - 34), 0}, Color::black, Color::bright_white);
         
         printCenterCharacters(L"Create Class Successfully", Color::light_green, Color::bright_white, 9, My_Windows);
-        printCenterCharacters(L"Press anykey to modify this class...", Color::purple, Color::bright_white, 0, My_Windows);
+        printCenterCharacters(L"Press any key to modify this class...", Color::purple, Color::bright_white, 0, My_Windows);
 
         ifstream ifs;
         ifs.open(SY + "/" + "class.txt");
@@ -210,7 +218,7 @@ void CreateClassPage(string username, string SY) {
     else {
         printCenterCharacters(L"Create Class Failed", Color::red, Color::bright_white, 8, My_Windows);
         printCharacter(L"Press F1 to back to previous menu", { short(My_Windows.Right - 34), 0 }, Color::black, Color::bright_white);
-		printCenterCharacters(L"Press anykey to choose again...", Color::purple, Color::bright_white, 0, My_Windows);
+		printCenterCharacters(L"Press any key to choose again...", Color::purple, Color::bright_white, 0, My_Windows);
 		int key = getKey();
         if (key == 27) {
 			return mainmenuOpt();
@@ -227,6 +235,8 @@ void CreateACourse(string username, string SY, short season) {
     system("cls");
     wstring temp = L"CREATE COURSE PAGE";
     printCharacter(L"Press ESC to back to main menu", { 0, 0 }, Color::black, Color::bright_white);
+    printCharacter(L"Press F1 to back to previous menu", { short(My_Windows.Right - 34), 0 }, Color::black, Color::bright_white);
+
     printCenterCharacters(temp, Color::aqua, Color::bright_white, 2, My_Windows);
     if (season == 1)
         printCenterCharacters(L"<<<<SPRING>>>>", Color::green, Color::bright_white, 3, My_Windows);
@@ -239,11 +249,18 @@ void CreateACourse(string username, string SY, short season) {
 
     printCharacter(L"Enter Course ID here: ", { 45, 6 }, Color::blue, Color::bright_white);
     gotoxy(45 + 23, 6);
+
+    int key = getKey();
+    if (key == 27)
+        return mainmenuOpt();
+    if (key == 59)
+        return SemesterMenuPage(username, SY, season);
+
     string courseID = getStringInput();
     
     if (_mkdir((SY + "/" + to_string(season) + "/" + courseID).c_str()) == -1) {
         printCenterCharacters(L"THIS COURSE HAS ALREADY EXIST", Color::red, Color::bright_white, 8, My_Windows);
-        printCenterCharacters(L"Press anykey to enter again or Press F1 to back to previous menu", Color::red, Color::bright_white, 10, My_Windows);
+        printCenterCharacters(L"Press any key to enter again or Press F1 to back to previous menu", Color::red, Color::bright_white, 10, My_Windows);
         int key = getKey();
         if (key == 27)
             return mainmenuOpt();
@@ -284,8 +301,8 @@ void CreateACourse(string username, string SY, short season) {
     ofs.close();
 
     printCenterCharacters(L"CREATE COURSE SUCCESSFULLY", Color::green, Color::bright_white, 13, My_Windows);
-    printCenterCharacters(L"Press anykey to back to previous menu or Press F1 to back to create 1 more", Color::green, Color::bright_white, 15, My_Windows);
-    int key = getKey();
+    printCenterCharacters(L"Press any key to back to previous menu or Press F1 to back to create 1 more", Color::green, Color::bright_white, 15, My_Windows);
+    key = getKey();
     if (key == 27)
         return mainmenuOpt();
     if (key == 59)

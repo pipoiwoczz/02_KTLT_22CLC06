@@ -104,7 +104,7 @@ void LoginPage() {
     ifs.open(tmp);
     if (!ifs.is_open()) {
         printCenterCharacters(L"THIS ACCOUNT DOESN'T EXIST", Color::red, Color::bright_white, 22, My_Windows);
-        printCenterCharacters(L"Press anykey to continue...", Color::purple, Color::bright_white, 0, My_Windows);
+        printCenterCharacters(L"Press any key to continue...", Color::purple, Color::bright_white, 0, My_Windows);
         getKey();
         return mainmenuOpt();
     }
@@ -114,7 +114,7 @@ void LoginPage() {
 
     if (password != passTmp) {
         printCenterCharacters(L"You entered a wrong password", Color::red, Color::bright_white, 22, My_Windows);
-        printCenterCharacters(L"Press anykey to continue...", Color::purple, Color::bright_white, 0, My_Windows);
+        printCenterCharacters(L"Press any key to continue...", Color::purple, Color::bright_white, 0, My_Windows);
         getKey();
         ifs.close();
         return LoginPage();
@@ -123,7 +123,7 @@ void LoginPage() {
     ifs.close();
 
     printCenterCharacters(L"LOG IN SUCCESSFULLY", Color::green, Color::bright_white, 22, My_Windows);
-    printCenterCharacters(L"Press anykey to continue...", Color::purple, Color::bright_white, 0, My_Windows);
+    printCenterCharacters(L"Press any key to continue...", Color::purple, Color::bright_white, 0, My_Windows);
     getKey();
     if (isStudent) return studentMenuPage(username);
 	else return ProfileMenuPage(username);
@@ -169,14 +169,14 @@ void RegisterPage() {
     if (fin.is_open()) {
         fin.close();
         printCenterCharacters(L"This account existed", Color::red, Color::bright_white, 26, My_Windows);
-        printCenterCharacters(L"Press anykey to continue...", Color::purple, Color::bright_white, 0, My_Windows);
+        printCenterCharacters(L"Press any key to continue...", Color::purple, Color::bright_white, 0, My_Windows);
         getKey();
         return RegisterPage();
     }
     else {
         if (teacherKey != "CS101") {
             printCenterCharacters(L"You've entered an invalid teacher key", Color::red, Color::bright_white, 26, My_Windows);
-            printCenterCharacters(L"Press anykey to continue...", Color::purple, Color::bright_white, 0, My_Windows);
+            printCenterCharacters(L"Press any key to continue...", Color::purple, Color::bright_white, 0, My_Windows);
             getKey();
             return RegisterPage();
         }
@@ -185,7 +185,7 @@ void RegisterPage() {
             fout.open("./User\\" + username + ".txt");
             if (!fout.is_open()) {
                 printCenterCharacters(L"Cann't Create File", Color::green, Color::bright_white, 26, My_Windows);
-                printCenterCharacters(L"Press anykey to continue...", Color::purple, Color::bright_white, 0, My_Windows);
+                printCenterCharacters(L"Press any key to continue...", Color::purple, Color::bright_white, 0, My_Windows);
                 getKey();
                 return mainmenuOpt();
             }
@@ -193,7 +193,7 @@ void RegisterPage() {
             fout << password << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl;
             fout.close();
             printCenterCharacters(L"Register Successfully", Color::green, Color::bright_white, 26, My_Windows);
-            printCenterCharacters(L"Press anykey to continue...", Color::green, Color::bright_white, 28, My_Windows);
+            printCenterCharacters(L"Press any key to continue...", Color::green, Color::bright_white, 28, My_Windows);
             getKey();
             return mainmenuOpt();
         }
@@ -317,7 +317,7 @@ void ProfilePage(string username) {
     ifs.open(filename, ios::in);
     if (!ifs.is_open()) {
         cout << "SOME THING WRONG \n\n\n";
-        printCenterCharacters(L"Press anykey to continue...", Color::purple, Color::bright_white, 0, My_Windows);
+        printCenterCharacters(L"Press any key to continue...", Color::purple, Color::bright_white, 0, My_Windows);
         getKey();
         return ProfileMenuPage(username);
     }
@@ -335,7 +335,7 @@ void ProfilePage(string username) {
         printCharacter(L"Date Of Birth: None", { 20, 19 }, Color::black, Color::bright_white);
         printCharacter(L"Social ID: None", { 20, 21 }, Color::black, Color::bright_white);
         ifs.close();
-        printCenterCharacters(L"Press anykey to continue...", Color::purple, Color::bright_white, 0, My_Windows);
+        printCenterCharacters(L"Press any key to continue...", Color::purple, Color::bright_white, 0, My_Windows);
         getKey();
         ProfileMenuPage(username);
         return;
@@ -361,7 +361,7 @@ void ProfilePage(string username) {
     ifs.close();
 
     printCenterCharacters(L"PRESS ANY KEY TO GET BACK TO PREVIOUS MENU", Color::green, Color::bright_white, 24, My_Windows);
-    printCenterCharacters(L"Press anykey to continue...", Color::purple, Color::bright_white, 0, My_Windows);
+    printCenterCharacters(L"Press any key to continue...", Color::purple, Color::bright_white, 0, My_Windows);
     getKey();
     ProfileMenuPage(username);
 }
@@ -484,7 +484,7 @@ void changeProfilePage(string username) {
 
     gotoxy(0, 0);
     printCenterCharacters(L"Update Successfully", Color::green, Color::bright_white, 35, My_Windows);
-    printCenterCharacters(L"Press anykey to continue...", Color::purple, Color::bright_white, 0, My_Windows);
+    printCenterCharacters(L"Press any key to continue...", Color::purple, Color::bright_white, 0, My_Windows);
     getKey();
 
     return ProfilePage(username);
@@ -718,7 +718,7 @@ void SemesterMenuPage(string username, string SY, short season) {
     printCenterCharacters(L"   ADD A COURSE   ", Color::blue, Color::bright_white, 10, My_Windows);
     printCenterCharacters(L"   VIEW AND CHOOSE A COURSE   ", Color::blue, Color::bright_white, 12, My_Windows);
     printCenterCharacters(L"   REMOVE A COURSE   ", Color::blue, Color::bright_white, 14, My_Windows);
-    printCenterCharacters(L"   UPDATE A COURSE   ", Color::blue, Color::bright_white, 16, My_Windows);
+    printCenterCharacters(L"   UPDATE COURSE INFORMATION   ", Color::blue, Color::bright_white, 16, My_Windows);
 
     int key = getKey();
     if (key == 27)
@@ -733,25 +733,25 @@ void SemesterMenuPage(string username, string SY, short season) {
             printCenterCharacters(L">> ADD A COURSE <<", Color::light_red, Color::bright_white, 10, My_Windows);
             printCenterCharacters(L"   VIEW AND CHOOSE A COURSE   ", Color::blue, Color::bright_white, 12, My_Windows);
             printCenterCharacters(L"   REMOVE A COURSE   ", Color::blue, Color::bright_white, 14, My_Windows);
-            printCenterCharacters(L"   UPDATE A COURSE   ", Color::blue, Color::bright_white, 16, My_Windows);
+            printCenterCharacters(L"   UPDATE COURSE INFORMATION   ", Color::blue, Color::bright_white, 16, My_Windows);
         }
         if (line == 2) {
             printCenterCharacters(L"   ADD A COURSE   ", Color::blue, Color::bright_white, 10, My_Windows);
             printCenterCharacters(L">> VIEW AND CHOOSE A COURSE <<", Color::light_red, Color::bright_white, 12, My_Windows);
             printCenterCharacters(L"   REMOVE A COURSE   ", Color::blue, Color::bright_white, 14, My_Windows);
-            printCenterCharacters(L"   UPDATE A COURSE   ", Color::blue, Color::bright_white, 16, My_Windows);
+            printCenterCharacters(L"   UPDATE COURSE INFORMATION   ", Color::blue, Color::bright_white, 16, My_Windows);
         }
         if (line == 3) {
             printCenterCharacters(L"   ADD A COURSE   ", Color::blue, Color::bright_white, 10, My_Windows);
             printCenterCharacters(L"   VIEW AND CHOOSE A COURSE   ", Color::blue, Color::bright_white, 12, My_Windows);
             printCenterCharacters(L">> REMOVE A COURSE <<", Color::light_red, Color::bright_white, 14, My_Windows);
-            printCenterCharacters(L"   UPDATE A COURSE   ", Color::blue, Color::bright_white, 16, My_Windows);
+            printCenterCharacters(L"   UPDATE COURSE INFORMATION   ", Color::blue, Color::bright_white, 16, My_Windows);
         }
         if (line == 4) {
             printCenterCharacters(L"   ADD A COURSE   ", Color::blue, Color::bright_white, 10, My_Windows);
             printCenterCharacters(L"   VIEW AND CHOOSE A COURSE   ", Color::blue, Color::bright_white, 12, My_Windows);
             printCenterCharacters(L"   REMOVE A COURSE   ", Color::blue, Color::bright_white, 14, My_Windows);
-            printCenterCharacters(L">> UPDATE A COURSE <<", Color::light_red, Color::bright_white, 16, My_Windows);
+            printCenterCharacters(L">> UPDATE COURSE INFORMATION <<", Color::light_red, Color::bright_white, 16, My_Windows);
         }
     
         key = getKey();

@@ -51,9 +51,9 @@ void importStudentsListInClass(string username, string SY, string classID) {
 			tmp.socialId = temp;
 
 			ofstream ofs;
-			string path_Pro5_MSSV = "profile/" + to_string(tmp.studentId) + ".txt";
+			string path_Pro5_MSSV = "./profile/" + to_string(tmp.studentId) + ".txt";
 
-			string path_SY_Class_MSSV = SY + "/" + classID + "/" + to_string(tmp.studentId);
+			string path_SY_Class_MSSV ="./" + SY + "/" + classID + "/" + to_string(tmp.studentId);
 
 			// create folder MSSV in SY/Class
 			_mkdir(path_SY_Class_MSSV.c_str());
@@ -73,7 +73,7 @@ void importStudentsListInClass(string username, string SY, string classID) {
 
 			// add data to file student.txt in folder SY//Class (only include student ID)
 
-			path_SY_Class_MSSV = SY + "/" + classID + "/" + "student.txt";
+			path_SY_Class_MSSV ="./" + SY + "/" + classID + "/" + "student.txt";
 			ifstream fin;
 
 			fin.open(path_SY_Class_MSSV);
@@ -87,7 +87,6 @@ void importStudentsListInClass(string username, string SY, string classID) {
 			ofs.close();
 			remove(path_SY_Class_MSSV.c_str());
 			rename("tmp.txt", path_SY_Class_MSSV.c_str());
-
 		}
 
 		ifs.close();
@@ -295,7 +294,7 @@ void removeACourse(string username, string SY, short season) {
 	if (!ifs.is_open() || ifs.eof()) {
 		ifs.close();
 		printCenterCharacters(L"----------------------THIS SEMESTER HAS NO COURSE------------------------", Color::purple, Color::bright_white, 5, My_Windows);
-		printCenterCharacters(L"Press anykey to back to previous menu", Color::green, Color::bright_white, 0, My_Windows);
+		printCenterCharacters(L"Press any key to back to previous menu", Color::green, Color::bright_white, 0, My_Windows);
 		int key = getKey();
 		if (key == 27)
 			return mainmenuOpt();
@@ -322,7 +321,7 @@ void removeACourse(string username, string SY, short season) {
 		ifs.close();
 		if (!flag) {
 			printCenterCharacters(L"----------------------THIS COURSE DOES NOT EXIST------------------------", Color::purple, Color::bright_white, line + 5, My_Windows);
-			printCenterCharacters(L"Press anykey to enter again or press F1 to back to previous menu", Color::red, Color::bright_white, line + 7, My_Windows);
+			printCenterCharacters(L"Press any key to enter again or press F1 to back to previous menu", Color::red, Color::bright_white, line + 7, My_Windows);
 			int key = getKey();
 			if (key == 27)
 				return mainmenuOpt();
@@ -332,7 +331,7 @@ void removeACourse(string username, string SY, short season) {
 		}
 		else {
 			printCenterCharacters(L"----------------------ARE YOU SURE TO DELETE THIS COURSE------------------------", Color::purple, Color::bright_white, line + 5, My_Windows);
-			printCenterCharacters(L"Press anykey to delete this Course or Press F1 to back to previous menu", Color::green, Color::bright_white, line + 7, My_Windows);
+			printCenterCharacters(L"Press any key to delete this Course or Press F1 to back to previous menu", Color::green, Color::bright_white, line + 7, My_Windows);
 			int key = getKey();
 			if (key == 27)
 				return mainmenuOpt();
@@ -364,7 +363,7 @@ void removeACourse(string username, string SY, short season) {
 			rename("tmp.txt", (SY + "//" + to_string(season) + "//" + "course.txt").c_str());
 
 			printCenterCharacters(L"DELETE SUCCESSFULLY", Color::green, Color::bright_white, line + 9, My_Windows);
-			printCenterCharacters(L"Press anykey to back to previous menu or Press F1 to back to remove 1 more Course", Color::green, Color::bright_white, line + 7, My_Windows);
+			printCenterCharacters(L"Press any key to back to previous menu or Press F1 to back to remove 1 more Course", Color::green, Color::bright_white, line + 7, My_Windows);
 			key = getKey();
 			if (key == 27)
 				return mainmenuOpt();
@@ -395,7 +394,7 @@ void UpdateCourseInfor(string username, string SY, short season) {
 	if (!ifs.is_open() || ifs.eof()) {
 		ifs.close();
 		printCenterCharacters(L"----------------------THIS SEMESTER HAS NO COURSE------------------------", Color::purple, Color::bright_white, 5, My_Windows);
-		printCenterCharacters(L"Press anykey to back to previous menu", Color::green, Color::bright_white, 0, My_Windows);
+		printCenterCharacters(L"Press any key to back to previous menu", Color::green, Color::bright_white, 0, My_Windows);
 		int key = getKey();
 		if (key == 27)
 			return mainmenuOpt();
@@ -422,7 +421,7 @@ void UpdateCourseInfor(string username, string SY, short season) {
 		ifs.close();
 		if (!flag) {
 			printCenterCharacters(L"----------------------THIS COURSE DOES NOT EXIST------------------------", Color::purple, Color::bright_white, line + 5, My_Windows);
-			printCenterCharacters(L"Press anykey to enter again or press F1 to back to previous menu", Color::red, Color::bright_white, line + 7, My_Windows);
+			printCenterCharacters(L"Press any key to enter again or press F1 to back to previous menu", Color::red, Color::bright_white, line + 7, My_Windows);
 			int key = getKey();
 			if (key == 27)
 				return mainmenuOpt();
@@ -570,7 +569,7 @@ void UpdateCourseInfor(string username, string SY, short season) {
 			};
 
 			printCenterCharacters(L"EDIT SUCCESFULLY", Color::green, Color::bright_white, line + 20, My_Windows);
-			printCenterCharacters(L"Press anykey to back to previous menu or Press F1 to edit 1 more Course ", Color::red, Color::bright_white, line + 21, My_Windows);
+			printCenterCharacters(L"Press any key to back to previous menu or Press F1 to edit 1 more Course ", Color::red, Color::bright_white, line + 21, My_Windows);
 			int key = getKey();
 			if (key == 27)
 				return mainmenuOpt();
@@ -744,8 +743,8 @@ void UpdateAStudentResult(string username, string SY, short season, string cours
 		if (thisCourse.is_open()) {
 			getline(thisCourse, courseClass); // GPA in this sem
 			getline(thisCourse, courseClass); // credit in this sem
-			getline(thisCourse, courseClass, ','); // course id
-			getline(thisCourse, courseClass); // course class
+			while (getline(thisCourse, courseClass, ',') && courseClass != courseID) // course id
+				getline(thisCourse, courseClass); // course class			
 		}
 		thisCourse.close();
 		thisCourse.open(pathCourse + "/" + courseClass + "/listStud.txt");
