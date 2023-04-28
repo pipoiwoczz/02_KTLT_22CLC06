@@ -405,7 +405,7 @@ void viewListOfStudentsInClass(string username, string SY, string classID) {
 	short line = 8;
 	if (!ifs.is_open()) {
 		printCenterCharacters(L"----------------------THIS CLASS HAS NO STUDENT------------------------", Color::purple, Color::bright_white, 4, My_Windows);
-		printCenterCharacters(L"Press anykey to back to previous menu", Color::green, Color::bright_white, 0, My_Windows);
+		printCenterCharacters(L"Press any key to back to previous menu", Color::green, Color::bright_white, 0, My_Windows);
 		int key = getKey();
 		if (key == 27)
 			return mainmenuOpt();
@@ -446,7 +446,7 @@ void viewListOfStudentsInClass(string username, string SY, string classID) {
 	}
 	ifs.close();
 	std::cout << endl << endl;
-	printCenterCharacters(L"Press anykey to back to previous menu", Color::green, Color::bright_white, line + 2, My_Windows);
+	printCenterCharacters(L"Press any key to back to previous menu", Color::green, Color::bright_white, line + 2, My_Windows);
 	int key = getKey();
 	if (key == 27)
 		return mainmenuOpt();
@@ -472,7 +472,7 @@ void viewAndChooseCourse(string username, string SY, int season) {
 	if (!ifs.is_open() || ifs.eof()) {
 		ifs.close();
 		printCenterCharacters(L"----------------------THIS SEMESTER HAS NO COURSE------------------------", Color::purple, Color::bright_white, 5, My_Windows);
-		printCenterCharacters(L"Press anykey to back to previous menu", Color::green, Color::bright_white, 0, My_Windows);
+		printCenterCharacters(L"Press any key to back to previous menu", Color::green, Color::bright_white, 0, My_Windows);
 		int key = getKey();
 		if (key == 27)
 			return mainmenuOpt();
@@ -503,7 +503,7 @@ void viewAndChooseCourse(string username, string SY, int season) {
 		ifs.close();
 		if (!flag) {
 			printCenterCharacters(L"THE COURSE YOU CHOOSED IS NOT AVAILABLE", Color::red, Color::bright_white, line + 5, My_Windows);
-			printCenterCharacters(L"Press anykey to enter again or press F1 to back to previous menu", Color::red, Color::bright_white, line + 7, My_Windows);
+			printCenterCharacters(L"Press any key to enter again or press F1 to back to previous menu", Color::red, Color::bright_white, line + 7, My_Windows);
 			int key = getKey();
 			if (key == 27)
 				return mainmenuOpt();
@@ -513,7 +513,7 @@ void viewAndChooseCourse(string username, string SY, int season) {
 		}
 		else {
 			printCenterCharacters(L"YOUR CHOICE IS AVAILABLE", Color::green, Color::bright_white, line + 7, My_Windows);
-			printCenterCharacters(L"Press anykey to continue with Course Management or press F1 to back to previous menu", Color::green, Color::bright_white, line + 7, My_Windows);
+			printCenterCharacters(L"Press any key to continue with Course Management or press F1 to back to previous menu", Color::green, Color::bright_white, line + 7, My_Windows);
 			int key = getKey();
 			if (key == 27)
 				return mainmenuOpt();
@@ -611,7 +611,7 @@ void viewListOfStudentInACourse(string username, string SY, short season, string
 
 	if (!ifs.is_open()) {
 		printCenterCharacters(L"----------------------THIS CLASS HAS NO STUDENT------------------------", Color::purple, Color::bright_white, 4, My_Windows);
-		printCenterCharacters(L"Press anykey to back to previous menu", Color::green, Color::bright_white, 0, My_Windows);
+		printCenterCharacters(L"Press any key to back to previous menu", Color::green, Color::bright_white, 0, My_Windows);
 		int key = getKey();
 		if (key == 27)
 			return mainmenuOpt();
@@ -640,7 +640,7 @@ void viewListOfStudentInACourse(string username, string SY, short season, string
 			}
 		}
 		ifs.close();
-		printCenterCharacters(L"Press anykey to back to previous menu", Color::green, Color::bright_white, line + 2, My_Windows);
+		printCenterCharacters(L"Press any key to back to previous menu", Color::green, Color::bright_white, line + 2, My_Windows);
 		int key = getKey();
 		if (key == 27)
 			return mainmenuOpt();
@@ -1020,7 +1020,7 @@ void changeStudentInfo(string username) {
 
 	gotoxy(0, 0);
 	printCenterCharacters(L"Update Successfully", Color::green, Color::bright_white, 31, My_Windows);
-	printCenterCharacters(L"Press anykey to continue...", Color::green, Color::bright_white, 33, My_Windows);
+	printCenterCharacters(L"Press any key to continue...", Color::green, Color::bright_white, 33, My_Windows);
 	int key = getKey();
 	if (key == 27)
 		return mainmenuOpt();
