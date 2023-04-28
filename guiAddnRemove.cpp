@@ -733,7 +733,7 @@ void UpdateAStudentResult(string username, string SY, short season, string cours
 	ifs.open("./profile/" + Id + ".txt");
 
 	if (ifs.is_open()) {
-		getline(ifs, Class); // school year
+		getline(ifs, Class); // student id
 		getline(ifs, Class); // password
 		getline(ifs, Class);
 		getline(ifs, Class);
@@ -744,14 +744,18 @@ void UpdateAStudentResult(string username, string SY, short season, string cours
 			getline(thisCourse, courseClass); // GPA in this sem
 			getline(thisCourse, courseClass); // credit in this sem
 			while (getline(thisCourse, courseClass, ',') && courseClass != courseID) // course id
-				getline(thisCourse, courseClass); // course class			
+				getline(thisCourse, courseClass); 
+			getline(thisCourse, courseClass); // course clasS
 		}
 		thisCourse.close();
 		thisCourse.open(pathCourse + "/" + courseClass + "/listStud.txt");
 		if (thisCourse.is_open()) {
 			while (!thisCourse.eof()) {
 				getline(thisCourse, line, ','); // student ID
-				if (Id == line) exist = true;
+				if (Id == line) {
+					exist = true;
+					break;
+				} 
 				getline(thisCourse, line); // Student name
 			}
 		}
