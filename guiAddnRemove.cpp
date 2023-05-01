@@ -785,11 +785,7 @@ void UpdateAStudentResult(string username, string SY, short season, string cours
 	int choice;
 	string oldTotal, total, finalM, midterm, other;
 	oldTotal = cur->totalMark;
-	total = oldTotal;
-	finalM = cur->finalMark;
-	midterm = cur->midtermMark;
-	other = cur->otherMark;
-	
+
 	printCenterCharacters(L"Press enter to skip this mark", Color::red, Color::bright_white, 8, My_Windows);
 
 	printCharacter(L"Enter total mark: ", { 45, 10 }, Color::blue, Color::bright_white);
@@ -804,6 +800,11 @@ void UpdateAStudentResult(string username, string SY, short season, string cours
 	printCharacter(L"Enter other mark: ", { 45, 16 }, Color::blue, Color::bright_white);
 	gotoxy(45 + 19, 16);
 	cur->otherMark = getStringInput();
+
+	total = cur->totalMark;
+	finalM = cur->finalMark;
+	midterm = cur->midtermMark;
+	other = cur->otherMark;
 
 	reverseList(pScore);
 	////////// NOW REWRITE THE DATA TO THE SCOREBOARD FILE
@@ -1194,7 +1195,7 @@ void importScoreboardToCourseClass(string username, string SY, short season, str
 		for (int i = 0; i < 2; i++) {
 			getline(fin, temp, ','); // get first name and last name
 		}
-		fout << classID << ",";
+
 		getline(fin, courseTotal, ',');			// get course total
 		fout << courseTotal << ",";
 		getline(fin, temp);

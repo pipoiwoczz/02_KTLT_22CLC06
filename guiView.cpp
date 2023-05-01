@@ -1053,14 +1053,15 @@ void viewStudentScoreboard(string username) {
 	string path, line, curSY, Semester, GPA, courseClass;
 	path = "./profile/" + username + ".txt"; // get info to open files
 	ifs.open(path);
-	getline(ifs, SY); // Username
-	getline(ifs, SY); // Password
-	getline(ifs, SY); // School year
-	getline(ifs, Class); // Class
+		getline(ifs, SY); // Username
+		getline(ifs, SY); // Password
+		getline(ifs, SY); // School year
+		getline(ifs, Class); // Class
 	ifs.close();
 
-	getline(ifs, curSY); // current school year
-	getline(ifs, Semester); // Semester
+	ifs.open("./curTime.txt");
+		getline(ifs, curSY); // current school year
+		getline(ifs, Semester); // Semester
 	ifs.close();
 
 	// school year saving data of student
