@@ -52,3 +52,4 @@ void printCenterCharacters(wstring content, Color textColor, Color backgroundCol
 void drawMenu();
 string getStringInput();
 void drawBox(short line);
+string getSYMenuString(string username, string SY);

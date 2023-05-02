@@ -5,7 +5,7 @@
 #include "main.h"
 #include <iomanip>
 
-void viewStudentScoreboard(string Id);
+//void viewStudentScoreboard(string Id);
 void viewStudentScoreboardChooseSem(string Id);
 void viewStudentScoreboardAllCourses(string Id);
 

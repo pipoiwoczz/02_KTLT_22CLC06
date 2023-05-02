@@ -26,7 +26,8 @@ void viewSchoolYear(string username) {
 			printCenterCharacters(wstring(temp.begin(), temp.end()), Color::black, Color::bright_white, i, My_Windows);
 			i += 2;
 		}
-		printCenterCharacters(L"Press any key to return to main menu", Color::purple, Color::bright_white, 0, My_Windows);
+
+		printCenterCharacters(L"Press any key to back to previous menu", Color::purple, Color::bright_white, 0, My_Windows);
 		getKey();
 		return ProfileMenuPage(username);
 		ifs.close();
@@ -58,13 +59,14 @@ void chooseSchoolYear(string username) {
 			i += 2;
 		}
 		printCharacter(L"Press ESC to return to main menu", {0, 0}, Color::black, Color::bright_white);
+		printCharacter(L"Press F1 to back to previous menu", { short(My_Windows.Right - 34) , 0}, Color::black, Color::bright_white);
 		ifs.close();
 	
 		printCharacter(L"Input schoolyear here", { 45, short(i + 2) }, Color::blue, Color::bright_white);
 		drawBox(i + 3);
 		gotoxy(46, i + 4);
 		string input;
-		input = getStringInput();
+		input = getProfilePageString(username);
 		ifs.open("SY.txt");
 		while (getline(ifs, temp)) {
 			if (temp == input) {
@@ -147,7 +149,7 @@ void viewAndChooseSemesterPage(string username, string SY) {
 	printCharacter(L"Enter your choice here", { 45, short(idx + 2) }, Color::blue, Color::bright_white);
 	gotoxy(45 + 23, idx + 2);
 	
-	string input = getStringInput();
+	string input = getSYMenuString(username ,SY);
 	if (input == "Spring" && Se[0]) {
 		ofstream ofs("curTime.txt");
 		ofs << SY << endl << 1;

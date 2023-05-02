@@ -1,10 +1,15 @@
 #include "guiCreate.h"
 #include "createSY.h"
 
+
 void createSYPage(string username) {
     system("cls");
     wstring temp = L"CREATE SCHOOL YEAR PAGE";
     printCenterCharacters(temp, Color::black, Color::bright_white, 2, My_Windows);
+    printCharacter(L"PRESS ESC to back to main menu", { 0,0 }, Color::black, Color::bright_white);
+    printCharacter(L"Press F1 to back to previous menu", { short(My_Windows.Right - 34), 0}, Color::black, Color::bright_white);
+
+
 
     string SY;
     ofstream ofs;
@@ -15,10 +20,10 @@ void createSYPage(string username) {
         printCharacter(L"Input school year now", { 45, 7 }, Color::blue, Color::bright_white);
         drawBox(8);
         gotoxy(46, 9);
-        SY = getStringInput();
+        SY = getProfilePageString(username);
         if (!isValidSY(SY)) {
-            printCharacter(L"You've entered invalid School year", { 45, 0 }, Color::red, Color::bright_white);
-            printCenterCharacters(L"Press any key to continue...", Color::purple, Color::bright_white, 0, My_Windows);
+            printCharacter(L"You've entered invalid School year", { 45, 7 }, Color::red, Color::bright_white);
+            printCenterCharacters(L"Press any key to continue...", Color::red, Color::bright_white, 9, My_Windows);
             getKey();
             createSYPage(username);
         }
@@ -38,10 +43,10 @@ void createSYPage(string username) {
         printCharacter(L"Input school year now", { 45, short(i + 3) }, Color::blue, Color::bright_white);
         drawBox(i + 4);
         gotoxy(46, i + 5);
-        SY = getStringInput();
+        SY = getProfilePageString(username);
         if (!isValidSY(SY)) {
             printCenterCharacters(L"You've entered invalid School year", Color::red, Color::bright_white, i + 8, My_Windows);
-            printCenterCharacters(L"Press any key to continue...", Color::purple, Color::bright_white, 0, My_Windows);
+            printCenterCharacters(L"Press any key to continue...", Color::purple, Color::bright_white, i + 10, My_Windows);
             getKey();
             createSYPage(username);
         }
@@ -51,14 +56,14 @@ void createSYPage(string username) {
         _mkdir(SY.c_str());
     }
 
-    printCenterCharacters(L"Press any key to continue...", Color::purple, Color::bright_white, 0, My_Windows);
+    printCenterCharacters(L"Press any key to continue...", Color::purple, Color::bright_white, 7, My_Windows);
     getKey();
     return ProfileMenuPage(username);
 }
 
 void CreateSemesterPage(string username, string SY) {
     system("cls");
-    printCenterCharacters(L"˜”*°•.˜”*°• CREATE SEMESTER PAGE •°*”˜.•°*”˜", Color::light_red, Color::bright_white, 2, My_Windows);
+    printCenterCharacters(L"CREATE SEMESTER PAGE", Color::light_red, Color::bright_white, 2, My_Windows);
     short idx = 5;
 
     printCenterCharacters(L"Choose Semester Here", Color::light_red, Color::bright_white, idx, My_Windows);

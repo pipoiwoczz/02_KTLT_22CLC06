@@ -187,3 +187,41 @@ string getCourseInfor() {
     }
 }
 
+string getSYMenuString(string username, string SY) {
+    string temp;
+    int ch;
+    short maxlength = 30;
+    int length = 0;
+    while (1) {
+        ch = getKey();
+        if (ch == 27) {
+            mainmenuOpt();
+            return "";
+        }
+        if (ch == 13) {
+            return temp;
+        }
+        if (ch == 59) {
+             SYMenuPage(username, SY);
+             return "";
+        }
+        if (ch == 8) {
+            if (temp.length() > 0) {
+                temp.pop_back();
+                cout << "\b \b";
+                length--;
+            }
+        }
+        else
+            if (length < maxlength) {
+                temp += ch;
+                cout << (char)ch;
+                length++;
+            }
+            else {
+                cout << (char)ch;
+                cout << "\b \b";
+            }
+
+    }
+}

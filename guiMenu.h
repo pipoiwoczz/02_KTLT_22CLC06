@@ -16,3 +16,5 @@ void CourseMenuPage(string username, string SY, short season, string courseID);
 void CourseClassMenuPage(string username, string SY, short season, string courseID, string classID);
 void studentMenuPage(string username);
 void changeStudentInfo(string username);
+
+string getProfilePageString(string username);

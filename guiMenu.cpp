@@ -70,7 +70,7 @@ void LoginPage() {
     drawBox(10);
     printCharacter(L"Password", { 45, 15 }, Color::blue, Color::bright_white);
     drawBox(16);
-    printCenterCharacters(L"Press ESC to back to previous menu", Color::red, Color::bright_white, 20, My_Windows);
+    printCenterCharacters(L"Press ESC to back to previous menu", Color::green, Color::bright_white, 0, My_Windows);
 
     gotoxy(46, 11);
     string username;
@@ -366,12 +366,52 @@ void ProfilePage(string username) {
     ProfileMenuPage(username);
 }
 
+string getProfilePageString(string username) {
+    string temp;
+    int ch;
+    int maxlength = 34;
+    int length = 0;
+    while (1) {
+        ch = getKey();
+        if (ch == 27) {
+            mainmenuOpt();
+            return "";
+        }
+        if (ch == 59) {
+            ProfileMenuPage(username);
+            return "";
+        }
+        if (ch == 13) {
+            return temp;
+        }
+        if (ch == 8) {
+            if (temp.length() > 0) {
+                temp.pop_back();
+                cout << "\b \b";
+                length--;
+            }
+        }
+        else
+            if (length < maxlength) {
+                temp += ch;
+                cout << (char)ch;
+                length++;
+            }
+            else {
+                cout << (char)ch;
+                cout << "\b \b";
+            }
+
+    }
+}
+
 void changeProfilePage(string username) {
     system("cls");
     wstring temp[2];
     temp[0] = L"█▀▀ █▀▄ █ ▀█▀   █▀█ █▀█ █▀█ █▀▀ █ █░░ █▀▀   █▀█ ▄▀█ █▀▀ █▀▀";
     temp[1] = L"██▄ █▄▀ █ ░█░   █▀▀ █▀▄ █▄█ █▀░ █ █▄▄ ██▄   █▀▀ █▀█ █▄█ ██▄";
     printCharacter(L"Press F1 to back to previous menu", { short(My_Windows.Right - 34), 0 }, Color::black, Color::bright_white);
+    printCharacter(L"Press ESC to bac to main menu", { 0, 0 }, Color::black, Color::bright_white);
     for (int i = 0; i < 2; i++) {
 		printCenterCharacters(temp[i], Color::black, Color::bright_white, i + 2, My_Windows);
 	}
@@ -421,19 +461,19 @@ void changeProfilePage(string username) {
         return ProfileMenuPage(username);
 
     gotoxy(46, 9);
-    password1 = getStringInput();
+    password1 = getProfilePageString(username);
     gotoxy(46, 13);
-    teacherID1 = getStringInput();
+    teacherID1 = getProfilePageString(username);
     gotoxy(46, 17);
-    firstname1 = getStringInput();
+    firstname1 = getProfilePageString(username);
     gotoxy(46, 21);
-    lastname1 = getStringInput();
+    lastname1 = getProfilePageString(username);
     gotoxy(46, 25);
-    gender1 = getStringInput();
+    gender1 = getProfilePageString(username);
     gotoxy(46, 29);
-    dateofbirth1 = getStringInput();
+    dateofbirth1 = getProfilePageString(username);
     gotoxy(46, 33);
-    socialid1 = getStringInput();
+    socialid1 = getProfilePageString(username);
 
     string filename = "User\\" + username + ".txt";
     ofstream ofs;
