@@ -752,7 +752,6 @@ void SemesterMenuPage(string username, string SY, short season) {
     Sleep(200);
 
     printCharacter(L"Press ESC to back to main menu", { 0, 0 }, Color::black, Color::bright_white);
-    cout << season << endl;
     printCharacter(L"Press F1 to back to previous menu", { short(My_Windows.Right - 34), 0}, Color::black, Color::bright_white);
 
     printCenterCharacters(L"   ADD A COURSE   ", Color::blue, Color::bright_white, 10, My_Windows);

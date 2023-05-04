@@ -349,7 +349,13 @@ void viewScoreboard(string username, string SY, string className) {
 		gotoxy(35, curLine + 2);
 		getline(ifs, ID); // Student's ID
 		student.open("./profile/" + ID + ".txt");
-		for (int i = 0; i < 5; i++) getline(student, name);
+		string fName, lName;
+		for (int i = 0; i < 4; i++) 
+			getline(student, fName);
+
+			getline(student, fName, ',');
+			getline(student, lName, '\n');
+			name = lName + " " + fName;
 		cout << left << setw(34) << name; // Prints out student name
 		student.close();
 
@@ -361,7 +367,7 @@ void viewScoreboard(string username, string SY, string className) {
 			else {
 				getline(student, total, ',');
 				getline(student, final, ',');
-				cout << setw(10) << final; // Final mark
+				cout << setw(10) << total; // Total mark
 			}
 			student.close();
 
@@ -459,6 +465,7 @@ void viewListOfStudentsInClass(string username, string SY, string classID) {
 void viewAndChooseCourse(string username, string SY, int season) {
 	system("cls");
 	printCharacter(L"Press ESC to back to main menu", { 0, 0 }, Color::black, Color::bright_white);
+	printCharacter(L"Press F1 to back to previous menu", { short(My_Windows.Right - 34), 0}, Color::black, Color::bright_white);
 	printCenterCharacters(L"█▓▒░░CHOOSE COURSE░░▒▓█", Color::light_red, Color::bright_white, 2, My_Windows);
 	if (season == 1)
 		printCenterCharacters(L"<<<<SPRING>>>>", Color::light_blue, Color::bright_white, 3, My_Windows);
@@ -493,7 +500,7 @@ void viewAndChooseCourse(string username, string SY, int season) {
 		ifs.close();
 		printCharacter(L"Enter your choice here: ", { 45, short(line + 3) }, Color::blue, Color::bright_white);
 		gotoxy(45 + 25, line + 3);
-		string course = getStringInput();
+		string course = getSemesterMenuString(username, SY, season);
 		bool flag = false;
 		ifs.open(path);
 		while (getline(ifs, tmp)) {
@@ -622,7 +629,7 @@ void viewListOfStudentInACourse(string username, string SY, short season, string
 	else {
 		printCenterCharacters(L"----------------------List of Students------------------------", Color::purple, Color::bright_white, 4, My_Windows);
 		gotoxy(40, 6);
-		std::cout << left << setw(4) << "NO" << setw(11) << "MSSV" << setw(20) << "Full Name" << "Course Class" << endl;
+		std::cout << left << setw(4) << "NO" << setw(11) << "MSSV" << setw(34) << "Full Name" << "Course Class" << endl;
 		while (getline(ifs, tmp)) {
 			if (tmp != "\n" && tmp != "") {
 				string classPath = SY + "/" + to_string(season) + "/" + courseID + "/" + tmp + "/listStud.txt";
@@ -633,7 +640,7 @@ void viewListOfStudentInACourse(string username, string SY, short season, string
 					getline(fin, stName);
 					while (getline(fin, stID, ',') && getline(fin, stName)) {
 						gotoxy(40, line);
-						std::cout << left << setw(4) << no << setw(11) << stID << setw(20) << stName << tmp << endl;
+						std::cout << left << setw(4) << no << setw(11) << stID << setw(34) << stName << tmp << endl;
 						line++;
 						no++;
 					}
@@ -734,6 +741,7 @@ void viewAndChooseCourseClass(string username, string SY, short season, string c
 	printCenterCharacters(L"CHOOSE COURSE CLASS PAGE", Color::light_green, Color::bright_white, 2, My_Windows);
 	printCenterCharacters(L"AVAILABLE COURSE CLASSES", Color::light_green, Color::bright_white, 4, My_Windows);
 	printCharacter(L"Press ESC to back to main menu", { 0, 0 }, Color::black, Color::bright_white);
+	printCharacter(L"Press F1 to back to previous menu", { short(My_Windows.Right - 34 ), 0}, Color::black, Color::bright_white);
 	printCenterCharacters(wstring(courseID.begin(), courseID.end()), Color::light_aqua, Color::bright_white, 5, My_Windows);
 	string classPath = SY + "/" + to_string(season) + "/" + courseID + "/class.txt";
 	ifstream ifs;
@@ -757,7 +765,7 @@ void viewAndChooseCourseClass(string username, string SY, short season, string c
 		ifs.close();
 		printCharacter(L"Enter your choice: ", { 45, short(line + 3) }, Color::blue, Color::bright_white);
 		gotoxy(45 + 20, line + 3);
-		string chosenClass = getStringInput();
+		string chosenClass = getCourseMenuString(username, SY, season, courseID);
 		ifs.open(classPath);
 		while (!ifs.eof()) {
 			getline(ifs, cClass);
@@ -1188,10 +1196,10 @@ void viewListCousres(string username) {
 
 	int i = 1; // This variable is used to represent ordinal number, add up to 1 when there's a new member printing out
 	string CourseID, CourseName, CourseClass, Teacher, Credit, DayOfWeek, Session;
-	gotoxy(55, curLine);
+	gotoxy(20, curLine);
 	cout << left << setw(5) << "No." << setw(12) << "Course ID" << setw(30) << "Course name" << setw(8) << "Credit" << setw(10) << "Class" << setw(14) << "Session" << "   " << "Teacher" << endl;
 	while (!ifs.eof()) {
-		gotoxy(55, curLine + 2);
+		gotoxy(20, curLine + 2);
 		getline(ifs, line, ','); // Read courseID
 		getline(ifs, courseClass); // Read class name in the course
 		Course.open("./" + SY + "/" + Sem + "/" + line + "/" + courseClass + "/info.txt");
@@ -1208,10 +1216,10 @@ void viewListCousres(string username) {
 		i++;
 		curLine++;
 	}
-	printCenterCharacters(L"------------------------------------------------", Color::purple, Color::bright_white, curLine + 1, My_Windows);
+	printCenterCharacters(L"------------------------------------------------", Color::purple, Color::bright_white, curLine + 4, My_Windows);
 	ifs.close();
 
-	printCenterCharacters(L"PRESS any key else to back to previous menu", Color::green, Color::bright_white, curLine + 3, My_Windows);
+	printCenterCharacters(L"PRESS any key else to back to previous menu", Color::green, Color::bright_white, curLine + 6, My_Windows);
 	int key = getKey();
 	if (key == 27)
 		return mainmenuOpt();

@@ -53,3 +53,6 @@ void drawMenu();
 string getStringInput();
 void drawBox(short line);
 string getSYMenuString(string username, string SY);
+string getSemesterMenuString(string username, string SY, short season);
+string getCourseMenuString(string username, string SY, short season, string courseID);
+string getClassMenuString(string username, string SY, string classID);

@@ -102,33 +102,34 @@ void importStudentsListInClass(string username, string SY, string classID) {
 void addAStudentToClass(string username, string SY, string classID) {
 	system("cls");
 	printCharacter(L"Press ESC to back to main menu", { 0, 0 }, Color::black, Color::bright_white);
+	printCharacter(L"Press F1 to back to previous menu", { short(My_Windows.Right - 34), 0}, Color::black, Color::bright_white);
 	printCenterCharacters(L"<<<< CLASS " + wstring(classID.begin(), classID.end()) + L" >>>>", Color::light_green, Color::bright_white, 2, My_Windows);
 	printCenterCharacters(L"INPUT  NEW STUDENT'S INFORMATION", Color::light_green, Color::bright_white, 4, My_Windows);
 
 	Student stu;
 	printCharacter(L"Input new student's ID here: ", { 45, 6 }, Color::blue, Color::bright_white);
 	gotoxy(45 + 30, 6);
-	string ID = getStringInput();
+	string ID = getClassMenuString(username, SY, classID);
 
 	printCharacter(L"Input new student's first name here: ", { 45, 8 }, Color::blue, Color::bright_white);
 	gotoxy(45 + 38, 8);
-	string fName = getStringInput();
+	string fName = getClassMenuString(username, SY, classID);
 
 	printCharacter(L"Input new student's last name here: ", { 45, 10 }, Color::blue, Color::bright_white);
 	gotoxy(45 + 37, 10);
-	string lName = getStringInput();
+	string lName = getClassMenuString(username, SY, classID);
 
 	printCharacter(L"Input new student's gender here: ", { 45, 12 }, Color::blue, Color::bright_white);
 	gotoxy(45 + 34, 12);
-	string gender = getStringInput();
+	string gender = getClassMenuString(username, SY, classID);
 
 	printCharacter(L"Input new student's date of birth here: ", { 45, 14 }, Color::blue, Color::bright_white);
 	gotoxy(45 + 41, 14);
-	string dob = getStringInput();
+	string dob = getClassMenuString(username, SY, classID);
 
 	printCharacter(L"Input new student's social ID here: ", { 45, 16 }, Color::blue, Color::bright_white);
 	gotoxy(45 + 37, 16);
-	string socialID = getStringInput();
+	string socialID = getClassMenuString(username, SY, classID);
 
 	_mkdir("profile");
 	string path = "./profile/" + ID + ".txt";
@@ -377,6 +378,7 @@ void removeACourse(string username, string SY, short season) {
 void UpdateCourseInfor(string username, string SY, short season) {
 	system("cls");
 	printCharacter(L"Press ESC to back to main menu", { 0, 0 }, Color::black, Color::bright_white);
+	printCharacter(L"Press F1 to exit updating menu", { short(My_Windows.Right - 34), 0}, Color::black, Color::bright_white);
 	printCenterCharacters(L"<<<<UPDATE COURSE INFORMATION>>>>", Color::green, Color::bright_white, 2, My_Windows);
 	if (season == 1) {
 		printCenterCharacters(L"<<Spring>>", Color::light_aqua, Color::bright_white, 3, My_Windows);
@@ -462,11 +464,11 @@ void UpdateCourseInfor(string username, string SY, short season) {
 			string newCourseID, newCourseName, newCourseCre;
 
 			gotoxy(46, line + 10);
-			newCourseID = getStringInput();
+			newCourseID = getSemesterMenuString(username, SY, season);
 			gotoxy(46, line + 14);
-			newCourseName = getStringInput();
+			newCourseName = getSemesterMenuString(username, SY, season);
 			gotoxy(46, line + 18);
-			newCourseCre = getStringInput();
+			newCourseCre = getSemesterMenuString(username, SY, season);
 
 
 			// update this course in course.txt
@@ -585,6 +587,7 @@ void UpdateCourseInfor(string username, string SY, short season) {
 void addACourseClass(string username, string SY, short season, string courseID) {
 	system("cls");
 	printCharacter(L"Press ESC to back to main menu", { 0, 0 }, Color::black, Color::bright_white);
+	printCharacter(L"Press F1 to back to previous menu", { short(My_Windows.Right - 34), 0}, Color::black, Color::bright_white);
 	printCenterCharacters(L"ADD COURSE CLASS", Color::purple, Color::bright_white, 3, My_Windows);
 	printCenterCharacters(wstring(courseID.begin(), courseID.end()), Color::light_purple, Color::bright_white, 4, My_Windows);
 
@@ -602,23 +605,23 @@ void addACourseClass(string username, string SY, short season, string courseID) 
 	printCharacter(L"Class Name", {45, 6}, Color::blue, Color::bright_white);
 	drawBox(7);
 	gotoxy(46, 8);
-	className = getStringInput();
+	className = getCourseMenuString(username, SY, season, courseID);
 	printCharacter(L"Teacher Name", { 45, 10 }, Color::blue, Color::bright_white);
 	drawBox(11);
 	gotoxy(46, 12);
-	teacherName = getStringInput();
+	teacherName = getCourseMenuString(username, SY, season, courseID);
 	printCharacter(L"Number Of Max Student", { 45, 14 }, Color::blue, Color::bright_white);
 	drawBox(15);
 	gotoxy(46, 16);
-	numberOfStudent = getStringInput();
+	numberOfStudent = getCourseMenuString(username, SY, season, courseID);
 	printCharacter(L"Day Of Week", { 45, 18 }, Color::blue, Color::bright_white);
 	drawBox(19);
 	gotoxy(46, 20);
-	dayOfWeek = getStringInput();
+	dayOfWeek = getCourseMenuString(username, SY, season, courseID);
 	printCharacter(L"Session", { 45, 22 }, Color::blue, Color::bright_white);
 	drawBox(23);
 	gotoxy(46, 24);
-	session = getStringInput();
+	session = getCourseMenuString(username, SY, season, courseID);
 
 	if (className == "" || teacherName == "" || numberOfStudent == "" || dayOfWeek == "" || session == "") {
 		printCenterCharacters(L"ANY INFORMATION IS NOT FULFILL YET", Color::red, Color::bright_white, 27, My_Windows);
@@ -721,12 +724,13 @@ void UpdateAStudentResult(string username, string SY, short season, string cours
 	string pathCourse = "./" + SY + "/" + to_string(season) + "/" + courseID;
 
 	printCharacter(L"Press ESC to back to main menu", { 0, 0 }, Color::black, Color::bright_white);
+	printCharacter(L"Press F1 to back to previous menu", { short(My_Windows.Right - 34), 0}, Color::black, Color::bright_white);
 	printCenterCharacters(L"EDIT A STUDENT RESULT", Color::aqua, Color::bright_white, 3, My_Windows);
 	printCenterCharacters(L"Course " + wstring(courseID.begin(), courseID.end()), Color::light_green, Color::bright_white, 4, My_Windows);
 
 	printCharacter(L"Enter student ID here: ", { 50, 6 }, Color::blue, Color::bright_white);
 	gotoxy(50 + 24, 6);
-	Id = getStringInput();
+	Id = getCourseMenuString(username, SY, season, courseID);
 
 	bool exist = false;
 

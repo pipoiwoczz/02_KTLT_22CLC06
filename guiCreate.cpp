@@ -255,14 +255,16 @@ void CreateACourse(string username, string SY, short season) {
     printCharacter(L"Enter Course ID here: ", { 45, 6 }, Color::blue, Color::bright_white);
     gotoxy(45 + 23, 6);
 
-    int key = getKey();
-    if (key == 27)
-        return mainmenuOpt();
-    if (key == 59)
-        return SemesterMenuPage(username, SY, season);
-
-    string courseID = getStringInput();
+    string courseID = getSemesterMenuString(username, SY, season);
     
+    printCharacter(L"Enter Course Name here: ", { 45, 8 }, Color::blue, Color::bright_white);
+    gotoxy(45 + 25, 8);
+    string courseName = getSemesterMenuString(username, SY, season);
+
+    printCharacter(L"Enter Course Credits here: ", { 45, 10 }, Color::blue, Color::bright_white);
+    gotoxy(45 + 28, 10);
+    int courseCre = stoi(getSemesterMenuString(username, SY, season));
+
     if (_mkdir((SY + "/" + to_string(season) + "/" + courseID).c_str()) == -1) {
         printCenterCharacters(L"THIS COURSE HAS ALREADY EXIST", Color::red, Color::bright_white, 8, My_Windows);
         printCenterCharacters(L"Press any key to enter again or Press F1 to back to previous menu", Color::red, Color::bright_white, 10, My_Windows);
@@ -273,14 +275,6 @@ void CreateACourse(string username, string SY, short season) {
             return SemesterMenuPage(username, SY, season);
         return CreateACourse(username, SY, season);
     }
-    
-    printCharacter(L"Enter Course Name here: ", { 45, 8 }, Color::blue, Color::bright_white);
-    gotoxy(45 + 25, 8);
-    string courseName = getStringInput();
-
-    printCharacter(L"Enter Course Credits here: ", { 45, 10 }, Color::blue, Color::bright_white);
-    gotoxy(45 + 28, 10);
-    int courseCre = stoi(getStringInput());
 
     // add to course.txt
     string path = SY + "/" + to_string(season) + "/course.txt";
@@ -307,7 +301,7 @@ void CreateACourse(string username, string SY, short season) {
 
     printCenterCharacters(L"CREATE COURSE SUCCESSFULLY", Color::green, Color::bright_white, 13, My_Windows);
     printCenterCharacters(L"Press any key to back to previous menu or Press F1 to back to create 1 more", Color::green, Color::bright_white, 15, My_Windows);
-    key = getKey();
+    int key = getKey();
     if (key == 27)
         return mainmenuOpt();
     if (key == 59)
