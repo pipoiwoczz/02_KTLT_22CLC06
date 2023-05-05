@@ -70,18 +70,11 @@ void viewStudentScoreboard(string Id) {
 */
 void viewStudentScoreboardChooseSem(string Id) {
     system("cls");
-    wstring tmp[3];
-    tmp[0] = L"▒█░░▒█ ▀█▀ ▒█▀▀▀ ▒█░░▒█ 　 ▒█▀▀▀█ ▒█▀▀█ ▒█▀▀▀█ ▒█▀▀█ ▒█▀▀▀ ▒█▀▀█ ▒█▀▀▀█ ░█▀▀█ ▒█▀▀█ ▒█▀▀▄";
-    tmp[1] = L"░▒█▒█░ ▒█░ ▒█▀▀▀ ▒█▒█▒█ 　 ░▀▀▀▄▄ ▒█░░░ ▒█░░▒█ ▒█▄▄▀ ▒█▀▀▀ ▒█▀▀▄ ▒█░░▒█ ▒█▄▄█ ▒█▄▄▀ ▒█░▒█";
-    tmp[2] = L"░░▀▄▀░ ▄█▄ ▒█▄▄▄ ▒█▄▀▄█ 　 ▒█▄▄▄█ ▒█▄▄█ ▒█▄▄▄█ ▒█░▒█ ▒█▄▄▄ ▒█▄▄█ ▒█▄▄▄█ ▒█░▒█ ▒█░▒█ ▒█▄▄▀";
-    for (int i = 0; i < 3; i++)
-    {
-        printCenterCharacters(tmp[i], Color::blue, Color::bright_white, i + 2, My_Windows);
-        Sleep(100);
-    }
-    printCharacter(L"Press ESC to back to main menu", { 0, 0 }, Color::black, Color::bright_white);
+    
+    printCenterCharacters(L"VIEW STUDENT'S SCOREBOARD CHOOSE SEM", Color::light_green, Color::bright_white, 3, My_Windows);
+
     Sleep(100);
-    printCenterCharacters(wstring(Id.begin(), Id.end()), Color::green, Color::bright_white, 5, My_Windows);
+    printCenterCharacters(wstring(Id.begin(), Id.end()), Color::light_green, Color::bright_white, 5, My_Windows);
     Sleep(200);
 
     string SY, Class;
@@ -214,15 +207,9 @@ void viewStudentScoreboardChooseSem(string Id) {
 void viewStudentScoreboardAllCourses(string Id) {
     system("cls");
     wstring tmp[3];
-    tmp[0] = L"▒█░░▒█ ▀█▀ ▒█▀▀▀ ▒█░░▒█ 　 ▒█▀▀▀█ ▒█▀▀█ ▒█▀▀▀█ ▒█▀▀█ ▒█▀▀▀ ▒█▀▀█ ▒█▀▀▀█ ░█▀▀█ ▒█▀▀█ ▒█▀▀▄";
-    tmp[1] = L"░▒█▒█░ ▒█░ ▒█▀▀▀ ▒█▒█▒█ 　 ░▀▀▀▄▄ ▒█░░░ ▒█░░▒█ ▒█▄▄▀ ▒█▀▀▀ ▒█▀▀▄ ▒█░░▒█ ▒█▄▄█ ▒█▄▄▀ ▒█░▒█";
-    tmp[2] = L"░░▀▄▀░ ▄█▄ ▒█▄▄▄ ▒█▄▀▄█ 　 ▒█▄▄▄█ ▒█▄▄█ ▒█▄▄▄█ ▒█░▒█ ▒█▄▄▄ ▒█▄▄█ ▒█▄▄▄█ ▒█░▒█ ▒█░▒█ ▒█▄▄▀";
-    for (int i = 0; i < 3; i++)
-    {
-        printCenterCharacters(tmp[i], Color::light_green, Color::bright_white, i + 2, My_Windows);
-        Sleep(100);
-    }
-    printCharacter(L"Press ESC to back to main menu", { 0, 0 }, Color::black, Color::bright_white);
+   
+    printCenterCharacters(L"VIEW STUDENT'S SCOREBOARD ALL COURSE", Color::light_green, Color::bright_white, 3, My_Windows);
+
     Sleep(100);
     printCenterCharacters(wstring(Id.begin(), Id.end()), Color::light_green, Color::bright_white, 5, My_Windows);
     Sleep(200);
