@@ -76,12 +76,12 @@ void viewStudentScoreboardChooseSem(string Id) {
     tmp[2] = L"░░▀▄▀░ ▄█▄ ▒█▄▄▄ ▒█▄▀▄█ 　 ▒█▄▄▄█ ▒█▄▄█ ▒█▄▄▄█ ▒█░▒█ ▒█▄▄▄ ▒█▄▄█ ▒█▄▄▄█ ▒█░▒█ ▒█░▒█ ▒█▄▄▀";
     for (int i = 0; i < 3; i++)
     {
-        printCenterCharacters(tmp[i], Color::light_green, Color::bright_white, i + 2, My_Windows);
+        printCenterCharacters(tmp[i], Color::blue, Color::bright_white, i + 2, My_Windows);
         Sleep(100);
     }
     printCharacter(L"Press ESC to back to main menu", { 0, 0 }, Color::black, Color::bright_white);
     Sleep(100);
-    printCenterCharacters(wstring(Id.begin(), Id.end()), Color::light_green, Color::bright_white, 5, My_Windows);
+    printCenterCharacters(wstring(Id.begin(), Id.end()), Color::green, Color::bright_white, 5, My_Windows);
     Sleep(200);
 
     string SY, Class;
@@ -143,7 +143,9 @@ void viewStudentScoreboardChooseSem(string Id) {
     ifs.close();
 
     // school year saving data of student
-    path = "./" + SY + "/" + Class + "/" + Id + "/" + chosenSem + "_" + SY + ".txt";
+    char SEM = chosenSem[0];
+    string schoolyear = chosenSem.substr(2, chosenSem.length());
+    path = "./" + SY + "/" + Class + "/" + Id + "/" + chosenSem + ".txt";
     // Open file saving list of courses in current semester
     ifs.open(path);
 
@@ -153,19 +155,19 @@ void viewStudentScoreboardChooseSem(string Id) {
     printCenterCharacters(L"-------------------------------------", Color::purple, Color::bright_white, curLine + 5, My_Windows);
     printCenterCharacters(L"GPA: " + wstring(GPA.begin(), GPA.end()), Color::black, Color::bright_white, curLine + 6, My_Windows);
     printCenterCharacters(L"--------------------------", Color::purple, Color::bright_white, curLine + 7, My_Windows);
-    gotoxy(45, curLine + 9);
+    gotoxy(25, curLine + 9);
     curLine += 9;
 
     cout << left << setw(12) << "Course ID" << setw(30) << "Course name" << setw(8) << "Class" << setw(8) << "Credits" << setw(6) << "Total" << setw(6) << "Final" << setw(8) << "Midterm" << setw(6) << "Other" << endl;
     while (!ifs.eof()) {
-        gotoxy(45, curLine + 2);
+        gotoxy(25, curLine + 2);
 
         getline(ifs, line, ','); // Get a course's ID
         getline(ifs, courseClass); // Get class name of the course
 
         ifstream course;
         // open file info of a course
-        path = "./" + SY + "/" + chosenSem + "/" + line + "/" + courseClass + "/info.txt";
+        path = "./" + SY + "/" + SEM + "/" + line + "/" + courseClass + "/info.txt";
         course.open(path);
         string courseName, className, numCredits;
         cout << left << setw(12) << line; // courseId is also the value of variable "line"
@@ -247,7 +249,7 @@ void viewStudentScoreboardAllCourses(string Id) {
     printCenterCharacters(L"-------------------------------------", Color::purple, Color::bright_white, 8, My_Windows);
     printCenterCharacters(L"OVERALL GPA: " + wstring(GPA.begin(), GPA.end()), Color::blue, Color::bright_white, 9, My_Windows);
     printCenterCharacters(L"---------------------", Color::purple, Color::bright_white, 10, My_Windows);
-    gotoxy(45, 12);
+    gotoxy(25, 12);
 
     short curLine = 12;
 
@@ -272,7 +274,7 @@ void viewStudentScoreboardAllCourses(string Id) {
             course.open(path); // info.txt
             string courseName, className, numCredits;
 
-            gotoxy(45, curLine + 2);
+            gotoxy(25, curLine + 2);
 
             cout << left << setw(12) << courseID;
             getline(course, courseName); // course's ID -> don't need this information because we've already had it

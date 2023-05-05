@@ -910,6 +910,40 @@ void importStudentToCourseClass(string username, string SY, short season, string
 		}
 		else {
 			ifs.close();
+
+			string curSY;
+			short curSeason;
+
+			ifstream course, student;
+			student.open("./profile/" + stId + ".txt");
+			string className;
+			for (int i = 0; i < 4; i++) {
+				getline(student, className);
+			}
+			student.close();
+			course.open("./" + SY + "/" + className + "/" + stId + "/courses.txt");
+			if (course.is_open()) {
+				course >> curSY >> curSeason;
+				if (curSY != SY || curSeason != season) {
+					course.close();
+					ofstream fout("./" + SY + "/" + className + "/" + stId + "/courses.txt");
+					fout << SY << endl << season << endl << courseID;
+					fout.close();
+				}
+				else {
+					course.close();
+					ofstream fout("./" + SY + "/" + className + "/" + stId + "/courses.txt", ios::app);
+					fout << endl << courseID;
+					fout.close();
+				}
+			}
+			else {
+				course.close();
+				ofstream fout("./" + SY + "/" + className + "/" + stId + "/courses.txt");
+				fout << endl << courseID;
+				fout.close();
+			}
+
 		}
 
 		string path = "./" + SY + "/" + char(season + 48) + "/" + courseID + "/" + className + "/" + "listStud.txt";
@@ -967,6 +1001,39 @@ void addAStudentToCourseClass(string username, string SY, short season, string c
 	}
 	else {
 		ifs.close();
+
+		string curSY;
+		short curSeason;
+
+		ifstream course, student;
+		student.open("./profile/" + ID + ".txt");
+		string className;
+		for (int i = 0; i < 4; i++) {
+			getline(student, className);
+		}
+		student.close();
+		course.open("./" + SY + "/" + className + "/" + ID + "/courses.txt");
+		if (course.is_open()) {
+			course >> curSY >> curSeason;
+			if (curSY != SY || curSeason != season) {
+				course.close();
+				ofstream fout("./" + SY + "/" + className + "/" + ID + "/courses.txt");
+				fout << SY << endl << season << endl << courseID;
+				fout.close();
+			}
+			else {
+				course.close();
+				ofstream fout("./" + SY + "/" + className + "/" + ID + "/courses.txt", ios::app);
+				fout << endl << courseID;
+				fout.close();
+			}
+		}
+		else {
+			course.close();
+			ofstream fout("./" + SY + "/" + className + "/" + ID + "/courses.txt");
+			fout << endl << courseID;
+			fout.close();
+		}
 	}
 
 	printCharacter(L"First Name", { 45, 13 }, Color::blue, Color::bright_white);
