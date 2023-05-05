@@ -1056,9 +1056,9 @@ void CourseClassMenuPage(string username, string SY, short season, string course
 void studentMenuPage(string username) {
     system("cls"); 
     wstring temp[3];
-    temp[0] = L"▒█▀▀▀█ ▀▀█▀▀ ▒█░▒█ ▒█▀▀▄ ▒█▀▀▀ ▒█▄░▒█ ▀▀█▀▀ 　 ▒█▀▄▀█ ▒█▀▀▀ ▒█▄░▒█ ▒█░▒█";
-    temp[1] = L"░▀▀▀▄▄ ░▒█░░ ▒█░▒█ ▒█░▒█ ▒█▀▀▀ ▒█▒█▒█ ░▒█░░ 　 ▒█▒█▒█ ▒█▀▀▀ ▒█▒█▒█ ▒█░▒█";
-    temp[2] = L"▒█▄▄▄█ ░▒█░░ ░▀▄▄▀ ▒█▄▄▀ ▒█▄▄▄ ▒█░░▀█ ░▒█░░ 　 ▒█░░▒█ ▒█▄▄▄ ▒█░░▀█ ░▀▄▄▀";
+    temp[0] = L"▒█▀▀▀█ ▀▀█▀▀ ▒█░▒█ ▒█▀▀▄ ▒█▀▀▀ ▒█▄░▒█ ▀▀█▀▀    ▒█▀▄▀█ ▒█▀▀▀ ▒█▄░▒█ ▒█░▒█";
+    temp[1] = L"░▀▀▀▄▄ ░▒█░░ ▒█░▒█ ▒█░▒█ ▒█▀▀▀ ▒█▒█▒█ ░▒█░░    ▒█▒█▒█ ▒█▀▀▀ ▒█▒█▒█ ▒█░▒█";
+    temp[2] = L"▒█▄▄▄█ ░▒█░░ ░▀▄▄▀ ▒█▄▄▀ ▒█▄▄▄ ▒█░░▀█ ░▒█░░    ▒█░░▒█ ▒█▄▄▄ ▒█░░▀█ ░▀▄▄▀";
     for (int i = 0; i < 3; i++)
     {
         printCenterCharacters(temp[i], Color::red, Color::bright_white, 2 + i, My_Windows);
