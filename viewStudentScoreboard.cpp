@@ -82,7 +82,7 @@ void viewStudentScoreboardChooseSem(string Id) {
     ifs.open("./profile/" + Id + ".txt");
     for (int i = 0; i < 3; i++) getline(ifs, SY);
     getline(ifs, Class);
-    ifs.close();
+    ifs.close();    
 
     short curLine = 7;
 

@@ -884,33 +884,65 @@ void viewStudentProfile(string username) {
 	}
 
 	getline(ifs, stID);
-	printCenterCharacters(L"Username: " + wstring(stID.begin(), stID.end()), Color::black, Color::bright_white, 8, My_Windows);
+	short len = stID.length() + 11;
+	short center = (135 - len) / 2;
+	printCharacter(L"Username: ", { center, 8 }, Color::black, Color::bright_white);
+	printCharacter(wstring(stID.begin(), stID.end()), { short(center + 11), 8 }, Color::blue, Color::bright_white);
 
 	getline(ifs, temp);
-	printCenterCharacters(L"Password: " + wstring(temp.begin(), temp.end()), Color::black, Color::bright_white, 10, My_Windows);
+	len = temp.length() + 11;
+	center = (135 - len) / 2;
+	printCharacter(L"Password: ", { center, 10 }, Color::black, Color::bright_white);
+	printCharacter(wstring(temp.begin(), temp.end()), { short(center + 11), 10 }, Color::blue, Color::bright_white);
 
 	getline(ifs, temp);
-	printCenterCharacters(L"Current school year: " + wstring(temp.begin(), temp.end()), Color::black, Color::bright_white, 12, My_Windows);
+	len = temp.length() + 22;
+	center = (135 - len) / 2;
+	printCharacter(L"Current school year: ", { center, 12 }, Color::black, Color::bright_white);
+	printCharacter(wstring(temp.begin(), temp.end()), { short(center + 22), 12 }, Color::blue, Color::bright_white);
 
 	getline(ifs, temp);
-	printCenterCharacters(L"Class: " + wstring(temp.begin(), temp.end()), Color::black, Color::bright_white, 14, My_Windows);
+	len = temp.length() + 8;
+	center = (135 - len) / 2;
+	printCharacter(L"Class: ", { center, 14 }, Color::black, Color::bright_white);
+	printCharacter(wstring(temp.begin(), temp.end()), { short(center + 8), 14 }, Color::blue, Color::bright_white);
 
-	printCenterCharacters(L"Student ID: " + wstring(username.begin(), username.end()), Color::black, Color::bright_white, 16, My_Windows);
+	len = username.length() + 8;
+	center = (135 - len) / 2;
+	printCharacter(L"Student ID: ", { center, 16 }, Color::black, Color::bright_white);
+	printCharacter(wstring(username.begin(), username.end()), { short(center + 13), 16 }, Color::blue, Color::bright_white);
 
 	getline(ifs, temp, ',');
-	printCenterCharacters(L"First name: " + wstring(temp.begin(), temp.end()), Color::black, Color::bright_white, 18, My_Windows);
+	len = temp.length() + 13;
+	center = (135 - len) / 2;
+	printCharacter(L"First name: ", { center, 18 }, Color::black, Color::bright_white);
+	printCharacter(wstring(temp.begin(), temp.end()), { short(center + 13), 18 }, Color::blue, Color::bright_white);
 
 	getline(ifs, temp);
-	printCenterCharacters(L"Last name: " + wstring(temp.begin(), temp.end()), Color::black, Color::bright_white, 20, My_Windows);
+	len = temp.length() + 12;
+	center = (135 - len) / 2;
+	printCharacter(L"Last name: ", { center, 20 }, Color::black, Color::bright_white);
+	printCharacter(wstring(temp.begin(), temp.end()), { short(center + 12), 20 }, Color::blue, Color::bright_white);
 
 	getline(ifs, temp);
-	printCenterCharacters(L"Gender: " + wstring(temp.begin(), temp.end()), Color::black, Color::bright_white, 22, My_Windows);
+	len = temp.length() + 9;
+	center = (135 - len) / 2;
+	printCharacter(L"Gender: ", { center, 22 }, Color::black, Color::bright_white);
+	printCharacter(wstring(temp.begin(), temp.end()), { short(center + 9), 22 }, Color::blue, Color::bright_white);
+
 
 	getline(ifs, temp);
-	printCenterCharacters(L"Date of birth: " + wstring(temp.begin(), temp.end()), Color::black, Color::bright_white, 24, My_Windows);
+	len = temp.length() + 16;
+	center = (135 - len) / 2;
+	printCharacter(L"Date of birth: ", { center, 24 }, Color::black, Color::bright_white);
+	printCharacter(wstring(temp.begin(), temp.end()), { short(center + 16), 24 }, Color::blue, Color::bright_white);
 
 	getline(ifs, temp);
-	printCenterCharacters(L"Social ID: " + wstring(temp.begin(), temp.end()), Color::black, Color::bright_white, 26, My_Windows);
+	getline(ifs, temp, ',');
+	len = temp.length() + 12;
+	center = (135 - len) / 2;
+	printCharacter(L"Social ID: ", { center, 26 }, Color::black, Color::bright_white);
+	printCharacter(wstring(temp.begin(), temp.end()), { short(center + 12), 26 }, Color::blue, Color::bright_white);
 
 	ifs.close();
 	printCenterCharacters(L"PRESS ANY KEY TO CONTINUE...", Color::black, Color::bright_white, 29, My_Windows);
@@ -942,7 +974,7 @@ void changeStudentInfo(string username) {
 		getline(fin, password1);
 		getline(fin, sy);
 		getline(fin, className);
-		getline(fin, firstname1);
+		getline(fin, firstname1,',');
 		getline(fin, lastname1);
 		getline(fin, gender1);
 		getline(fin, dateofbirth1);
@@ -963,7 +995,7 @@ void changeStudentInfo(string username) {
 	printCharacter(L"" + wstring(gender1.begin(), gender1.end()), { 45 + 9, 19 }, Color::gray, Color::bright_white);
 	drawBox(20);
 	printCharacter(L"Date Of Birth: ", { 45, 23 }, Color::blue, Color::bright_white);
-	printCharacter(L"" + wstring(dateofbirth1.begin(), dateofbirth1.end()), { 45 + 16, 2 }, Color::gray, Color::bright_white);
+	printCharacter(L"" + wstring(dateofbirth1.begin(), dateofbirth1.end()), { 45 + 16, 23 }, Color::gray, Color::bright_white);
 	drawBox(24);
 	printCharacter(L"Social ID: ", { 45, 27 }, Color::blue, Color::bright_white);
 	printCharacter(L"" + wstring(socialid1.begin(), socialid1.end()), { 45 + 12, 27 }, Color::gray, Color::bright_white);
@@ -1019,9 +1051,9 @@ void changeStudentInfo(string username) {
 	ifs.close();
 	ofs.open(filename);
 	ofs << username << endl;
-	ofs << password1 << endl << endl;
+	ofs << password1 << endl ;
 	ofs << sy << endl << className << endl;
-	ofs << firstname1 << endl;
+	ofs << firstname1 << ",";
 	ofs << lastname1 << endl;
 	ofs << gender1 << endl;
 	ofs << dateofbirth1 << endl;
