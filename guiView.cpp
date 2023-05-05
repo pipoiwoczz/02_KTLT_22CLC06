@@ -870,7 +870,7 @@ void viewStudentProfile(string username) {
 	}
 	printCharacter(L"Press ESC to back to main menu", { 0, 0 }, Color::black, Color::bright_white);
 	Sleep(100);
-	printCenterCharacters(wstring(username.begin(), username.end()), Color::light_green, Color::bright_white, 5, My_Windows);
+	printCenterCharacters(wstring(username.begin(), username.end()), Color::light_green, Color::bright_white, 6, My_Windows);
 	Sleep(200);
 
 	string pathProfile = "./profile/" + username + ".txt";
@@ -963,7 +963,7 @@ void changeStudentInfo(string username) {
 	}
 	printCharacter(L"Press ESC to back to main menu", { 0, 0 }, Color::black, Color::bright_white);
 	Sleep(100);
-	printCenterCharacters(wstring(username.begin(), username.end()), Color::light_green, Color::bright_white, 4, My_Windows);
+	printCenterCharacters(wstring(username.begin(), username.end()), Color::light_green, Color::bright_white, 5, My_Windows);
 	Sleep(200);
 
 	string username1, password1, firstname1, lastname1, gender1, dateofbirth1, socialid1, sy, className;
@@ -1027,7 +1027,7 @@ void changeStudentInfo(string username) {
 	getline(ifs, tmp); // SY
 	getline(ifs, tmp); // class
 
-	getline(ifs, tmp);
+	getline(ifs, tmp, ',');
 	if (firstname1 == "") {
 		firstname1 = tmp;
 	}
@@ -1178,9 +1178,9 @@ void viewStudentScoreboard(string username) {
 void viewListCousres(string username) {
 	system("cls");
 	wstring tmp[3];
-	tmp[0] = L"░█──░█ ▀█▀ ░█▀▀▀ ░█──░█ 　 ░█▀▀█ ░█▀▀▀█ ░█─░█ ░█▀▀█ ░█▀▀▀█ ░█▀▀▀ ░█▀▀▀█";
-	tmp[1] = L"─░█░█─ ░█─ ░█▀▀▀ ░█░█░█ 　 ░█─── ░█──░█ ░█─░█ ░█▄▄▀ ─▀▀▀▄▄ ░█▀▀▀ ─▀▀▀▄▄";
-	tmp[2] = L"──▀▄▀─ ▄█▄ ░█▄▄▄ ░█▄▀▄█ 　 ░█▄▄█ ░█▄▄▄█ ─▀▄▄▀ ░█─░█ ░█▄▄▄█ ░█▄▄▄ ░█▄▄▄█";
+	tmp[0] = L"░█──░█ ▀█▀ ░█▀▀▀ ░█──░█   ░█▀▀█ ░█▀▀▀█ ░█─░█ ░█▀▀█ ░█▀▀▀█ ░█▀▀▀ ░█▀▀▀█";
+	tmp[1] = L"─░█░█─ ░█─ ░█▀▀▀ ░█░█░█   ░█─── ░█──░█ ░█─░█ ░█▄▄▀ ─▀▀▀▄▄ ░█▀▀▀ ─▀▀▀▄▄";
+	tmp[2] = L"──▀▄▀─ ▄█▄ ░█▄▄▄ ░█▄▀▄█   ░█▄▄█ ░█▄▄▄█ ─▀▄▄▀ ░█─░█ ░█▄▄▄█ ░█▄▄▄ ░█▄▄▄█";
 	for (int i = 0; i < 3; i++)
 	{
 		printCenterCharacters(tmp[i], Color::light_green, Color::bright_white, i + 2, My_Windows);
@@ -1188,7 +1188,7 @@ void viewListCousres(string username) {
 	}
 	printCharacter(L"Press ESC to back to main menu", { 0, 0 }, Color::black, Color::bright_white);
 	Sleep(100);
-	printCenterCharacters(wstring(username.begin(), username.end()), Color::light_green, Color::bright_white, 5, My_Windows);
+	printCenterCharacters(wstring(username.begin(), username.end()), Color::light_green, Color::bright_white, 6, My_Windows);
 	Sleep(200);
 
 
@@ -1210,8 +1210,8 @@ void viewListCousres(string username) {
 	path = "./" + SY + "/" + Class + "/" + username + "/" + Sem + "_" + curSY + ".txt"; // Get info of courses leaning in this sem
 	ifs.open(path);
 	if (!ifs.is_open()) {
-		printCenterCharacters(L"THIS SEMESTER HAS NO COURSES NOW", Color::red, Color::bright_white, 7, My_Windows);
-		printCenterCharacters(L"PRESS any key to back to previous menu", Color::green, Color::bright_white, 9, My_Windows);
+		printCenterCharacters(L"THIS SEMESTER HAS NO COURSES NOW", Color::red, Color::bright_white, 8, My_Windows);
+		printCenterCharacters(L"PRESS any key to back to previous menu", Color::green, Color::bright_white, 10, My_Windows);
 		int key = getKey();
 		if (key == 27)
 			return mainmenuOpt();
@@ -1219,11 +1219,11 @@ void viewListCousres(string username) {
 	}
 
 
-	printCenterCharacters(L"ALL COURSE IN THIS SEMESTER", Color::blue, Color::bright_white, 7, My_Windows);
-	printCenterCharacters(L"-------------------------------------------", Color::purple, Color::bright_white, 8, My_Windows);
+	printCenterCharacters(L"ALL COURSE IN THIS SEMESTER", Color::blue, Color::bright_white, 8, My_Windows);
+	printCenterCharacters(L"-------------------------------------------", Color::purple, Color::bright_white, 9, My_Windows);
 	getline(ifs, line); // GPA -> no need here
 	getline(ifs, line); // credit -> no need either
-	short curLine = 10;
+	short curLine = 11;
 
 	int i = 1; // This variable is used to represent ordinal number, add up to 1 when there's a new member printing out
 	string CourseID, CourseName, CourseClass, Teacher, Credit, DayOfWeek, Session;
