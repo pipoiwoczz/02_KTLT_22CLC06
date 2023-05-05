@@ -104,7 +104,7 @@ void LoginPage() {
     ifs.open(tmp);
     if (!ifs.is_open()) {
         printCenterCharacters(L"THIS ACCOUNT DOESN'T EXIST", Color::red, Color::bright_white, 22, My_Windows);
-        printCenterCharacters(L"Press any key to continue...", Color::purple, Color::bright_white, 0, My_Windows);
+        printCenterCharacters(L"Press any key to continue...", Color::purple, Color::bright_white, 23, My_Windows);
         getKey();
         return mainmenuOpt();
     }
@@ -114,7 +114,7 @@ void LoginPage() {
 
     if (password != passTmp) {
         printCenterCharacters(L"You entered a wrong password", Color::red, Color::bright_white, 22, My_Windows);
-        printCenterCharacters(L"Press any key to continue...", Color::purple, Color::bright_white, 0, My_Windows);
+        printCenterCharacters(L"Press any key to continue...", Color::purple, Color::bright_white, 23, My_Windows);
         getKey();
         ifs.close();
         return LoginPage();
@@ -123,7 +123,7 @@ void LoginPage() {
     ifs.close();
 
     printCenterCharacters(L"LOG IN SUCCESSFULLY", Color::green, Color::bright_white, 22, My_Windows);
-    printCenterCharacters(L"Press any key to continue...", Color::purple, Color::bright_white, 0, My_Windows);
+    printCenterCharacters(L"Press any key to continue...", Color::purple, Color::bright_white, 23, My_Windows);
     getKey();
     if (isStudent) return studentMenuPage(username);
 	else return ProfileMenuPage(username);

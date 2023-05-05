@@ -841,7 +841,7 @@ void viewScoreboardOfACourseClass(string username, string SY, short season, stri
 			getline(ifs, tmp); // Other
 			std::cout << left << setw(8) << tmp << endl;
 			line++;
-
+			
 		}
 		ifs.close();
 	}
@@ -932,7 +932,7 @@ void changeStudentInfo(string username) {
 	}
 	printCharacter(L"Press ESC to back to main menu", { 0, 0 }, Color::black, Color::bright_white);
 	Sleep(100);
-	printCenterCharacters(wstring(username.begin(), username.end()), Color::light_green, Color::bright_white, 4, My_Windows);
+	printCenterCharacters(wstring(username.begin(), username.end()), Color::light_green, Color::bright_white, 5, My_Windows);
 	Sleep(200);
 
 	string username1, password1, firstname1, lastname1, gender1, dateofbirth1, socialid1, sy, className;
@@ -942,7 +942,7 @@ void changeStudentInfo(string username) {
 		getline(fin, password1);
 		getline(fin, sy);
 		getline(fin, className);
-		getline(fin, firstname1);
+		getline(fin, firstname1, ',');
 		getline(fin, lastname1);
 		getline(fin, gender1);
 		getline(fin, dateofbirth1);
@@ -963,7 +963,7 @@ void changeStudentInfo(string username) {
 	printCharacter(L"" + wstring(gender1.begin(), gender1.end()), { 45 + 9, 19 }, Color::gray, Color::bright_white);
 	drawBox(20);
 	printCharacter(L"Date Of Birth: ", { 45, 23 }, Color::blue, Color::bright_white);
-	printCharacter(L"" + wstring(dateofbirth1.begin(), dateofbirth1.end()), { 45 + 16, 2 }, Color::gray, Color::bright_white);
+	printCharacter(L"" + wstring(dateofbirth1.begin(), dateofbirth1.end()), { 45 + 16, 23 }, Color::gray, Color::bright_white);
 	drawBox(24);
 	printCharacter(L"Social ID: ", { 45, 27 }, Color::blue, Color::bright_white);
 	printCharacter(L"" + wstring(socialid1.begin(), socialid1.end()), { 45 + 12, 27 }, Color::gray, Color::bright_white);
@@ -1019,7 +1019,7 @@ void changeStudentInfo(string username) {
 	ifs.close();
 	ofs.open(filename);
 	ofs << username << endl;
-	ofs << password1 << endl << endl;
+	ofs << password1 << endl;
 	ofs << sy << endl << className << endl;
 	ofs << firstname1 << endl;
 	ofs << lastname1 << endl;
@@ -1034,7 +1034,7 @@ void changeStudentInfo(string username) {
 	int key = getKey();
 	if (key == 27)
 		return mainmenuOpt();
-	return ProfileMenuPage(username);
+	return studentMenuPage(username);
 }
 
 void viewStudentScoreboard(string username) {
