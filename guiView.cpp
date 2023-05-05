@@ -58,10 +58,10 @@ void chooseSchoolYear(string username) {
 			printCenterCharacters(wstring(temp.begin(), temp.end()), Color::black, Color::bright_white, i, My_Windows);
 			i += 2;
 		}
-		printCharacter(L"Press ESC to return to main menu", {0, 0}, Color::black, Color::bright_white);
-		printCharacter(L"Press F1 to back to previous menu", { short(My_Windows.Right - 34) , 0}, Color::black, Color::bright_white);
+		printCharacter(L"Press ESC to return to main menu", { 0, 0 }, Color::black, Color::bright_white);
+		printCharacter(L"Press F1 to back to previous menu", { short(My_Windows.Right - 34) , 0 }, Color::black, Color::bright_white);
 		ifs.close();
-	
+
 		printCharacter(L"Input schoolyear here", { 45, short(i + 2) }, Color::blue, Color::bright_white);
 		drawBox(i + 3);
 		gotoxy(46, i + 4);
@@ -71,7 +71,7 @@ void chooseSchoolYear(string username) {
 		while (getline(ifs, temp)) {
 			if (temp == input) {
 				ifs.close();
-				printCenterCharacters(L"School year is available", Color::green, Color::bright_white, i+7, My_Windows);
+				printCenterCharacters(L"School year is available", Color::green, Color::bright_white, i + 7, My_Windows);
 				printCenterCharacters(L"Press any key to continue...", Color::green, Color::bright_white, 0, My_Windows);
 				_getch();
 				return SYMenuPage(username, input);
@@ -96,7 +96,7 @@ void viewAndChooseSemesterPage(string username, string SY) {
 	system("cls");
 	wstring temp = L"█▓▒░░CHOOSE SEMESTER░░▒▓█";
 	printCenterCharacters(temp, Color::light_red, Color::bright_white, 2, My_Windows);
-	
+
 
 	short idx = 6;
 	short line = 0;
@@ -144,12 +144,12 @@ void viewAndChooseSemesterPage(string username, string SY) {
 
 	printCenterCharacters(L"All Available Semester", Color::light_red, Color::bright_white, 4, My_Windows);
 	printCharacter(L"Press ESC to return to main menu", { 0, 0 }, Color::black, Color::bright_white);
-	printCharacter(L"Press F1 to return to previous menu", { short(My_Windows.Right - 36), 0}, Color::black, Color::bright_white);
+	printCharacter(L"Press F1 to return to previous menu", { short(My_Windows.Right - 36), 0 }, Color::black, Color::bright_white);
 
 	printCharacter(L"Enter your choice here", { 45, short(idx + 2) }, Color::blue, Color::bright_white);
 	gotoxy(45 + 23, idx + 2);
-	
-	string input = getSYMenuString(username ,SY);
+
+	string input = getSYMenuString(username, SY);
 	if (input == "Spring" && Se[0]) {
 		ofstream ofs("curTime.txt");
 		ofs << SY << endl << 1;
@@ -186,7 +186,7 @@ void viewAndChooseClassPage(string username, string SY) {
 	wstring temp = L"█▓▒░░CHOOSE CLASS░░▒▓█";
 	printCenterCharacters(temp, Color::light_red, Color::bright_white, 2, My_Windows);
 
-    // CASE NO CLASS AVAILABLE
+	// CASE NO CLASS AVAILABLE
 	ifstream ifs;
 	ifs.open(SY + "/class.txt");
 	if (!ifs.is_open() || ifs.eof()) {
@@ -334,8 +334,8 @@ void viewScoreboard(string username, string SY, string className) {
 	cout << left << setw(34) << "Name"; // the name of the column that represents student's name
 	courseInThisSem* cur = head; // A temp pointer used to traverse
 	while (cur) {
-		gotoxy(35 + 34 + i*10, curLine + 2);
-		cout << setw(10) << cur->ID ; // course ID
+		gotoxy(35 + 34 + i * 10, curLine + 2);
+		cout << setw(10) << cur->ID; // course ID
 		cur = cur->next;
 		i++;
 	}
@@ -350,12 +350,12 @@ void viewScoreboard(string username, string SY, string className) {
 		getline(ifs, ID); // Student's ID
 		student.open("./profile/" + ID + ".txt");
 		string fName, lName;
-		for (int i = 0; i < 4; i++) 
+		for (int i = 0; i < 4; i++)
 			getline(student, fName);
 
-			getline(student, fName, ',');
-			getline(student, lName, '\n');
-			name = lName + " " + fName;
+		getline(student, fName, ',');
+		getline(student, lName, '\n');
+		name = lName + " " + fName;
 		cout << left << setw(34) << name; // Prints out student name
 		student.close();
 
@@ -423,7 +423,7 @@ void viewListOfStudentsInClass(string username, string SY, string classID) {
 		printCenterCharacters(L"----------------------List of Students------------------------", Color::purple, Color::bright_white, 4, My_Windows);
 		gotoxy(28, 6);
 		std::cout << left << setw(3) << "No" << setw(10) << "MSSV" << setw(34) << "Full Name" << setw(9) << "Gender" << setw(13) << "DoB" << setw(14) << "Social ID" << endl << endl;
-		string mssv;	
+		string mssv;
 		while (getline(ifs, mssv)) {
 			gotoxy(28, line);
 			line++;
@@ -465,7 +465,7 @@ void viewListOfStudentsInClass(string username, string SY, string classID) {
 void viewAndChooseCourse(string username, string SY, int season) {
 	system("cls");
 	printCharacter(L"Press ESC to back to main menu", { 0, 0 }, Color::black, Color::bright_white);
-	printCharacter(L"Press F1 to back to previous menu", { short(My_Windows.Right - 34), 0}, Color::black, Color::bright_white);
+	printCharacter(L"Press F1 to back to previous menu", { short(My_Windows.Right - 34), 0 }, Color::black, Color::bright_white);
 	printCenterCharacters(L"█▓▒░░CHOOSE COURSE░░▒▓█", Color::light_red, Color::bright_white, 2, My_Windows);
 	if (season == 1)
 		printCenterCharacters(L"<<<<SPRING>>>>", Color::light_blue, Color::bright_white, 3, My_Windows);
@@ -490,7 +490,7 @@ void viewAndChooseCourse(string username, string SY, int season) {
 	else {
 		printCenterCharacters(L"----------------------List of Courses------------------------", Color::purple, Color::bright_white, 5, My_Windows);
 		while (getline(ifs, tmp)) {
-			if (tmp != "" && tmp != "\n") 
+			if (tmp != "" && tmp != "\n")
 			{
 				printCenterCharacters(wstring(tmp.begin(), tmp.end()), Color::purple, Color::bright_white, line, My_Windows);
 				line += 2;
@@ -538,7 +538,7 @@ void viewCourseInformation(string username, string SY, int season, string course
 	printCharacter(L"Press ESC to back to main menu", { 0, 0 }, Color::black, Color::bright_white);
 	printCenterCharacters(L"COURSE INFORMATION", Color::aqua, Color::bright_white, 2, My_Windows);
 	printCenterCharacters(wstring(courseID.begin(), courseID.end()), Color::light_aqua, Color::bright_white, 3, My_Windows);
-	
+
 	// get Course info
 	string courseName, courseCre;
 	ifstream ifs(SY + "/" + to_string(season) + "/" + courseID + "/info.txt");
@@ -548,7 +548,7 @@ void viewCourseInformation(string username, string SY, int season, string course
 	ifs.close();
 
 	printCharacter(L"Course ID: ", { 45, 6 }, Color::blue, Color::bright_white);
-	printCharacter(wstring(courseID.begin(), courseID.end()), {45 + 12, 6}, Color::blue, Color::bright_white);
+	printCharacter(wstring(courseID.begin(), courseID.end()), { 45 + 12, 6 }, Color::blue, Color::bright_white);
 	printCharacter(L"Course Name: ", { 45, 8 }, Color::blue, Color::bright_white);
 	printCharacter(wstring(courseName.begin(), courseName.end()), { 45 + 14, 8 }, Color::blue, Color::bright_white);
 	printCharacter(L"Course Credit: ", { 45, 10 }, Color::blue, Color::bright_white);
@@ -585,8 +585,8 @@ void viewCourseInformation(string username, string SY, int season, string course
 				fin.close();
 
 				printCharacter(L"Class Name: ", { 60, ++idx }, Color::blue, Color::bright_white);
-				printCharacter(wstring(className.begin(), className.end()), {60 + 13, idx}, Color::black, Color::bright_white);
-				printCharacter(L"Teacher Name: ", { 45, ++idx}, Color::blue, Color::bright_white);
+				printCharacter(wstring(className.begin(), className.end()), { 60 + 13, idx }, Color::black, Color::bright_white);
+				printCharacter(L"Teacher Name: ", { 45, ++idx }, Color::blue, Color::bright_white);
 				printCharacter(wstring(teacherName.begin(), teacherName.end()), { 45 + 15, idx }, Color::black, Color::bright_white);
 				printCharacter(L"Number Of Students: ", { 45, ++idx }, Color::blue, Color::bright_white);
 				printCharacter(wstring(numberOfStudent.begin(), numberOfStudent.end()), { 45 + 21, idx }, Color::black, Color::bright_white);
@@ -684,7 +684,7 @@ void viewScoreboardOfACourse(string username, string SY, short season, string co
 	courseClass.open(path);
 	while (!courseClass.eof()) {
 		getline(courseClass, cClass);
-		printCenterCharacters(L"Class " + wstring (cClass.begin(), cClass.end()), Color::green, Color::bright_white, line, My_Windows);
+		printCenterCharacters(L"Class " + wstring(cClass.begin(), cClass.end()), Color::green, Color::bright_white, line, My_Windows);
 		line++;
 		ifstream ifs;
 		ifs.open("./" + SY + "/" + to_string(season) + "/" + courseID + "/" + cClass + "/scoreboard.txt");
@@ -728,7 +728,7 @@ void viewScoreboardOfACourse(string username, string SY, short season, string co
 
 	}
 	courseClass.close();
-	printCenterCharacters(L"Press any key to back to previous menu", Color:: green, Color::bright_white, line + 2, My_Windows);
+	printCenterCharacters(L"Press any key to back to previous menu", Color::green, Color::bright_white, line + 2, My_Windows);
 	int key = getKey();
 
 	if (key == 27)
@@ -741,7 +741,7 @@ void viewAndChooseCourseClass(string username, string SY, short season, string c
 	printCenterCharacters(L"CHOOSE COURSE CLASS PAGE", Color::light_green, Color::bright_white, 2, My_Windows);
 	printCenterCharacters(L"AVAILABLE COURSE CLASSES", Color::light_green, Color::bright_white, 4, My_Windows);
 	printCharacter(L"Press ESC to back to main menu", { 0, 0 }, Color::black, Color::bright_white);
-	printCharacter(L"Press F1 to back to previous menu", { short(My_Windows.Right - 34 ), 0}, Color::black, Color::bright_white);
+	printCharacter(L"Press F1 to back to previous menu", { short(My_Windows.Right - 34), 0 }, Color::black, Color::bright_white);
 	printCenterCharacters(wstring(courseID.begin(), courseID.end()), Color::light_aqua, Color::bright_white, 5, My_Windows);
 	string classPath = SY + "/" + to_string(season) + "/" + courseID + "/class.txt";
 	ifstream ifs;
@@ -848,7 +848,7 @@ void viewScoreboardOfACourseClass(string username, string SY, short season, stri
 	else {
 		printCenterCharacters(L"THIS COURSE CLASS HAS NO SCOREBOARD", Color::red, Color::bright_white, line, My_Windows);
 	}
-		
+
 
 	printCenterCharacters(L"Press any key to back to previous menu", Color::green, Color::bright_white, line + 2, My_Windows);
 	int key = getKey();
@@ -938,7 +938,6 @@ void viewStudentProfile(string username) {
 	printCharacter(wstring(temp.begin(), temp.end()), { short(center + 16), 24 }, Color::blue, Color::bright_white);
 
 	getline(ifs, temp);
-	getline(ifs, temp, ',');
 	len = temp.length() + 12;
 	center = (135 - len) / 2;
 	printCharacter(L"Social ID: ", { center, 26 }, Color::black, Color::bright_white);
@@ -974,7 +973,7 @@ void changeStudentInfo(string username) {
 		getline(fin, password1);
 		getline(fin, sy);
 		getline(fin, className);
-		getline(fin, firstname1,',');
+		getline(fin, firstname1, ',');
 		getline(fin, lastname1);
 		getline(fin, gender1);
 		getline(fin, dateofbirth1);
@@ -1051,7 +1050,7 @@ void changeStudentInfo(string username) {
 	ifs.close();
 	ofs.open(filename);
 	ofs << username << endl;
-	ofs << password1 << endl ;
+	ofs << password1 << endl;
 	ofs << sy << endl << className << endl;
 	ofs << firstname1 << ",";
 	ofs << lastname1 << endl;
@@ -1066,15 +1065,15 @@ void changeStudentInfo(string username) {
 	int key = getKey();
 	if (key == 27)
 		return mainmenuOpt();
-	return ProfileMenuPage(username);
+	return studentMenuPage(username);
 }
 
 void viewStudentScoreboard(string username) {
 	system("cls");
 	wstring tmp[3];
-	tmp[0] = L"▒█░░▒█ ▀█▀ ▒█▀▀▀ ▒█░░▒█ 　 ▒█▀▀▀█ ▒█▀▀█ ▒█▀▀▀█ ▒█▀▀█ ▒█▀▀▀ ▒█▀▀█ ▒█▀▀▀█ ░█▀▀█ ▒█▀▀█ ▒█▀▀▄";
-	tmp[1] = L"░▒█▒█░ ▒█░ ▒█▀▀▀ ▒█▒█▒█ 　 ░▀▀▀▄▄ ▒█░░░ ▒█░░▒█ ▒█▄▄▀ ▒█▀▀▀ ▒█▀▀▄ ▒█░░▒█ ▒█▄▄█ ▒█▄▄▀ ▒█░▒█";
-	tmp[2] = L"░░▀▄▀░ ▄█▄ ▒█▄▄▄ ▒█▄▀▄█ 　 ▒█▄▄▄█ ▒█▄▄█ ▒█▄▄▄█ ▒█░▒█ ▒█▄▄▄ ▒█▄▄█ ▒█▄▄▄█ ▒█░▒█ ▒█░▒█ ▒█▄▄▀";
+	tmp[0] = L"▒█░░▒█ ▀█▀ ▒█▀▀▀ ▒█░░▒█     ▒█▀▀▀█ ▒█▀▀█ ▒█▀▀▀█ ▒█▀▀█ ▒█▀▀▀ ▒█▀▀█ ▒█▀▀▀█ ░█▀▀█ ▒█▀▀█ ▒█▀▀▄";
+	tmp[1] = L"░▒█▒█░ ▒█░ ▒█▀▀▀ ▒█▒█▒█     ░▀▀▀▄▄ ▒█░░░ ▒█░░▒█ ▒█▄▄▀ ▒█▀▀▀ ▒█▀▀▄ ▒█░░▒█ ▒█▄▄█ ▒█▄▄▀ ▒█░▒█";
+	tmp[2] = L"░░▀▄▀░ ▄█▄ ▒█▄▄▄ ▒█▄▀▄█     ▒█▄▄▄█ ▒█▄▄█ ▒█▄▄▄█ ▒█░▒█ ▒█▄▄▄ ▒█▄▄█ ▒█▄▄▄█ ▒█░▒█ ▒█░▒█ ▒█▄▄▀";
 	for (int i = 0; i < 3; i++)
 	{
 		printCenterCharacters(tmp[i], Color::light_green, Color::bright_white, i + 2, My_Windows);
@@ -1095,15 +1094,15 @@ void viewStudentScoreboard(string username) {
 	string path, line, curSY, Semester, GPA, courseClass;
 	path = "./profile/" + username + ".txt"; // get info to open files
 	ifs.open(path);
-		getline(ifs, SY); // Username
-		getline(ifs, SY); // Password
-		getline(ifs, SY); // School year
-		getline(ifs, Class); // Class
+	getline(ifs, SY); // Username
+	getline(ifs, SY); // Password
+	getline(ifs, SY); // School year
+	getline(ifs, Class); // Class
 	ifs.close();
 
 	ifs.open("./curTime.txt");
-		getline(ifs, curSY); // current school year
-		getline(ifs, Semester); // Semester
+	getline(ifs, curSY); // current school year
+	getline(ifs, Semester); // Semester
 	ifs.close();
 
 	// school year saving data of student
@@ -1116,14 +1115,14 @@ void viewStudentScoreboard(string username) {
 	printCenterCharacters(L"-----------------------------------------", Color::purple, Color::bright_white, 8, My_Windows);
 	printCenterCharacters(L"GPA: " + wstring(GPA.begin(), GPA.end()), Color::black, Color::bright_white, 9, My_Windows);
 	printCenterCharacters(L"-----------------------", Color::purple, Color::bright_white, 10, My_Windows);
-	gotoxy(45, 12);
+	gotoxy(25, 12);
 	std::cout << left << setw(12) << "Course ID" << setw(30) << "Course name" << setw(8) << "Class" << setw(8) << "Credits" << setw(6) << "Total" << setw(6) << "Final" << setw(8) << "Midterm" << setw(6) << "Other" << endl;
 	getline(ifs, line); // number of credits -> no use here
-	
+
 	short curLine = 12;
-	
+
 	while (!ifs.eof()) {
-		gotoxy(45, curLine + 2);
+		gotoxy(25, curLine + 2);
 		getline(ifs, line, ','); // Get a course's ID
 		getline(ifs, courseClass); // Get class name of the course
 		ifstream course;
@@ -1261,7 +1260,7 @@ void viewListCousres(string username) {
 void exportListStudentToFile(string username, string SY, short season, string courseID) {
 	string outputPath;
 
-	printCharacter(L"Input the path to export CSV file here", {45, 25}, Color::blue, Color::bright_white);
+	printCharacter(L"Input the path to export CSV file here", { 45, 25 }, Color::blue, Color::bright_white);
 	drawBox(26);
 	gotoxy(45, 27);
 	cin.ignore();
