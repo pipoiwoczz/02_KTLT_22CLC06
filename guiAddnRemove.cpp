@@ -499,11 +499,13 @@ void UpdateCourseInfor(string username, string SY, short season) {
 					ofs << newCourseID << endl;
 				else
 					ofs << tmp << endl;
+			getline(ifs, tmp);
 			if (tmp != "" && tmp != "\n")
 				if (newCourseName != "")
 					ofs << newCourseName << endl;
 				else
 					ofs << tmp << endl;
+			getline(ifs, tmp);
 			if (tmp != "" && tmp != "\n")
 				if (newCourseCre != "")
 					ofs << newCourseCre;
