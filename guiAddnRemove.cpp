@@ -911,36 +911,41 @@ void importStudentToCourseClass(string username, string SY, short season, string
 		else {
 			ifs.close();
 
+			string sy;
+			ifs.open("SY.txt");
+			getline(ifs, sy);
+			ifs.close();
+
 			string curSY;
 			short curSeason;
 
 			ifstream course, student;
 			student.open("./profile/" + stId + ".txt");
-			string className;
+			string classID;
 			for (int i = 0; i < 4; i++) {
-				getline(student, className);
+				getline(student, classID);
 			}
 			student.close();
-			course.open("./" + SY + "/" + className + "/" + stId + "/courses.txt");
+			course.open("./" + SY + "/" + classID + "/" + stId + "/courses.txt");
 			if (course.is_open()) {
 				course >> curSY >> curSeason;
 				if (curSY != SY || curSeason != season) {
 					course.close();
-					ofstream fout("./" + SY + "/" + className + "/" + stId + "/courses.txt");
-					fout << SY << endl << season << endl << courseID;
+					ofstream fout("./" + SY + "/" + classID + "/" + stId + "/courses.txt");
+					fout << SY << endl << season << endl << courseID << "," << className;
 					fout.close();
 				}
 				else {
 					course.close();
-					ofstream fout("./" + SY + "/" + className + "/" + stId + "/courses.txt", ios::app);
-					fout << endl << courseID;
+					ofstream fout("./" + SY + "/" + classID + "/" + stId + "/courses.txt", ios::app);
+					fout << endl << courseID << "," << className;
 					fout.close();
 				}
 			}
 			else {
 				course.close();
-				ofstream fout("./" + SY + "/" + className + "/" + stId + "/courses.txt");
-				fout << endl << courseID;
+				ofstream fout("./" + SY + "/" + classID + "/" + stId + "/courses.txt");
+				fout << season << endl << SY << endl << courseID << "," << className;
 				fout.close();
 			}
 
@@ -1002,36 +1007,41 @@ void addAStudentToCourseClass(string username, string SY, short season, string c
 	else {
 		ifs.close();
 
+		string sy;
+		ifs.open("SY.txt");
+		getline(ifs, sy);
+		ifs.close();
+
 		string curSY;
 		short curSeason;
 
 		ifstream course, student;
 		student.open("./profile/" + ID + ".txt");
-		string className;
+		string classID;
 		for (int i = 0; i < 4; i++) {
-			getline(student, className);
+			getline(student, classID);
 		}
 		student.close();
-		course.open("./" + SY + "/" + className + "/" + ID + "/courses.txt");
+		course.open("./" + sy + "/" + classID + "/" + ID + "/courses.txt");
 		if (course.is_open()) {
 			course >> curSY >> curSeason;
 			if (curSY != SY || curSeason != season) {
 				course.close();
-				ofstream fout("./" + SY + "/" + className + "/" + ID + "/courses.txt");
-				fout << SY << endl << season << endl << courseID;
+				ofstream fout("./" + sy + "/" + classID + "/" + ID + "/courses.txt");
+				fout << SY << endl << season << endl << courseID << "," << className;
 				fout.close();
 			}
 			else {
 				course.close();
-				ofstream fout("./" + SY + "/" + className + "/" + ID + "/courses.txt", ios::app);
-				fout << endl << courseID;
+				ofstream fout("./" + sy + "/" + classID + "/" + ID + "/courses.txt", ios::app);
+				fout << endl << courseID << "," << className;
 				fout.close();
 			}
 		}
 		else {
 			course.close();
-			ofstream fout("./" + SY + "/" + className + "/" + ID + "/courses.txt");
-			fout << endl << courseID;
+			ofstream fout("./" + sy + "/" + classID + "/" + ID + "/courses.txt");
+			fout << SY << endl << season << endl << courseID << "," << className;
 			fout.close();
 		}
 	}
@@ -1251,7 +1261,13 @@ void importScoreboardToCourseClass(string username, string SY, short season, str
 		}
 		return importScoreboardToCourseClass(username, SY, season, courseID, classID);
 	}
-	string classPath = "./" + SY + "/" + char(season + 48) + "/" + courseID + "/class.txt";
+
+	string sy;
+	ifs.open("./SY.txt");
+	getline(ifs, sy);
+	ifs.close();
+
+	string classPath = "./" + sy + "/" + char(season + 48) + "/" + courseID + "/class.txt";
 	string courseTotal;
 	int courseCre = getCourseCredit(SY, to_string(season), courseID); // get course credits
 	ofstream ofs;
@@ -1260,7 +1276,7 @@ void importScoreboardToCourseClass(string username, string SY, short season, str
 		getline(fin, temp, ','); // no
 		getline(fin, stID, ','); // studentid
 		Class = searchStudent(stID);
-		string stScore = "./" + SY + "/" + Class + "/" + stID + "/" + courseID + ".txt";
+		string stScore = "./" + sy + "/" + Class + "/" + stID + "/" + courseID + ".txt";
 
 		ofstream fout(stScore);
 		for (int i = 0; i < 2; i++) {
@@ -1273,8 +1289,8 @@ void importScoreboardToCourseClass(string username, string SY, short season, str
 		fout << temp;
 		fout.close();
 
-		string total = "./" + SY + "/" + Class + "/" + stID + "/total.txt";
-		string sesy = "./" + SY + "/" + Class + "/" + stID + "/" + to_string(season) + "_" + SY + ".txt";
+		string total = "./" + sy + "/" + Class + "/" + stID + "/total.txt";
+		string sesy = "./" + sy + "/" + Class + "/" + stID + "/" + to_string(season) + "_" + SY + ".txt";
 
 		// CHECK IF This se-sy is exist or not
 		bool flag = false;
@@ -1287,7 +1303,7 @@ void importScoreboardToCourseClass(string username, string SY, short season, str
 			seGPA *= seCre * 1.0;
 			seCre += courseCre;
 			seGPA = (seGPA + courseCre * stof(courseTotal)) / seCre * 1.0;
-			ofs.open("./" + SY + "/" + Class + "/" + stID + "/tmp.txt");
+			ofs.open("./" + sy + "/" + Class + "/" + stID + "/tmp.txt");
 			if (ofs.is_open()) {
 				ofs << seGPA << endl;
 				ofs << seCre;
@@ -1301,7 +1317,7 @@ void importScoreboardToCourseClass(string username, string SY, short season, str
 			ifs.close();
 
 			remove(sesy.c_str());
-			rename(("./" + SY + "/" + Class + "/" + stID + "/tmp.txt").c_str(), sesy.c_str());
+			rename(("./" + sy + "/" + Class + "/" + stID + "/tmp.txt").c_str(), sesy.c_str());
 		}
 		else {
 			ofs.open(sesy);

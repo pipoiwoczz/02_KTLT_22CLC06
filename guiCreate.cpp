@@ -9,8 +9,6 @@ void createSYPage(string username) {
     printCharacter(L"PRESS ESC to back to main menu", { 0,0 }, Color::black, Color::bright_white);
     printCharacter(L"Press F1 to back to previous menu", { short(My_Windows.Right - 34), 0}, Color::black, Color::bright_white);
 
-
-
     string SY;
     ofstream ofs;
     ifstream ifs("SY.txt");
@@ -55,6 +53,9 @@ void createSYPage(string username) {
         ofs.close();
         _mkdir(SY.c_str());
     }
+
+    ofs.open("curTime.txt");
+    ofs << SY << endl << 1;
 
     printCenterCharacters(L"Press any key to continue...", Color::purple, Color::bright_white, 7, My_Windows);
     getKey();
@@ -140,6 +141,7 @@ void CreateSemesterPage(string username, string SY) {
                 enddate = getStringInput();
                 ofstream ofs((SY + "/" + to_string(line) + "/info.txt").c_str());
                 ofs << line << " " << startdate << " " << enddate;
+                ofs.close();
                 printCenterCharacters(L"Press any key to modify this semester...", Color::purple, Color::bright_white, 0, My_Windows);
                 key = getKey();
                 if (key == 27) {

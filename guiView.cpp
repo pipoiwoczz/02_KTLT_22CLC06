@@ -185,10 +185,12 @@ void viewAndChooseClassPage(string username, string SY) {
 	system("cls");
 	wstring temp = L"█▓▒░░CHOOSE CLASS░░▒▓█";
 	printCenterCharacters(temp, Color::light_red, Color::bright_white, 2, My_Windows);
-
+	string curSY, curSeason;
+	ifstream ifs("SY.txt");
+	ifs >> curSY;
+	ifs.close();
 	// CASE NO CLASS AVAILABLE
-	ifstream ifs;
-	ifs.open(SY + "/class.txt");
+	ifs.open(curSY + "/class.txt");
 	if (!ifs.is_open() || ifs.eof()) {
 		printCharacter(L"Press ESC to return to main menu", { 0, 0 }, Color::black, Color::bright_white);
 		printCenterCharacters(L"NO CLASS AVAILABLE", Color::red, Color::bright_white, 4, My_Windows);
@@ -217,7 +219,7 @@ void viewAndChooseClassPage(string username, string SY) {
 		gotoxy(45 + 23 + 1, idx + 2);
 		string input = getStringInput();
 		ifstream ifs;
-		ifs.open(SY + "/class.txt");
+		ifs.open(curSY + "/class.txt");
 		while (getline(ifs, tmp)) {
 			if (tmp == input) {
 				printCenterCharacters(L"Class is available", Color::green, Color::bright_white, idx + 4, My_Windows);
@@ -285,10 +287,15 @@ void viewScoreboard(string username, string SY, string className) {
 	printCenterCharacters(wstring(className.begin(), className.end()), Color::light_green, Color::bright_white, 5, My_Windows);
 	Sleep(200);
 
+	string sy;
+	ifstream syfile("./SY.txt");
+	getline(syfile, sy);
+	syfile.close();
+
 	ifstream ifs, student;
 	string course, ID, name, total, final, GPA, curSem, curSY;
 
-	ifs.open("./" + SY + "/" + className + "/student.txt");
+	ifs.open("./" + sy + "/" + className + "/student.txt");
 	// Check if this file have nothing or does not exist
 	if (ifs.eof() || !ifs.is_open()) {
 		printCenterCharacters(L"THIS CLASS HAS NO STUDENT NOW", Color::red, Color::bright_white, 7, My_Windows);
@@ -309,11 +316,11 @@ void viewScoreboard(string username, string SY, string className) {
 
 	courseInThisSem* head = nullptr; // This linked list is used to 
 	// Open the file contain list of student's ID in a class
-	ifs.open("./" + SY + "/" + className + "/student.txt");
+	ifs.open("./" + sy + "/" + className + "/student.txt");
 	while (!ifs.eof()) {
 		getline(ifs, ID); // Student's ID
 		// Open the file saving courses that a student will learn in this semester
-		student.open("./" + SY + "/" + className + "/" + ID + "/" + curSem + "_" + curSY + ".txt"); // <sem>_<SY>.txt
+		student.open("./" + sy + "/" + className + "/" + ID + "/" + curSem + "_" + curSY + ".txt"); // <sem>_<SY>.txt
 		if (student.is_open()) { // if this student does not learn in this sem -> do not do this code segment
 			getline(student, course); // GPA in this semester -> no need here
 			getline(student, course); // credit -> no need either
@@ -343,7 +350,7 @@ void viewScoreboard(string username, string SY, string className) {
 	curLine++;
 
 	// 2nd, 3rd, 4th, ... line
-	ifs.open("./" + SY + "/" + className + "/student.txt");
+	ifs.open("./" + sy + "/" + className + "/student.txt");
 	// Check if this file have nothing or does not exist
 	while (!ifs.eof()) {
 		gotoxy(35, curLine + 2);
@@ -361,7 +368,7 @@ void viewScoreboard(string username, string SY, string className) {
 
 		cur = head; // refresh the "cur" variable
 		while (cur) {
-			student.open("./" + SY + "/" + className + "/" + ID + "/" + cur->ID + ".txt");
+			student.open("./" + sy + "/" + className + "/" + ID + "/" + cur->ID + ".txt");
 			// If this student does not enroll in this course, print out x
 			if (!student.is_open()) cout << setw(10) << "x";
 			else {
@@ -374,13 +381,13 @@ void viewScoreboard(string username, string SY, string className) {
 			cur = cur->next;
 		}
 
-		student.open("./" + SY + "/" + className + "/" + ID + "/" + curSem + "_" + curSY + ".txt");
+		student.open("./" + sy + "/" + className + "/" + ID + "/" + curSem + "_" + curSY + ".txt");
 		getline(student, GPA);
 		if (!student.is_open()) cout << setw(8) << 0;
 		else cout << setw(8) << GPA; // GPA in this sem
 		student.close();
 
-		student.open("./" + SY + "/" + className + "/" + ID + "/total.txt");
+		student.open("./" + sy + "/" + className + "/" + ID + "/total.txt");
 		getline(student, GPA);
 		if (!student.is_open()) cout << setw(12) << 0 << endl;
 		else cout << setw(12) << GPA << endl; // OVerall GPA
@@ -405,7 +412,12 @@ void viewListOfStudentsInClass(string username, string SY, string classID) {
 	printCharacter(L"Press ESC to back to main menu", { 0, 0 }, Color::black, Color::bright_white);
 	printCenterCharacters(L"<<<< CLASS " + wstring(classID.begin(), classID.end()) + L" >>>>", Color::light_green, Color::bright_white, 2, My_Windows);
 
-	string path = SY + "//" + classID + "//" + "student.txt";
+	string sy;
+	ifstream syFile("./SY.txt");
+	getline(syFile, sy);
+	syFile.close();
+
+	string path = sy + "//" + classID + "//" + "student.txt";
 	string tmp;
 	int no = 1;
 
@@ -1207,7 +1219,7 @@ void viewListCousres(string username) {
 	getline(ifs, Sem); // get the current semester
 	ifs.close();
 
-	path = "./" + SY + "/" + Class + "/" + username + "/" + Sem + "_" + curSY + ".txt"; // Get info of courses leaning in this sem
+	path = "./" + SY + "/" + Class + "/" + username + "/" + "courses.txt"; // Get info of courses leaning in this sem
 	ifs.open(path);
 	if (!ifs.is_open()) {
 		printCenterCharacters(L"THIS SEMESTER HAS NO COURSES NOW", Color::red, Color::bright_white, 8, My_Windows);
@@ -1221,8 +1233,8 @@ void viewListCousres(string username) {
 
 	printCenterCharacters(L"ALL COURSE IN THIS SEMESTER", Color::blue, Color::bright_white, 8, My_Windows);
 	printCenterCharacters(L"-------------------------------------------", Color::purple, Color::bright_white, 9, My_Windows);
-	getline(ifs, line); // GPA -> no need here
-	getline(ifs, line); // credit -> no need either
+	getline(ifs, line); // semester -> no need here
+	getline(ifs, line); // SY -> no need either
 	short curLine = 11;
 
 	int i = 1; // This variable is used to represent ordinal number, add up to 1 when there's a new member printing out
