@@ -928,25 +928,25 @@ void importStudentToCourseClass(string username, string SY, short season, string
 				getline(student, classID);
 			}
 			student.close();
-			course.open("./" + SY + "/" + classID + "/" + stId + "/courses.txt");
+			course.open("./" + sy + "/" + classID + "/" + stId + "/courses.txt");
 			if (course.is_open()) {
 				course >> curSY >> curSeason;
 				if (curSY != SY || curSeason != season) {
 					course.close();
-					ofstream fout("./" + SY + "/" + classID + "/" + stId + "/courses.txt");
+					ofstream fout("./" + sy + "/" + classID + "/" + stId + "/courses.txt");
 					fout << SY << endl << season << endl << courseID << "," << className;
 					fout.close();
 				}
 				else {
 					course.close();
-					ofstream fout("./" + SY + "/" + classID + "/" + stId + "/courses.txt", ios::app);
+					ofstream fout("./" + sy + "/" + classID + "/" + stId + "/courses.txt", ios::app);
 					fout << endl << courseID << "," << className;
 					fout.close();
 				}
 			}
 			else {
 				course.close();
-				ofstream fout("./" + SY + "/" + classID + "/" + stId + "/courses.txt");
+				ofstream fout("./" + sy + "/" + classID + "/" + stId + "/courses.txt");
 				fout << season << endl << SY << endl << courseID << "," << className;
 				fout.close();
 			}

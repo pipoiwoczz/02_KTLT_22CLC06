@@ -1221,6 +1221,7 @@ void viewListCousres(string username) {
 	path = "./" + SY + "/" + Class + "/" + username + "/" + "courses.txt"; // Get info of courses leaning in this sem
 	ifs.open(path);
 	if (!ifs.is_open()) {
+		ifs.close();
 		printCenterCharacters(L"THIS SEMESTER HAS NO COURSES NOW", Color::red, Color::bright_white, 8, My_Windows);
 		printCenterCharacters(L"PRESS any key to back to previous menu", Color::green, Color::bright_white, 10, My_Windows);
 		int key = getKey();
@@ -1244,7 +1245,7 @@ void viewListCousres(string username) {
 		gotoxy(20, curLine + 2);
 		getline(ifs, line, ','); // Read courseID
 		getline(ifs, courseClass); // Read class name in the course
-		Course.open("./" + SY + "/" + Sem + "/" + line + "/" + courseClass + "/info.txt");
+		Course.open("./" + curSY + "/" + Sem + "/" + line + "/" + courseClass + "/info.txt");
 		getline(Course, CourseID);
 		getline(Course, CourseName);
 		getline(Course, CourseClass);
