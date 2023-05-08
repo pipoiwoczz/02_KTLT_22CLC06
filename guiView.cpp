@@ -673,9 +673,9 @@ void viewListOfStudentInACourse(string username, string SY, short season, string
 void viewScoreboardOfACourse(string username, string SY, short season, string courseID) {
 	system("cls");
 	wstring temp[3];
-	temp[0] = L"▒█▀▀█ ▒█▀▀▀█ ▒█░▒█ ▒█▀▀█ ▒█▀▀▀█ ▒█▀▀▀ 　 ▒█▀▀▀█ ▒█▀▀█ ▒█▀▀▀█ ▒█▀▀█ ▒█▀▀▀ ▒█▀▀█ ▒█▀▀▀█ ░█▀▀█ ▒█▀▀█ ▒█▀▀▄";
-	temp[1] = L"▒█░░░ ▒█░░▒█ ▒█░▒█ ▒█▄▄▀ ░▀▀▀▄▄ ▒█▀▀▀ 　 ░▀▀▀▄▄ ▒█░░░ ▒█░░▒█ ▒█▄▄▀ ▒█▀▀▀ ▒█▀▀▄ ▒█░░▒█ ▒█▄▄█ ▒█▄▄▀ ▒█░▒█";
-	temp[2] = L"▒█▄▄█ ▒█▄▄▄█ ░▀▄▄▀ ▒█░▒█ ▒█▄▄▄█ ▒█▄▄▄ 　 ▒█▄▄▄█ ▒█▄▄█ ▒█▄▄▄█ ▒█░▒█ ▒█▄▄▄ ▒█▄▄█ ▒█▄▄▄█ ▒█░▒█ ▒█░▒█ ▒█▄▄▀";
+	temp[0] = L"▒█▀▀█ ▒█▀▀▀█ ▒█░▒█ ▒█▀▀█ ▒█▀▀▀█ ▒█▀▀▀    ▒█▀▀▀█ ▒█▀▀█ ▒█▀▀▀█ ▒█▀▀█ ▒█▀▀▀ ▒█▀▀█ ▒█▀▀▀█ ░█▀▀█ ▒█▀▀█ ▒█▀▀▄";
+	temp[1] = L"▒█░░░ ▒█░░▒█ ▒█░▒█ ▒█▄▄▀ ░▀▀▀▄▄ ▒█▀▀▀    ░▀▀▀▄▄ ▒█░░░ ▒█░░▒█ ▒█▄▄▀ ▒█▀▀▀ ▒█▀▀▄ ▒█░░▒█ ▒█▄▄█ ▒█▄▄▀ ▒█░▒█";
+	temp[2] = L"▒█▄▄█ ▒█▄▄▄█ ░▀▄▄▀ ▒█░▒█ ▒█▄▄▄█ ▒█▄▄▄    ▒█▄▄▄█ ▒█▄▄█ ▒█▄▄▄█ ▒█░▒█ ▒█▄▄▄ ▒█▄▄█ ▒█▄▄▄█ ▒█░▒█ ▒█░▒█ ▒█▄▄▀";
 	for (int i = 0; i < 3; i++)
 	{
 		printCenterCharacters(temp[i], Color::light_green, Color::bright_white, i + 2, My_Windows);
@@ -726,7 +726,6 @@ void viewScoreboardOfACourse(string username, string SY, short season, string co
 				getline(ifs, tmp); // Other
 				std::cout << left << setw(8) << tmp << endl;
 				line++;
-
 			}
 			line++;
 			ifs.close();
@@ -1274,9 +1273,8 @@ void exportListStudentToFile(string username, string SY, short season, string co
 
 	printCharacter(L"Input the path to export CSV file here", { 45, 25 }, Color::blue, Color::bright_white);
 	drawBox(26);
-	gotoxy(45, 27);
-	cin.ignore();
-	getline(cin, outputPath);
+	gotoxy(46, 27);
+	outputPath = getStringInput();
 
 	ofstream ofs;
 

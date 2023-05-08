@@ -56,6 +56,7 @@ void createSYPage(string username) {
 
     ofs.open("curTime.txt");
     ofs << SY << endl << 1;
+    ofs.close();
 
     printCenterCharacters(L"Press any key to continue...", Color::purple, Color::bright_white, 7, My_Windows);
     getKey();

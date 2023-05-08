@@ -1372,7 +1372,8 @@ void importScoreboardToCourseClass(string username, string SY, short season, str
 	ofs.open(scoreboardPath);
 	fin.open(path);
 	while (getline(fin, temp)) {
-		ofs << temp << endl;
+		if (!fin.eof())
+			ofs << temp << endl;
 	}
 	fin.close();
 	ofs.close();
