@@ -188,7 +188,7 @@ void addAStudentToClass(string username, string SY, string classID) {
 		if (ifs.is_open() && !ifs.eof()) {
 			ifs.close();
 			ofs.open(SY + "/" + classID + "/student.txt", ios::app);
-			ofs << endl << ID;
+			ofs << ID;
 			ofs.close();
 		}
 		else {
