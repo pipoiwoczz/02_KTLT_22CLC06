@@ -17,4 +17,3 @@ void CourseClassMenuPage(string username, string SY, short season, string course
 void studentMenuPage(string username);
 void changeStudentInfo(string username);
 
-string getProfilePageString(string username);

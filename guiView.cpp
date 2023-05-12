@@ -66,7 +66,13 @@ void chooseSchoolYear(string username) {
 		drawBox(i + 3);
 		gotoxy(46, i + 4);
 		string input;
-		input = getProfilePageString(username);
+		input = getMenuString();
+		if (input == "ESC") {
+			return mainmenuOpt();
+		}
+		if (input == "F1") {
+			return ProfileMenuPage(username);
+		}
 		ifs.open("SY.txt");
 		while (getline(ifs, temp)) {
 			if (temp == input) {
@@ -149,7 +155,11 @@ void viewAndChooseSemesterPage(string username, string SY) {
 	printCharacter(L"Enter your choice here", { 45, short(idx + 2) }, Color::blue, Color::bright_white);
 	gotoxy(45 + 23, idx + 2);
 
-	string input = getSYMenuString(username, SY);
+	string input = getMenuString();
+	if (input == "ESC")
+		return mainmenuOpt();
+	if (input == "F1")
+		return SYMenuPage(username, SY);
 	if (input == "Spring" && Se[0]) {
 		ofstream ofs("curTime.txt");
 		ofs << SY << endl << 1;
@@ -512,7 +522,11 @@ void viewAndChooseCourse(string username, string SY, int season) {
 		ifs.close();
 		printCharacter(L"Enter your choice here: ", { 45, short(line + 3) }, Color::blue, Color::bright_white);
 		gotoxy(45 + 25, line + 3);
-		string course = getSemesterMenuString(username, SY, season);
+		string course = getMenuString();
+		if (course == "ESC")
+			return mainmenuOpt();
+		if (course == "F1")
+			return SemesterMenuPage(username, SY, season);
 		bool flag = false;
 		ifs.open(path);
 		while (getline(ifs, tmp)) {
@@ -776,7 +790,11 @@ void viewAndChooseCourseClass(string username, string SY, short season, string c
 		ifs.close();
 		printCharacter(L"Enter your choice: ", { 45, short(line + 3) }, Color::blue, Color::bright_white);
 		gotoxy(45 + 20, line + 3);
-		string chosenClass = getCourseMenuString(username, SY, season, courseID);
+		string chosenClass = getMenuString();
+		if (chosenClass == "ESC")
+			return mainmenuOpt();
+		if (chosenClass == "F1")
+			return CourseMenuPage(username, SY, season, courseID);
 		ifs.open(classPath);
 		while (!ifs.eof()) {
 			getline(ifs, cClass);

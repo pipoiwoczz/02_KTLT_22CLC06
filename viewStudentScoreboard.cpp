@@ -100,6 +100,7 @@ void viewStudentScoreboardChooseSem(string Id) {
     drawBox(curLine + 1);
     gotoxy(46, curLine + 2);
     string chosenSem = getStringInput();
+    if (chosenSem == "ESC") return mainmenuOpt();
 
     bool flag = false;
     ifs.open("./" + SY + "/" + Class + "/" + Id + "/total.txt");

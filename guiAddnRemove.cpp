@@ -13,6 +13,9 @@ void importStudentsListInClass(string username, string SY, string classID) {
 	printCharacter(L"Input the path here: ", {45, 7}, Color::aqua, Color::bright_white);
 	gotoxy(45 + 22, 7);
 	string path = getStringInput();
+	if (path == "ESC") {
+		return mainmenuOpt();
+	}
 
 	ifstream ifs(path);
 	if (!ifs.is_open()) {
@@ -109,27 +112,57 @@ void addAStudentToClass(string username, string SY, string classID) {
 	Student stu;
 	printCharacter(L"Input new student's ID here: ", { 45, 6 }, Color::blue, Color::bright_white);
 	gotoxy(45 + 30, 6);
-	string ID = getClassMenuString(username, SY, classID);
+	string ID = getMenuString();
+	if (ID == "ESC") {
+		return mainmenuOpt();
+	}
+	if (ID == "F1") {
+		return ClassMenuPage(username, SY, classID);
+	}
 
 	printCharacter(L"Input new student's first name here: ", { 45, 8 }, Color::blue, Color::bright_white);
 	gotoxy(45 + 38, 8);
-	string fName = getClassMenuString(username, SY, classID);
+	string fName = getMenuString();
+	if (fName == "ESC") {
+		return mainmenuOpt();
+	}
+	if (fName == "F1") {
+		return ClassMenuPage(username, SY, classID);
+	}
 
 	printCharacter(L"Input new student's last name here: ", { 45, 10 }, Color::blue, Color::bright_white);
 	gotoxy(45 + 37, 10);
-	string lName = getClassMenuString(username, SY, classID);
+	string lName = getMenuString();
+	if (lName == "ESC") {
+		return mainmenuOpt();
+	}
+	if (lName == "F1") {
+		return ClassMenuPage(username, SY, classID);
+	}
 
 	printCharacter(L"Input new student's gender here: ", { 45, 12 }, Color::blue, Color::bright_white);
 	gotoxy(45 + 34, 12);
-	string gender = getClassMenuString(username, SY, classID);
+	string gender = getMenuString();
+	if (gender == "ESC")
+		return mainmenuOpt();
+	if (gender == "F1")
+		return ClassMenuPage(username, SY, classID);
 
 	printCharacter(L"Input new student's date of birth here: ", { 45, 14 }, Color::blue, Color::bright_white);
 	gotoxy(45 + 41, 14);
-	string dob = getClassMenuString(username, SY, classID);
+	string dob = getMenuString();
+	if (dob == "ESC")
+		return mainmenuOpt();
+	if (dob == "F1")
+		return ClassMenuPage(username, SY, classID);
 
 	printCharacter(L"Input new student's social ID here: ", { 45, 16 }, Color::blue, Color::bright_white);
 	gotoxy(45 + 37, 16);
-	string socialID = getClassMenuString(username, SY, classID);
+	string socialID = getMenuString();
+	if (socialID == "ESC")
+		return mainmenuOpt();
+	if (socialID == "F1")
+		return ClassMenuPage(username, SY, classID);
 
 	_mkdir("profile");
 	string path = "./profile/" + ID + ".txt";
@@ -183,6 +216,8 @@ void removeAStudentInClass(string username, string SY, string classID) {
 
 	gotoxy(45 + 45, 5);
 	string ID = getStringInput();
+	if (ID == "ESC")
+		return mainmenuOpt();
 
 	string listStClass = "./" + SY + "/" + classID + "/student.txt";
 	ifstream ifs;
@@ -311,6 +346,8 @@ void removeACourse(string username, string SY, short season) {
 		printCharacter(L"Enter your choice here: ", { 45, short(line + 3) }, Color::blue, Color::bright_white);
 		gotoxy(45 + 25, line + 3);
 		string course = getStringInput();
+		if (course == "ESC")
+			return mainmenuOpt();
 		bool flag = false;
 		ifs.open(path);
 		while (getline(ifs, tmp)) {
@@ -412,6 +449,8 @@ void UpdateCourseInfor(string username, string SY, short season) {
 		printCharacter(L"Enter your choice here: ", { 45, short(line + 3) }, Color::blue, Color::bright_white);
 		gotoxy(45 + 25, line + 3);
 		string course = getStringInput();
+		if (course == "ESC")
+			return mainmenuOpt();
 		bool flag = false;
 		ifs.open(path);
 		while (getline(ifs, tmp)) {
@@ -464,11 +503,23 @@ void UpdateCourseInfor(string username, string SY, short season) {
 			string newCourseID, newCourseName, newCourseCre;
 
 			gotoxy(46, line + 10);
-			newCourseID = getSemesterMenuString(username, SY, season);
+			newCourseID = getMenuString();
+			if (newCourseID == "ESC")
+				return mainmenuOpt();
+			if (newCourseID == "F1")
+				return SemesterMenuPage(username, SY, season);
 			gotoxy(46, line + 14);
-			newCourseName = getSemesterMenuString(username, SY, season);
+			newCourseName = getMenuString();
+			if (newCourseName == "ESC")
+				return mainmenuOpt();
+			if (newCourseName == "F1")
+				return SemesterMenuPage(username, SY, season);
 			gotoxy(46, line + 18);
-			newCourseCre = getSemesterMenuString(username, SY, season);
+			newCourseCre = getMenuString();
+			if (newCourseCre == "ESC")
+				return mainmenuOpt();
+			if (newCourseCre == "F1")
+				return SemesterMenuPage(username, SY, season);
 
 
 			// update this course in course.txt
@@ -607,23 +658,46 @@ void addACourseClass(string username, string SY, short season, string courseID) 
 	printCharacter(L"Class Name", {45, 6}, Color::blue, Color::bright_white);
 	drawBox(7);
 	gotoxy(46, 8);
-	className = getCourseMenuString(username, SY, season, courseID);
+	className = getMenuString();
+	if (className == "ESC")
+		return mainmenuOpt();
+	if (className == "F1")
+		return CourseMenuPage(username, SY, season, courseID);
+	
 	printCharacter(L"Teacher Name", { 45, 10 }, Color::blue, Color::bright_white);
 	drawBox(11);
 	gotoxy(46, 12);
-	teacherName = getCourseMenuString(username, SY, season, courseID);
+	teacherName = getMenuString();
+	if (teacherName == "ESC")
+		return mainmenuOpt();
+	if (teacherName == "F1")
+		return CourseMenuPage(username, SY, season, courseID);
+
 	printCharacter(L"Number Of Max Student", { 45, 14 }, Color::blue, Color::bright_white);
 	drawBox(15);
 	gotoxy(46, 16);
-	numberOfStudent = getCourseMenuString(username, SY, season, courseID);
+	numberOfStudent = getMenuString();
+	if (numberOfStudent == "ESC")
+		return mainmenuOpt();
+	if (numberOfStudent == "F1")
+		return CourseMenuPage(username, SY, season, courseID);
+
 	printCharacter(L"Day Of Week", { 45, 18 }, Color::blue, Color::bright_white);
 	drawBox(19);
 	gotoxy(46, 20);
-	dayOfWeek = getCourseMenuString(username, SY, season, courseID);
+	dayOfWeek = getMenuString();
+	if (dayOfWeek == "ESC")
+		return mainmenuOpt();
+	if (dayOfWeek == "F1")
+		return CourseMenuPage(username, SY, season, courseID);
 	printCharacter(L"Session", { 45, 22 }, Color::blue, Color::bright_white);
 	drawBox(23);
 	gotoxy(46, 24);
-	session = getCourseMenuString(username, SY, season, courseID);
+	session = getMenuString();
+	if (session == "ESC")
+		return mainmenuOpt();
+	if (session == "F1")
+		return CourseMenuPage(username, SY, season, courseID);
 
 	if (className == "" || teacherName == "" || numberOfStudent == "" || dayOfWeek == "" || session == "") {
 		printCenterCharacters(L"ANY INFORMATION IS NOT FULFILL YET", Color::red, Color::bright_white, 27, My_Windows);
@@ -732,7 +806,11 @@ void UpdateAStudentResult(string username, string SY, short season, string cours
 
 	printCharacter(L"Enter student ID here: ", { 50, 6 }, Color::blue, Color::bright_white);
 	gotoxy(50 + 24, 6);
-	Id = getCourseMenuString(username, SY, season, courseID);
+	Id = getMenuString();
+	if (Id == "ESC") 
+		return mainmenuOpt();
+	if (Id == "F1")
+		return CourseMenuPage(username, SY, season, courseID);
 
 	bool exist = false;
 
@@ -797,15 +875,31 @@ void UpdateAStudentResult(string username, string SY, short season, string cours
 	printCharacter(L"Enter total mark: ", { 45, 10 }, Color::blue, Color::bright_white);
 	gotoxy(45 + 19, 10);
 	cur->totalMark = getStringInput();
+	if (cur->totalMark == "ESC") {
+		deleteLLScore(pScore);
+		return mainmenuOpt();
+	}
 	printCharacter(L"Enter final mark: ", { 45, 12 }, Color::blue, Color::bright_white);
 	gotoxy(45 + 19, 12);
 	cur->finalMark = getStringInput();
+	if (cur->finalMark == "ESC") {
+		deleteLLScore(pScore);
+		return mainmenuOpt();
+	}
 	printCharacter(L"Enter midterm mark: ", { 45, 14 }, Color::blue, Color::bright_white);
 	gotoxy(45 + 21, 14);
 	cur->midtermMark = getStringInput();
+	if (cur->midtermMark == "ESC") {
+		deleteLLScore(pScore);
+		return mainmenuOpt();
+	}
 	printCharacter(L"Enter other mark: ", { 45, 16 }, Color::blue, Color::bright_white);
 	gotoxy(45 + 19, 16);
 	cur->otherMark = getStringInput();
+	if (cur->otherMark == "ESC") {
+		deleteLLScore(pScore);
+		return mainmenuOpt();
+	}
 
 	total = cur->totalMark;
 	finalM = cur->finalMark;
@@ -867,7 +961,7 @@ void importStudentToCourseClass(string username, string SY, short season, string
 	printCharacter(L"Input the path here: ", { 45, 7 }, Color::aqua, Color::bright_white);
 	gotoxy(45 + 22, 7);
 	string path = getStringInput();
-
+	if (path == "ESC") return mainmenuOpt();
 	ifstream fin(path);
 	if (!fin.is_open() || fin.eof()) {
 		fin.close();
@@ -993,6 +1087,8 @@ void addAStudentToCourseClass(string username, string SY, short season, string c
 	drawBox(10);
 	gotoxy(46, 11);
 	ID = getStringInput();
+	if (ID == "ESC")
+		return mainmenuOpt();
 
 	string profilePathCheck = "profile/" + ID + ".txt";
 	ifs.open(profilePathCheck);
@@ -1052,11 +1148,15 @@ void addAStudentToCourseClass(string username, string SY, short season, string c
 	drawBox(14);
 	gotoxy(46, 15);
 	fName = getStringInput();
+	if (fName == "ESC")
+		return mainmenuOpt();
 
 	printCharacter(L"Last Name", { 45, 17 }, Color::blue, Color::bright_white);
 	drawBox(18);
 	gotoxy(46, 19);
 	lName = getStringInput();
+	if (lName == "ESC")
+		return mainmenuOpt();
 
 	string path = SY + "/" + to_string(season) + "/" + courseID + "//" + className + "/" + "listStud.txt";
 	string infoStudent = ID + "," + lName +" " + fName;
@@ -1117,6 +1217,8 @@ void removeAStudentInCourseClass(string username, string SY, short season, strin
 
 	gotoxy(45 + 45, 5);
 	string ID = getStringInput();
+	if (ID == "ESC")
+		return mainmenuOpt();
 
 	string listStClass = "./" + SY + "/" +to_string(season) + "/" + courseID + "/" + className + "/listStud.txt";
 	ifstream ifs;
@@ -1247,6 +1349,9 @@ void importScoreboardToCourseClass(string username, string SY, short season, str
 	printCharacter(L"Input the path here: ", { 45, 7 }, Color::aqua, Color::bright_white);
 	gotoxy(45 + 22, 7);
 	string path = getStringInput();
+	if (path == "ESC") {
+		return mainmenuOpt();
+	}
 
 
 	ifstream fin(path);

@@ -18,7 +18,13 @@ void createSYPage(string username) {
         printCharacter(L"Input school year now", { 45, 7 }, Color::blue, Color::bright_white);
         drawBox(8);
         gotoxy(46, 9);
-        SY = getProfilePageString(username);
+        SY = getMenuString();
+        if (SY == "ESC") {
+            return mainmenuOpt();
+		}
+        if (SY == "F1") {
+            return ProfileMenuPage(username);
+		}
         if (!isValidSY(SY)) {
             printCharacter(L"You've entered invalid School year", { 45, 7 }, Color::red, Color::bright_white);
             printCenterCharacters(L"Press any key to continue...", Color::red, Color::bright_white, 9, My_Windows);
@@ -41,7 +47,13 @@ void createSYPage(string username) {
         printCharacter(L"Input school year now", { 45, short(i + 3) }, Color::blue, Color::bright_white);
         drawBox(i + 4);
         gotoxy(46, i + 5);
-        SY = getProfilePageString(username);
+        SY = getMenuString();
+        if (SY == "ESC") {
+			return mainmenuOpt();
+        }
+        if (SY == "F1")
+            return ProfileMenuPage(username);
+
         if (!isValidSY(SY)) {
             printCenterCharacters(L"You've entered invalid School year", Color::red, Color::bright_white, i + 8, My_Windows);
             printCenterCharacters(L"Press any key to continue...", Color::purple, Color::bright_white, i + 10, My_Windows);
@@ -135,11 +147,17 @@ void CreateSemesterPage(string username, string SY) {
                 string startdate;
                 gotoxy(46, idx + 10);
                 startdate = getStringInput();
+                if (startdate == "ESC") {
+					return mainmenuOpt();
+				}
                 printCharacter(L"End date", { 45, short(idx + 13) }, Color::blue, Color::bright_white);
                 drawBox(idx + 14);
                 string enddate;
                 gotoxy(46, idx + 15);
                 enddate = getStringInput();
+                if (enddate == "ESC") {
+                    return mainmenuOpt();
+                }
                 ofstream ofs((SY + "/" + to_string(line) + "/info.txt").c_str());
                 ofs << line << " " << startdate << " " << enddate;
                 ofs.close();
@@ -191,6 +209,8 @@ void CreateClassPage(string username, string SY) {
         return SYMenuPage(username, SY);
 
     classID = getStringInput();
+    if (classID == "ESC")
+		return mainmenuOpt();
 
     string path = SY + "/" + classID;
     if (_mkdir(path.c_str()) == 0) {
@@ -258,15 +278,27 @@ void CreateACourse(string username, string SY, short season) {
     printCharacter(L"Enter Course ID here: ", { 45, 6 }, Color::blue, Color::bright_white);
     gotoxy(45 + 23, 6);
 
-    string courseID = getSemesterMenuString(username, SY, season);
-    
+    string courseID = getMenuString();
+    if (courseID == "ESC")
+		return mainmenuOpt();
+    if (courseID == "F1")
+        return SemesterMenuPage(username, SY, season);
     printCharacter(L"Enter Course Name here: ", { 45, 8 }, Color::blue, Color::bright_white);
     gotoxy(45 + 25, 8);
-    string courseName = getSemesterMenuString(username, SY, season);
+    string courseName = getMenuString();
+    if (courseName == "ESC")
+        return mainmenuOpt();
+    if (courseName == "F1")
+        return SemesterMenuPage(username, SY, season);
 
     printCharacter(L"Enter Course Credits here: ", { 45, 10 }, Color::blue, Color::bright_white);
     gotoxy(45 + 28, 10);
-    int courseCre = stoi(getSemesterMenuString(username, SY, season));
+    string courseCredit = getMenuString();
+    if (courseCredit == "ESC")
+		return mainmenuOpt();
+    if (courseCredit == "F1")
+		return SemesterMenuPage(username, SY, season);
+    int courseCre = stoi(courseCredit);
 
     if (_mkdir((SY + "/" + to_string(season) + "/" + courseID).c_str()) == -1) {
         printCenterCharacters(L"THIS COURSE HAS ALREADY EXIST", Color::red, Color::bright_white, 8, My_Windows);

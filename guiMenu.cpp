@@ -75,9 +75,11 @@ void LoginPage() {
     gotoxy(46, 11);
     string username;
     username = getStringInput();
+    if (username == "ESC") return mainmenuOpt();
     gotoxy(46, 17);
     string password;
     password = getStringInput();
+    if (password == "ESC") return mainmenuOpt();
 
     bool isStudent = true;
     if (username.length() == 8) {
@@ -156,12 +158,15 @@ void RegisterPage() {
     gotoxy(46, 11);
     string username;
     username = getStringInput();
+    if (username == "ESC") return mainmenuOpt();
     gotoxy(46, 17);
     string password;
     password = getStringInput();
+    if (password == "ESC") return mainmenuOpt();
     gotoxy(46, 23);
     string teacherKey;
     teacherKey = getStringInput();
+    if (teacherKey == "ESC") return mainmenuOpt();
 
     ifstream fin;
     ofstream fout;
@@ -366,44 +371,6 @@ void ProfilePage(string username) {
     ProfileMenuPage(username);
 }
 
-string getProfilePageString(string username) {
-    string temp;
-    int ch;
-    int maxlength = 34;
-    int length = 0;
-    while (1) {
-        ch = getKey();
-        if (ch == 27) {
-            mainmenuOpt();
-            return "";
-        }
-        if (ch == 59) {
-            ProfileMenuPage(username);
-            return "";
-        }
-        if (ch == 13) {
-            return temp;
-        }
-        if (ch == 8) {
-            if (temp.length() > 0) {
-                temp.pop_back();
-                cout << "\b \b";
-                length--;
-            }
-        }
-        else
-            if (length < maxlength) {
-                temp += ch;
-                cout << (char)ch;
-                length++;
-            }
-            else {
-                cout << (char)ch;
-                cout << "\b \b";
-            }
-
-    }
-}
 
 void changeProfilePage(string username) {
     system("cls");
@@ -461,19 +428,47 @@ void changeProfilePage(string username) {
         return ProfileMenuPage(username);
 
     gotoxy(46, 9);
-    password1 = getProfilePageString(username);
+    password1 = getMenuString();
+    if (password1 == "ESC")
+		return mainmenuOpt();
+    if (password1 == "F1")
+        return ProfileMenuPage(username);
     gotoxy(46, 13);
-    teacherID1 = getProfilePageString(username);
+    teacherID1 = getMenuString();
+    if (teacherID1 == "ESC")
+        return mainmenuOpt();
+    if (teacherID1 == "F1")
+        return ProfileMenuPage(username);
     gotoxy(46, 17);
-    firstname1 = getProfilePageString(username);
+    firstname1 = getMenuString();
+    if (firstname1 == "ESC")
+		return mainmenuOpt();
+    if (firstname1 == "F1")
+		return ProfileMenuPage(username);
     gotoxy(46, 21);
-    lastname1 = getProfilePageString(username);
+    lastname1 = getMenuString();
+    if (lastname1 == "ESC")
+        return mainmenuOpt();
+    if (lastname1 == "F1")
+        return ProfileMenuPage(username);
     gotoxy(46, 25);
-    gender1 = getProfilePageString(username);
+    gender1 = getMenuString();
+    if (gender1 == "ESC")
+		return mainmenuOpt();
+    if (gender1 == "F1")
+        return ProfileMenuPage(username);
     gotoxy(46, 29);
-    dateofbirth1 = getProfilePageString(username);
+    dateofbirth1 = getMenuString();
+    if (dateofbirth1 == "ESC")
+		return mainmenuOpt();
+    if (dateofbirth1 == "F1")
+		return ProfileMenuPage(username);
     gotoxy(46, 33);
-    socialid1 = getProfilePageString(username);
+    socialid1 = getMenuString();
+    if (socialid1 == "ESC")
+        return mainmenuOpt();
+    if (socialid1 == "F1")
+        return ProfileMenuPage(username);
 
     string filename = "User\\" + username + ".txt";
     ofstream ofs;

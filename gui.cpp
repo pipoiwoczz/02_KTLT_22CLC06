@@ -122,8 +122,8 @@ string getStringInput() {
     while (1) {
 		ch = getKey();
         if (ch == 27) {
-            mainmenuOpt();
-            return "";
+            //mainmenuOpt();
+            return "ESC";
         }
         if (ch == 13 ) {
 			return temp;
@@ -157,8 +157,8 @@ string getCourseInfor() {
     while (1) {
         ch = getKey();
         if (ch == 27) {
-            mainmenuOpt();
-            return "";
+           // mainmenuOpt();
+            return "ESC";
         }
         if (ch == 13) {
             return temp;
@@ -187,7 +187,7 @@ string getCourseInfor() {
     }
 }
 
-string getSYMenuString(string username, string SY) {
+string getMenuString() {
     string temp;
     int ch;
     short maxlength = 30;
@@ -195,15 +195,15 @@ string getSYMenuString(string username, string SY) {
     while (1) {
         ch = getKey();
         if (ch == 27) {
-            mainmenuOpt();
-            return "";
+            //mainmenuOpt();
+            return "ESC";
         }
         if (ch == 13) {
             return temp;
         }
         if (ch == 59) {
-             SYMenuPage(username, SY);
-             return "";
+             //SYMenuPage(username, SY);
+             return "F1";
         }
         if (ch == 8) {
             if (temp.length() > 0) {
@@ -223,120 +223,5 @@ string getSYMenuString(string username, string SY) {
                 cout << "\b \b";
             }
 
-    }
-}
-
-string getSemesterMenuString(string username, string SY, short season) {
-    string temp;
-    int ch;
-    short maxlength = 30;
-    int length = 0;
-    while (1) {
-        ch = getKey();
-        if (ch == 27) {
-            mainmenuOpt();
-            return "";
-        }
-        if (ch == 13) {
-            return temp;
-        }
-        if (ch == 59) {
-            SemesterMenuPage(username, SY, season);
-            return "";
-        }
-        if (ch == 8) {
-            if (temp.length() > 0) {
-                temp.pop_back();
-                cout << "\b \b";
-                length--;
-            }
-        }
-        else
-            if (length < maxlength) {
-                temp += ch;
-                cout << (char)ch;
-                length++;
-            }
-            else {
-                cout << (char)ch;
-                cout << "\b \b";
-            }
-    }
-}
-
-string getCourseMenuString(string username, string SY, short season, string courseID) {
-    string temp;
-    int ch;
-    short maxlength = 30;
-    int length = 0;
-    while (1) {
-        ch = getKey();
-        if (ch == 27) {
-            mainmenuOpt();
-            return "";
-        }
-        if (ch == 13) {
-            return temp;
-        }
-        if (ch == 59) {
-            CourseMenuPage(username, SY, season, courseID);
-            return "";
-        }
-        if (ch == 8) {
-            if (temp.length() > 0) {
-                temp.pop_back();
-                cout << "\b \b";
-                length--;
-            }
-        }
-        else
-            if (length < maxlength) {
-                temp += ch;
-                cout << (char)ch;
-                length++;
-            }
-            else {
-                cout << (char)ch;
-                cout << "\b \b";
-            }
-    }
-}
-
-
-string getClassMenuString(string username, string SY, string classID) {
-    string temp;
-    int ch;
-    short maxlength = 30;
-    int length = 0;
-    while (1) {
-        ch = getKey();
-        if (ch == 27) {
-            mainmenuOpt();
-            return "";
-        }
-        if (ch == 13) {
-            return temp;
-        }
-        if (ch == 59) {
-            ClassMenuPage(username, SY, classID);
-            return "";
-        }
-        if (ch == 8) {
-            if (temp.length() > 0) {
-                temp.pop_back();
-                cout << "\b \b";
-                length--;
-            }
-        }
-        else
-            if (length < maxlength) {
-                temp += ch;
-                cout << (char)ch;
-                length++;
-            }
-            else {
-                cout << (char)ch;
-                cout << "\b \b";
-            }
     }
 }
