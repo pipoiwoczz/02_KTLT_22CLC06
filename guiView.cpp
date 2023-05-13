@@ -228,6 +228,8 @@ void viewAndChooseClassPage(string username, string SY) {
 		printCharacter(L"Enter your choice here: ", { 45, short(idx + 2) }, Color::blue, Color::bright_white);
 		gotoxy(45 + 23 + 1, idx + 2);
 		string input = getStringInput();
+		if (input == "ESC")
+			return mainmenuOpt();
 		ifstream ifs;
 		ifs.open(curSY + "/class.txt");
 		while (getline(ifs, tmp)) {
@@ -1032,16 +1034,28 @@ void changeStudentInfo(string username) {
 
 	gotoxy(46, 9);
 	password1 = getStringInput();
+	if (password1 == "ESC")
+		return mainmenuOpt();
 	gotoxy(46, 13);
 	firstname1 = getStringInput();
+	if (firstname1 == "ESC")
+		return mainmenuOpt();
 	gotoxy(46, 17);
 	lastname1 = getStringInput();
+	if (lastname1 == "ESC")
+		return mainmenuOpt();
 	gotoxy(46, 21);
 	gender1 = getStringInput();
+	if (gender1 == "ESC")
+		return mainmenuOpt();
 	gotoxy(46, 25);
 	dateofbirth1 = getStringInput();
+	if (dateofbirth1 == "ESC")
+		return mainmenuOpt();
 	gotoxy(46, 29);
 	socialid1 = getStringInput();
+	if (socialid1 == "ESC")
+		return mainmenuOpt();
 
 	string filename = "profile\\" + username + ".txt";
 	ofstream ofs;
@@ -1291,9 +1305,14 @@ void exportListStudentToFile(string username, string SY, short season, string co
 	string outputPath;
 
 	printCharacter(L"Input the path to export CSV file here", { 45, 25 }, Color::blue, Color::bright_white);
+	printCharacter(L"Press F1 to back to previous menu", { short(My_Windows.Right - 34), 0}, Color::black, Color::bright_white);
 	drawBox(26);
 	gotoxy(46, 27);
-	outputPath = getStringInput();
+	outputPath = getMenuString();
+	if (outputPath == "ESC")
+		return mainmenuOpt();
+	if (outputPath == "F1")
+		return CourseMenuPage(username, SY, season, courseID);
 
 	ofstream ofs;
 
