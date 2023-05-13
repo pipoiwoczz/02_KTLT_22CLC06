@@ -1440,7 +1440,7 @@ void viewStudentInACourseClass(string username, string SY, short season, string 
 		int key = getKey();
 		if (key == 27)
 			return mainmenuOpt();
-		return CourseMenuPage(username, SY, season, courseID);
+		return CourseClassMenuPage(username, SY, season, courseID, courseClassID);
 	}
 }
 

@@ -188,7 +188,7 @@ void addAStudentToClass(string username, string SY, string classID) {
 		if (ifs.is_open() && !ifs.eof()) {
 			ifs.close();
 			ofs.open(SY + "/" + classID + "/student.txt", ios::app);
-			ofs << ID;
+			ofs << endl << ID;
 			ofs.close();
 		}
 		else {
@@ -288,8 +288,11 @@ void removeAStudentInClass(string username, string SY, string classID) {
 		ofs.open("tmp.txt");
 		if (ifs.is_open()) {
 			while (getline(ifs, tmp)) {
-				if (tmp != ID)
-					ofs << tmp << endl;
+				if (tmp != ID) {
+					ofs << tmp;
+					if (!ifs.eof())
+						ofs << endl;
+				}
 			}
 		}
 
