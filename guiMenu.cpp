@@ -970,6 +970,7 @@ void CourseClassMenuPage(string username, string SY, short season, string course
     printCenterCharacters(L"   REMOVE A STUDENT   ", Color::blue, Color::bright_white, 12, My_Windows);
     printCenterCharacters(L"   IMPORT SCOREBOARD   ", Color::blue, Color::bright_white, 14, My_Windows);
     printCenterCharacters(L"   VIEW SCOREBOARD   ", Color::blue, Color::bright_white, 16, My_Windows);
+    printCenterCharacters(L"   VIEW LIST OF STUDENTS   ", Color::blue, Color::bright_white, 18, My_Windows);
 
     int key = getKey();
     if (key == 27)
@@ -986,6 +987,7 @@ void CourseClassMenuPage(string username, string SY, short season, string course
             printCenterCharacters(L"   REMOVE A STUDENT   ", Color::blue, Color::bright_white, 12, My_Windows);
             printCenterCharacters(L"   IMPORT SCOREBOARD   ", Color::blue, Color::bright_white, 14, My_Windows);
             printCenterCharacters(L"   VIEW SCOREBOARD   ", Color::blue, Color::bright_white, 16, My_Windows);
+            printCenterCharacters(L"   VIEW LIST OF STUDENTS   ", Color::blue, Color::bright_white, 18, My_Windows);
         }
         if (line == 2) {
             printCenterCharacters(L"   IMPORT STUDENTS   ", Color::blue, Color::bright_white, 8, My_Windows);
@@ -993,6 +995,7 @@ void CourseClassMenuPage(string username, string SY, short season, string course
             printCenterCharacters(L"   REMOVE A STUDENT   ", Color::blue, Color::bright_white, 12, My_Windows);
             printCenterCharacters(L"   IMPORT SCOREBOARD   ", Color::blue, Color::bright_white, 14, My_Windows);
             printCenterCharacters(L"   VIEW SCOREBOARD   ", Color::blue, Color::bright_white, 16, My_Windows);
+            printCenterCharacters(L"   VIEW LIST OF STUDENTS   ", Color::blue, Color::bright_white, 18, My_Windows);
         }
         if (line == 3) {
             printCenterCharacters(L"   IMPORT STUDENTS   ", Color::blue, Color::bright_white, 8, My_Windows);
@@ -1000,6 +1003,7 @@ void CourseClassMenuPage(string username, string SY, short season, string course
             printCenterCharacters(L"<< REMOVE A STUDENT >>", Color::light_red, Color::bright_white, 12, My_Windows);
             printCenterCharacters(L"   IMPORT SCOREBOARD   ", Color::blue, Color::bright_white, 14, My_Windows);
             printCenterCharacters(L"   VIEW SCOREBOARD   ", Color::blue, Color::bright_white, 16, My_Windows);
+            printCenterCharacters(L"   VIEW LIST OF STUDENTS   ", Color::blue, Color::bright_white, 18, My_Windows);
         }
         if (line == 4) {
             printCenterCharacters(L"   IMPORT STUDENTS   ", Color::blue, Color::bright_white, 8, My_Windows);
@@ -1007,6 +1011,7 @@ void CourseClassMenuPage(string username, string SY, short season, string course
             printCenterCharacters(L"   REMOVE A STUDENT   ", Color::blue, Color::bright_white, 12, My_Windows);
             printCenterCharacters(L"<< IMPORT SCOREBOARD >>", Color::light_red, Color::bright_white, 14, My_Windows);
             printCenterCharacters(L"   VIEW SCOREBOARD   ", Color::blue, Color::bright_white, 16, My_Windows);
+            printCenterCharacters(L"   VIEW LIST OF STUDENTS   ", Color::blue, Color::bright_white, 18, My_Windows);
         }
         if (line == 5) {
             printCenterCharacters(L"   IMPORT STUDENTS   ", Color::blue, Color::bright_white, 8, My_Windows);
@@ -1014,6 +1019,15 @@ void CourseClassMenuPage(string username, string SY, short season, string course
             printCenterCharacters(L"   REMOVE A STUDENT   ", Color::blue, Color::bright_white, 12, My_Windows);
             printCenterCharacters(L"   IMPORT SCOREBOARD   ", Color::blue, Color::bright_white, 14, My_Windows);
             printCenterCharacters(L"<< VIEW SCOREBOARD >>", Color::light_red, Color::bright_white, 16, My_Windows);
+            printCenterCharacters(L"   VIEW LIST OF STUDENTS   ", Color::blue, Color::bright_white, 18, My_Windows);
+        }
+        if (line == 6) {
+            printCenterCharacters(L"   IMPORT STUDENTS   ", Color::blue, Color::bright_white, 8, My_Windows);
+            printCenterCharacters(L"   ADD A STUDENT   ", Color::blue, Color::bright_white, 10, My_Windows);
+            printCenterCharacters(L"   REMOVE A STUDENT   ", Color::blue, Color::bright_white, 12, My_Windows);
+            printCenterCharacters(L"   IMPORT SCOREBOARD   ", Color::blue, Color::bright_white, 14, My_Windows);
+            printCenterCharacters(L"   VIEW SCOREBOARD   ", Color::blue, Color::bright_white, 16, My_Windows);
+            printCenterCharacters(L"<< VIEW LIST OF STUDENTS >>", Color::light_red, Color::bright_white, 18, My_Windows);
         }
 
         int key = getKey();
@@ -1023,12 +1037,12 @@ void CourseClassMenuPage(string username, string SY, short season, string course
             return CourseMenuPage(username, SY, season, courseID);
         if (key == 72) {
 			if (line == 1)
-				line = 5;
+				line = 6;
 			else
 				line--;
 		}
         if (key == 80) {
-            if (line == 5)
+            if (line == 6)
 				line = 1;
 			else
 				line++;
@@ -1044,6 +1058,8 @@ void CourseClassMenuPage(string username, string SY, short season, string course
                 return importScoreboardToCourseClass(username, SY, season, courseID, classID);
             if (line == 5)
                 return viewScoreboardOfACourseClass(username, SY, season, courseID, classID);
+            if (line == 6)
+                return viewStudentInACourseClass(username, SY, season, courseID, classID);
         }
     }
 }

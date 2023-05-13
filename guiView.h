@@ -19,3 +19,4 @@ void viewStudentProfile(string username);
 void viewStudentScoreboard(string username);
 void viewListCousres(string username);
 void exportListStudentToFile(string username, string SY, short season, string courseID);
+void viewStudentInACourseClass(string username, string SY, short season, string courseID, string courseClassID);

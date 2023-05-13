@@ -296,13 +296,20 @@ void viewScoreboard(string username, string SY, string className) {
 	}
 	printCharacter(L"Press ESC to back to main menu", { 0, 0 }, Color::black, Color::bright_white);
 	Sleep(100);
-	printCenterCharacters(wstring(className.begin(), className.end()), Color::light_green, Color::bright_white, 5, My_Windows);
-	Sleep(200);
+	
 
 	string sy;
 	ifstream syfile("./SY.txt");
 	getline(syfile, sy);
-	syfile.close();
+	syfile.close(); 
+
+	string title1, title2;
+	ifstream ti("curTime.txt");
+	ti >> title1 >> title2;
+	ti.close();
+
+	printCenterCharacters(wstring(className.begin(), className.end()) + L", School Year: " + wstring(title1.begin(), title1.end()) + L", Semester: " + wstring(title2.begin(), title2.end()), Color::light_green, Color::bright_white, 5, My_Windows);
+	Sleep(200);
 
 	ifstream ifs, student;
 	string course, ID, name, total, final, GPA, curSem, curSY;
@@ -1352,6 +1359,56 @@ void exportListStudentToFile(string username, string SY, short season, string co
 	else {
 		printCenterCharacters(L"SOME THING WRONG WHEN EXPORTING FILE", Color::red, Color::bright_white, 30, My_Windows);
 		printCenterCharacters(L"PRESS any key to back to previous menu", Color::green, Color::bright_white, 32, My_Windows);
+		int key = getKey();
+		if (key == 27)
+			return mainmenuOpt();
+		return CourseMenuPage(username, SY, season, courseID);
+	}
+}
+
+void viewStudentInACourseClass(string username, string SY, short season, string courseID, string courseClassID) {
+	system("cls");
+	printCharacter(L"Press ESC to back to main menu", { 0, 0 }, Color::black, Color::bright_white);
+	printCenterCharacters(L"<<<< COURSE " + wstring(courseID.begin(), courseID.end()) + L" >>>>", Color::light_green, Color::bright_white, 2, My_Windows);
+	printCenterCharacters(L"~~~ Class " + wstring(courseID.begin(), courseID.end()) + L" ~~~" ,Color::light_blue, Color::bright_white, 3, My_Windows);
+
+	string path = SY + "//" + to_string(season) + "//" + courseID + "/" + courseClassID + "/listStud.txt";
+	string tmp;
+	short no = 1;
+
+	ifstream ifs(path);
+	short line = 8;
+
+	if (!ifs.is_open()) {
+		printCenterCharacters(L"----------------------THIS CLASS HAS NO STUDENT------------------------", Color::purple, Color::bright_white, 4, My_Windows);
+		printCenterCharacters(L"Press any key to back to previous menu", Color::green, Color::bright_white, 0, My_Windows);
+		int key = getKey();
+		if (key == 27)
+			return mainmenuOpt();
+		return CourseMenuPage(username, SY, season, courseID);
+	}
+	else {
+		printCenterCharacters(L"----------------------List of Students------------------------", Color::purple, Color::bright_white, 4, My_Windows);
+		gotoxy(40, 6);
+		std::cout << left << setw(4) << "NO" << setw(11) << "MSSV" << setw(34) << "Full Name" << "Class" << endl;
+		string stID, stName;
+		if (ifs.is_open() && !ifs.eof()) {
+			getline(ifs, stID, ',');
+			getline(ifs, stName);
+			while (getline(ifs, stID, ',') && getline(ifs, stName)) {
+				ifstream student("./profile//" + stID + ".txt");
+				string StClass;
+				for (int i = 0; i < 4; i++)
+					getline(student, StClass);
+				student.close();
+				gotoxy(40, line);
+				std::cout << left << setw(4) << no << setw(11) << stID << setw(34) << stName << StClass << endl;
+				line++;
+				no++;
+			}
+		}
+		ifs.close();
+		printCenterCharacters(L"Press any key to back to previous menu", Color::green, Color::bright_white, line + 2, My_Windows);
 		int key = getKey();
 		if (key == 27)
 			return mainmenuOpt();
