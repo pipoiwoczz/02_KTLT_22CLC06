@@ -161,21 +161,21 @@ void viewAndChooseSemesterPage(string username, string SY) {
 	if (input == "F1")
 		return SYMenuPage(username, SY);
 	if (input == "Spring" && Se[0]) {
-		ofstream ofs("curTime.txt");
-		ofs << SY << endl << 1;
-		ofs.close();
+		//ofstream ofs("curTime.txt");
+		//ofs << SY << endl << 1;
+		//ofs.close();
 		return SemesterMenuPage(username, SY, short(1));
 	}
 	if (input == "Summer" && Se[1]) {
-		ofstream ofs("curTime.txt");
-		ofs << SY << endl << 2;
-		ofs.close();
+		//ofstream ofs("curTime.txt");
+		//ofs << SY << endl << 2;
+		//ofs.close();
 		return SemesterMenuPage(username, SY, short(2));
 	}
 	if (input == "Autumn" && Se[2]) {
-		ofstream ofs("curTime.txt");
-		ofs << SY << endl << 3;
-		ofs.close();
+		//ofstream ofs("curTime.txt");
+		//ofs << SY << endl << 3;
+		//ofs.close();
 		return SemesterMenuPage(username, SY, short(3));
 	}
 	else {
@@ -415,13 +415,41 @@ void viewScoreboard(string username, string SY, string className) {
 	}
 	ifs.close();
 
+	
 	deleteCourseLL(head); // Delete linked list
 	printCenterCharacters(L"--------------------------------------------------", Color::purple, Color::bright_white, curLine + 3, My_Windows);
 	printCenterCharacters(L"Press any key to back to previous menu.", Color::green, Color::bright_white, curLine + 4, My_Windows);
+	printCenterCharacters(L"Press F1 to choose a Semester view scoreboard.", Color::green, Color::bright_white, curLine + 5, My_Windows);
 
 	int key = getKey();
 	if (key == 27)
 		return mainmenuOpt();
+	if (key == 59) {
+		string schoolyear, semester;
+		gotoxy(45, curLine + 7);
+		cout << "Enter School Year: "; 
+		schoolyear = getStringInput();
+		if (schoolyear == "ESC")
+			return mainmenuOpt();
+		gotoxy(45, curLine + 8);
+		cout << "Enter Semester(1, 2 or 3): ";
+		semester = getStringInput();
+		if (semester == "ESC")
+			return mainmenuOpt();
+		ifs.open(sy + "/" + className + "/student.txt");
+		string id;
+		getline(ifs, id);
+		ifs.close();
+		ifs.open(sy + "/" + className + "/" + id + "/" + semester + "_" + schoolyear + ".txt");
+		if (!ifs.is_open()) {
+			printCenterCharacters(L"THIS SEMESTER DOESN'T HAVE SCOREBOARD.", Color::red, Color::bright_white, curLine + 10, My_Windows);
+			getKey();
+			return viewScoreboard(username, SY, className);
+		}
+		ifs.close();
+
+		return viewScoreboardClassChooseSem(username, SY, className, schoolyear, semester);
+	}
 	return ClassMenuPage(username, SY, className);
 }
 
@@ -1414,4 +1442,132 @@ void viewStudentInACourseClass(string username, string SY, short season, string 
 			return mainmenuOpt();
 		return CourseMenuPage(username, SY, season, courseID);
 	}
+}
+
+
+void viewScoreboardClassChooseSem(string username, string SY, string className, string chosenSY, string chosenSem) {
+	system("cls");
+	wstring temp[3];
+	temp[0] = L"▒█▀▀▀█ ▒█▀▀█ ▒█▀▀▀█ ▒█▀▀█ ▒█▀▀▀ ▒█▀▀█ ▒█▀▀▀█ ░█▀▀█ ▒█▀▀█ ▒█▀▀▄";
+	temp[1] = L"░▀▀▀▄▄ ▒█░░░ ▒█░░▒█ ▒█▄▄▀ ▒█▀▀▀ ▒█▀▀▄ ▒█░░▒█ ▒█▄▄█ ▒█▄▄▀ ▒█░▒█";
+	temp[2] = L"▒█▄▄▄█ ▒█▄▄█ ▒█▄▄▄█ ▒█░▒█ ▒█▄▄▄ ▒█▄▄█ ▒█▄▄▄█ ▒█░▒█ ▒█░▒█ ▒█▄▄▀";
+	for (int i = 0; i < 3; i++)
+	{
+		printCenterCharacters(temp[i], Color::light_green, Color::bright_white, i + 2, My_Windows);
+		Sleep(100);
+	}
+	printCharacter(L"Press ESC to back to main menu", { 0, 0 }, Color::black, Color::bright_white);
+	Sleep(100);
+
+
+	string sy;
+	ifstream syfile("./SY.txt");
+	getline(syfile, sy);
+	syfile.close();
+
+	printCenterCharacters(wstring(className.begin(), className.end()) + L", School Year: " + wstring(chosenSY.begin(), chosenSY.end()) + L", Semester: " + wstring(chosenSem.begin(), chosenSem.end()), Color::light_green, Color::bright_white, 5, My_Windows);
+	Sleep(200);
+
+	ifstream ifs, student;
+	string course, ID, name, total, final, GPA, curSem, curSY;
+
+	short curLine = 7;
+
+
+
+	courseInThisSem* head = nullptr; // This linked list is used to 
+	// Open the file contain list of student's ID in a class
+	ifs.open("./" + sy + "/" + className + "/student.txt");
+	while (!ifs.eof()) {
+		getline(ifs, ID); // Student's ID
+		// Open the file saving courses that a student will learn in this semester
+		student.open("./" + sy + "/" + className + "/" + ID + "/" + chosenSem + "_" + chosenSY + ".txt"); // <sem>_<SY>.txt
+		if (student.is_open()) { // if this student does not learn in this sem -> do not do this code segment
+			getline(student, course); // GPA in this semester -> no need here
+			getline(student, course); // credit -> no need either
+			while (!student.eof()) {
+				getline(student, course, ','); // get a course's ID
+				if (!checkExist(head, course)) insertCourseAtBegin(head, course);
+				getline(student, course); // class of the course -> no need here
+			}
+		}
+		student.close();
+	}
+	ifs.close();
+
+	// Now we have the linked list of courses
+	// Print out first line to the screen
+	gotoxy(35, curLine + 2);
+	short i = 0;
+	cout << left << setw(34) << "Name"; // the name of the column that represents student's name
+	courseInThisSem* cur = head; // A temp pointer used to traverse
+	while (cur) {
+		gotoxy(35 + 34 + i * 10, curLine + 2);
+		cout << setw(10) << cur->ID; // course ID
+		cur = cur->next;
+		i++;
+	}
+	cout << setw(8) << "GPA" << setw(12) << "Overall GPA" << endl;
+	curLine++;
+
+	// 2nd, 3rd, 4th, ... line
+	ifs.open("./" + sy + "/" + className + "/student.txt");
+	// Check if this file have nothing or does not exist
+	while (!ifs.eof()) {
+		gotoxy(35, curLine + 2);
+		getline(ifs, ID); // Student's ID
+		student.open("./profile/" + ID + ".txt");
+		string fName, lName;
+		for (int i = 0; i < 4; i++)
+			getline(student, fName);
+
+		getline(student, fName, ',');
+		getline(student, lName, '\n');
+		name = lName + " " + fName;
+		cout << left << setw(34) << name; // Prints out student name
+		student.close();
+
+		cur = head; // refresh the "cur" variable
+		while (cur) {
+			student.open("./" + sy + "/" + className + "/" + ID + "/" + cur->ID + ".txt");
+			// If this student does not enroll in this course, print out x
+			if (!student.is_open()) cout << setw(10) << "x";
+			else {
+				getline(student, total, ',');
+				getline(student, final, ',');
+				cout << setw(10) << total; // Total mark
+			}
+			student.close();
+
+			cur = cur->next;
+		}
+
+		student.open("./" + sy + "/" + className + "/" + ID + "/" + chosenSem + "_" + chosenSY + ".txt");
+		getline(student, GPA);
+		if (!student.is_open()) cout << setw(8) << 0;
+		else cout << setw(8) << GPA; // GPA in this sem
+		student.close();
+
+		student.open("./" + sy + "/" + className + "/" + ID + "/total.txt");
+		getline(student, GPA);
+		if (!student.is_open()) cout << setw(12) << 0 << endl;
+		else cout << setw(12) << GPA << endl; // OVerall GPA
+		student.close();
+		curLine++;
+	}
+	ifs.close();
+
+
+	deleteCourseLL(head); // Delete linked list
+	printCenterCharacters(L"--------------------------------------------------", Color::purple, Color::bright_white, curLine + 3, My_Windows);
+	printCenterCharacters(L"Press any key to back to previous menu.", Color::green, Color::bright_white, curLine + 4, My_Windows);
+	printCenterCharacters(L"Press F1 view Scoreboard of Newest Semester", Color::green, Color::bright_white, curLine + 5, My_Windows);
+
+	int key = getKey();
+	if (key == 27)
+		return mainmenuOpt();
+	if (key == 59) {
+		return viewScoreboard(username, SY, className);
+	}
+	return ClassMenuPage(username, SY, className);
 }
