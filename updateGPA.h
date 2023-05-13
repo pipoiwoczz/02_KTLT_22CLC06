@@ -7,6 +7,6 @@
 #include <iomanip>
 #include <sstream>
 
-void updateGPA(string ID);
+void updateGPA(string ID, string curSY, string Sem);
 
 #endif

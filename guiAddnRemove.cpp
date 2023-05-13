@@ -973,7 +973,7 @@ void UpdateAStudentResult(string username, string SY, short season, string cours
 	ofs.close();
 	////////// END WRITING
 
-	if (oldTotal != total) updateGPA(Id);
+	if (oldTotal != total) updateGPA(Id, SY, to_string(season));
 	deleteLLScore(pScore);
 
 	printCenterCharacters(L"UPDATE SUCCESSFULLY", Color::green, Color::bright_white, 19, My_Windows);

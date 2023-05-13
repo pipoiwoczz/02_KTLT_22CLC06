@@ -1,15 +1,12 @@
 #include "updateGPA.h"
 
-void updateGPA(string ID) {
+void updateGPA(string ID, string curSY, string Sem) {
     ifstream ifs, course, curSem;
-    string line, SY, Class, Sem, curSY, courseClass;
+    string line, SY, Class, courseClass;
 
     string GPA, thisTermCredit, courseCredit, totalCredit;
     float floatGPA = 0;
-    ifs.open("./curTime.txt");
-        getline(ifs, curSY); // Current SY
-        getline(ifs, Sem); // Current sem
-    ifs.close();
+    
     ifs.open("./profile/" + ID + ".txt");
         getline(ifs, line); // username -> no use here
         getline(ifs, line); // password -> no use here
