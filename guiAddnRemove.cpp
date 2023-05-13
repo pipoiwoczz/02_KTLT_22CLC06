@@ -752,6 +752,10 @@ void exportFileInfoToLL(Score*& head, string path) {
 		Score* temp = new Score;
 		getline(fin, No, ',');
 		temp->No = No;
+		if (fin.eof()) {
+			delete temp;
+			break;
+		}
 		getline(fin, id, ',');
 		temp->studentID = id;
 		getline(fin, lName, ',');
@@ -794,6 +798,12 @@ void reverseList(Score*& pHead) {
 
 void UpdateAStudentResult(string username, string SY, short season, string courseID) {
 	system("cls");
+
+	string sy;
+	ifstream scy("SY.txt");
+	getline(scy, sy);
+	scy.close();
+
 	ifstream ifs, thisCourse;
 	ofstream ofs;
 	string Id, line, Class, courseClass;
@@ -823,7 +833,7 @@ void UpdateAStudentResult(string username, string SY, short season, string cours
 		getline(ifs, Class);
 
 		// Check if the ID is existing in the file listStud.txt of the course
-		thisCourse.open("./" + SY + "/" + Class + "/" + Id + "/" + to_string(season) + "_" + SY + ".txt");
+		thisCourse.open("./" + sy + "/" + Class + "/" + Id + "/" + to_string(season) + "_" + SY + ".txt");
 		if (thisCourse.is_open()) {
 			getline(thisCourse, courseClass); // GPA in this sem
 			getline(thisCourse, courseClass); // credit in this sem
@@ -869,6 +879,10 @@ void UpdateAStudentResult(string username, string SY, short season, string cours
 	int choice;
 	string oldTotal, total, finalM, midterm, other;
 	oldTotal = cur->totalMark;
+	total = cur->totalMark;
+	finalM = cur->finalMark;
+	midterm = cur->midtermMark;
+	other = cur->otherMark;
 
 	printCenterCharacters(L"Press enter to skip this mark", Color::red, Color::bright_white, 8, My_Windows);
 
@@ -901,10 +915,26 @@ void UpdateAStudentResult(string username, string SY, short season, string cours
 		return mainmenuOpt();
 	}
 
-	total = cur->totalMark;
-	finalM = cur->finalMark;
-	midterm = cur->midtermMark;
-	other = cur->otherMark;
+	if (cur->totalMark != "")
+		total = cur->totalMark;
+	else {
+		cur->totalMark = total;
+	}
+	if (cur->finalMark != "")
+		finalM = cur->finalMark;
+	else {
+		cur->finalMark = finalM;
+	}
+	if (cur->midtermMark != "")
+		midterm = cur->midtermMark;
+	else {
+		cur->midtermMark = midterm;
+	}
+	if (cur->otherMark != "")
+		other = cur->otherMark;
+	else {
+		cur->otherMark = other;
+	}
 
 	reverseList(pScore);
 	////////// NOW REWRITE THE DATA TO THE SCOREBOARD FILE
@@ -927,7 +957,7 @@ void UpdateAStudentResult(string username, string SY, short season, string cours
 	////////// REWRITE THE DATA TO THE SCORE FILE OF FOLDER STUDENT IN FOLDER CLASS
 	// Read the info of the class that the student belongs to
 
-	string pathInClass = "./" + SY + "/" + Class + "/" + Id + "/" + courseID + ".txt";
+	string pathInClass = "./" + sy + "/" + Class + "/" + Id + "/" + courseID + ".txt";
 	// This path leads to the file score of student in the folder student of folder class
 
 	// cur = pScore; // Set the cur back to the pHead

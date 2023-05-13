@@ -25,7 +25,7 @@ void updateGPA(string ID) {
             getline(ifs, line,','); // line's value is course's ID now
             getline(ifs, courseClass); // course class
             // Get the number of credit of a course
-            course.open("./" + SY + "/" + Sem + "/" + line + "/" + courseClass + "/info.txt");
+            course.open("./" + curSY + "/" + Sem + "/" + line + "/" + courseClass + "/info.txt");
                 for (int i=0; i<5; i++) getline(course, courseCredit); ///// course's credit
             course.close();
 
@@ -33,12 +33,14 @@ void updateGPA(string ID) {
             course.open("./" + SY + "/" + Class + "/" + ID + "/" + line + ".txt");
                 getline(course, line, ','); // Total mark
             course.close();
-            floatGPA += stof(line) * stoi(courseCredit); // Sum of GPA
+            if (line.length() >= 3)
+                floatGPA += stof(line) * stoi(courseCredit); // Sum of GPA
+            else 
+                floatGPA += stoi(line) * stoi(courseCredit);
         }
         floatGPA /= stoi(thisTermCredit);
     ifs.close();
     
-    cout << floatGPA << endl;
     floatGPA *= 10;
     floatGPA = round(floatGPA);
     floatGPA /= 10;
