@@ -1366,7 +1366,7 @@ void exportListStudentToFile(string username, string SY, short season, string co
 				ofs << courseID << " class " << cClass << endl;
 				ofs << "No" << "," << "ID" << "," << "Class" << ",";
 				ofs << "Last name" << "," << "First name" << ",";
-				ofs << "Total" << "Final" < "Midterm" << "Other" << endl;
+				ofs << "Total" << "Final" << "Midterm" << "Other" << endl;
 
 				ifstream Class;
 				Class.open("./" + SY + "/" + to_string(season) + "/" + courseID + "/" + cClass + "/scoreboard.txt");
