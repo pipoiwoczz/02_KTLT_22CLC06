@@ -58,9 +58,9 @@ void inputStudentsToClass(string nameSY, string nameClass)
 		tempST.socialId = temp;
 
         ofstream ofs;
-        string path_Pro5_MSSV = "profile/" + to_string(tmp.studentId) + ".txt";
+        string path_Pro5_MSSV = "profile/" + to_string(tempST.studentId) + ".txt";
 
-		string path_SY_Class_MSSV = nameSY + "/" + nameClass + "/" + to_string(tmp.studentId);
+		string path_SY_Class_MSSV = nameSY + "/" + nameClass + "/" + to_string(tempST.studentId);
 
 		_mkdir(path_SY_Class_MSSV.c_str());
 
@@ -70,7 +70,7 @@ void inputStudentsToClass(string nameSY, string nameClass)
 		ofs << tempST.studentId << endl << "1234" << endl;
 		ofs << nameSY << endl;
 		ofs << nameClass << endl;
-		ofs << tempST.lastName << "," << tmp.firstName << endl;
+		ofs << tempST.lastName << "," << tempST.firstName << endl;
 		ofs << tempST.gender << endl;
 		ofs << tempST.dateOfBirth << endl;
 		ofs << tempST.socialId;
@@ -87,7 +87,7 @@ void inputStudentsToClass(string nameSY, string nameClass)
             while (getline(fin, temp, '\n')) {
                 ofs << temp << endl;
             }
-		ofs << tmp.studentId;
+		ofs << tempST.studentId;
         fin.close();
         ofs.close();
         remove(path_SY_Class_MSSV.c_str());
