@@ -53,6 +53,19 @@ bool isStaff() {
     return true;
 }
 
+bool isStudent(string username)
+{
+    if (username.length() == 8) {
+        for (char c : username) {
+            if (!isdigit(c))
+                return false;
+        }
+    }
+    else
+        return false;
+    return true;
+}
+
 void signUp(){
     system("cls");
     cin.ignore();
