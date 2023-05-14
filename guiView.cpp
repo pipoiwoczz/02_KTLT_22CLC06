@@ -1448,8 +1448,6 @@ void viewStudentInACourseClass(string username, string SY, short season, string 
 		std::cout << left << setw(4) << "NO" << setw(11) << "MSSV" << setw(34) << "Full Name" << "Class" << endl;
 		string stID, stName;
 		if (ifs.is_open() && !ifs.eof()) {
-			getline(ifs, stID, ',');
-			getline(ifs, stName);
 			while (getline(ifs, stID, ',') && getline(ifs, stName)) {
 				ifstream student("./profile//" + stID + ".txt");
 				string StClass;
