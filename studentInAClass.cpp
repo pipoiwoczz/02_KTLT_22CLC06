@@ -37,7 +37,7 @@ void inputStudentsToClass(string nameSY, string nameClass)
 		}	while (move != 1 && move != 2);
 	}
 
-	Student tmp;
+	Student tempST;
 
 	while (!ifs.eof()) {
 		string temp;
@@ -45,37 +45,35 @@ void inputStudentsToClass(string nameSY, string nameClass)
 		getline(ifs, temp, ',');
 
 		getline(ifs, temp, ',');
-		tmp.studentId = stoi(temp);
+		tempST.studentId = stoi(temp);
 		getline(ifs, temp, ',');
-		tmp.firstName = temp;
+		tempST.firstName = temp;
 		getline(ifs, temp, ',');
-		tmp.lastName = temp;
+		tempST.lastName = temp;
 		getline(ifs, temp, ',');
-		tmp.gender = temp;
+		tempST.gender = temp;
 		getline(ifs, temp, ',');
-		tmp.dateOfBirth = temp;
+		tempST.dateOfBirth = temp;
 		getline(ifs, temp, '\n');
-		tmp.socialId = temp;
+		tempST.socialId = temp;
 
         ofstream ofs;
         string path_Pro5_MSSV = "profile/" + to_string(tmp.studentId) + ".txt";
 
 		string path_SY_Class_MSSV = nameSY + "/" + nameClass + "/" + to_string(tmp.studentId);
 
-		// create folder MSSV in SY/Class
 		_mkdir(path_SY_Class_MSSV.c_str());
 
 		// add data to profile/mssv.txt
-		// Still deciding how to output in4 of student to file 
 
         ofs.open(path_Pro5_MSSV);
-		ofs << tmp.studentId << endl << "1234" << endl;
+		ofs << tempST.studentId << endl << "1234" << endl;
 		ofs << nameSY << endl;
 		ofs << nameClass << endl;
-		ofs << tmp.lastName << "," << tmp.firstName << endl;
-		ofs << tmp.gender << endl;
-		ofs << tmp.dateOfBirth << endl;
-		ofs << tmp.socialId;
+		ofs << tempST.lastName << "," << tmp.firstName << endl;
+		ofs << tempST.gender << endl;
+		ofs << tempST.dateOfBirth << endl;
+		ofs << tempST.socialId;
         ofs.close();
 
 		// add data to file student.txt in folder SY//Class (only include student ID)
