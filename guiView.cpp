@@ -1337,13 +1337,14 @@ void viewListCousres(string username) {
 }
 
 void exportListStudentToFile(string username, string SY, short season, string courseID) {
-	string outputPath;
-
 	printCharacter(L"Input the path to export CSV file here", { 45, 25 }, Color::blue, Color::bright_white);
 	printCharacter(L"Press F1 to back to previous menu", { short(My_Windows.Right - 34), 0}, Color::black, Color::bright_white);
 	drawBox(26);
 	gotoxy(46, 27);
+
+	string outputPath;
 	outputPath = getMenuString();
+
 	if (outputPath == "ESC")
 		return mainmenuOpt();
 	if (outputPath == "F1")
@@ -1355,28 +1356,53 @@ void exportListStudentToFile(string username, string SY, short season, string co
 
 	if (ofs.is_open()) {
 		string path = "./" + SY + "/" + to_string(season) + "/" + courseID + "/class.txt";
-		string courseClass, studentID, studentName;
-		ifstream ifs, Class;
-
-		int i = 1; // Ordinal number
+		ifstream ifs;
 
 		ifs.open(path);
-		while (!ifs.eof()) {
-			getline(ifs, courseClass);
-			ofs << courseID << " class " << courseClass << endl;
-			ofs << "No" << "," << "ID" << "," << "Class" << "," << "Name" << endl;
+		if (ifs.is_open())	{
+			while (!ifs.eof()) {
+				string cClass;
+				getline(ifs, cClass);
+				ofs << courseID << " class " << cClass << endl;
+				ofs << "No" << "," << "ID" << "," << "Class" << ",";
+				ofs << "Last name" << "," << "First name" << ",";
+				ofs << "Total" << "Final" < "Midterm" << "Other" << endl;
 
-			Class.open("./" + SY + "/" + to_string(season) + "/" + courseID + "/" + courseClass + "/listStud.txt");
-			while (!Class.eof()) {
-				getline(Class, studentID, ',');
-				getline(Class, studentName);
-				ofs << i << "," << studentID << "," << courseClass << "," << studentName << endl;
-				i++;
+				ifstream Class;
+				Class.open("./" + SY + "/" + to_string(season) + "/" + courseID + "/" + cClass + "/scoreboard.txt");
+				if (Class.is_open())	{
+					while (!Class.eof()) {
+						string tmp;
+						getline(ifs, tmp, ','); // Ordinal number
+						ofs << tmp << ",";
+						getline(ifs, tmp, ','); // ID
+						ofs << tmp << ",";
+						getline(ifs, tmp, ','); // Last Name
+						ofs << tmp << ",";
+						getline(ifs, tmp, ','); // First Name
+						ofs << tmp << ",";
+						getline(ifs, tmp, ','); // Total
+						ofs << tmp << ",";
+						getline(ifs, tmp, ','); // Final 
+						ofs << tmp << ",";
+						getline(ifs, tmp, ','); // Midterm
+						ofs << tmp << ",";
+						getline(ifs, tmp); // Other
+						ofs << tmp << endl;
+					}
+					ofs << endl;
+				}
+				else	{
+					ofs << "Haven't imported scoreboard for this course class." << endl;
+					ofs << "Please import scoreboard first." << endl;
+					ofs << endl;
+				}
+				Class.close();
 			}
-			Class.close();
-			ofs << endl;
 		}
+		
 		ifs.close();
+		ofs.close();
 		printCenterCharacters(L"EXPORT SUCCESSFULLY", Color::green, Color::bright_white, 30, My_Windows);
 		printCenterCharacters(L"PRESS any key to back to previous menu", Color::green, Color::bright_white, 32, My_Windows);
 		int key = getKey();
@@ -1385,6 +1411,7 @@ void exportListStudentToFile(string username, string SY, short season, string co
 		return CourseMenuPage(username, SY, season, courseID);
 	}
 	else {
+		ofs.close();
 		printCenterCharacters(L"SOME THING WRONG WHEN EXPORTING FILE", Color::red, Color::bright_white, 30, My_Windows);
 		printCenterCharacters(L"PRESS any key to back to previous menu", Color::green, Color::bright_white, 32, My_Windows);
 		int key = getKey();
