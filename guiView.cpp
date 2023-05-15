@@ -1364,30 +1364,30 @@ void exportListStudentToFile(string username, string SY, short season, string co
 				string cClass;
 				getline(ifs, cClass);
 				ofs << courseID << " class " << cClass << endl;
-				ofs << "No" << "," << "ID" << "," << "Class" << ",";
+				ofs << "No" << "," << "ID" << ",";
 				ofs << "Last name" << "," << "First name" << ",";
-				ofs << "Total" << "Final" << "Midterm" << "Other" << endl;
+				ofs << "Total" << "," << "Final" << "," << "Midterm" << "," << "Other" << endl;
 
 				ifstream Class;
 				Class.open("./" + SY + "/" + to_string(season) + "/" + courseID + "/" + cClass + "/scoreboard.txt");
 				if (Class.is_open())	{
 					while (!Class.eof()) {
 						string tmp;
-						getline(ifs, tmp, ','); // Ordinal number
+						getline(Class, tmp, ','); // Ordinal number
 						ofs << tmp << ",";
-						getline(ifs, tmp, ','); // ID
+						getline(Class, tmp, ','); // ID
 						ofs << tmp << ",";
-						getline(ifs, tmp, ','); // Last Name
+						getline(Class, tmp, ','); // Last Name
 						ofs << tmp << ",";
-						getline(ifs, tmp, ','); // First Name
+						getline(Class, tmp, ','); // First Name
 						ofs << tmp << ",";
-						getline(ifs, tmp, ','); // Total
+						getline(Class, tmp, ','); // Total
 						ofs << tmp << ",";
-						getline(ifs, tmp, ','); // Final 
+						getline(Class, tmp, ','); // Final 
 						ofs << tmp << ",";
-						getline(ifs, tmp, ','); // Midterm
+						getline(Class, tmp, ','); // Midterm
 						ofs << tmp << ",";
-						getline(ifs, tmp); // Other
+						getline(Class, tmp); // Other
 						ofs << tmp << endl;
 					}
 					ofs << endl;
