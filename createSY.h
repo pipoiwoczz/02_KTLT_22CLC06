@@ -1,8 +1,5 @@
-#include "main.h"
-#include "login.h"
-#include <cstring>
+#include <string>
 #include <direct.h>
+using namespace std;
 
-void insertSYAtBeginning(schoolYear *& pHeadSY, string nameSY);
 bool isValidSY(string SY);
-void createSY();

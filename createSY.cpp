@@ -1,4 +1,7 @@
 #include "createSY.h"
+#include <string>
+#include <fstream>
+using namespace std;
 
 bool isValidSY(string SY)
 {
@@ -55,64 +58,4 @@ bool existedSY(string SY)    {
 
     ifs.close();
     return false;
-}
-
-void insertSYAtBeginning(schoolYear *& pHeadSY, string nameSY)
-{
-    schoolYear * pTemp = pHeadSY;
-
-    pHeadSY = new schoolYear;
-    pHeadSY -> name = nameSY;
-    pHeadSY -> next = pTemp;
-}
-
-void createSY()
-{
-    string SY;
-
-    cout << "Pls enter the school year : ";
-    cin >> SY;
-
-    if (isValidSY(SY) == true && existedSY(SY) == false)
-    {
-        // insertSYAtBeginning(headSY, SY); // no more LL
-        ofstream ofs;
-        ifstream ifs;
-        string tmp;
-        ifs.open("SY.txt");
-        ofs.open("tmp.txt");
-        if (ifs.is_open()) {
-            while (getline (ifs, tmp)) {
-                ofs << tmp << endl;
-            }
-        }
-        
-        ofs << SY << endl;
-        ofs.close();
-        ifs.close();
-        remove("SY.txt");
-        rename("tmp.txt", "SY.txt");
-        _mkdir(SY.c_str());
-
-        
-    }
-    else
-    {
-        if (isValidSY(SY) == false)
-            cout << "You've entered wrong school year : " << endl;
-        else
-            cout << "You've entered an existed school year. \n";
-        
-        int move;
-        cout << "1. Continue creating a new school year\n";
-        cout << "2. Exit\n";
-        cout << "-------------------------------------\n";
-        cout << "Enter your move : ";
-        cin >> move;
-
-        if (move == 1)
-            createSY();
-        else
-            return;
-    }
 }

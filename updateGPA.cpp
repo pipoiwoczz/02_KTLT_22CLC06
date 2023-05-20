@@ -1,4 +1,9 @@
 #include "updateGPA.h"
+#include <string>
+#include <fstream>
+#include <direct.h>
+#include <stdio.h>
+using namespace std;
 
 void updateGPA(string ID, string curSY, string Sem) {
     ifstream ifs, course, curSem;
